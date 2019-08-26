@@ -6,7 +6,9 @@
 { config, pkgs, ... }:
 
 let
-  unstable = import <nixos-unstable> {};
+  unstable = import <nixos-unstable> {
+    config = removeAttrs config.nixpkgs.config [ "packageOverrides" ];
+  };
 in
 {
   imports =
