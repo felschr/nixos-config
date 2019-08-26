@@ -62,6 +62,17 @@ in
     unstable.libu2f-host
   ];
 
+  # Use noto fonts with emoji support
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+  ];
+  fonts.fontconfig.penultimate.enable = false;
+  fonts.fontconfig.defaultFonts.monospace = ["Noto Color Emoji"];
+  fonts.fontconfig.defaultFonts.sansSerif = ["Noto Color Emoji"];
+  fonts.fontconfig.defaultFonts.serif = ["Noto Color Emoji"];
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
