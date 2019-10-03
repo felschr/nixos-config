@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> {
+    config = removeAttrs config.nixpkgs.config [ "packageOverrides" ];
+  };
+in
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -56,10 +61,15 @@
   programs.firefox.enable = true;
 
   home.packages = with pkgs; [
+    # development
+    haskellPackages.ghc
+
     signal-desktop
     discord
     keybase-gui
+    steam
     linux-steam-integration
     # lutris
+    unstable.ledger-live-desktop
   ];
 }
