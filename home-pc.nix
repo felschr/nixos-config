@@ -30,7 +30,7 @@ in
   boot.initrd.luks.devices = [
     { 
       name = "root";
-      device = "/dev/disk/by-uuid/a08f2cb3-2a6d-4dbc-b846-4a42ca137117";
+      device = "/dev/disk/by-partlabel/nixos";
       preLVM = true;
       allowDiscards = true;
     }
