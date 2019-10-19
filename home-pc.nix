@@ -1,6 +1,6 @@
 # Import unstable and home-manager channels:
 # sudo nix-channel --add http://nixos.org/channels/nixos-unstable nixos-unstable
-# sudo nix-channel --add https://github.com/rycee/home-manager/archive/release-19.03.tar.gz home-manager
+# sudo nix-channel --add https://github.com/rycee/home-manager/archive/release-19.09.tar.gz home-manager
 # sudo nix-channel --update
 
 { config, pkgs, ... }:
@@ -21,9 +21,6 @@ in
   nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = [
-    (self: super: {
-      libu2f-host = unstable.libu2f-host;
-    })
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -35,10 +32,10 @@ in
       allowDiscards = true;
     }
   ];
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_5_1;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_5_2;
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "felix-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -60,29 +57,31 @@ in
     curl
     networkmanager
     neovim
+    gnome3.gnome-tweaks
     gnomeExtensions.dash-to-panel
     gnomeExtensions.topicons-plus
-    unstable.libu2f-host
   ];
 
   # Use noto fonts with emoji support
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-  ];
-  fonts.fontconfig.penultimate.enable = false;
-  fonts.fontconfig.defaultFonts.monospace = ["Noto Color Emoji"];
-  fonts.fontconfig.defaultFonts.sansSerif = ["Noto Color Emoji"];
-  fonts.fontconfig.defaultFonts.serif = ["Noto Color Emoji"];
+  fonts.enableDefaultFonts = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.extraConfig = "
+    [General]
+    Enable=Source,Sink,Media,Socket
+  ";
+
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  hardware.pulseaudio = {
+    enable = true;
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
+    support32Bit = true;
+    package = pkgs.pulseaudioFull;
+  };
 
   # NVIDIA drivers
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -91,6 +90,10 @@ in
   # Enable special device support
   hardware.ledger.enable = true;
   hardware.u2f.enable = true;
+  services.udev.extraRules = ''
+    # Nano S
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="0001|1000|1001|1002|1003|1004|1005|1006|1007|1008|1009|100a|100b|100c|100d|100e|100f|1010|1011|1012|1013|1014|1015|1016|1017|1018|1019|101a|101b|101c|101d|101e|101f", TAG+="uaccess", TAG+="udev-acl"
+  '';
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -105,17 +108,14 @@ in
     gnome3.dconf gnome2.GConf
   ];
   environment.gnome3.excludePackages = with pkgs; [
+    gnome3.geary
     gnome3.gnome-weather
     gnome3.gnome-calendar
-    gnome3.gnome-todo
-    # gnome3.gnome-books
     gnome3.gnome-maps
     gnome3.gnome-contacts
     gnome3.gnome-software
     gnome3.gnome-packagekit
     gnome3.epiphany
-    gnome3.evolution
-    gnome3.accerciser
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -130,6 +130,10 @@ in
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.03"; # Did you read the comment?
+  system.stateVersion = "19.09"; # Did you read the comment?
 
+  system.autoUpgrade.enable = true;
+
+  nix.gc.automatic = true;
+  nix.autoOptimiseStore = true;
 }

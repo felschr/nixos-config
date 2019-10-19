@@ -61,15 +61,19 @@ in
   programs.firefox.enable = true;
 
   home.packages = with pkgs; [
+    gparted
+
     # development
     haskellPackages.ghc
 
     signal-desktop
     discord
     keybase-gui
-    steam
-    linux-steam-integration
-    # lutris
+    unstable.steam
+    unstable.linux-steam-integration
+    unstable.lutris
     unstable.ledger-live-desktop
   ];
+
+  home.stateVersion = "19.09";
 }
