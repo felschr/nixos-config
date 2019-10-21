@@ -12,6 +12,7 @@ in
     ./common/base-hardware.nix
     ./common/gpu-nvidia.nix
     ./common/ledger.nix
+    ./common/planck.nix
     ./common/system.nix
     ./common/nix.nix
     ./common/i18n.nix
