@@ -11,6 +11,7 @@ in
     <home-manager/nixos>
     ./common/base-hardware.nix
     ./common/gpu-bumblebee.nix
+    ./common/planck.nix
     ./common/system.nix
     ./common/nix.nix
     ./common/i18n.nix
