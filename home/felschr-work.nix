@@ -61,6 +61,7 @@ in
     kubectl
     kubernetes-helm
     awscli
+    postman
   ];
 
   home.stateVersion = "19.09";
