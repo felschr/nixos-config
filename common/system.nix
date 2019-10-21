@@ -9,7 +9,9 @@
   ];
 
   fonts.enableDefaultFonts = true;
-  fonts.fontconfig.defaultFonts.monospace = [ "Noto Color Emoji" ];
+  fonts.fonts = with pkgs; [
+    hasklig
+  ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Noto Color Emoji" ];
   fonts.fontconfig.defaultFonts.serif = [ "Noto Color Emoji" ];
 
