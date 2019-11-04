@@ -2,9 +2,6 @@
 
 with pkgs;
 let
-  unstable = import <nixos-unstable> {
-    config = removeAttrs config.nixpkgs.config [ "packageOverrides" ];
-  };
   dotnet-sdk_3 = pkgs.callPackage (import (pkgs.fetchFromGitHub {
     name = "nixos-pr-dotnet-sdk_3";
     owner = "juselius";
