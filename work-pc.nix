@@ -33,5 +33,8 @@
   # only change this when specified in release notes
   system.stateVersion = "19.09";
 
-  system.autoUpgrade.enable = true;
+  system.autoUpgrade = {
+    enable = true;
+    dates = "10:00";
+  };
 }
