@@ -4,7 +4,7 @@
   nix.autoOptimiseStore = true;
   nix.gc = {
     automatic = true;
-    dates = "weekly";
+    dates = "10:00";
     options = "--delete-older-than 30d";
   };
 }
