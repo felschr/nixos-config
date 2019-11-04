@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
 with pkgs;
-let
-  unstable = import <nixos-unstable> {
-    config = removeAttrs config.nixpkgs.config [ "packageOverrides" ];
-  };
-in
 {
   imports = [
     ./common/sh.nix

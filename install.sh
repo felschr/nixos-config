@@ -19,8 +19,8 @@ ln -s $CONFIG configuration.nix
 nixos-generate-config --root /mnt
 
 # add nixos-unstable and home-manager channels
-nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
-nix-channel --add https://github.com/rycee/home-manager/archive/release-19.03.tar.gz home-manager
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
 
 nixos-install

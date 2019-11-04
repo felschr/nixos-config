@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
 with pkgs;
-let
-  unstable = import <nixos-unstable> {
-    config = removeAttrs config.nixpkgs.config [ "packageOverrides" ];
-  };
-in
 {
   imports = [
     ./common/sh.nix
@@ -45,12 +40,12 @@ in
     haskellPackages.ghc
 
     # gaming
-    unstable.steam
-    unstable.linux-steam-integration
-    unstable.lutris
+    steam
+    linux-steam-integration
+    lutris
 
     # other
-    unstable.ledger-live-desktop
+    ledger-live-desktop
   ];
 
   home.stateVersion = "19.09";
