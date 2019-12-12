@@ -74,13 +74,19 @@ with pkgs;
     discord
     libreoffice
     skypeforlinux
+    pinta
+    inkscape
 
     # development
     unzip
+    openssl
     kubectl
     kubernetes-helm
+    google-cloud-sdk
     awscli
     postman
+    jq
+    dos2unix
   ];
 
   home.stateVersion = "19.09";
