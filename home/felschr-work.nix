@@ -4,6 +4,7 @@ with pkgs;
 {
   imports = [
     ./common/sh.nix
+    ./common/direnv.nix
     ./common/mimeapps.nix
     ./common/gui.nix
     ./common/gnome.nix
@@ -34,6 +35,7 @@ with pkgs;
     enable = true;
     userName = "Felix Schroeter";
     userEmail = "fs@upsquared.com";
+    ignores = [".direnv"];
   };
 
   programs.firefox.enable = true;
