@@ -31,11 +31,32 @@ with pkgs;
     enableFishIntegration = true;
   };
 
+  programs.ssh = {
+    enable = true;
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry-gnome3
+    '';
+  };
+
+  programs.gpg.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Felix Schroeter";
     userEmail = "fs@upsquared.com";
     ignores = [".direnv"];
+    signing = {
+      key = "6DA1 4A05 C6E0 7DBE EB81  BA24 28ED 46BC B881 7B7A";
+      signByDefault = true;
+    };
+    extraConfig = {
+      pull = { rebase = true; };
+      rebase = { autoStash = true; };
+    };
   };
 
   programs.firefox.enable = true;
