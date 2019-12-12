@@ -24,6 +24,7 @@
 
   hardware.enableAllFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
+  services.tlp.enable = true;
 
   users.users.felschr = {
     isNormalUser = true;
