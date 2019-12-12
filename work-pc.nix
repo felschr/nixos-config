@@ -22,6 +22,9 @@
 
   virtualisation.virtualbox.host.enable = true;
 
+  hardware.enableAllFirmware = true;
+  hardware.cpu.intel.updateMicrocode = true;
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "docker" "disk" "vboxusers" ];
