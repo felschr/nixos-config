@@ -26,6 +26,8 @@
   hardware.cpu.intel.updateMicrocode = true;
   services.tlp.enable = true;
 
+  programs.adb.enable = true;
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "docker" "disk" "vboxusers" ];
