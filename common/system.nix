@@ -8,12 +8,25 @@
     neovim
   ];
 
-  fonts.enableDefaultFonts = true;
   fonts.fonts = with pkgs; [
     hasklig
   ];
-  fonts.fontconfig.defaultFonts.sansSerif = [ "Noto Color Emoji" ];
-  fonts.fontconfig.defaultFonts.serif = [ "Noto Color Emoji" ];
+  fonts.fontconfig.localConf = ''
+    <fontconfig>
+      <alias binding="weak">
+        <family>sans-serif</family>
+        <prefer>
+          <family>emoji</family>
+        </prefer>
+      </alias>
+      <alias binding="weak">
+        <family>serif</family>
+        <prefer>
+          <family>emoji</family>
+        </prefer>
+      </alias>
+    </fontconfig>
+  '';
 
   services.printing.enable = true;
 }
