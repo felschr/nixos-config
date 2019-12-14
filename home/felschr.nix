@@ -32,6 +32,7 @@ with pkgs;
   home.packages = with pkgs; [
     # system
     gparted
+    gnome-firmware-updater
 
     # productivity
     discord
