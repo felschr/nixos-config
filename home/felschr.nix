@@ -21,6 +21,10 @@ with pkgs;
     enable = true;
     latitude = "53.2603609";
     longitude = "10.4014691";
+    brightness = {
+      day = "0.9";
+      night = "0.9";
+    };
   };
 
   programs.git = {
