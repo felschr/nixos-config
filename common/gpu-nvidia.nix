@@ -3,5 +3,15 @@
 {
   # Graphics drivers
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.driSupport32Bit = true;
+  services.xserver.screenSection = ''
+    Option "metamodes" "1920x1080_144 +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+  '';
+
+  hardware.opengl = {
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      libvdpau-va-gl
+      vaapiVdpau
+    ];
+  };
 }
