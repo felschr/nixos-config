@@ -20,6 +20,8 @@
 
   networking.hostName = "felix-nixos";
 
+  services.fwupd.enable = true;
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" ];
