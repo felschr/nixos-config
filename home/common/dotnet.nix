@@ -2,21 +2,13 @@
 
 with pkgs;
 let
-  nixpkgs-dotnet-repo = fetchFromGitHub {
+  dotnetCorePackages = (import (fetchFromGitHub {
     name = "nixos-pr-dotnet-combined";
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "34ec6d3d11797031df3b488953a0c82c60865f90";
-    sha256 = "0mdmzxx67wyckp7813f8k900ip3s3bi27y0chv71qqklmba72dyp";
-  };
-  nixpkgs-dotnet = (import nixpkgs-dotnet-repo {});
-  dotnetCorePackages = nixpkgs-dotnet.dotnetCorePackages;
-  buildDotnet = attrs: callPackage (import (nixpkgs-dotnet-repo + /pkgs/development/compilers/dotnet/buildDotnet.nix) attrs) {};
-  buildNetCoreSdk = attrs: buildDotnet (attrs // { type = "sdk"; } );
-  sdk_3_1 = buildNetCoreSdk {
-    version = "3.1.100";
-    sha512 = "0hvshwsgbm6v5hc1plzdzx8bwsdna2167fnfhxpysqs5mz7crsa4f13m4cxhrbn64lasqz2007nhdrlpgaqvgll6q8736h884aaw5sj";
-  };
+    rev = "ea6469760d3d75bbcb55670168d9ad37742dadfa";
+    sha256 = "1n9ax1fm8pfzc782zak9sh4acawwdwcdykzm7qyp6iis4dd2ld0l";
+  }) {}).dotnetCorePackages;
   dotnet-combined = with dotnetCorePackages; combinePackages {
     cli = sdk_3_1;
     withSdks = [ sdk_2_1 sdk_3_0 sdk_3_1 ];
