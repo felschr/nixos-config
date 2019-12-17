@@ -11,8 +11,8 @@ let
   }) {}).dotnetCorePackages;
   dotnet-combined = with dotnetCorePackages; combinePackages {
     cli = sdk_3_1;
-    withSdks = [ sdk_2_1 sdk_3_0 sdk_3_1 ];
-    withRuntimes = [ sdk_2_1 sdk_3_0 sdk_3_1 ];
+    withSdks = [ sdk_2_1 sdk_3_1 ];
+    withRuntimes = [ sdk_2_1 sdk_3_1 ];
   };
 in
 {
