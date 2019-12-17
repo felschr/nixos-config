@@ -9,8 +9,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "FelschR";
       repo = "omnisharp-vim";
-      rev = "7a11d9cfb414c14b87efddeadfad4b9a9fc09cfa";
-      sha256 = "03q5lbp9z1xblfn8yr3z6hvky45mfzwf54hjysvyz2hz9yxl92g4";
+      rev = "42aa675d6cc86051fb28e2a875d501797135641f";
+      sha256 = "14nvz34iqnjn7kppfx8c0m9402hfdkcv2g83mvpdlqd9kx89xdsd";
     };
   };
   nvim-lsp = buildVimPluginFrom2Nix {
@@ -54,12 +54,14 @@ in
 
   home.packages = with pkgs; [
     fzf
+    silver-searcher # ag
     nodejs-12_x
     # haskellPackages.ghcide
   ];
 
   home.sessionVariables = {
     EDITOR = "vim";
+    FZF_DEFAULT_COMMAND = ''ag -g ""'';
   };
 
   programs.neovim = {
@@ -78,7 +80,7 @@ in
       vim-surround
       vim-commentary
       vim-easymotion
-      # vim-gitgutter
+      vim-gitgutter
       camelcasemotion
 
       # nvim-lsp # nixos-rebuild currently fails
@@ -86,6 +88,7 @@ in
       ale
       vim-orgmode
       vim-nix
+      vim-fugitive
 
       coc-nvim
       coc-emmet
@@ -94,6 +97,8 @@ in
       coc-tsserver
       coc-json
       coc-yaml
+      coc-eslint
+      coc-stylelint
       # coc-omnisharp # not really maintained
 
       omnisharp-vim
@@ -105,6 +110,9 @@ in
       let mapleader=" "
       let g:camelcasemotion_key = '<leader>'
 
+      " coc config
+      inoremap <silent><expr> <c-space> coc#refresh()
+
       " omnisharp-vim config:
       let g:OmniSharp_server_stdio = 1
       let g:OmniSharp_server_path = '/home/felschr/.nix-profile/bin/omnisharp'
@@ -113,7 +121,6 @@ in
       let g:ale_linters = {
       \ 'cs': ['OmniSharp']
       \}
-      inoremap <silent><expr> <c-space> coc#refresh()
       
       " call nvim_lsp#setup("tsserver", {})
       " call nvim_lsp#setup("ghcide", {})
