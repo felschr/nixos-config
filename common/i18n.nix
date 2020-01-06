@@ -1,15 +1,15 @@
 { config, pkgs, ... }:
 
 {
-  # Select internationalisation properties.
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "uk";
+  };
   i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "uk";
     defaultLocale = "en_IE.UTF-8";
     inputMethod.enabled = "ibus";
     inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji ];
   };
  
-  # Set your time zone.
   time.timeZone = "Europe/Berlin";
 }
