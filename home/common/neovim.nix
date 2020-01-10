@@ -54,14 +54,14 @@ in
 
   home.packages = with pkgs; [
     fzf
-    silver-searcher # ag
+    ripgrep
     nodejs-12_x
     # haskellPackages.ghcide
   ];
 
   home.sessionVariables = {
     EDITOR = "vim";
-    FZF_DEFAULT_COMMAND = ''ag -g ""'';
+    FZF_DEFAULT_COMMAND = "rg --files --hidden";
   };
 
   programs.neovim = {
