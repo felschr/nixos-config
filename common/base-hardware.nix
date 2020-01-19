@@ -1,14 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
+  boot.initrd.luks.devices = {
+    root = {
       device = "/dev/disk/by-partlabel/nixos";
-      preLVM = true;
       allowDiscards = true;
-    }
-  ];
+    };
+  };
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
