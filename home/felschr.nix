@@ -13,6 +13,7 @@ with pkgs;
     ./common/keybase.nix
     ./common/signal.nix
     ./common/chromium.nix
+    ./common/planck.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

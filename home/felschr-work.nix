@@ -15,6 +15,7 @@ with pkgs;
     ./common/signal.nix
     ./common/chromium.nix
     ./common/dotnet.nix
+    ./common/planck.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
