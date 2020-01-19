@@ -27,11 +27,39 @@ with pkgs;
       night = "0.9";
     };
   };
+   
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+  };
+
+  programs.ssh = {
+    enable = true;
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry-gnome3
+    '';
+  };
+
+  programs.gpg.enable = true;
 
   programs.git = {
     enable = true;
     userName = "Felix Tenley";
     userEmail = "dev@felschr.com";
+    ignores = [".direnv"];
+    signing = {
+      key = "22A6 DD21 EE66 E73D D4B9  3F20 A12D 7C9D 2FD3 4458";
+      signByDefault = true;
+    };
+    extraConfig = {
+      pull = { rebase = true; };
+      rebase = { autoStash = true; };
+    };
   };
 
   home.packages = with pkgs; [
