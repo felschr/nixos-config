@@ -73,7 +73,6 @@ in
       editorconfig-vim
       fzf-vim
       lightline-vim
-      lightline-ale
       nerdtree
       vim-startify
       vim-polyglot
@@ -87,7 +86,6 @@ in
 
       # nvim-lsp # nixos-rebuild currently fails
 
-      ale
       vim-orgmode
       vim-nix
 
@@ -102,6 +100,7 @@ in
       coc-stylelint
       # coc-omnisharp # not really maintained
 
+      ale # only used for omnisharp-vim
       omnisharp-vim
     ];
     extraConfig = with builtins; readFile ./init.vim + readFile ./coc.vim;
