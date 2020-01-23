@@ -23,13 +23,13 @@ use_nix() {
     log_status using cached derivation
   fi
   local term_backup=$TERM path_backup=$PATH
-  if [ -n ${TMPDIR+x} ]; then
+  if ! [ -z ${TMPDIR+x} ]; then
     local tmp_backup=$TMPDIR
   fi
 
   eval "$(< $cache)"
   export PATH=$PATH:$path_backup TERM=$term_backup TMPDIR=$tmp_backup
-  if [ -n ${tmp_backup+x} ]; then
+  if ! [ -z ${tmp_backup+x} ]; then
     export TMPDIR=${tmp_backup}
   else
     unset TMPDIR

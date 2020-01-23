@@ -75,12 +75,14 @@ in
       lightline-vim
       lightline-ale
       nerdtree
+      vim-startify
       vim-polyglot
       vim-multiple-cursors
       vim-surround
       vim-commentary
       vim-easymotion
       vim-gitgutter
+      vim-fugitive
       camelcasemotion
 
       # nvim-lsp # nixos-rebuild currently fails
@@ -88,7 +90,6 @@ in
       ale
       vim-orgmode
       vim-nix
-      vim-fugitive
 
       coc-nvim
       coc-emmet
@@ -103,35 +104,6 @@ in
 
       omnisharp-vim
     ];
-    extraConfig = ''
-      colorscheme gruvbox
-      let g:gruvbox_number_column = 'bg1'
-
-      let mapleader=" "
-      let g:camelcasemotion_key = '<leader>'
-
-      " coc config
-      inoremap <silent><expr> <c-space> coc#refresh()
-
-      " omnisharp-vim config:
-      let g:OmniSharp_server_stdio = 1
-      let g:OmniSharp_server_path = '/home/felschr/.nix-profile/bin/omnisharp'
-      let g:OmniSharp_selector_ui = 'fzf'
-      let g:OmniSharp_highlight_types = 3
-      let g:ale_linters = {
-      \ 'cs': ['OmniSharp']
-      \}
-      
-      " call nvim_lsp#setup("tsserver", {})
-      " call nvim_lsp#setup("ghcide", {})
-
-      set relativenumber
-      set wildmenu
-      set wildmode=longest,list,full
-
-      map ; :Files<CR>
-      map <C-o> :NERDTreeToggle<CR>
-      map <Leader> <Plug>(easymotion-prefix)
-    '';
+    extraConfig = with builtins; readFile ./init.vim + readFile ./coc.vim;
   };
 }
