@@ -8,10 +8,32 @@ let g:startify_bookmarks = [
   \ '~/dev/fitnesspilot/microservices/coachtasks',
   \ '~/dev/fitnesspilot/microservices/notifications',
   \ '~/dev/fitnesspilot/microservices/googlefitimport',
+  \ '~/dev/fitnesspilot/microservices/devel',
+  \ '~/dev/fitnesspilot/common/APIModel',
+  \ '~/dev/fitnesspilot/common/CommonModel',
+  \ '~/dev/fitnesspilot/common/CommonDomain',
+  \ '~/dev/fitnesspilot/common/CosmosDBStore',
+  \ '~/dev/fitnesspilot/common/IntegrationTestBase',
+  \ '~/dev/fitnesspilot/common/MicroserviceUtils',
+  \ '~/dev/fitnesspilot/common/Utils',
+  \ '~/dev/fitnesspilot/common/FitnesspilotMathCore',
+  \ '/etc/nixos',
   \ ]
 
 let mapleader=" "
 let g:camelcasemotion_key = '<leader>'
+
+let g:lightline = {
+  \ 'colorscheme': 'powerline',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+  \ },
+  \ 'component_function': {
+  \   'cocstatus': 'coc#status',
+  \   'currentfunction': 'CocCurrentFunction'
+  \ },
+  \ }
 
 " omnisharp-vim config:
 let g:OmniSharp_start_without_solution = 1
