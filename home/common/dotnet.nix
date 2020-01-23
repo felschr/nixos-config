@@ -2,18 +2,10 @@
 
 with pkgs;
 let
-  dotnetCorePackages = (import (fetchFromGitHub {
-    name = "nixos-pr-dotnet-combined";
-    owner = "NixOS";
-    repo = "nixpkgs";
-    rev = "ea6469760d3d75bbcb55670168d9ad37742dadfa";
-    sha256 = "1n9ax1fm8pfzc782zak9sh4acawwdwcdykzm7qyp6iis4dd2ld0l";
-  }) {}).dotnetCorePackages;
-  dotnet-combined = with dotnetCorePackages; combinePackages {
-    cli = sdk_3_1;
-    withSdks = [ sdk_2_1 sdk_3_1 ];
-    withRuntimes = [ sdk_2_1 sdk_3_1 ];
-  };
+  dotnet-combined = with dotnetCorePackages; combinePackages [ sdk_3_1 sdk_2_1 ];
+  dotnetRoot = "${dotnet-combined}/bin";
+  dotnetSdk = "${dotnet-combined}/sdk";
+  dotnetBinary = "${dotnetRoot}/dotnet";
 in
 {
   nixpkgs.overlays = [
@@ -34,9 +26,9 @@ in
   ];
 
   home.sessionVariables = {
-    DOTNET_ROOT = "${dotnet-combined}/bin";
-    MSBuildSdksPath = "${dotnet-combined}/sdk/3.1.100/Sdks";
-    MSBUILD_EXE_PATH = "${dotnet-combined}/sdk/3.1.100/MSBuild.dll";
+    DOTNET_ROOT = dotnetRoot;
+    MSBuildSdksPath = "${dotnetSdk}/$(${dotnetBinary} --version)/Sdks";
+    MSBUILD_EXE_PATH = "${dotnetSdk}/$(${dotnetBinary} --version)/MSBuild.dll";
   };
 
   home.file.".omnisharp/omnisharp.json" = {
