@@ -14,10 +14,12 @@ let mapleader=" "
 let g:camelcasemotion_key = '<leader>'
 
 " omnisharp-vim config:
+let g:OmniSharp_start_without_solution = 1
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_server_path = '/home/felschr/.nix-profile/bin/omnisharp'
 let g:OmniSharp_selector_ui = 'fzf'
 let g:OmniSharp_highlight_types = 3
+let g:ale_linters_explicit = 1
 let g:ale_linters = {
     \ 'cs': ['OmniSharp']
     \ }
