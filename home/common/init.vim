@@ -4,13 +4,18 @@ colorscheme gruvbox
 let g:gruvbox_number_column = 'bg1'
 
 let g:startify_bookmarks = [
-  \ '~/dev/fitnesspilot/microservices',
+  \ '~/dev/fitnesspilot',
   \ '~/dev/fitnesspilot/clients/fitnesspilot-web',
-  \ '~/dev/fitnesspilot/microservices/fitnesspilot',
+  \ '~/dev/fitnesspilot/clients/fitnesspilot-preregistration',
+  \ '~/dev/fitnesspilot/microservices',
+  \ '~/dev/fitnesspilot/microservices/usermanagement',
+  \ '~/dev/fitnesspilot/microservices/calendar',
+  \ '~/dev/fitnesspilot/microservices/activities',
   \ '~/dev/fitnesspilot/microservices/coachtasks',
   \ '~/dev/fitnesspilot/microservices/notifications',
   \ '~/dev/fitnesspilot/microservices/googlefitimport',
   \ '~/dev/fitnesspilot/microservices/devel',
+  \ '~/dev/fitnesspilot/microservices/job',
   \ '~/dev/fitnesspilot/common/APIModel',
   \ '~/dev/fitnesspilot/common/CommonModel',
   \ '~/dev/fitnesspilot/common/CommonDomain',
@@ -19,6 +24,12 @@ let g:startify_bookmarks = [
   \ '~/dev/fitnesspilot/common/MicroserviceUtils',
   \ '~/dev/fitnesspilot/common/Utils',
   \ '~/dev/fitnesspilot/common/FitnesspilotMathCore',
+  \ '~/dev/fitnesspilot/ops/ops',
+  \ '~/dev/fitnesspilot/ops/kube-dotnet',
+  \ '~/dev/fitnesspilot/wiki',
+  \ '~/dev/fitnesspilot/templates',
+  \ '~/dev/fitnesspilot/tools/fitnesspilot-masterdata',
+  \ '~/dev/fitnesspilot/tools/fitnesspilot-load-tests',
   \ '/etc/nixos',
   \ ]
 
