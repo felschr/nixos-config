@@ -66,6 +66,13 @@ with pkgs;
     dotenv
   '';
 
+  home.file.".config/nixpkgs/config.nix".text = ''
+    {
+      allowUnfree = true;
+    }
+  '';
+
+
   home.packages = with pkgs; [
     # system
     gparted
