@@ -19,8 +19,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lsp";
-      rev = "bf657b837ee0aad20afd812ea14d73108bb30093";
-      sha256 = "192175fkxdki5damxj0z1bna1qdpsc2di4df7i5mzyw2qikj9y0m";
+      rev = "7a15a52c0a7d735625ac73dc4d8efe70c5e99707";
+      sha256 = "1wpp54gvb90qhgnxmp3fvfc3dbkdxk3q712c7wyd9alpbk4608fk";
     };
   };
   # coc-omnisharp = buildVimPluginFrom2Nix {
@@ -89,20 +89,27 @@ in
       vim-orgmode
       vim-nix
 
+      # Most coc-* plugins are incomplete in nixpkgs
+      # Instead they are currently installed manually via :CocInstall
       coc-nvim
-      coc-emmet
-      coc-html
-      coc-css
-      coc-tsserver
-      coc-json
-      coc-yaml
-      coc-eslint
-      coc-stylelint
-      # coc-omnisharp # not really maintained
+      # coc-pairs
+      # coc-emmet
+      # coc-snippets
+      # coc-highlight
+      # coc-html
+      # coc-css
+      # coc-tsserver
+      # coc-json
+      # coc-yaml
+      # coc-eslint
+      # coc-stylelint
+      # coc-prettier
+      # # coc-omnisharp # not really maintained
 
       ale # only used for omnisharp-vim
       omnisharp-vim
     ];
     extraConfig = with builtins; readFile ./init.vim + readFile ./coc.vim;
+    withNodeJs = true;
   };
 }
