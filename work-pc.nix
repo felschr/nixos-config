@@ -24,6 +24,9 @@
 
   hardware.enableAllFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.logitech.enable = true;
+  hardware.logitech.enableGraphical = true;
+
   services.tlp.enable = true;
 
   programs.adb.enable = true;
