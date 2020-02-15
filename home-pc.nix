@@ -24,6 +24,8 @@
   hardware.cpu.amd.updateMicrocode = true;
   services.fwupd.enable = true;
 
+  programs.adb.enable = true;
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" ];
