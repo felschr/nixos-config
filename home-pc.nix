@@ -20,6 +20,8 @@
 
   networking.hostName = "felix-nixos";
 
+  hardware.enableAllFirmware = true;
+  hardware.cpu.amd.updateMicrocode = true;
   services.fwupd.enable = true;
 
   users.users.felschr = {
