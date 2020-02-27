@@ -30,6 +30,12 @@ let g:startify_bookmarks = [
   \ '~/dev/fitnesspilot/templates',
   \ '~/dev/fitnesspilot/tools/fitnesspilot-masterdata',
   \ '~/dev/fitnesspilot/tools/fitnesspilot-load-tests',
+  \ '~/dev/carepal/carepal-app',
+  \ '~/dev/carepal/carepal-server',
+  \ '~/dev/carepal/carepal-templates',
+  \ '~/dev/eaccounting/eaccounting-app',
+  \ '~/dev/eaccounting/eaccounting-server',
+  \ '~/dev/eaccounting/eaccounting-validator',
   \ '/etc/nixos',
   \ ]
 
