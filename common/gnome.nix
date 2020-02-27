@@ -5,7 +5,7 @@
     gnome3.dconf-editor
     gnome3.gnome-tweaks
     gnomeExtensions.dash-to-panel
-    gnomeExtensions.topicons-plus
+    gnomeExtensions.appindicator
   ];
 
   # Enable Gnome 3
