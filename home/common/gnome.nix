@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  dconf.enable = true;
   dconf.settings = {
     "org/gnome/shell" = {
       enabled-extensions = [
         "dash-to-panel@jderose9.github.com"
-        "TopIcons@phocean.net"
+        "appindicatorsupport@rgcjonas.gmail.com"
       ];
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
