@@ -20,8 +20,6 @@
 
   networking.hostName = "pilot1-nixos"; # Define your hostname.
 
-  virtualisation.virtualbox.host.enable = true;
-
   hardware.enableAllFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.logitech.enable = true;
