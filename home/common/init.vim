@@ -73,7 +73,7 @@ set relativenumber
 set splitbelow
 
 map ; :Files<CR>
-map <C-o> :NERDTreeToggle<CR>
+nmap <C-l> :NERDTreeToggle<CR>
 map <Leader> <Plug>(easymotion-prefix)
 
 " Terminal Function
