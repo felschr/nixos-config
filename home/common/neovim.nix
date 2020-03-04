@@ -9,8 +9,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "FelschR";
       repo = "omnisharp-vim";
-      rev = "42aa675d6cc86051fb28e2a875d501797135641f";
-      sha256 = "14nvz34iqnjn7kppfx8c0m9402hfdkcv2g83mvpdlqd9kx89xdsd";
+      rev = "3eb38ffbf6295d24e544b72fb349e876cd28ad96";
+      sha256 = "0wvhjv7rdscm0kps72wlbyhqk99j6c6flqsd2vkj0v985l48nzhz";
     };
   };
   nvim-lsp = buildVimPluginFrom2Nix {
