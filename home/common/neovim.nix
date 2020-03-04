@@ -42,8 +42,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "neovim";
           repo = "neovim";
-          rev = "ed424655bef3169dc5452c5a8212e250dc483f9e";
-          sha256 = "0ri31nxs3lcx9x1gwwx6ch5b5nddqvg5n1gdzskyfwffvg3wwrl3";
+          rev = "f1923d4b92239ef2ca280bf1ce6c5f6cc7cb4f1a";
+          sha256 = "1algrgwvv38sw0spxraff3s0fqnb6pz7xd66cf6dd2vnsvnhpay5";
         };
         nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
           pkgs.utf8proc
@@ -80,9 +80,12 @@ in
       vim-surround
       vim-commentary
       vim-easymotion
+      vim-peekaboo
       vim-gitgutter
       vim-fugitive
+      vim-test
       camelcasemotion
+      argtextobj-vim
 
       # nvim-lsp # nixos-rebuild currently fails
 
@@ -92,6 +95,7 @@ in
       # Most coc-* plugins are incomplete in nixpkgs
       # Instead they are currently installed manually via :CocInstall
       coc-nvim
+      # coc-tabnine
       # coc-pairs
       # coc-emmet
       # coc-snippets
@@ -104,6 +108,7 @@ in
       # coc-eslint
       # coc-stylelint
       # coc-prettier
+      # coc-angular
       # # coc-omnisharp # not really maintained
 
       ale # only used for omnisharp-vim
