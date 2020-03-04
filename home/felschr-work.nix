@@ -80,7 +80,7 @@ with pkgs;
 
     # productivity
     discord
-    libreoffice
+    libreoffice-fresh
     skypeforlinux
     pinta
     inkscape
