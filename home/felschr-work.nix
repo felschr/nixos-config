@@ -8,9 +8,7 @@ with pkgs;
     ./common/mimeapps.nix
     ./common/gtk.nix
     ./common/gnome.nix
-    ./common/neovim.nix
-    ./common/emacs.nix
-    ./common/vscode.nix
+    ./common/editors.nix
     ./common/keybase.nix
     ./common/signal.nix
     ./common/chromium.nix
