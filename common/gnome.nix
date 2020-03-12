@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     gnome3.dconf-editor
     gnome3.gnome-tweaks
+    gnome3.gnome-shell-extensions # required for user-theme
     gnomeExtensions.dash-to-panel
     gnomeExtensions.appindicator
   ];

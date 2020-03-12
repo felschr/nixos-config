@@ -5,7 +5,7 @@ with pkgs;
   imports = [
     ./common/sh.nix
     ./common/mimeapps.nix
-    ./common/gui.nix
+    ./common/gtk.nix
     ./common/gnome.nix
     ./common/neovim.nix
     ./common/emacs.nix
