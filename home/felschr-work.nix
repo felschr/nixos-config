@@ -6,7 +6,7 @@ with pkgs;
     ./common/sh.nix
     ./common/direnv.nix
     ./common/mimeapps.nix
-    ./common/gui.nix
+    ./common/gtk.nix
     ./common/gnome.nix
     ./common/neovim.nix
     ./common/emacs.nix
