@@ -7,7 +7,7 @@ with pkgs;
     ./common/mimeapps.nix
     ./common/gtk.nix
     ./common/gnome.nix
-    ./common/editors.nix
+    ./common/editors
     ./common/keybase.nix
     ./common/signal.nix
     ./common/chromium.nix
