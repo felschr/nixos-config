@@ -3,17 +3,14 @@
 with pkgs;
 {
   imports = [
-    ./common/sh.nix
-    ./common/direnv.nix
-    ./common/mimeapps.nix
-    ./common/gtk.nix
-    ./common/gnome.nix
-    ./common/editors
-    ./common/keybase.nix
-    ./common/signal.nix
-    ./common/chromium.nix
-    ./common/dotnet.nix
-    ./common/planck.nix
+    ./shell
+    ./editors
+    ./desktop
+    ./keybase.nix
+    ./signal.nix
+    ./chromium.nix
+    ./dotnet.nix
+    ./planck.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
