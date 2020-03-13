@@ -21,12 +21,6 @@ with pkgs;
     longitude = "10.4021562";
   };
 
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-  };
-
   programs.ssh = {
     enable = true;
   };

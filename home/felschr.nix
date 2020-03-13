@@ -4,7 +4,6 @@ with pkgs;
 {
   imports = [
     ./shell
-    ./direnv
     ./editors
     ./desktop
     ./keybase.nix
