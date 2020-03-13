@@ -6,6 +6,7 @@ with pkgs;
     ./shell
     ./editors
     ./desktop
+    ./git.nix
     ./keybase.nix
     ./signal.nix
     ./chromium.nix
@@ -34,19 +35,10 @@ with pkgs;
 
   programs.gpg.enable = true;
 
-  programs.git = {
-    enable = true;
+  programs.git.custom = {
     userName = "Felix Schroeter";
     userEmail = "fs@upsquared.com";
-    ignores = [".direnv"];
-    signing = {
-      key = "6DA1 4A05 C6E0 7DBE EB81  BA24 28ED 46BC B881 7B7A";
-      signByDefault = true;
-    };
-    extraConfig = {
-      pull = { rebase = true; };
-      rebase = { autoStash = true; };
-    };
+    signingKey = "6DA1 4A05 C6E0 7DBE EB81  BA24 28ED 46BC B881 7B7A";
   };
 
   programs.firefox.enable = true;
