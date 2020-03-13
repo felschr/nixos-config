@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./i18n.nix
+    ./nix.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     wget
     curl

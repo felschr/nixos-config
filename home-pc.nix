@@ -4,16 +4,11 @@
   imports = [
     ./hardware-configuration.nix
     <home-manager/nixos>
-    ./common/base-hardware.nix
-    ./common/gpu-nvidia.nix
-    ./common/ledger.nix
-    ./common/planck.nix
-    ./common/system.nix
-    ./common/nix.nix
-    ./common/i18n.nix
-    ./common/x11.nix
-    ./common/gtk.nix
-    ./common/gnome.nix
+    ./hardware/base.nix
+    ./hardware/gpu-nvidia.nix
+    ./hardware/ledger.nix
+    ./system
+    ./desktop
   ];
 
   nixpkgs.config.allowUnfree = true;
