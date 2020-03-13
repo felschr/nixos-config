@@ -3,15 +3,14 @@
 with pkgs;
 {
   imports = [
-    ./common/sh.nix
-    ./common/mimeapps.nix
-    ./common/gtk.nix
-    ./common/gnome.nix
-    ./common/editors
-    ./common/keybase.nix
-    ./common/signal.nix
-    ./common/chromium.nix
-    ./common/planck.nix
+    ./shell
+    ./direnv
+    ./editors
+    ./desktop
+    ./keybase.nix
+    ./signal.nix
+    ./chromium.nix
+    ./planck.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -24,12 +23,6 @@ with pkgs;
       day = "0.9";
       night = "0.9";
     };
-  };
-   
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
   };
 
   programs.ssh = {
