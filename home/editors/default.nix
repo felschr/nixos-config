@@ -5,6 +5,7 @@
     ./neovim.nix
     ./emacs.nix
     ./vscode.nix
+    ./omnisharp.nix
   ];
 
   home.packages = with pkgs; [
