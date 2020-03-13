@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./planck.nix
+  ];
+
   boot.initrd.luks.devices = {
     root = {
       device = "/dev/disk/by-partlabel/nixos";
