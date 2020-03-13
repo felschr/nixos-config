@@ -27,8 +27,8 @@
       appicon-padding = 4;
       panel-size = 36;
     };
-    "/org/gnome/desktop/sound/theme-name" = {
+    "org/gnome/desktop/sound" = {
       theme-name = "Pop";
-    }
+    };
   };
 }
