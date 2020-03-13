@@ -57,10 +57,6 @@ with pkgs;
 
   programs.firefox.enable = true;
 
-  home.file.".envrc".text = ''
-    dotenv
-  '';
-
   home.file.".config/nixpkgs/config.nix".text = ''
     {
       allowUnfree = true;
