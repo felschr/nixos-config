@@ -110,4 +110,6 @@ in
     extraConfig = with builtins; readFile ./init.vim + readFile ./coc.vim;
     withNodeJs = true;
   };
+
+  xdg.configFile."nvim/coc-settings.json".source = ./coc-settings.json;
 }
