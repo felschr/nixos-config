@@ -1,5 +1,7 @@
 " set shell=/bin/sh
 
+set termguicolors
+
 colorscheme gruvbox
 let g:gruvbox_number_column = 'bg1'
 
