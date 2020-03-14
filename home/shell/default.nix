@@ -24,11 +24,23 @@ in
     enableAutosuggestions = true;
     autocd = true;
     defaultKeymap = "viins";
-    initExtraBeforeCompInit = with pkgs; ''
-      source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-      source ${zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-      source ${./first-tab-completion.zsh}
-    '';
+    plugins = with pkgs; [
+      {
+        name = "first-tab-completion";
+        src = lib.cleanSource ./.;
+        file = "first-tab-completion.zsh";
+      }
+      {
+        name = "zsh-syntax-highlighting";
+        src = zsh-syntax-highlighting;
+        file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
+      }
+      {
+        name = "zsh-history-substring-search";
+        src = zsh-history-substring-search;
+        file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
+      }
+    ];
     initExtra = ''
       zmodload zsh/complist
       zstyle ':completion:*' menu select
