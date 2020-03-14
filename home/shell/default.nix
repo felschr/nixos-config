@@ -27,9 +27,16 @@ in
     initExtraBeforeCompInit = with pkgs; ''
       source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
       source ${zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+      source ${./first-tab-completion.zsh}
     '';
     initExtra = ''
+      zmodload zsh/complist
       zstyle ':completion:*' menu select
+      zstyle ':completion:*' insert-tab false
+      bindkey '^I' first-tab-completion
+      bindkey -M menuselect '\e' send-break
+      bindkey -M menuselect '^[[Z' reverse-menu-complete
+
       setopt histignoredups
       bindkey '^[[A' history-substring-search-up
       bindkey '^[[B' history-substring-search-down
