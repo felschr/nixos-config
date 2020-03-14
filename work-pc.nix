@@ -27,7 +27,7 @@
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "docker" "disk" "vboxusers" ];
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 
   home-manager.users.felschr = import ./home/felschr-work.nix;

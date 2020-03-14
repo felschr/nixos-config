@@ -24,7 +24,7 @@
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" ];
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 
   home-manager.users.felschr = import ./home/felschr.nix;
