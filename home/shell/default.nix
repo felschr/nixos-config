@@ -41,13 +41,19 @@ in
         file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
       }
     ];
-    initExtra = ''
+    initExtra = with pkgs; ''
+      export KEYTIMEOUT=1
+
       zmodload zsh/complist
       zstyle ':completion:*' menu select
       zstyle ':completion:*' insert-tab false
       bindkey '^I' first-tab-completion
       bindkey -M menuselect '\e' send-break
-      bindkey -M menuselect '^[[Z' reverse-menu-complete
+      bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+      bindkey -M menuselect 'h' vi-backward-char
+      bindkey -M menuselect 'k' vi-up-line-or-history
+      bindkey -M menuselect 'l' vi-forward-char
+      bindkey -M menuselect 'j' vi-down-line-or-history
 
       setopt histignoredups
       bindkey '^[[A' history-substring-search-up
