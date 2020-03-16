@@ -9,8 +9,8 @@ let
     src = fetchFromGitHub {
       owner = "pop-os";
       repo = "shell";
-      rev = "ad4f28cbf185b35d8cb3e8710dabee80737156ce";
-      sha256 = "0a312ilbip6gd4ppff8kjr77ilcbwn3wksf2x8ppj0nhfmrich6n";
+      rev = "c7bd5fc69adb842cc7e2503bca69b75963d01083";
+      sha256 = "0xdxdhhf3g3vxs97p4iik7swzgqbi2n7y71214mah5nbhwx15mxn";
     };
 
     nativeBuildInputs = [ glib ];
