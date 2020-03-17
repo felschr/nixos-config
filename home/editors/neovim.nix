@@ -19,20 +19,10 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lsp";
-      rev = "7a15a52c0a7d735625ac73dc4d8efe70c5e99707";
-      sha256 = "1wpp54gvb90qhgnxmp3fvfc3dbkdxk3q712c7wyd9alpbk4608fk";
+      rev = "913579facce05f0069b9378c046150f635aba1b1";
+      sha256 = "1rjp36shl9vpi5k4vd4n2np2gmkyx65hcljcwk1403cwy6b63mwa";
     };
   };
-  # coc-omnisharp = buildVimPluginFrom2Nix {
-  #   pname = "coc-omnisharp";
-  #   version = "master";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "coc-extensions";
-  #     repo = "coc-omnisharp";
-  #     rev = "9c062bbae5692b69b5cf918131a972405b2582b9";
-  #     sha256 = "1phjnzgh8918cb915jn92i5vv23lki95q9x0nsjddna3gz3c9k0w";
-  #   };
-  # };
 in
 {
   nixpkgs.overlays = [
@@ -42,8 +32,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "neovim";
           repo = "neovim";
-          rev = "f1923d4b92239ef2ca280bf1ce6c5f6cc7cb4f1a";
-          sha256 = "1algrgwvv38sw0spxraff3s0fqnb6pz7xd66cf6dd2vnsvnhpay5";
+          rev = "5a5c2f0290b5cdb8ccc1a06cb41f248ab25fd792";
+          sha256 = "03hg6870vlh3q1flyhnijnnm8b8441cnh0j1g5jlxdf46sx5fn7c";
         };
         nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
           pkgs.utf8proc
@@ -85,24 +75,23 @@ in
       vim-orgmode
       vim-nix
 
-      # Most coc-* plugins are incomplete in nixpkgs
-      # Instead they are currently installed manually via :CocInstall
       coc-nvim
-      # coc-tabnine
-      # coc-pairs
-      # coc-emmet
-      # coc-snippets
-      # coc-highlight
-      # coc-html
-      # coc-css
-      # coc-tsserver
-      # coc-json
-      # coc-yaml
-      # coc-eslint
-      # coc-stylelint
-      # coc-prettier
+      coc-tabnine
+      coc-pairs
+      coc-emmet
+      coc-snippets
+      coc-highlight
+      coc-html
+      coc-css
+      coc-tsserver
+      coc-json
+      coc-yaml
+      coc-eslint
+      coc-stylelint
+      coc-prettier
+      # not yet in nixpkgs:
       # coc-angular
-      # # coc-omnisharp # not really maintained
+      # coc-omnisharp # not really maintained
 
       ale # only used for omnisharp-vim
       omnisharp-vim
