@@ -1,4 +1,5 @@
 {
+    "eslint.autoFixOnSave": true,
     "omnisharp.path": "/home/felschr/.nix-profile/bin/omnisharp",
     "omnisharp.useGlobalMono": "never",
     "omnisharp.projectLoadTimeout": 120,
