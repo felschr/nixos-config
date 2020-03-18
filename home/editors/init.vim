@@ -67,10 +67,6 @@ let g:ale_linters = {
     \ 'cs': ['OmniSharp']
     \ }
 
-" nvim-lsp using neovim's official LSP interface
-" call nvim_lsp#setup("tsserver", {})
-" call nvim_lsp#setup("ghcide", {})
-
 set relativenumber
 set splitbelow
 
