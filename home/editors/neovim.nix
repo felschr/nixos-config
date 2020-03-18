@@ -54,6 +54,7 @@ in
     plugins = with pkgs.vimPlugins; [
       gruvbox
       editorconfig-vim
+      direnv-vim
       fzf-vim
       lightline-vim
       nerdtree
