@@ -55,9 +55,9 @@ in
       bindkey -M menuselect 'l' vi-forward-char
       bindkey -M menuselect 'j' vi-down-line-or-history
 
-      setopt histignoredups
-      bindkey '^[[A' history-substring-search-up
-      bindkey '^[[B' history-substring-search-down
+      setopt HIST_FIND_NO_DUPS
+      bindkey "$terminfo[kcuu1]" history-substring-search-up
+      bindkey "$terminfo[kcud1]" history-substring-search-down
       bindkey -M vicmd 'k' history-substring-search-up
       bindkey -M vicmd 'j' history-substring-search-down
     '';
@@ -86,4 +86,4 @@ in
   home.file.".envrc".text = ''
     dotenv
   '';
-} 
+}

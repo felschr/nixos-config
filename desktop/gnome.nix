@@ -44,4 +44,4 @@ in
     gnome3.gnome-packagekit
     gnome3.epiphany
   ];
-} 
+}
