@@ -62,6 +62,9 @@ with pkgs;
     pinta
     inkscape
 
+    # entertainment
+    celluloid
+
     # development
     unzip
     openssl

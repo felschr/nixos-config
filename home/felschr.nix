@@ -56,6 +56,9 @@ with pkgs;
     # development
     haskellPackages.ghc
 
+    # entertainment
+    celluloid
+
     # gaming
     steam
     linux-steam-integration

@@ -42,6 +42,7 @@ in
     gnome3.gnome-contacts
     gnome3.gnome-software
     gnome3.gnome-packagekit
+    gnome3.totem
     gnome3.epiphany
   ];
 }
