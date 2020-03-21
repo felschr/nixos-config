@@ -6,6 +6,7 @@ with pkgs;
     ./shell
     ./editors
     ./desktop
+    ./desktop/monitors.nix
     ./git.nix
     ./keybase.nix
     ./signal.nix

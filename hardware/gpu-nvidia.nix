@@ -4,7 +4,7 @@
   # Graphics drivers
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.screenSection = ''
-    Option "metamodes" "1920x1080_144 +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+    Option "metamodes" "1920x1080_120 +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
   '';
 
   hardware.opengl = {
