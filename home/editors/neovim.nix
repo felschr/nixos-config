@@ -15,7 +15,7 @@ let
   };
   nvim-lsp = buildVimPluginFrom2Nix {
     pname = "nvim-lsp";
-    version = "master";
+    version = "2020-03-17";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lsp";
@@ -71,7 +71,9 @@ in
       camelcasemotion
       argtextobj-vim
 
-      # nvim-lsp # nixos-rebuild currently fails
+      nvim-lsp
+      deoplete-nvim
+      deoplete-lsp
 
       vim-orgmode
       vim-nix
@@ -98,6 +100,7 @@ in
       omnisharp-vim
     ];
     extraConfig = with builtins; readFile ./init.vim + readFile ./coc.vim;
+    # extraConfig = with builtins; readFile ./init.vim + readFile ./lsp.vim;
     withNodeJs = true;
   };
 
