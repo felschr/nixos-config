@@ -43,7 +43,7 @@ in
   ];
 
   home.packages = with pkgs; [
-    nodejs-12_x
+    # nodejs-12_x
     # haskellPackages.ghcide
   ];
 
