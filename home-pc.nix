@@ -9,6 +9,7 @@
     ./hardware/ledger.nix
     ./system
     ./desktop
+    # ./plex.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
