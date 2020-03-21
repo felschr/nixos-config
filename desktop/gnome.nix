@@ -4,13 +4,13 @@ with pkgs;
 let
   gnome-shell-extension-pop-shell = stdenv.mkDerivation rec {
     pname = "gnome-shell-extension-pop-shell";
-    version = "2020-03-13";
+    version = "2020-03-18";
 
     src = fetchFromGitHub {
       owner = "pop-os";
       repo = "shell";
-      rev = "c7bd5fc69adb842cc7e2503bca69b75963d01083";
-      sha256 = "0xdxdhhf3g3vxs97p4iik7swzgqbi2n7y71214mah5nbhwx15mxn";
+      rev = "0c480fb8c0f0c39a5842cff89f38d807600c2a14";
+      sha256 = "053csqmbj37f7kilsav9z1q7b0v0rrqvbqzk28qkpddkpvysvh7m";
     };
 
     nativeBuildInputs = [ glib ];
