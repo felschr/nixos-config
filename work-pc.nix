@@ -24,14 +24,16 @@
 
   programs.adb.enable = true;
 
+  programs.zsh.enable = true;
+
   users.users.felschr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "docker" "disk" "vboxusers" ];
+    extraGroups = [ "wheel" "audio" "docker" "disk" ];
     shell = pkgs.zsh;
   };
 
   home-manager.users.felschr = import ./home/felschr-work.nix;
-  
+
   # only change this when specified in release notes
   system.stateVersion = "19.09";
 

@@ -21,6 +21,8 @@
 
   programs.adb.enable = true;
 
+  programs.zsh.enable = true;
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" ];
