@@ -44,6 +44,9 @@ in
     initExtra = with pkgs; ''
       export KEYTIMEOUT=1
 
+      ZSH_AUTOSUGGEST_USE_ASYNC=1
+      ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
       zmodload zsh/complist
       zstyle ':completion:*' menu select
       zstyle ':completion:*' insert-tab false
