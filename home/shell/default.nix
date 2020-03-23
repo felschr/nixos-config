@@ -6,6 +6,10 @@ let
   };
 in
 {
+  imports = [
+    ./terminal.nix
+  ];
+
   programs.fzf = {
     enable = true;
   };
