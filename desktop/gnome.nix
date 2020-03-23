@@ -45,4 +45,6 @@ in
     gnome3.totem
     gnome3.epiphany
   ];
+
+  programs.gnome-terminal.enable = false;
 }
