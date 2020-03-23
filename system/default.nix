@@ -14,7 +14,11 @@
   ];
 
   fonts.fonts = with pkgs; [
-    hasklig
+    fira-code
+    noto-fonts
+    noto-fonts-extra
+    noto-fonts-cjk
+    noto-fonts-emoji
   ];
   fonts.fontconfig.localConf = ''
     <fontconfig>

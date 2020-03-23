@@ -13,6 +13,6 @@
     inputMethod.enabled = "ibus";
     inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji ];
   };
- 
+
   time.timeZone = "Europe/Berlin";
 }
