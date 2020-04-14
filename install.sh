@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 if [ $EUID != 0 ]; then
     sudo "$0" "$@"
     exit $?
@@ -10,6 +12,7 @@ CONFIG=$1
 if [ -z "$CONFIG" ]
 then
   echo "path to config to use as configuration.nix needs to be passed as first argument"
+  exit 1
 else
   echo "using configuration: '$CONFIG'"
 fi
