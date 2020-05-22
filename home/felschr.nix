@@ -7,6 +7,7 @@ with pkgs;
     ./editors
     ./desktop
     ./desktop/monitors.nix
+    ./vpn.nix
     ./git.nix
     ./keybase.nix
     ./signal.nix

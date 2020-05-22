@@ -4,6 +4,7 @@
   imports = [
     ./i18n.nix
     ./nix.nix
+    ./vpn.nix
   ];
 
   environment.systemPackages = with pkgs; [
