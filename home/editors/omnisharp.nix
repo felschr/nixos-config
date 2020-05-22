@@ -17,6 +17,9 @@ in
   home.file.".omnisharp/omnisharp.json" = {
     text = ''
       {
+        "FormattingOptions": {
+          "EnableEditorConfigSupport": true
+        },
         "RoslynExtensionsOptions": {
           "EnableAnalyzersSupport": true
         }
