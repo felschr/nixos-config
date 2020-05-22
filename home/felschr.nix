@@ -11,7 +11,7 @@ with pkgs;
     ./git.nix
     ./keybase.nix
     ./signal.nix
-    ./chromium.nix
+    ./browser.nix
     ./planck.nix
   ];
 

@@ -10,7 +10,7 @@ with pkgs;
     ./git.nix
     ./keybase.nix
     ./signal.nix
-    ./chromium.nix
+    ./browser.nix
     ./dotnet.nix
     ./planck.nix
   ];
