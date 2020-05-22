@@ -35,9 +35,7 @@ with pkgs;
   programs.gpg.enable = true;
 
   programs.git.custom = {
-    userName = "Felix Schroeter";
-    userEmail = "fs@upsquared.com";
-    signingKey = "6DA1 4A05 C6E0 7DBE EB81  BA24 28ED 46BC B881 7B7A";
+    defaultProfile = "work";
   };
 
   programs.firefox.enable = true;

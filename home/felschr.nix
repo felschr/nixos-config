@@ -39,9 +39,7 @@ with pkgs;
   programs.gpg.enable = true;
 
   programs.git.custom = {
-    userName = "Felix Tenley";
-    userEmail = "dev@felschr.com";
-    signingKey = "22A6 DD21 EE66 E73D D4B9  3F20 A12D 7C9D 2FD3 4458";
+    defaultProfile = "private";
   };
 
   home.packages = with pkgs; [
