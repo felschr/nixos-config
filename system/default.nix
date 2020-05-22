@@ -10,7 +10,6 @@
   environment.systemPackages = with pkgs; [
     wget
     curl
-    networkmanager
     neovim
   ];
 
