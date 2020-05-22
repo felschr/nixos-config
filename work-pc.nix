@@ -39,7 +39,7 @@
   };
 
   # only change this when specified in release notes
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.03";
 
   system.autoUpgrade = {
     enable = true;

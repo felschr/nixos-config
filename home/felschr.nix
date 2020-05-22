@@ -66,5 +66,5 @@ with pkgs;
     ledger-live-desktop
   ];
 
-  home.stateVersion = "19.09";
+  home.stateVersion = "20.03";
 }
