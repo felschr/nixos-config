@@ -28,6 +28,7 @@ in
     enableAutosuggestions = true;
     autocd = true;
     defaultKeymap = "viins";
+    history.extended = true;
     plugins = with pkgs; [
       {
         name = "first-tab-completion";
@@ -68,7 +69,6 @@ in
       bindkey -M vicmd 'k' history-substring-search-up
       bindkey -M vicmd 'j' history-substring-search-down
     '';
-    history.extended = true;
     inherit shellAliases;
   };
 
