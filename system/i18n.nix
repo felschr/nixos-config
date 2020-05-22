@@ -12,7 +12,7 @@
       LC_MONETARY = "en_IE.UTF-8";
     };
     inputMethod.enabled = "ibus";
-    inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji ];
+    inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji mozc ];
   };
 
   time.timeZone = "Europe/Berlin";
