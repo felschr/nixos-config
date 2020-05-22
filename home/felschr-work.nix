@@ -14,8 +14,6 @@ with pkgs;
     ./planck.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   services.redshift = {
     enable = true;
     latitude = "53.2472211";

@@ -34,7 +34,11 @@
     shell = pkgs.zsh;
   };
 
-  home-manager.users.felschr = import ./home/felschr.nix;
+  home-manager = {
+    useUserPackages = true;
+    useGlobalPkgs = true;
+    users.felschr = import ./home/felschr.nix;
+  };
 
   # only change this when specified in release notes
   system.stateVersion = "19.09";
