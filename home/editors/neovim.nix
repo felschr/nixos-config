@@ -1,50 +1,43 @@
 { config, pkgs, ... }:
 
 let
+  neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
+    version = "2020-05-21";
+    src = pkgs.fetchFromGitHub {
+      owner = "neovim";
+      repo = "neovim";
+      rev = "044eb56ed2f44b545e7488990ecf195a930174aa";
+      sha256 = "1k1wl9i0177h4gn1zind6j52vks68fzii0lncj4rk7vsk2ygwb4l";
+    };
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
+      pkgs.utf8proc
+    ];
+  });
+
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
   omnisharp-vim = buildVimPluginFrom2Nix {
     pname = "omnisharp-vim";
-    version = "master";
+    version = "2020-05-19";
     src = pkgs.fetchFromGitHub {
       owner = "FelschR";
       repo = "omnisharp-vim";
-      # new
-      # rev = "3eb38ffbf6295d24e544b72fb349e876cd28ad96";
-      # sha256 = "0wvhjv7rdscm0kps72wlbyhqk99j6c6flqsd2vkj0v985l48nzhz";
-      rev = "bc5066790e6f1bc46e1b3278b9b49046c75574b8";
-      sha256 = "0ayz6c7iyl91wwl55jvhqy8rgfl3cxhh24k1jphimmvb7zmbp0hc";
+      rev = "dbdc28cfa1a85d154cedeb6f8262174b16d21efc";
+      sha256 = "0mg51bpmzpcd7fgsqfsslywvld2iskhki08ladq57366rd4s5pnx";
     };
   };
   nvim-lsp = buildVimPluginFrom2Nix {
     pname = "nvim-lsp";
-    version = "2020-03-17";
+    version = "2020-05-21";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lsp";
-      rev = "913579facce05f0069b9378c046150f635aba1b1";
-      sha256 = "1rjp36shl9vpi5k4vd4n2np2gmkyx65hcljcwk1403cwy6b63mwa";
+      rev = "77d32660c4968b23b3897c4d0fa62d86f0b37810";
+      sha256 = "01mwh6myldp5sbichz6h0kr8b2cycp2g7djka099bfh9qnr53hjk";
     };
   };
 in
 {
-  nixpkgs.overlays = [
-    (self: super: {
-      neovim-unwrapped = super.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-        version = "master-lsp";
-        src = pkgs.fetchFromGitHub {
-          owner = "neovim";
-          repo = "neovim";
-          rev = "5a5c2f0290b5cdb8ccc1a06cb41f248ab25fd792";
-          sha256 = "03hg6870vlh3q1flyhnijnnm8b8441cnh0j1g5jlxdf46sx5fn7c";
-        };
-        nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
-          pkgs.utf8proc
-        ];
-      });
-    })
-  ];
-
   home.packages = with pkgs; [
     # nodejs-12_x
     # haskellPackages.ghcide
@@ -52,6 +45,7 @@ in
 
   programs.neovim = {
     enable = true;
+    package = neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
