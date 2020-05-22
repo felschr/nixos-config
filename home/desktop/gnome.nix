@@ -18,8 +18,8 @@ in
       ];
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
+        "brave-browser.desktop"
         "chromium-browser.desktop"
-        "code.desktop"
       ];
     };
     "org/gnome/shell/extensions/user-theme" = {
