@@ -9,8 +9,11 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "FelschR";
       repo = "omnisharp-vim";
-      rev = "3eb38ffbf6295d24e544b72fb349e876cd28ad96";
-      sha256 = "0wvhjv7rdscm0kps72wlbyhqk99j6c6flqsd2vkj0v985l48nzhz";
+      # new
+      # rev = "3eb38ffbf6295d24e544b72fb349e876cd28ad96";
+      # sha256 = "0wvhjv7rdscm0kps72wlbyhqk99j6c6flqsd2vkj0v985l48nzhz";
+      rev = "bc5066790e6f1bc46e1b3278b9b49046c75574b8";
+      sha256 = "0ayz6c7iyl91wwl55jvhqy8rgfl3cxhh24k1jphimmvb7zmbp0hc";
     };
   };
   nvim-lsp = buildVimPluginFrom2Nix {

@@ -30,21 +30,20 @@ in
     gnome-shell-extension-pop-shell
   ];
 
-  # Enable Gnome 3
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = false;
   services.xserver.desktopManager.gnome3.enable = true;
+
+  # exclude some default applications
   environment.gnome3.excludePackages = with pkgs; [
-    gnome3.geary
     gnome3.gnome-weather
     gnome3.gnome-calendar
     gnome3.gnome-maps
     gnome3.gnome-contacts
     gnome3.gnome-software
-    gnome3.gnome-packagekit
     gnome3.totem
     gnome3.epiphany
   ];
-
   programs.gnome-terminal.enable = false;
+  programs.geary.enable = false;
 }
