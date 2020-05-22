@@ -37,6 +37,9 @@ in
     "org/gnome/desktop/sound" = {
       theme-name = "Pop";
     };
+    "org/gnome/desktop/input-sources" = {
+      xkb-options = ["compose:ralt"];
+    };
 
     # key bindings for pop-shell
     "org/gnome/mutter/wayland/keybindings" = {
