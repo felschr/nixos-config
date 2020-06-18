@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 
-with pkgs;
 {
   imports = [
     ./shell
     ./editors
+    ./dotnet.nix
     ./desktop
     ./desktop/monitors.nix
     ./vpn.nix
@@ -49,17 +49,29 @@ with pkgs;
 
     # productivity
     discord
+    libreoffice-fresh
+    skypeforlinux
+    tabbed
 
     # development
     haskellPackages.ghc
+    postman
 
     # entertainment
     celluloid
+
+    # learning
+    anki
 
     # gaming
     steam
     linux-steam-integration
     lutris
+
+    # privacy
+    (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
+    onionshare-gui
+    transmission-gtk
 
     # other
     ledger-live-desktop
