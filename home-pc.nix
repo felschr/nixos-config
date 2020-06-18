@@ -9,7 +9,8 @@
     ./hardware/ledger.nix
     ./system
     ./desktop
-    # ./plex.nix
+    ./virtualisaiton/docker.nix
+    ./plex.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -30,7 +31,7 @@
 
   users.users.felschr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" ];
+    extraGroups = [ "wheel" "audio" "docker" "disk" ];
     shell = pkgs.zsh;
   };
 
