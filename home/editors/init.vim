@@ -17,6 +17,7 @@ let g:startify_lists = [
   \ ]
 
 let mapleader=" "
+let maplocalleader=","
 let g:camelcasemotion_key = '<leader>'
 
 let g:lightline = {
