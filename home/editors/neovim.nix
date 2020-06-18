@@ -61,6 +61,7 @@ in
       vim-surround
       vim-commentary
       vim-easymotion
+      vim-which-key
       vim-peekaboo
       vim-gitgutter
       vim-fugitive
@@ -96,8 +97,11 @@ in
       ale # only used for omnisharp-vim
       omnisharp-vim
     ];
-    extraConfig = with builtins; readFile ./init.vim + readFile ./coc.vim;
-    # extraConfig = with builtins; readFile ./init.vim + readFile ./lsp.vim;
+    extraConfig = with builtins;
+      readFile ./init.vim +
+      readFile ./which-key.vim +
+      readFile ./coc.vim;
+      # readFile ./lsp.vim;
     withNodeJs = true;
   };
 
