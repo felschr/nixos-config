@@ -5,40 +5,15 @@ set termguicolors
 colorscheme gruvbox
 let g:gruvbox_number_column = 'bg1'
 
-let g:startify_bookmarks = [
-  \ '~/dev/fitnesspilot',
-  \ '~/dev/fitnesspilot/clients/fitnesspilot-web',
-  \ '~/dev/fitnesspilot/clients/fitnesspilot-preregistration',
-  \ '~/dev/fitnesspilot/microservices',
-  \ '~/dev/fitnesspilot/microservices/usermanagement',
-  \ '~/dev/fitnesspilot/microservices/calendar',
-  \ '~/dev/fitnesspilot/microservices/activities',
-  \ '~/dev/fitnesspilot/microservices/coachtasks',
-  \ '~/dev/fitnesspilot/microservices/notifications',
-  \ '~/dev/fitnesspilot/microservices/googlefitimport',
-  \ '~/dev/fitnesspilot/microservices/devel',
-  \ '~/dev/fitnesspilot/microservices/job',
-  \ '~/dev/fitnesspilot/common/APIModel',
-  \ '~/dev/fitnesspilot/common/CommonModel',
-  \ '~/dev/fitnesspilot/common/CommonDomain',
-  \ '~/dev/fitnesspilot/common/CosmosDBStore',
-  \ '~/dev/fitnesspilot/common/IntegrationTestBase',
-  \ '~/dev/fitnesspilot/common/MicroserviceUtils',
-  \ '~/dev/fitnesspilot/common/Utils',
-  \ '~/dev/fitnesspilot/common/FitnesspilotMathCore',
-  \ '~/dev/fitnesspilot/ops/ops',
-  \ '~/dev/fitnesspilot/ops/kube-dotnet',
-  \ '~/dev/fitnesspilot/wiki',
-  \ '~/dev/fitnesspilot/templates',
-  \ '~/dev/fitnesspilot/tools/fitnesspilot-masterdata',
-  \ '~/dev/fitnesspilot/tools/fitnesspilot-load-tests',
-  \ '~/dev/carepal/carepal-app',
-  \ '~/dev/carepal/carepal-server',
-  \ '~/dev/carepal/carepal-templates',
-  \ '~/dev/eaccounting/eaccounting-app',
-  \ '~/dev/eaccounting/eaccounting-server',
-  \ '~/dev/eaccounting/eaccounting-validator',
-  \ '/etc/nixos',
+function! s:list_projects() abort
+  return map(finddir('.git', $HOME . '/dev/**3', -1),
+    \ {_, dir -> {
+      \ 'line': fnamemodify(dir, ':h:s?' . $HOME . '??'),
+      \ 'path': fnamemodify(dir, ':h')}})
+endfunction
+
+let g:startify_lists = [
+  \ {'header': ['   Projects'], 'type': function('s:list_projects')}
   \ ]
 
 let mapleader=" "
