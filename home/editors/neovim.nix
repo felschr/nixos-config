@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-05-21";
+    version = "2020-06-23";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "044eb56ed2f44b545e7488990ecf195a930174aa";
-      sha256 = "1k1wl9i0177h4gn1zind6j52vks68fzii0lncj4rk7vsk2ygwb4l";
+      rev = "30b02a1bee1a8cece089c7243548ef2cf5fb17bc";
+      sha256 = "0zmqw4n2v7r0g9w7x6a69vfqc73mxwrkvdvny33gyqly4is327fz";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
       pkgs.utf8proc
@@ -18,22 +18,22 @@ let
 
   omnisharp-vim = buildVimPluginFrom2Nix {
     pname = "omnisharp-vim";
-    version = "2020-05-19";
+    version = "2020-06-24";
     src = pkgs.fetchFromGitHub {
       owner = "FelschR";
       repo = "omnisharp-vim";
-      rev = "dbdc28cfa1a85d154cedeb6f8262174b16d21efc";
-      sha256 = "0mg51bpmzpcd7fgsqfsslywvld2iskhki08ladq57366rd4s5pnx";
+      rev = "27e7232093ca1e537789a75ace204b569c42659b";
+      sha256 = "1xh9fsqgh6xk83v490zfc1qb9b30h5x6a5gjk024qnn62lf0lwnm";
     };
   };
   nvim-lsp = buildVimPluginFrom2Nix {
     pname = "nvim-lsp";
-    version = "2020-05-21";
+    version = "2020-06-24";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lsp";
-      rev = "77d32660c4968b23b3897c4d0fa62d86f0b37810";
-      sha256 = "01mwh6myldp5sbichz6h0kr8b2cycp2g7djka099bfh9qnr53hjk";
+      rev = "244f76a84fb5e3c52a1a99b4e7623c32b0a8c456";
+      sha256 = "1m6g5hiiinj5i2nh24nry4l5gdg2506nx1canj1p75pvkg1b5ixx";
     };
   };
 in
