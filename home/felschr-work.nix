@@ -28,9 +28,10 @@ with pkgs;
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    extraConfig = ''
-      pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry-gnome3
-    '';
+    sshKeys = [ "967EC4516D18D0E1211FCFC38B1CAF89FF627FCA" ];
+    defaultCacheTtl = 600;
+    defaultCacheTtlSsh = 600;
+    pinentryFlavor = "gnome3";
   };
 
   programs.gpg.enable = true;
