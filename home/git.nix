@@ -7,13 +7,13 @@ let
     private = {
       name       = "Felix Tenley";
       email      = "dev@felschr.com";
-      signingKey = "22A6 DD21 EE66 E73D D4B9  3F20 A12D 7C9D 2FD3 4458";
+      signingKey = "6AB3 7A28 5420 9A41 82D9  0068 910A CB9F 6BD2 6F58";
       dirs       = [ "/etc/nixos/" ];
     };
     work = {
       name       = "Felix Schröter";
       email      = "fs@upsquared.com";
-      signingKey = "6DA1 4A05 C6E0 7DBE EB81  BA24 28ED 46BC B881 7B7A";
+      signingKey = "F28B FB74 4421 7580 5A49  2930 BE85 F0D9 987F A014";
       dirs       = [ "~/dev/" ];
     };
   };

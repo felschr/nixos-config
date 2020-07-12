@@ -27,6 +27,7 @@ with pkgs;
 
   services.gpg-agent = {
     enable = true;
+    enableSshSupport = true;
     extraConfig = ''
       pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry-gnome3
     '';
