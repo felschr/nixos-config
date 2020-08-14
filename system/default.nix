@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./hardened.nix
     ./i18n.nix
     ./nix.nix
     ./vpn.nix
