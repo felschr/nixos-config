@@ -11,7 +11,7 @@
     ./git.nix
     ./keybase.nix
     ./signal.nix
-    ./browser.nix
+    ./browsers
     ./planck.nix
   ];
 
