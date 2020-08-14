@@ -55,6 +55,7 @@ in
       fzf-vim
       lightline-vim
       nerdtree
+      vim-tmux-navigator
       vim-startify
       vim-polyglot
       vim-multiple-cursors

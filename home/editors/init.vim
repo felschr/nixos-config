@@ -47,8 +47,8 @@ set relativenumber
 set splitbelow
 
 map ; :Files<CR>
-nmap <C-l> :NERDTreeToggle<CR>
-" nmap <silent> <C-l> :Lexplore<CR>
+nmap <C-p> :NERDTreeToggle<CR>
+" nmap <silent> <C-p> :Lexplore<CR>
 map <Leader> <Plug>(easymotion-prefix)
 
 let g:netrw_banner = 0
