@@ -7,10 +7,8 @@ let
   '';
 in
 {
-  # doesn't support font ligatures yet
-  # emoji support needs to be setup
-  # use with tabbed for tab support: tabbed -c alacritty --embed
-  # TODO create PR for adding programs.alacritty.package
+  # doesn't support font ligatures & undercurls
+  # start with tabbed (need to override alacritty package)
   programs.alacritty = {
     enable = true;
     settings = recursiveUpdate {
