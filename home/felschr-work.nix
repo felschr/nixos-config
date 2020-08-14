@@ -67,10 +67,6 @@ with pkgs;
     # development
     unzip
     openssl
-    kubectl
-    kubernetes-helm
-    google-cloud-sdk
-    awscli
     postman
     jq
     dos2unix
