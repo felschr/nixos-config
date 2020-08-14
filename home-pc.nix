@@ -10,7 +10,7 @@
     ./system
     ./desktop
     ./virtualisaiton/docker.nix
-    ./plex.nix
+    ./services/jellyfin.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
