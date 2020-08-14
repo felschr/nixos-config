@@ -66,14 +66,7 @@ in
       bindkey "$terminfo[kcud1]" history-substring-search-down
       bindkey -M vicmd 'k' history-substring-search-up
       bindkey -M vicmd 'j' history-substring-search-down
-    '';
-    inherit shellAliases;
-  };
 
-  programs.fish = {
-    enable = true;
-    shellInit = ''
-      fish_vi_key_bindings
     '';
     inherit shellAliases;
   };
