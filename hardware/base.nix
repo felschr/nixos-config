@@ -35,8 +35,5 @@
     extraModules = [ pkgs.pulseaudio-modules-bt ];
     package = pkgs.pulseaudioFull;
   };
-
-  # USB devices
-  hardware.u2f.enable = true;
 }
 
