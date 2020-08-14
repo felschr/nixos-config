@@ -7,7 +7,7 @@
       <primary>yes</primary>
       <monitor>
         <monitorspec>
-          <connector>DP-4</connector>
+          <connector>DP-2</connector>
           <vendor>NVD</vendor>
           <product>G-SYNC 241910</product>
           <serial>#ASNICAsHCG3d</serial>
