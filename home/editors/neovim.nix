@@ -78,7 +78,6 @@ in
       vim-nix
 
       coc-nvim
-      coc-tabnine
       coc-pairs
       coc-emmet
       coc-snippets
