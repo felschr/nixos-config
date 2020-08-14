@@ -3,7 +3,6 @@
 {
   imports = [
     ./neovim.nix
-    ./emacs.nix
     ./vscode.nix
     ./omnisharp.nix
   ];
