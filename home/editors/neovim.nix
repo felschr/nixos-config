@@ -99,6 +99,7 @@ in
     ];
     extraConfig = with builtins;
       readFile ./init.vim +
+      readFile ./vim-surround-fix.vim +
       readFile ./which-key.vim +
       readFile ./coc.vim;
       # readFile ./lsp.vim;
