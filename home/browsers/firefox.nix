@@ -9,7 +9,7 @@ let
   sharedSettings = {
     # Privacy recommendations from https://www.privacytools.io/browsers/#about_config
     "privacy.firstparty.isolate" = true;
-    "privacy.resistFingerprinting" = true;
+    # "privacy.resistFingerprinting" = true; # forces ui.systemUsesDarkTheme to false
     "privacy.trackingprotection.fingerprinting.enabled" = true;
     "privacy.trackingprotection.cryptomining.enabled" = true;
     "privacy.trackingprotection.socialtracking.enabled" = true;
@@ -28,6 +28,7 @@ let
     "network.IDN_show_punycode" = true;
 
     # Theme
+    "ui.systemUsesDarkTheme" = prefer-dark-theme;
     "extensions.activeThemeID" = concatStrings
       [ "firefox-compact-"
         (if prefer-dark-theme then "dark" else "light")
