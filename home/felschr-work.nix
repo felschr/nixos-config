@@ -40,14 +40,11 @@ with pkgs;
     defaultProfile = "work";
   };
 
-  programs.firefox.enable = true;
-
   xdg.configFile."nixpkgs/config.nix".text = ''
     {
       allowUnfree = true;
     }
   '';
-
 
   home.packages = with pkgs; [
     # system
