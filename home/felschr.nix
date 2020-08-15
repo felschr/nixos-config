@@ -67,7 +67,6 @@
 
     # gaming
     steam
-    linux-steam-integration
     lutris
 
     # privacy
