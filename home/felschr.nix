@@ -40,7 +40,7 @@
 
   programs.gpg.enable = true;
 
-  programs.git.custom = {
+  programs.git = {
     defaultProfile = "private";
   };
 

@@ -7,7 +7,8 @@ in
     ./modules/git.nix
   ];
 
-  programs.git.custom = {
+  programs.git = {
+    enable = true;
     profiles = {
       private = {
         name       = "Felix Tenley";
@@ -23,5 +24,28 @@ in
       };
     };
     defaultProfile = "private";
+
+    ignores = [".direnv"];
+    signing = {
+      signByDefault = true;
+    };
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+      pull = {
+        rebase = true;
+      };
+      rebase = {
+        autoStash = true;
+        autoSquash = true;
+        abbreviateCommands = true;
+        missingCommitsCheck = "warn";
+      };
+    };
+    aliases = {
+      mr = "!sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -";
+      pr = "!sh -c 'git fetch $1 refs/pull/$2/head:pr/$1 && git checkout pr/$2'";
+    };
   };
 }
