@@ -8,7 +8,7 @@
     ./hardware/gpu-bumblebee.nix
     ./system
     ./desktop
-    ./virtualisaiton/docker.nix
+    ./virtualisation/docker.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

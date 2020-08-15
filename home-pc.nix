@@ -9,7 +9,7 @@
     ./hardware/ledger.nix
     ./system
     ./desktop
-    ./virtualisaiton/docker.nix
+    ./virtualisation/docker.nix
     ./services/jellyfin.nix
   ];
 
