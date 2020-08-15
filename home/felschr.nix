@@ -70,7 +70,6 @@
     lutris
 
     # privacy
-    (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
     onionshare-gui
     transmission-gtk
 

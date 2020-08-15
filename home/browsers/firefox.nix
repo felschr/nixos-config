@@ -68,4 +68,8 @@ in
       # fx_cast # TODO not published yet
     ];
   };
+
+  home.packages = with pkgs; [
+    (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
+  ];
 }
