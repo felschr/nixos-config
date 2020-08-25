@@ -3,9 +3,9 @@
 with pkgs;
 let
   dotnet-combined = with dotnetCorePackages; combinePackages [ sdk_3_1 sdk_2_1 ];
-  dotnetRoot = "${dotnet-combined}/bin";
+  dotnetRoot = "${dotnet-combined}";
   dotnetSdk = "${dotnet-combined}/sdk";
-  dotnetBinary = "${dotnetRoot}/dotnet";
+  dotnetBinary = "${dotnetRoot}/bin/dotnet";
 in
 {
   home.packages = [
