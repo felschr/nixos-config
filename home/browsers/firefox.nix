@@ -23,7 +23,7 @@ let
     "network.cookie.cookieBehavior" = 1;
     "network.http.referer.XOriginPolicy" = 2;
     "network.http.referer.XOriginTrimmingPolicy" = 2;
-    "webgl.disabled" = true;
+    # "webgl.disabled" = true;
     "browser.sessionstore.privacy_level" = 2;
     "network.IDN_show_punycode" = true;
 
@@ -37,6 +37,10 @@ let
     "devtools.theme" = if prefer-dark-theme
       then "dark"
       else "light";
+
+    # Other
+    "browser.startup.page" = 3;
+    "browser.ssb.enabled" = true;
   };
 in
 {
@@ -65,12 +69,43 @@ in
       ipfs-companion
       firefox-addons."1password-x-password-manager"
       darkreader
-      # languagetool # not available :/
-      # fx_cast # TODO not published yet
+      # not available yet:
+      # languagetool
+      # fx_cast
     ];
   };
 
-  home.packages = with pkgs; [
-    (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
-  ];
+  home.packages = let
+    escapeDesktopArg = arg: replaceStrings ["\""] ["\"\\\"\""] (toString arg);
+    makeFirefoxProfileDesktopItem = attrs:
+      let
+        mkExec = with lib; { profile, ... }: ''
+          firefox -p "${ escapeDesktopArg profile }"
+        '';
+      in
+        pkgs.makeDesktopItem ((removeAttrs attrs [ "profile" ]) // { exec = mkExec attrs; });
+    makeFirefoxWebAppDesktopItem = attrs:
+      let
+        mkExec = with lib; { app, profile ? "private", ... }: ''
+          firefox -p "${ escapeDesktopArg profile }" --ssb="${ escapeDesktopArg app }"
+        '';
+      in
+        pkgs.makeDesktopItem ((removeAttrs attrs [ "app" "profile" ]) // { exec = mkExec attrs; });
+  in
+    (with pkgs; [
+      (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
+    ])
+      ++ [
+        (makeFirefoxProfileDesktopItem {
+          name = "firefox-work";
+          desktopName = "Firefox (Work)";
+          icon = "firefox.png";
+          profile = "work";
+        })
+        (makeFirefoxWebAppDesktopItem {
+          name = "youtube-music";
+          desktopName = "YouTube Music";
+          app = "https://music.youtube.com";
+        })
+      ];
 }
