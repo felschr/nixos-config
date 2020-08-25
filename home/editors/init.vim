@@ -6,7 +6,7 @@ colorscheme gruvbox
 let g:gruvbox_number_column = 'bg1'
 
 function! s:list_projects() abort
-  return map(finddir('.git', $HOME . '/dev/**3', -1),
+  return map(['/etc/nixos/'] + finddir('.git', $HOME . '/dev/**4', -1),
     \ {_, dir -> {
       \ 'line': fnamemodify(dir, ':h:s?' . $HOME . '??'),
       \ 'path': fnamemodify(dir, ':h')}})
