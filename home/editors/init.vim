@@ -5,6 +5,16 @@ set termguicolors
 colorscheme gruvbox
 let g:gruvbox_number_column = 'bg1'
 
+function! s:gitModified()
+  let files = systemlist('git ls-files -m 2>/dev/null')
+  return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+function! s:gitUntracked()
+  let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+  return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
 function! s:list_projects() abort
   return map(['/etc/nixos/'] + finddir('.git', $HOME . '/dev/**4', -1),
     \ {_, dir -> {
@@ -12,8 +22,18 @@ function! s:list_projects() abort
       \ 'path': fnamemodify(dir, ':h')}})
 endfunction
 
+let g:startify_commands = [
+  \ {'h': ['Vim Help', 'help']},
+  \ {'r': ['Vim Reference', 'help reference']},
+  \ ]
+
 let g:startify_lists = [
-  \ {'header': ['   Projects'], 'type': function('s:list_projects')}
+  \ { 'header': ['   Sessions'],      'type': 'sessions' },
+  \ { 'header': ['   git modified'],  'type': function('s:gitModified') },
+  \ { 'header': ['   git untracked'], 'type': function('s:gitUntracked') },
+  \ { 'header': ['   Projects'],      'type': function('s:list_projects') },
+  \ { 'header': ['   Recent files'],  'type': 'files' },
+  \ { 'header': ['   Commands'],      'type': 'commands' },
   \ ]
 
 let mapleader=" "
