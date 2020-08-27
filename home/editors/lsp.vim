@@ -54,6 +54,16 @@ configs.omnisharp = {
   };
 }
 
+configs.hls = {
+  default_config = {
+    cmd = {"haskell-language-server-wrapper","--lsp"};
+    filetypes = {"haskell","lhaskell"};
+    root_dir = util.root_pattern(
+      "*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml");
+    settings = {};
+  };
+}
+
 -- format on save
 -- TODO often takes way longer to save than 1000 ms (e.g. 7000 ms in fitnesspilot-web)
 local diagnosticls_on_attach = function(_, bufnr)
@@ -72,6 +82,7 @@ nvim_lsp.tsserver.setup{}
 nvim_lsp.omnisharp.setup{}
 nvim_lsp.pyls.setup{}
 nvim_lsp.terraformls.setup{}
+nvim_lsp.hls.setup{}
 
 -- based on: https://github.com/mikew/vimrc/blob/master/src/nvim/coc-settings.json
 nvim_lsp.diagnosticls.setup{
