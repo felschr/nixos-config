@@ -59,7 +59,7 @@ configs.hls = {
     cmd = {"haskell-language-server-wrapper","--lsp"};
     filetypes = {"haskell","lhaskell"};
     root_dir = util.root_pattern(
-      "*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml");
+      "*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml", ".git");
     settings = {};
   };
 }
