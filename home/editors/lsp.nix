@@ -16,6 +16,7 @@ in
     omnisharp-roslyn
     rnix-lsp
     terraform-lsp
+    python38Packages.python-language-server
     nodePackages.bash-language-server
     nodePackages.vim-language-server
     nodePackages.yaml-language-server

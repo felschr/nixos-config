@@ -70,6 +70,7 @@ nvim_lsp.dockerls.setup{}
 nvim_lsp.rnix.setup{}
 nvim_lsp.tsserver.setup{}
 nvim_lsp.omnisharp.setup{}
+nvim_lsp.pyls.setup{}
 nvim_lsp.terraformls.setup{}
 
 -- based on: https://github.com/mikew/vimrc/blob/master/src/nvim/coc-settings.json
