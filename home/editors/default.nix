@@ -2,9 +2,9 @@
 
 {
   imports = [
+    ./lsp.nix
     ./neovim.nix
     ./vscode.nix
-    ./omnisharp.nix
   ];
 
   home.packages = with pkgs; [

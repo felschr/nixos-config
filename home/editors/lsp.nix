@@ -14,6 +14,17 @@ in
 {
   home.packages = with pkgs; [
     omnisharp-roslyn
+    rnix-lsp
+    terraform-lsp
+    nodePackages.bash-language-server
+    nodePackages.vim-language-server
+    nodePackages.yaml-language-server
+    # nodePackages.vscode-json-languageserver-bin
+    nodePackages.vscode-css-languageserver-bin
+    nodePackages.vscode-html-languageserver-bin
+    nodePackages.typescript-language-server
+    nodePackages.dockerfile-language-server-nodejs
+    haskellPackages.haskell-language-server
   ];
 
   # UseLegacySdkResolver: true is currently required

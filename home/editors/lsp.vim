@@ -32,6 +32,7 @@ nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> 1gD       <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
@@ -44,7 +45,7 @@ local configs = require'nvim_lsp/configs'
 local util = require'nvim_lsp/util'
 
 -- remove once omnisharp support is merged
-configs.omnisharp_lsp = {
+configs.omnisharp = {
   default_config = {
     cmd = {"omnisharp","-lsp"};
     filetypes = {"cs"};
@@ -53,20 +54,27 @@ configs.omnisharp_lsp = {
   };
 }
 
-nvim_lsp.tsserver.setup{}
-nvim_lsp.omnisharp_lsp.setup{}
+-- format on save
+-- TODO often takes way longer to save than 1000 ms (e.g. 7000 ms in fitnesspilot-web)
+local diagnosticls_on_attach = function(_, bufnr)
+   vim.api.nvim_command("au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+end
 
--- TODO install globally or use :LspInstall
 nvim_lsp.bashls.setup{}
+nvim_lsp.jsonls.setup{} -- TODO setup lsp or use :LspInstall
+nvim_lsp.yamlls.setup{}
 nvim_lsp.html.setup{}
 nvim_lsp.cssls.setup{}
-nvim_lsp.yamlls.setup{}
-nvim_lsp.jsonls.setup{}
 nvim_lsp.vimls.setup{}
 nvim_lsp.dockerls.setup{}
+nvim_lsp.rnix.setup{}
+nvim_lsp.tsserver.setup{}
+nvim_lsp.omnisharp.setup{}
+nvim_lsp.terraformls.setup{}
 
 -- based on: https://github.com/mikew/vimrc/blob/master/src/nvim/coc-settings.json
 nvim_lsp.diagnosticls.setup{
+  on_attach = diagnosticls_on_attach;
   filetypes = {
     "javascript",
     "javascript.jsx",
