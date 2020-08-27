@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-08-13";
+    version = "2020-08-26";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "6a8dcfab4b2bada9c68379ee17235974fa8ad411";
-      sha256 = "1hlfcxjmp3xihqb5z90bih4j2lvzypgdbqh7w3y3qvxgsaz07bzv";
+      rev = "91109ffda23d0ce61cec245b1f4ffb99e7591b62";
+      sha256 = "1rq7j6r1hfkxwmbf688fkwy9j86zam8rywy4796fwkb3imxw64rs";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
       pkgs.utf8proc
@@ -35,14 +35,14 @@ let
       rev = "fc9d94ef006e082596c2e8724eb3f1c92ff203c7";
       sha256 = "1byji4p0xigyp8y71s00fs2vrhgz3xkf51mmyz489pp52c7nfx4v";
     };
+    # required until omnisharp support is merged
+    patches = with pkgs; [
+      (fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/neovim/nvim-lsp/pull/296.patch";
+                    sha256 = "084ryddj0j7jialx91z6iqawf4s2hhn5d7wpd19cg1sl18vlyzp4"; })
+    ];
   };
 in
 {
-  home.packages = with pkgs; [
-    # nodejs-12_x
-    # haskellPackages.ghcide
-  ];
-
   programs.neovim = {
     enable = true;
     package = neovim-unwrapped;
@@ -71,39 +71,21 @@ in
       argtextobj-vim
 
       nvim-lsp
+
+      # might require :UpdateRemotePlugins
       deoplete-nvim
       deoplete-lsp
 
       vim-orgmode
       vim-nix
-
-      coc-nvim
-      coc-pairs
-      coc-emmet
-      coc-snippets
-      coc-highlight
-      coc-html
-      coc-css
-      coc-tsserver
-      coc-json
-      coc-yaml
-      coc-eslint
-      coc-stylelint
-      coc-prettier
-      # not yet in nixpkgs:
-      # coc-angular
-      # coc-omnisharp # not really maintained
-
-      ale # only used for omnisharp-vim
-      omnisharp-vim
     ];
     extraConfig = with builtins;
       readFile ./init.vim +
       readFile ./vim-surround-fix.vim +
       readFile ./which-key.vim +
-      readFile ./coc.vim;
-      # readFile ./lsp.vim;
+      readFile ./lsp.vim;
     withNodeJs = true;
+    withPython = false;
   };
 
   xdg.configFile."nvim/coc-settings.json".source = ./coc-settings.json;
