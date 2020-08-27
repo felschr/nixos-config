@@ -41,6 +41,10 @@ let
     # Other
     "browser.startup.page" = 3;
     "browser.ssb.enabled" = true;
+    "browser.tabs.drawInTitlebar" = true;
+    "browser.aboutConfig.showWarning" = false;
+    "signon.rememberSignons" = false;
+    "services.sync.engine.passwords" = false;
   };
 in
 {
