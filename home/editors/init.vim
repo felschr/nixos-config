@@ -40,15 +40,19 @@ let mapleader=" "
 let maplocalleader=","
 let g:camelcasemotion_key = '<leader>'
 
+function! LspStatus() abort
+  let has_client = luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+  return has_client ? 'LSP' : ''
+endfunction
+
 let g:lightline = {
   \ 'colorscheme': 'powerline',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+  \             [ 'lspstatus', 'readonly', 'filename', 'modified' ] ]
   \ },
   \ 'component_function': {
-  \   'cocstatus': 'coc#status',
-  \   'currentfunction': 'CocCurrentFunction'
+  \   'lspstatus': 'LspStatus'
   \ },
   \ }
 
