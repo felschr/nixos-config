@@ -45,6 +45,8 @@ let
     "browser.aboutConfig.showWarning" = false;
     "signon.rememberSignons" = false;
     "services.sync.engine.passwords" = false;
+    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
   };
 in
 {
