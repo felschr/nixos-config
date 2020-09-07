@@ -11,7 +11,7 @@
       allowDiscards = true;
     };
   };
-  boot.supportedFilesystems = [ "btrfs" "ntfs" ];
+  boot.supportedFilesystems = [ "btrfs" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
