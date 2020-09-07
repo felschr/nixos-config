@@ -11,6 +11,14 @@
     ./virtualisation/docker.nix
   ];
 
+  # replace with regenerated hardware-configuration.nix
+  boot.initrd.luks.devices = {
+    enc = {
+      device = "/dev/disk/by-partlabel/nixos";
+      allowDiscards = true;
+    };
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "pilot1-nixos"; # Define your hostname.

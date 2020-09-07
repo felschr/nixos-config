@@ -5,12 +5,6 @@
     ./planck.nix
   ];
 
-  boot.initrd.luks.devices = {
-    root = {
-      device = "/dev/disk/by-partlabel/nixos";
-      allowDiscards = true;
-    };
-  };
   boot.supportedFilesystems = [ "btrfs" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
