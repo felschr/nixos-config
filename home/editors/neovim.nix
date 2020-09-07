@@ -77,7 +77,6 @@ in
       deoplete-lsp
 
       vim-orgmode
-      vim-nix
     ];
     extraConfig = with builtins;
       readFile ./init.vim +
