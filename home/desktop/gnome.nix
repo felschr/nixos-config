@@ -19,7 +19,6 @@ in
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "firefox.desktop"
-        "brave-browser.desktop"
       ];
     };
     "org/gnome/shell/extensions/user-theme" = {
