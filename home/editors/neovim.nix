@@ -87,6 +87,4 @@ in
     withNodeJs = true;
     withPython = false;
   };
-
-  xdg.configFile."nvim/coc-settings.json".source = ./coc-settings.json;
 }

@@ -56,17 +56,6 @@ let g:lightline = {
   \ },
   \ }
 
-" omnisharp-vim config:
-let g:OmniSharp_server_stdio = 1
-let g:OmniSharp_server_path = '/etc/profiles/per-user/felschr/bin/omnisharp' " TODO use nix ref instead
-let g:OmniSharp_selector_ui = 'fzf'
-let g:OmniSharp_highlight_types = 3
-let g:OmniSharp_typeLookupInPreview = 1
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-    \ 'cs': ['OmniSharp']
-    \ }
-
 set relativenumber
 set splitbelow
 
