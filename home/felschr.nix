@@ -4,7 +4,6 @@
   imports = [
     ./shell
     ./editors
-    ./dotnet.nix
     ./desktop
     ./desktop/monitors.nix
     ./vpn.nix

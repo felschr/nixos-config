@@ -11,7 +11,6 @@ with pkgs;
     ./keybase.nix
     ./signal.nix
     ./browsers
-    ./dotnet.nix
     ./planck.nix
   ];
 
