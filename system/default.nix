@@ -22,22 +22,12 @@
     noto-fonts-cjk
     noto-fonts-emoji
   ];
-  fonts.fontconfig.localConf = ''
-    <fontconfig>
-      <alias binding="weak">
-        <family>sans-serif</family>
-        <prefer>
-          <family>emoji</family>
-        </prefer>
-      </alias>
-      <alias binding="weak">
-        <family>serif</family>
-        <prefer>
-          <family>emoji</family>
-        </prefer>
-      </alias>
-    </fontconfig>
-  '';
+  fonts.fontconfig.defaultFonts = {
+    serif = [ "Noto Serif" "Noto Color Emoji" ];
+    sansSerif = [ "Noto Sans" "Noto Color Emoji" ];
+    monospace = [ "Fira Code" "Noto Color Emoji" ];
+    emoji = [ "Noto Color Emoji" ];
+  };
 
   services.printing.enable = true;
   services.fwupd.enable = true;
