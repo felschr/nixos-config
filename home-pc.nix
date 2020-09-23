@@ -2,8 +2,6 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
-    <home-manager/nixos>
     ./hardware/base.nix
     ./hardware/gpu-nvidia.nix
     ./hardware/ledger.nix
@@ -20,8 +18,6 @@
   nixpkgs.config.permittedInsecurePackages = [
     "p7zip-16.02" # currently used by lutris
   ];
-
-  networking.hostName = "felix-nixos";
 
   hardware.enableAllFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;

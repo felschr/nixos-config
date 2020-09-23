@@ -5,7 +5,6 @@
     ./hardened.nix
     ./i18n.nix
     ./nix.nix
-    ./nur.nix
     ./vpn.nix
   ];
 

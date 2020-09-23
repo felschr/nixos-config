@@ -2,8 +2,6 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
-    <home-manager/nixos>
     ./hardware/base.nix
     ./hardware/gpu-bumblebee.nix
     ./system
@@ -20,8 +18,6 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-
-  networking.hostName = "pilot1-nixos"; # Define your hostname.
 
   hardware.enableAllFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;

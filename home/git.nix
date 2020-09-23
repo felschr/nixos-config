@@ -21,7 +21,6 @@
         dirs       = [ "~/dev/work/" ];
       };
     };
-    defaultProfile = "private";
 
     ignores = [".direnv"];
     signing = {

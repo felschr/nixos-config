@@ -2,8 +2,6 @@
 
 with pkgs;
 let
-  # TODO this doesn't affect the desktop file
-  # e.g. when starting via GNOME the flag is not set
   signal-desktop = runCommand "signal-desktop" {
     buildInputs = [ makeWrapper ];
   } ''
@@ -17,8 +15,10 @@ in
 {
   home.packages = [ signal-desktop ];
 
+  # TODO switch to overwritten `signal-desktop` when
+  # desktop file is updated with correct exec path
   xdg.configFile."autostart/signal-desktop.desktop".text =
     builtins.replaceStrings
       ["bin/signal-desktop"] ["bin/signal-desktop --start-in-tray"]
-      (builtins.readFile "${signal-desktop}/share/applications/signal-desktop.desktop");
+      (builtins.readFile "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop");
 }
