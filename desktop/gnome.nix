@@ -2,15 +2,15 @@
 
 with pkgs;
 let
-  gnome-shell-extension-pop-shell = stdenv.mkDerivation rec {
-    pname = "gnome-shell-extension-pop-shell";
-    version = "2020-08-14";
+  pop-shell = stdenv.mkDerivation rec {
+    pname = "pop-shell";
+    version = "2020-09-08";
 
     src = fetchFromGitHub {
       owner = "pop-os";
       repo = "shell";
-      rev = "69415ea1fa221a15e8b1c1f9f9ab0b4ba302ee9c";
-      sha256 = "0p0kh1f7achrr51mwmxnnliz82qmfdi37wvc9xhf02w0cx28hlml";
+      rev = "017c92e04f4eefead2561fa35559891eb83388c9";
+      sha256 = "12ch08ny3m2hf6ii2niw0x07pfcknl3r8rixvijaj36wvbgviaxa";
     };
 
     nativeBuildInputs = [ glib ];
@@ -21,13 +21,13 @@ let
   };
 in
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with gnomeExtensions; [
     gnome3.dconf-editor
     gnome3.gnome-tweaks
     gnome3.gnome-shell-extensions # required for user-theme
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.appindicator
-    gnome-shell-extension-pop-shell
+    dash-to-panel
+    appindicator
+    pop-shell
   ];
 
   services.xserver.displayManager.gdm.enable = true;
