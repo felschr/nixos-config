@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-08-26";
+    version = "2020-09-16";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "91109ffda23d0ce61cec245b1f4ffb99e7591b62";
-      sha256 = "1rq7j6r1hfkxwmbf688fkwy9j86zam8rywy4796fwkb3imxw64rs";
+      rev = "c3f4610922b3f26c952281481f65d255ad352ac5";
+      sha256 = "1pcrngx26mkxpcdz897nps1v6hvwq9phrx92bsyixsva5z9h468h";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
       pkgs.utf8proc
@@ -16,30 +16,15 @@ let
 
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
-  omnisharp-vim = buildVimPluginFrom2Nix {
-    pname = "omnisharp-vim";
-    version = "2020-06-24";
-    src = pkgs.fetchFromGitHub {
-      owner = "FelschR";
-      repo = "omnisharp-vim";
-      rev = "27e7232093ca1e537789a75ace204b569c42659b";
-      sha256 = "1xh9fsqgh6xk83v490zfc1qb9b30h5x6a5gjk024qnn62lf0lwnm";
-    };
-  };
   nvim-lsp = buildVimPluginFrom2Nix {
-    pname = "nvim-lsp";
-    version = "2020-08-10";
+    pname = "nvim-lspconfig";
+    version = "2020-09-07";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
-      repo = "nvim-lsp";
-      rev = "fc9d94ef006e082596c2e8724eb3f1c92ff203c7";
-      sha256 = "1byji4p0xigyp8y71s00fs2vrhgz3xkf51mmyz489pp52c7nfx4v";
+      repo = "nvim-lspconfig";
+      rev = "60133c47e0fd82556d7ca092546ebfa8d047466e";
+      sha256 = "15ysbbvxlgy1qx8rjv2i9pgjshldcs3m1ff0my2y5mnr3cpqb3s6";
     };
-    # required until omnisharp support is merged
-    patches = with pkgs; [
-      (fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/neovim/nvim-lsp/pull/296.patch";
-                    sha256 = "084ryddj0j7jialx91z6iqawf4s2hhn5d7wpd19cg1sl18vlyzp4"; })
-    ];
   };
 in
 {
@@ -55,7 +40,6 @@ in
       fzf-vim
       lightline-vim
       nerdtree
-      vim-tmux-navigator
       vim-startify
       vim-polyglot
       vim-multiple-cursors
@@ -69,6 +53,7 @@ in
       vim-test
       camelcasemotion
       argtextobj-vim
+      wmgraphviz-vim
 
       nvim-lsp
 

@@ -44,26 +44,6 @@ local nvim_lsp = require'nvim_lsp'
 local configs = require'nvim_lsp/configs'
 local util = require'nvim_lsp/util'
 
--- remove once omnisharp support is merged
-configs.omnisharp = {
-  default_config = {
-    cmd = {"omnisharp","-lsp"};
-    filetypes = {"cs"};
-    root_dir = util.root_pattern("*.csproj", "*.sln", ".git");
-    settings = {};
-  };
-}
-
-configs.hls = {
-  default_config = {
-    cmd = {"haskell-language-server-wrapper","--lsp"};
-    filetypes = {"haskell","lhaskell"};
-    root_dir = util.root_pattern(
-      "*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml", ".git");
-    settings = {};
-  };
-}
-
 -- format on save
 -- TODO often takes way longer to save than 1000 ms (e.g. 7000 ms in fitnesspilot-web)
 local diagnosticls_on_attach = function(_, bufnr)
@@ -71,7 +51,7 @@ local diagnosticls_on_attach = function(_, bufnr)
 end
 
 nvim_lsp.bashls.setup{}
-nvim_lsp.jsonls.setup{} -- TODO setup lsp or use :LspInstall
+nvim_lsp.jsonls.setup{}
 nvim_lsp.yamlls.setup{}
 nvim_lsp.html.setup{}
 nvim_lsp.cssls.setup{}
@@ -79,7 +59,9 @@ nvim_lsp.vimls.setup{}
 nvim_lsp.dockerls.setup{}
 nvim_lsp.rnix.setup{}
 nvim_lsp.tsserver.setup{}
-nvim_lsp.omnisharp.setup{}
+nvim_lsp.omnisharp.setup{
+  cmd = {"omnisharp", "--languageserver"};
+}
 nvim_lsp.pyls.setup{}
 nvim_lsp.terraformls.setup{}
 nvim_lsp.hls.setup{}
