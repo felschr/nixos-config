@@ -56,5 +56,7 @@
         ];
     };
 
+    homeManagerModules.git = import ./home/modules/git.nix;
+
   };
 }
