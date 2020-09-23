@@ -78,6 +78,11 @@
     onionshare-gui
     transmission-gtk
 
+    # media backups
+    makemkv
+    handbrake
+    filebot
+
     # other
     bitwarden
     ledger-live-desktop
