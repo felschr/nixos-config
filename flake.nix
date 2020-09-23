@@ -3,7 +3,6 @@
 
   inputs.home-manager = {
     url = "github:nix-community/home-manager/master";
-    flake = false;
   };
 
   inputs.nur.url = "github:nix-community/NUR/master";
@@ -24,7 +23,7 @@
 
       imports = [
         hardwareConfig
-        "${home-manager}/nixos"
+        home-manager.nixosModules.home-manager
         config
       ];
     });
