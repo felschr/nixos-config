@@ -24,9 +24,7 @@
     };
   };
 
-  programs.ssh = {
-    enable = true;
-  };
+  programs.ssh = { enable = true; };
 
   services.gpg-agent = {
     enable = true;
@@ -39,9 +37,7 @@
 
   programs.gpg.enable = true;
 
-  programs.git = {
-    defaultProfile = "private";
-  };
+  programs.git = { defaultProfile = "private"; };
 
   xdg.configFile."nixpkgs/config.nix".text = ''
     {

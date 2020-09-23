@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
-with pkgs;
-{
+with pkgs; {
   imports = [
     ./shell
     ./editors
@@ -20,9 +19,7 @@ with pkgs;
     longitude = "10.4021562";
   };
 
-  programs.ssh = {
-    enable = true;
-  };
+  programs.ssh = { enable = true; };
 
   services.gpg-agent = {
     enable = true;
@@ -35,9 +32,7 @@ with pkgs;
 
   programs.gpg.enable = true;
 
-  programs.git = {
-    defaultProfile = "work";
-  };
+  programs.git = { defaultProfile = "work"; };
 
   xdg.configFile."nixpkgs/config.nix".text = ''
     {

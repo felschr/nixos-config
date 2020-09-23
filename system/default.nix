@@ -1,18 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardened.nix
-    ./i18n.nix
-    ./nix.nix
-    ./vpn.nix
-  ];
+  imports = [ ./hardened.nix ./i18n.nix ./nix.nix ./vpn.nix ];
 
-  environment.systemPackages = with pkgs; [
-    wget
-    curl
-    neovim
-  ];
+  environment.systemPackages = with pkgs; [ wget curl neovim ];
 
   fonts.fonts = with pkgs; [
     fira-code

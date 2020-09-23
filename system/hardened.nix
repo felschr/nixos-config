@@ -2,8 +2,7 @@
 
 # utilises some of the measures from
 # <nixpkgs/nixos/modules/profiles/hardened.nix>
-with lib;
-{
+with lib; {
   boot.loader.systemd-boot.editor = mkDefault false;
 
   nix.allowedUsers = mkDefault [ "@users" ];

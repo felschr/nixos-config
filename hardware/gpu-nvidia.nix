@@ -9,9 +9,6 @@
 
   hardware.opengl = {
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      libvdpau-va-gl
-      vaapiVdpau
-    ];
+    extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
   };
 }

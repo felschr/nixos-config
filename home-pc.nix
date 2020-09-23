@@ -11,7 +11,7 @@
     ./services/jellyfin.nix
   ];
 
-  swapDevices = [ { device = "/swap/swapfile"; } ];
+  swapDevices = [{ device = "/swap/swapfile"; }];
 
   nixpkgs.config.allowUnfree = true;
 

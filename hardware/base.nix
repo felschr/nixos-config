@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./planck.nix
-  ];
+  imports = [ ./planck.nix ];
 
   boot.supportedFilesystems = [ "btrfs" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -16,9 +14,7 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.config = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-    };
+    General = { Enable = "Source,Sink,Media,Socket"; };
   };
 
   # Sound.

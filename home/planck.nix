@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 
-with pkgs;
-{
-  home.packages = [
-    wally-cli
-  ];
+with pkgs; {
+  home.packages = [ wally-cli ];
 }

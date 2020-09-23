@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 
-with pkgs;
-{
-  home.packages = with pkgs; [
-    mullvad-vpn
-  ];
+with pkgs; {
+  home.packages = with pkgs; [ mullvad-vpn ];
 
   # autostart
   xdg.configFile."autostart/mullvad-vpn.desktop".source =

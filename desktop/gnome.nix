@@ -19,16 +19,16 @@ let
     # the gschema doesn't seem to be installed properly (see dconf)
     makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
   };
-in
-{
-  environment.systemPackages = with pkgs; with gnomeExtensions; [
-    gnome3.dconf-editor
-    gnome3.gnome-tweaks
-    gnome3.gnome-shell-extensions # required for user-theme
-    dash-to-panel
-    appindicator
-    pop-shell
-  ];
+in {
+  environment.systemPackages = with pkgs;
+    with gnomeExtensions; [
+      gnome3.dconf-editor
+      gnome3.gnome-tweaks
+      gnome3.gnome-shell-extensions # required for user-theme
+      dash-to-panel
+      appindicator
+      pop-shell
+    ];
 
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = false;
