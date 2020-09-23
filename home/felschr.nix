@@ -79,6 +79,7 @@
     transmission-gtk
 
     # other
+    bitwarden
     ledger-live-desktop
   ];
 

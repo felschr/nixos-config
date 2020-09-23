@@ -76,7 +76,7 @@ in
       terms-of-service-didnt-read
       vimium
       ipfs-companion
-      firefox-addons."1password-x-password-manager"
+      bitwarden
       darkreader
       # not available yet:
       # languagetool
