@@ -1,16 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./lsp.nix
-    ./neovim.nix
-    ./vscode.nix
-  ];
+  imports = [ ./lsp.nix ./neovim ./vscode.nix ];
 
-  home.packages = with pkgs; [
-    fzf
-    ripgrep
-  ];
+  home.packages = with pkgs; [ fzf ripgrep ];
 
   home.sessionVariables = with pkgs; {
     EDITOR = "nvim";
