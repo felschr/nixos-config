@@ -6,15 +6,15 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/NIXOS_BOOT";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/NIXOS_BOOT";
+    fsType = "vfat";
+  };
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/NIXOS_SD";
+    fsType = "ext4";
+  };
 
   swapDevices = [ ];
 
