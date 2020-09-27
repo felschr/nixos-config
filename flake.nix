@@ -60,6 +60,19 @@
         ];
       };
 
+      nixosConfigurations.felix-rpi4 = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          # nixpkgs.nixosModules.notDetected
+          (import "${nixpkgs}/nixos/modules/installer/cd-dvd/sd-image-raspberrypi4.nix")
+          (systemModule {
+            hostName = "felix-rpi4";
+            hardwareConfig = ./hardware/rpi4.nix;
+            config = ./rpi4.nix;
+          })
+        ];
+      };
+
       homeManagerModules.git = import ./home/modules/git.nix;
 
     } // flake-utils.lib.eachDefaultSystem (system:
