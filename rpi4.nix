@@ -21,7 +21,7 @@
     "console=ttyAMA0,115200"
     "console=tty1"
   ];
-  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
 
   networking.domain = "home.felschr.com";
 
