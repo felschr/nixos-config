@@ -63,8 +63,7 @@
       nixosConfigurations.felix-rpi4 = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
-          # nixpkgs.nixosModules.notDetected
-          (import "${nixpkgs}/nixos/modules/installer/cd-dvd/sd-image-raspberrypi4.nix")
+          nixpkgs.nixosModules.notDetected
           (systemModule {
             hostName = "felix-rpi4";
             hardwareConfig = ./hardware/rpi4.nix;
