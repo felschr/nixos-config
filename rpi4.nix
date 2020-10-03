@@ -8,6 +8,7 @@
     ./system/i18n.nix
     ./services/jellyfin.nix
     ./modules/cfdyndns.nix
+    ./services/home-assistant.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -39,6 +40,26 @@
     email = "felschr@pm.me";
     apikeyFile = "/etc/nixos/secrets/cfdyndns-apikey";
     records = [ "home.felschr.com" ];
+  };
+
+  services.nginx = {
+    enable = true;
+
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
+    recommendedProxySettings = true;
+
+    virtualHosts = {
+      "home.felschr.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://localhost:8123";
+          proxyWebsockets = true;
+        };
+      };
+    };
   };
 
   programs.zsh.enable = true;
