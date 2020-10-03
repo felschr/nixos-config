@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 
+with builtins;
 {
   imports = [
     # ./hardware/base.nix
@@ -64,12 +65,23 @@
 
   programs.zsh.enable = true;
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    challengeResponseAuthentication = false;
+    passwordAuthentication = false;
+    permitRootLogin = "no";
+  };
+
+  boot.initrd.network.ssh = {
+    enable = true;
+    authorizedKeys = [(readFile "./key")];
+  };
 
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "disk" ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keyFiles = [ ./key ];
   };
 
   home-manager = {
