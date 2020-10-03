@@ -83,8 +83,8 @@ in {
     ];
     extraConfig = with builtins;
       readFile ./init.vim + readFile ./vim-surround-fix.vim
-      + readFile ./which-key.vim + vimLua (readFile ./lsp/extensions.lua)
-      + readFile ./lsp/lsp.vim + ''
+      + readFile ./which-key.vim + readFile ./test.vim
+      + vimLua (readFile ./lsp/extensions.lua) + readFile ./lsp/lsp.vim + ''
         packloadall " https://github.com/neovim/neovim/issues/11409
         ${vimLua (readFile ./lsp/lsp.lua)}
       '';
