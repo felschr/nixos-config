@@ -2,28 +2,17 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-09-24";
+    version = "2020-09-30";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "a958039f0ad7cd4f6a139fde18795c88c623a30e";
-      sha256 = "04xkms6vvfa0zafvijw6mc88adfsmrksan8hg2p6jp0kwc5i9kqq";
+      rev = "e5d98d85693245fec811307e5a2ccfdea3a350cd";
+      sha256 = "119537lcrqn84n3sqj917jql4nrczk85idj27yqhp0dafc21raa8";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.utf8proc ];
   });
 
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-
-  nvim-lsp = buildVimPluginFrom2Nix {
-    pname = "nvim-lspconfig";
-    version = "2020-09-07";
-    src = pkgs.fetchFromGitHub {
-      owner = "neovim";
-      repo = "nvim-lspconfig";
-      rev = "60133c47e0fd82556d7ca092546ebfa8d047466e";
-      sha256 = "15ysbbvxlgy1qx8rjv2i9pgjshldcs3m1ff0my2y5mnr3cpqb3s6";
-    };
-  };
 
   # not very stable yet, no existing netcoredbg config
   nvim-dap = buildVimPluginFrom2Nix {
@@ -59,7 +48,7 @@ in {
       nerdtree
       vim-startify
       vim-polyglot
-      vim-multiple-cursors
+      vim-visual-multi
       vim-surround
       vim-commentary
       vim-easymotion
@@ -72,7 +61,7 @@ in {
       argtextobj-vim
       wmgraphviz-vim
 
-      nvim-lsp
+      nvim-lspconfig
       nvim-dap
 
       # might require :UpdateRemotePlugins

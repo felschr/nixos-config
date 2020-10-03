@@ -17,6 +17,6 @@ endfunction
 omap <expr> s '<esc>'.SurroundOp('s')
 omap <expr> S '<esc>'.SurroundOp('S')
 
-imap    <C-S> <Plug>Isurround
-imap      <C-G>s <Plug>Isurround
+imap <C-S>  <Plug>Isurround
+imap <C-G>s <Plug>Isurround
 imap <C-G>S <Plug>ISurround
