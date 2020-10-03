@@ -1,22 +1,22 @@
 { config, pkgs, ... }:
 
 let
-  omnisharp-roslyn = pkgs.omnisharp-roslyn.overrideAttrs(oldAttrs: rec {
+  omnisharp-roslyn = pkgs.omnisharp-roslyn.overrideAttrs (oldAttrs: rec {
     pname = "omnisharp-roslyn";
     version = "1.37.1";
 
     src = pkgs.fetchurl {
-      url = "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${version}/omnisharp-mono.tar.gz";
+      url =
+        "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${version}/omnisharp-mono.tar.gz";
       sha256 = "04pyychzwhhcv0js0qyramz6nd0wz03qqqgvz1j9m9wxyiz0dv3c";
     };
   });
-in
-{
+in {
   home.packages = with pkgs; [
     # language servers
     omnisharp-roslyn
     rnix-lsp
-    terraform-lsp
+    terraform-ls
     python3Packages.python-language-server
     nodePackages.bash-language-server
     nodePackages.vim-language-server
