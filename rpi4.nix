@@ -7,6 +7,7 @@
     ./system/nix.nix
     ./system/i18n.nix
     ./services/jellyfin.nix
+    ./modules/cfdyndns.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -21,6 +22,24 @@
     "console=tty1"
   ];
   hardware.enableAllFirmware = true;
+
+  networking.domain = "home.felschr.com";
+
+  networking.firewall.allowedTCPPorts = [
+    80 443
+  ];
+
+  security.acme = {
+    acceptTerms = true;
+    email = "felschr@pm.me";
+  };
+
+  services.custom.cfdyndns = {
+    enable = true;
+    email = "felschr@pm.me";
+    apikeyFile = "/etc/nixos/secrets/cfdyndns-apikey";
+    records = [ "home.felschr.com" ];
+  };
 
   programs.zsh.enable = true;
 
