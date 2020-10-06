@@ -7,7 +7,7 @@ with builtins; {
     ./system/nix.nix
     ./system/i18n.nix
     ./modules/cfdyndns.nix
-    ./services/syncthing/felix-nixos.nix
+    ./services/syncthing/rpi4.nix
     ./services/jellyfin.nix
     ./services/home-assistant.nix
   ];
