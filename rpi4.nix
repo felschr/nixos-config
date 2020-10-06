@@ -3,6 +3,7 @@
 with builtins; {
   imports = [
     # ./hardware/base.nix
+    ./hardware/gpu-rpi4.nix
     # ./system
     ./system/nix.nix
     ./system/i18n.nix
