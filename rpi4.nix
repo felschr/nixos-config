@@ -1,14 +1,14 @@
 { config, pkgs, ... }:
 
-with builtins;
-{
+with builtins; {
   imports = [
     # ./hardware/base.nix
     # ./system
     ./system/nix.nix
     ./system/i18n.nix
-    ./services/jellyfin.nix
     ./modules/cfdyndns.nix
+    ./services/syncthing/felix-nixos.nix
+    ./services/jellyfin.nix
     ./services/home-assistant.nix
   ];
 
@@ -19,17 +19,12 @@ with builtins;
   boot.loader.raspberryPi.enable = true;
   boot.loader.raspberryPi.version = 4;
   boot.kernelPackages = pkgs.linuxPackages_rpi4;
-  boot.kernelParams = [
-    "console=ttyAMA0,115200"
-    "console=tty1"
-  ];
+  boot.kernelParams = [ "console=ttyAMA0,115200" "console=tty1" ];
   hardware.enableRedistributableFirmware = true;
 
   networking.domain = "home.felschr.com";
 
-  networking.firewall.allowedTCPPorts = [
-    80 443
-  ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   security.acme = {
     acceptTerms = true;
@@ -74,7 +69,7 @@ with builtins;
 
   boot.initrd.network.ssh = {
     enable = true;
-    authorizedKeys = [(readFile "./key")];
+    authorizedKeys = [ (readFile "./key") ];
   };
 
   users.users.felschr = {

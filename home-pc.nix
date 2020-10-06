@@ -8,6 +8,7 @@
     ./system
     ./desktop
     ./virtualisation/docker.nix
+    ./services/syncthing/felix-nixos.nix
     ./services/jellyfin.nix
   ];
 

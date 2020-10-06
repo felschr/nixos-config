@@ -8,6 +8,7 @@
     ./desktop/monitors.nix
     ./vpn.nix
     ./git.nix
+    ./syncthing.nix
     ./keybase.nix
     ./signal.nix
     ./browsers
