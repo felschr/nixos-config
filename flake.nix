@@ -29,7 +29,12 @@
 
           nix.registry.nixpkgs.flake = nixpkgs;
 
-          nixpkgs.overlays = [ nur.overlay ];
+          nixpkgs.overlays = [
+            nur.overlay
+	    (self: super: {
+              deconz = pkgs.qt5.callPackage ./pkgs/deconz { };
+            })
+          ];
 
           imports =
             [ hardwareConfig home-manager.nixosModules.home-manager config ];
