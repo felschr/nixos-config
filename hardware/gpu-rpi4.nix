@@ -14,6 +14,6 @@
     videoDrivers = [ "modesetting" ];
   };
   boot.loader.raspberryPi.firmwareConfig = ''
-    gpu_mem=192
+    gpu_mem=320
   '';
 }
