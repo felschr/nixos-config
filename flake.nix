@@ -19,6 +19,11 @@
 
   outputs = { self, nixpkgs, flake-utils, home-manager, nur, pre-commit-hooks }:
     let
+      overlays = {
+        deconz = self: super: {
+          deconz = self.qt5.callPackage ./pkgs/deconz { };
+        };
+      };
       systemModule = { hostName, hardwareConfig, config }:
         ({ pkgs, ... }: {
           networking.hostName = hostName;
@@ -29,12 +34,7 @@
 
           nix.registry.nixpkgs.flake = nixpkgs;
 
-          nixpkgs.overlays = [
-            nur.overlay
-	    (self: super: {
-              deconz = pkgs.qt5.callPackage ./pkgs/deconz { };
-            })
-          ];
+          nixpkgs.overlays = [ nur.overlay overlays.deconz ];
 
           imports =
             [ hardwareConfig home-manager.nixosModules.home-manager config ];
@@ -76,6 +76,10 @@
           })
         ];
       };
+
+      inherit overlays;
+
+      nixosModules.deconz = import ./services/deconz.nix;
 
       homeManagerModules.git = import ./home/modules/git.nix;
 
