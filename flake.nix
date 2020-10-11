@@ -22,6 +22,9 @@
       overlays = {
         deconz = self: super: {
           deconz = self.qt5.callPackage ./pkgs/deconz { };
+          # This is the path so that the correct python deps and versions can be used
+          # with python{version}Packages.callPackage pydeconz { }
+          pydeconz = ./pkgs/pydeconz;
         };
       };
       systemModule = { hostName, hardwareConfig, config }:
