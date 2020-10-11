@@ -1,8 +1,6 @@
 { config, pkgs, pydeconz, ... }:
 
 with pkgs; {
-  imports = [ ./deconz.nix ];
-
   environment.systemPackages = with pkgs; [ deconz ];
 
   local.services.deconz = {

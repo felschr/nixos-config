@@ -42,12 +42,19 @@
           imports =
             [ hardwareConfig home-manager.nixosModules.home-manager config ];
         });
-    in {
+    in rec {
+
+      inherit overlays;
+
+      nixosModules.deconz = import ./services/deconz.nix;
+
+      homeManagerModules.git = import ./home/modules/git.nix;
 
       nixosConfigurations.felix-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
+          { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
           (systemModule {
             hostName = "felix-nixos";
             hardwareConfig = ./hardware/felix-nixos.nix;
@@ -60,6 +67,7 @@
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
+          { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
           (systemModule {
             hostName = "pilot1";
             hardwareConfig = ./hardware-configuration.nix; # TODO
@@ -72,6 +80,7 @@
         system = "aarch64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
+          nixosModules.deconz
           (systemModule {
             hostName = "felix-rpi4";
             hardwareConfig = ./hardware/rpi4.nix;
@@ -79,12 +88,6 @@
           })
         ];
       };
-
-      inherit overlays;
-
-      nixosModules.deconz = import ./services/deconz.nix;
-
-      homeManagerModules.git = import ./home/modules/git.nix;
 
     } // flake-utils.lib.eachDefaultSystem (system:
       let
