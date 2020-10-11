@@ -1,4 +1,4 @@
-{ config, pkgs, pydeconz, ... }:
+{ config, pkgs, ... }:
 
 with pkgs; {
   environment.systemPackages = with pkgs; [ deconz ];
@@ -13,7 +13,7 @@ with pkgs; {
   services.home-assistant = {
     enable = true;
     package = home-assistant.override {
-      extraPackages = ps: [ (ps.callPackage pydeconz { }) ];
+      extraPackages = ps: with ps; [ (callPackage pydeconz { }) ];
     };
     openFirewall = true;
     config = {
