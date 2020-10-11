@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./modules/git.nix ];
-
   programs.git = {
     enable = true;
     profiles = {
