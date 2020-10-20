@@ -1,23 +1,18 @@
 { config, pkgs, ... }:
 
-let
-  shellAliases = {
-    emacs = "emacsclient -c";
-  };
-in
-{
-  imports = [
-    ./terminal.nix
-  ];
+let shellAliases = { emacs = "emacsclient -c"; };
+in {
+  imports = [ ./terminal.nix ];
 
-  programs.fzf = {
-    enable = true;
-  };
+  programs.fzf = { enable = true; };
   programs.starship = {
     enable = true;
     settings = {
       add_newline = false;
+      status.symbol = "❌ ";
+      status.disabled = false;
       aws.disabled = true;
+      gcloud.disabled = true;
     };
   };
 
@@ -41,7 +36,8 @@ in
       {
         name = "zsh-history-substring-search";
         src = zsh-history-substring-search;
-        file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
+        file =
+          "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
       }
     ];
     initExtra = with pkgs; ''
