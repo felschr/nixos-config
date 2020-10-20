@@ -10,13 +10,13 @@ if getline(1) =~ '^#!.*nix-shell'
       call dist#ft#SetFileTypeSH(s:command)
     elseif s:command == 'zsh'
       set ft=zsh
-    elseif s:command =~ '^gnumake\d*\>'
+    elseif s:command =~ 'make\>'
       set ft=make
-    elseif s:command =~ '^nodejs'
+    elseif s:command =~ '^node\(js\)\=\>\|^js\>'
       set ft=javascript
-    elseif s:command =~ '^ghc'
+    elseif s:command =~ '^ghci'
       set ft=haskell
-    elseif s:command =~ '^python'
+    elseif s:command =~ 'python'
       set ft=python
     endif
   endif

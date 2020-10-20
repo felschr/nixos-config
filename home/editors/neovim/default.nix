@@ -80,4 +80,6 @@ in {
     withNodeJs = true;
     withPython = false;
   };
+
+  xdg.configFile."nvim/scripts.vim".source = ./scripts.vim;
 }
