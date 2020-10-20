@@ -77,8 +77,9 @@ in {
       ipfs-companion
       bitwarden
       darkreader
+      languagetool
+      metamask
       # not available yet:
-      # languagetool
       # fx_cast
       # google-lighthouse
     ];
