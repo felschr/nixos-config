@@ -80,7 +80,7 @@
         system = "aarch64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
-	  { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
+          { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
           nixosModules.deconz
           (systemModule {
             hostName = "felix-rpi4";
