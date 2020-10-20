@@ -33,6 +33,10 @@ in {
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = false;
   services.xserver.desktopManager.gnome3.enable = true;
+  services.xserver.desktopManager.gnome3.extraGSettingsOverrides = ''
+    [org/gnome/desktop/input-sources]
+    sources=[('xkb', 'gb'), ('xkb', 'mozc-jp')]
+  '';
 
   # exclude some default applications
   environment.gnome3.excludePackages = with pkgs; [

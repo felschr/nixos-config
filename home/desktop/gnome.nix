@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   left = "h";
@@ -6,7 +6,7 @@ let
   up = "k";
   right = "l";
 in {
-  dconf.settings = {
+  dconf.settings = with lib.hm.gvariant; {
     "org/gnome/shell" = {
       enabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"
@@ -29,7 +29,7 @@ in {
     };
     "org/gnome/desktop/sound" = { theme-name = "Pop"; };
     "org/gnome/desktop/input-sources" = {
-      sources = [ "('xkb', 'gb')" "('ibus', 'mozc-jp')" ];
+      sources = map mkTuple [ [ "xkb" "gb" ] [ "ibus" "mozc-jp" ] ];
       xkb-options = [ "compose:ralt" ];
     };
 
