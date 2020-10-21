@@ -48,7 +48,7 @@ with builtins; {
     recommendedProxySettings = true;
 
     virtualHosts = {
-      "home.felschr.com" = {
+      ${ config.networking.domain } = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {

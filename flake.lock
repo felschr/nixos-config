@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "felschr-nixpkgs": {
+      "locked": {
+        "lastModified": 1603300533,
+        "narHash": "sha256-WQpKeqOAFkXv1NSq+VCpU7B6WJ6jdopvlUO0TkMq+mU=",
+        "owner": "felschr",
+        "repo": "nixpkgs",
+        "rev": "30b1d77f15634bb7574edf33087cd80f4e85a245",
+        "type": "github"
+      },
+      "original": {
+        "owner": "felschr",
+        "ref": "feat/mosquitto-password-file",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -178,6 +194,7 @@
     },
     "root": {
       "inputs": {
+        "felschr-nixpkgs": "felschr-nixpkgs",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

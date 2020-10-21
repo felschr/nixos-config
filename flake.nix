@@ -1,6 +1,13 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+  inputs.felschr-nixpkgs = {
+    type = "github";
+    owner = "felschr";
+    repo = "nixpkgs";
+    ref = "feat/mosquitto-password-file";
+  };
+
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   inputs.home-manager = {
@@ -17,7 +24,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, nur, pre-commit-hooks }:
+  outputs = { self, nixpkgs, felschr-nixpkgs, flake-utils, home-manager, nur, pre-commit-hooks }:
     let
       overlays = {
         deconz = self: super: {
@@ -80,7 +87,11 @@
         system = "aarch64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
-          { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
+          {
+            disabledModules = [ "services/networking/mosquitto.nix" ];
+            imports = [ "${felschr-nixpkgs}/nixos/modules/services/networking/mosquitto.nix" ];
+          }
+	  { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
           nixosModules.deconz
           (systemModule {
             hostName = "felix-rpi4";
