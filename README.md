@@ -2,7 +2,7 @@
 
 ## Installation
 
-Clone the configuraiton into `etc/nixos`.
+Clone the configuration into `etc/nixos`.
 
 On a new machine run:
 
