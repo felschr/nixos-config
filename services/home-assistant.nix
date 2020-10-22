@@ -4,6 +4,7 @@ with pkgs;
 
 let
   mqttDomain = "mqtt.${config.networking.domain}";
+  mqttWSPort = "9001";
 in
 {
   environment.systemPackages = with pkgs; [ deconz ];
@@ -21,7 +22,7 @@ in
         enableACME = true;
         forceSSL = true;
         locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.mosquitto.port}";
+          proxyPass = "http://localhost:${mqttWSPort}";
           proxyWebsockets = true;
         };
       };
@@ -37,6 +38,7 @@ in
     host = "0.0.0.0";
     checkPasswords = true;
     extraConf = ''
+      listener ${mqttWSPort}
       protocol websockets
     '';
     users = {
