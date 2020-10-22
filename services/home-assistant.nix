@@ -61,6 +61,20 @@ in
         ];
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/owntracks";
       };
+      "felix" = {
+        acl = [
+          "topic read owntracks/#"
+          "topic readwrite owntracks/felix/#"
+        ];
+        hashedPasswordFile = "/etc/nixos/secrets/mqtt/felix";
+      };
+      "birgit" = {
+        acl = [
+          "topic read owntracks/#"
+          "topic readwrite owntracks/birgit/#"
+        ];
+        hashedPasswordFile = "/etc/nixos/secrets/mqtt/birgit";
+      };
     };
   };
 
