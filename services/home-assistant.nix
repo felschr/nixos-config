@@ -48,12 +48,13 @@ in
         ];
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/hass";
       };
-      #"tasmota" = {
-      #  acl = [
-      #    "topic readwrite tasmota/#"
-      #  ];
-      #  hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
-      #};
+      "tasmota" = {
+        acl = [
+          "topic readwrite tasmota/#"
+          "topic readwrite homeassistant/#"
+        ];
+        hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
+      };
       "owntracks" = {
         acl = [
           "topic readwrite owntracks/#"
@@ -97,7 +98,7 @@ in
       };
       mqtt = {
         broker = "localhost";
-        port = "8883";
+        port = config.services.mosquitto.port;
         username = "hass";
         password = "!secret mqtt_password";
         discovery = true;
