@@ -2,6 +2,9 @@
 
 with pkgs; 
 
+let
+  mqttDomain = "mqtt.${config.networking.domain}";
+in
 {
   environment.systemPackages = with pkgs; [ deconz ];
 
@@ -12,22 +15,30 @@ with pkgs;
     openFirewall = true;
   };
 
-  users.users.mosquitto.extraGroups = [ "acme" ];
+  services.nginx = {
+    virtualHosts = {
+      ${ mqttDomain } = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.mosquitto.port}";
+          proxyWebsockets = true;
+        };
+      };
+    };
+  };
 
   networking.firewall.allowedTCPPorts = [
-    config.services.mosquitto.ssl.port
+    config.services.mosquitto.port
   ];
 
   services.mosquitto = {
     enable = true;
     host = "0.0.0.0";
     checkPasswords = true;
-    ssl = {
-      enable = true;
-      cafile = "/var/lib/acme/${config.networking.domain}/chain.pem";
-      certfile = "/var/lib/acme/${config.networking.domain}/cert.pem";
-      keyfile = "/var/lib/acme/${config.networking.domain}/key.pem";
-    };
+    extraConf = ''
+      protocol websockets
+    '';
     users = {
       "hass" = {
         acl = [
@@ -37,6 +48,12 @@ with pkgs;
         ];
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/hass";
       };
+      #"tasmota" = {
+      #  acl = [
+      #    "topic readwrite tasmota/#"
+      #  ];
+      #  hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
+      #};
       "owntracks" = {
         acl = [
           "topic readwrite owntracks/#"
@@ -49,7 +66,9 @@ with pkgs;
   services.home-assistant = {
     enable = true;
     package = home-assistant.override {
-      extraPackages = ps: with ps; [ (callPackage pydeconz { }) ];
+      extraPackages = ps: with ps; [
+        (callPackage pydeconz { })
+      ];
     };
     openFirewall = true;
     config = {
