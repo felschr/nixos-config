@@ -39,6 +39,7 @@
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
+    backupFileExtension = "backup";
     users.felschr = import ./home/felschr-work.nix;
   };
 

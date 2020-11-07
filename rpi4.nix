@@ -48,7 +48,7 @@ with builtins; {
     recommendedProxySettings = true;
 
     virtualHosts = {
-      ${ config.networking.domain } = {
+      ${config.networking.domain} = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
@@ -83,6 +83,7 @@ with builtins; {
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
+    backupFileExtension = "backup";
     users.felschr = import ./home/felschr-rpi4.nix;
   };
 
