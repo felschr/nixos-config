@@ -13,6 +13,7 @@
     ./signal.nix
     ./browsers
     ./planck.nix
+    ./ausweisapp.nix
   ];
 
   services.redshift = {

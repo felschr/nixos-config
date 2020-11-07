@@ -10,6 +10,7 @@
     ./virtualisation/docker.nix
     ./services/syncthing/felix-nixos.nix
     ./services/jellyfin.nix
+    ./services/pcscd.nix
   ];
 
   swapDevices = [{ device = "/swap/swapfile"; }];
