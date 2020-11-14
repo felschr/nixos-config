@@ -7,7 +7,6 @@ with builtins; {
     # ./system
     ./system/nix.nix
     ./system/i18n.nix
-    ./modules/cfdyndns.nix
     ./services/syncthing/rpi4.nix
     ./services/jellyfin.nix
     ./services/home-assistant.nix
@@ -32,7 +31,7 @@ with builtins; {
     email = "felschr@pm.me";
   };
 
-  services.custom.cfdyndns = {
+  services.cfdyndns = {
     enable = true;
     email = "felschr@pm.me";
     apikeyFile = "/etc/nixos/secrets/cfdyndns-apikey";
