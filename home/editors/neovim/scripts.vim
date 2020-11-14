@@ -2,7 +2,7 @@ if did_filetype()
   finish
 endif
 if getline(1) =~ '^#!.*nix-shell'
-  let s:matches = matchlist(getline(2), '^#!.*nix-shell -i \([^ \t\n]\+\)')
+  let s:matches = matchlist(getline(2), '^#!.*nix-shell .*-i \([^ \t\n]\+\)')
   let s:command = s:matches[1]
   echo s:command
   if s:command != ''

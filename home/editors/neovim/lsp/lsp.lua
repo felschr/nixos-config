@@ -25,7 +25,7 @@ nvim_lsp.terraformls.setup{}
 nvim_lsp.hls.setup{}
 
 -- based on: https://github.com/mikew/vimrc/blob/master/src/nvim/coc-settings.json
--- multiple LSP's currently not supported: https://github.com/neovim/neovim/issues/12755
+-- TODO breaks auto-completion when using with other lsp
 -- nvim_lsp.diagnosticls.setup{
 --   on_attach = diagnosticls_on_attach;
 --   filetypes = {

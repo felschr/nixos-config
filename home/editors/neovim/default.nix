@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-09-30";
+    version = "2020-11-03";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "e5d98d85693245fec811307e5a2ccfdea3a350cd";
-      sha256 = "119537lcrqn84n3sqj917jql4nrczk85idj27yqhp0dafc21raa8";
+      rev = "432f3240f171e857beb3d1a554cbd8a649bb38ae";
+      sha256 = "1drgaxnaazbv086pmy63254xm2madh8gl50kaynhbdwrrkxwcfzh";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.utf8proc ];
   });
@@ -21,8 +21,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "mfussenegger";
       repo = "nvim-dap";
-      rev = "d3af0f3b470ee8a46aabb3837b97193dc16046e0";
-      sha256 = "0j09i8hhls8y5xd57vp4sbpp0gvdmwd6wmb355w5j2cda84xagmd";
+      rev = "59b312e95d7ee60bf66bbe199cfc168c62808d54";
+      sha256 = "0jvdrmgspgcs48zyfpwmywldjjpx539hdlibfjq6bdc1a8x8vis7";
     };
   };
 

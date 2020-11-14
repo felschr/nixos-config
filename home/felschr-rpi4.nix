@@ -20,9 +20,7 @@
 
   programs.gpg.enable = true;
 
-  home.sessionVariables = with pkgs; {
-    EDITOR = "nvim";
-  };
+  home.sessionVariables = with pkgs; { EDITOR = "nvim"; };
   programs.neovim.enable = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
