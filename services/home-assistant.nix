@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
-with pkgs; 
+with pkgs;
 
 let
   mqttDomain = "mqtt.${config.networking.domain}";
   mqttWSPort = "9001";
-in
-{
+in {
   environment.systemPackages = with pkgs; [ deconz ];
 
   local.services.deconz = {
@@ -18,7 +17,7 @@ in
 
   services.nginx = {
     virtualHosts = {
-      ${ mqttDomain } = {
+      ${mqttDomain} = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
@@ -29,9 +28,7 @@ in
     };
   };
 
-  networking.firewall.allowedTCPPorts = [
-    config.services.mosquitto.port
-  ];
+  networking.firewall.allowedTCPPorts = [ config.services.mosquitto.port ];
 
   services.mosquitto = {
     enable = true;
@@ -51,30 +48,19 @@ in
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/hass";
       };
       "tasmota" = {
-        acl = [
-          "topic readwrite tasmota/#"
-          "topic readwrite homeassistant/#"
-        ];
+        acl = [ "topic readwrite tasmota/#" "topic readwrite homeassistant/#" ];
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
       };
       "owntracks" = {
-        acl = [
-          "topic readwrite owntracks/#"
-        ];
+        acl = [ "topic readwrite owntracks/#" ];
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/owntracks";
       };
       "felix" = {
-        acl = [
-          "topic read owntracks/#"
-          "topic readwrite owntracks/felix/#"
-        ];
+        acl = [ "topic read owntracks/#" "topic readwrite owntracks/felix/#" ];
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/felix";
       };
       "birgit" = {
-        acl = [
-          "topic read owntracks/#"
-          "topic readwrite owntracks/birgit/#"
-        ];
+        acl = [ "topic read owntracks/#" "topic readwrite owntracks/birgit/#" ];
         hashedPasswordFile = "/etc/nixos/secrets/mqtt/birgit";
       };
     };
@@ -83,9 +69,7 @@ in
   services.home-assistant = {
     enable = true;
     package = home-assistant.override {
-      extraPackages = ps: with ps; [
-        (callPackage pydeconz { })
-      ];
+      extraPackages = ps: with ps; [ (callPackage pydeconz { }) ];
     };
     openFirewall = true;
     config = {
@@ -120,9 +104,7 @@ in
         discovery = true;
         discovery_prefix = "homeassistant";
       };
-      owntracks = {
-        mqtt_topic = "owntracks/#";
-      };
+      owntracks = { mqtt_topic = "owntracks/#"; };
     };
     # configWritable = true; # doesn't work atm
   };
