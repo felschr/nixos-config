@@ -26,7 +26,7 @@ in {
           inherit key;
           mods = "Control";
           action = "ReceiveChar";
-        }) [ "Key0" "Equals" "Add" "Subtract" "Minus" ];
+        }) [ "Key0" "Equals" "NumpadAdd" "NumpadSubtract" "Minus" ];
     } (trivial.importJSON (yamlToJSON ./alacritty-gruvbox-dark.yml));
   };
 }
