@@ -2,14 +2,15 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-11-03";
+    version = "2020-11-20";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "432f3240f171e857beb3d1a554cbd8a649bb38ae";
-      sha256 = "1drgaxnaazbv086pmy63254xm2madh8gl50kaynhbdwrrkxwcfzh";
+      rev = "9e405c44b94872923be29c5e736d12d266155a4b";
+      sha256 = "0k2bbrfd7xwj07d5gj35r3adrm56567jk62p7hq4xyjy2xwc9yjh";
     };
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.utf8proc ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs
+      ++ [ pkgs.utf8proc pkgs.tree-sitter ];
   });
 
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
@@ -73,10 +74,8 @@ in {
     extraConfig = with builtins;
       readFile ./init.vim + readFile ./vim-surround-fix.vim
       + readFile ./which-key.vim + readFile ./test.vim
-      + vimLua (readFile ./lsp/extensions.lua) + readFile ./lsp/lsp.vim + ''
-        packloadall " https://github.com/neovim/neovim/issues/11409
-        ${vimLua (readFile ./lsp/lsp.lua)}
-      '';
+      + vimLua (readFile ./lsp/extensions.lua) + readFile ./lsp/lsp.vim
+      + vimLua (readFile ./lsp/lsp.lua);
     withNodeJs = true;
     withPython = false;
   };
