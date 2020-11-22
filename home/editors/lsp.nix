@@ -21,7 +21,7 @@ in {
     nodePackages.bash-language-server
     nodePackages.vim-language-server
     nodePackages.yaml-language-server
-    nodePackages.vscode-json-languageserver-bin
+    nodePackages.vscode-json-languageserver
     nodePackages.vscode-css-languageserver-bin
     nodePackages.vscode-html-languageserver-bin
     nodePackages.typescript-language-server
