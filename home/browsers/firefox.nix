@@ -18,6 +18,7 @@ let
     "browser.send_pings" = false;
     "browser.urlbar.speculativeConnect.enabled" = false;
     "dom.event.clipboardevents.enabled" = false;
+    "dom.sequrity.https_only_mode" = true;
     "media.eme.enabled" = false;
     "media.gmp-widevinecdm.enabled" = false;
     "media.navigator.enabled" = false;
@@ -52,11 +53,14 @@ let
     "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
       false;
     "browser.newtabpage.activity-stream.feeds.snippets" = false;
+    "extensions.update.enabled" = false;
+    "extensions.update.autoUpdateDefault" = false;
   };
 in {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox.override { cfg = { enableFXCastBridge = true; }; };
+    package = with pkgs;
+      wrapFirefox firefox-unwrapped { cfg.enableFXCastBridge = true; };
     profiles = {
       private = {
         id = 0;
@@ -68,7 +72,6 @@ in {
       };
     };
     extensions = with firefox-addons; [
-      https-everywhere
       ublock-origin
       decentraleyes
       clearurls
