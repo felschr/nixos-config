@@ -18,7 +18,8 @@ let
     "browser.send_pings" = false;
     "browser.urlbar.speculativeConnect.enabled" = false;
     "dom.event.clipboardevents.enabled" = false;
-    "dom.sequrity.https_only_mode" = true;
+    "dom.security.https_only_mode" = true;
+    "dom.security.https_only_mode_ever_enabled" = true;
     "media.eme.enabled" = false;
     "media.gmp-widevinecdm.enabled" = false;
     "media.navigator.enabled" = false;
