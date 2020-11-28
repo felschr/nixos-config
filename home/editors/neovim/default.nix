@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-11-20";
+    version = "2020-11-26";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "9e405c44b94872923be29c5e736d12d266155a4b";
-      sha256 = "0k2bbrfd7xwj07d5gj35r3adrm56567jk62p7hq4xyjy2xwc9yjh";
+      rev = "10a5f40f9e020c28df471d5380869ac63d8474a7";
+      sha256 = "1ghdhkbznhh9n3mp39ydnsc1l94yrs4a5fbdm0hircqgz4wndh4y";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs
       ++ [ pkgs.utf8proc pkgs.tree-sitter ];
@@ -58,6 +58,8 @@ in {
       vim-gitgutter
       vim-fugitive
       vim-test
+      vim-closetag
+      auto-pairs
       camelcasemotion
       argtextobj-vim
       wmgraphviz-vim

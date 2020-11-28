@@ -101,3 +101,6 @@ tnoremap <A-t> <C-\><C-n>:call TermToggle(12)<CR>
 
 " Terminal go back to normal mode
 tnoremap :q! <C-\><C-n>:q!<CR>
+
+" vim-closetag
+let g:closetag_filenames = "*.html,*.jsx,*.tsx,*.vue,*.xhml,*.xml"

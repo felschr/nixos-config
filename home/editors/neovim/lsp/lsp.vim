@@ -37,5 +37,5 @@ nnoremap <silent> <leader>sw <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> <leader>f  <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <leader>a  <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>r  <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>d  <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <silent> <leader>d  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 

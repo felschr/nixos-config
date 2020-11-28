@@ -1,6 +1,4 @@
-local nvim_lsp = require'nvim_lsp'
-local configs = require'nvim_lsp/configs'
-local util = require'nvim_lsp/util'
+local config = require'lspconfig'
 
 -- format on save
 -- TODO often takes way longer to save than 1000 ms (e.g. 7000 ms in fitnesspilot-web)
@@ -8,25 +6,28 @@ local diagnosticls_on_attach = function(_, bufnr)
    vim.api.nvim_command("au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
 end
 
-nvim_lsp.bashls.setup{}
-nvim_lsp.jsonls.setup{}
-nvim_lsp.yamlls.setup{}
-nvim_lsp.html.setup{}
-nvim_lsp.cssls.setup{}
-nvim_lsp.vimls.setup{}
-nvim_lsp.dockerls.setup{}
-nvim_lsp.rnix.setup{}
-nvim_lsp.tsserver.setup{}
-nvim_lsp.omnisharp.setup{
-  cmd = {"omnisharp", "--languageserver"};
+local pid = vim.fn.getpid()
+
+config.bashls.setup{}
+config.jsonls.setup{}
+config.yamlls.setup{}
+config.html.setup{}
+config.cssls.setup{}
+config.vimls.setup{}
+config.dockerls.setup{}
+config.rnix.setup{}
+config.tsserver.setup{}
+config.omnisharp.setup{
+  cmd = {"omnisharp", "--languageserver", "--hostPID", tostring(pid)};
 }
-nvim_lsp.pyls.setup{}
-nvim_lsp.terraformls.setup{}
-nvim_lsp.hls.setup{}
+config.pyls.setup{}
+config.terraformls.setup{}
+config.hls.setup{}
 
 -- based on: https://github.com/mikew/vimrc/blob/master/src/nvim/coc-settings.json
 -- TODO breaks auto-completion when using with other lsp
--- nvim_lsp.diagnosticls.setup{
+-- TODO some ts projects are using tsc eslint plugin
+-- config.diagnosticls.setup{
 --   on_attach = diagnosticls_on_attach;
 --   filetypes = {
 --     "javascript",
