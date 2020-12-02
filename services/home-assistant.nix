@@ -85,6 +85,8 @@ in {
       };
       default_config = { };
       config = { };
+      "automation editor" = "!include automations.yaml";
+      automation = {};
       frontend = { };
       mobile_app = { };
       discovery = { };
@@ -105,6 +107,41 @@ in {
         discovery_prefix = "homeassistant";
       };
       owntracks = { mqtt_topic = "owntracks/#"; };
+      netatmo = {
+        client_id = "!secret netatmo_client_id";
+        client_secret = "!secret netatmo_client_secret";
+      };
+      sensor = [
+        {
+          platform = "template";
+          sensors = {
+            energy_total_usage = {
+              friendly_name = "Total Energy Usage";
+              unit_of_measurement = "kWh";
+              value_template = ''
+                {{
+                  (states.sensor.outlet_computer_energy_total.state | float) +
+                  (states.sensor.outlet_tv_energy_total.state | float)
+                }}
+              '';
+            };
+          };
+        }
+      ];
+      utility_meter = {
+        energy_total_usage_daily = {
+          source = "sensor.energy_total_usage";
+          cycle = "daily";
+        };
+        energy_total_usage_monthly = {
+          source = "sensor.energy_total_usage";
+          cycle = "monthly";
+        };
+        energy_total_usage_yearly = {
+          source = "sensor.energy_total_usage";
+          cycle = "yearly";
+        };
+      };
     };
     # configWritable = true; # doesn't work atm
   };
