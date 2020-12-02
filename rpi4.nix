@@ -10,6 +10,7 @@ with builtins; {
     ./services/syncthing/rpi4.nix
     ./services/jellyfin.nix
     ./services/home-assistant.nix
+    ./services/owntracks.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
