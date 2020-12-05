@@ -63,5 +63,5 @@ with pkgs; {
     dos2unix
   ];
 
-  home.stateVersion = "20.03";
+  home.stateVersion = "20.09";
 }
