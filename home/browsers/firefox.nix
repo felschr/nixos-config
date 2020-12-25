@@ -43,6 +43,10 @@ let
     "intl.accept_languages" = "en-GB, en";
     "intl.regional_prefs.use_os_locales" = true;
 
+    # dev tools
+    "devtools.inspector.color-scheme-simulation.enabled" = true;
+    "devtools.inspector.showAllAnonymousContent" = true;
+
     # Other
     "browser.startup.page" = 3;
     "browser.ssb.enabled" = true;
