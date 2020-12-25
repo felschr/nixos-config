@@ -29,6 +29,10 @@
 
   programs.zsh.enable = true;
 
+  networking.firewall.allowedTCPPorts = [
+    4824 # transmission
+  ];
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "docker" "disk" ];
