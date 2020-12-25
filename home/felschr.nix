@@ -79,7 +79,7 @@
     # media backups
     makemkv
     handbrake
-    filebot
+    # filebot # TODO fails atm
 
     # other
     bitwarden
