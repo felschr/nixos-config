@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2020-11-26";
+    version = "2020-12-24";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "10a5f40f9e020c28df471d5380869ac63d8474a7";
-      sha256 = "1ghdhkbznhh9n3mp39ydnsc1l94yrs4a5fbdm0hircqgz4wndh4y";
+      rev = "8c8cc35926f265bf4f048b83fd130bef3932851e";
+      sha256 = "1iswss5415n56cfxn9pylnpfnwafhfdnxfc1pk9z1m280i2whlyk";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs
       ++ [ pkgs.utf8proc pkgs.tree-sitter ];
@@ -15,15 +15,26 @@ let
 
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
+  completion-nvim = buildVimPluginFrom2Nix {
+    pname = "completion-nvim";
+    version = "2020-11-20";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-lua";
+      repo = "completion-nvim";
+      rev = "936bbd17577101a4ffb07ea7f860f77dd8007d43";
+      sha256 = "1z399q3v36hx2ipj1fhxcc051pi4q0lifyglmclxi5zkbmm0z6a7";
+    };
+  };
+
   # not very stable yet, no existing netcoredbg config
   nvim-dap = buildVimPluginFrom2Nix {
     pname = "nvim-dap";
-    version = "2020-09-14";
+    version = "2020-12-20";
     src = pkgs.fetchFromGitHub {
       owner = "mfussenegger";
       repo = "nvim-dap";
-      rev = "59b312e95d7ee60bf66bbe199cfc168c62808d54";
-      sha256 = "0jvdrmgspgcs48zyfpwmywldjjpx539hdlibfjq6bdc1a8x8vis7";
+      rev = "664a5598f77c8bfec7f81f03e29516583ddc194c";
+      sha256 = "0rw30cmqnxm9sdrqissppdkdgfk3h2l4vh9m7679k3vx26ahq3qx";
     };
   };
 
@@ -67,9 +78,7 @@ in {
       nvim-lspconfig
       nvim-dap
 
-      # might require :UpdateRemotePlugins
-      deoplete-nvim
-      deoplete-lsp
+      completion-nvim
 
       vim-orgmode
     ];

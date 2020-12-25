@@ -1,27 +1,17 @@
 " autocomplete config
 set completeopt=menu,preview,menuone,noinsert
-set omnifunc=v:lua.vim.lsp.omnifunc
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#smart_case = 1
+" let g:completion_timer_cycle = 20
+
+" enable completion-nvim in all buffers
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> deoplete#manual_complete()
-
-" Autocomplete and cycle from top-to-bottom of suggestions using <Tab>.
-inoremap <expr><TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
-
-" <TAB>: completion.
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#manual_complete()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+imap <silent> <c-space> <Plug>(completion_trigger)
 
 " maps
 nnoremap <silent> gd         <cmd>lua vim.lsp.buf.definition()<CR>

@@ -1,5 +1,8 @@
 " set shell=/bin/sh
 
+set ignorecase
+set smartcase
+
 set termguicolors
 set timeoutlen=500
 
@@ -104,3 +107,7 @@ tnoremap :q! <C-\><C-n>:q!<CR>
 
 " vim-closetag
 let g:closetag_filenames = "*.html,*.jsx,*.tsx,*.vue,*.xhml,*.xml"
+let g:closetag_regions = {
+  \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+  \ 'javascript.jsx': 'jsxRegion',
+  \ }
