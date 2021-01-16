@@ -60,6 +60,9 @@
 
     # development
     haskellPackages.ghc
+    haskellPackages.cabal-install
+    stack
+    obelisk
     postman
 
     # entertainment

@@ -10,6 +10,11 @@
 
   inputs.nur.url = "github:nix-community/NUR/master";
 
+  inputs.obelisk = {
+    url = "github:obsidiansystems/obelisk";
+    flake = false;
+  };
+
   inputs.pre-commit-hooks = {
     url =
       # "github:Myhlamaeus/pre-commit-hooks.nix/feat/flake";
@@ -17,7 +22,8 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, nur, pre-commit-hooks }:
+  outputs = { self, nixpkgs, flake-utils, home-manager, nur, obelisk
+    , pre-commit-hooks }:
     let
       overlays = {
         deconz = self: super: {
@@ -25,6 +31,9 @@
           # This is the path so that the correct python deps and versions can be used
           # with python{version}Packages.callPackage pydeconz { }
           pydeconz = ./pkgs/pydeconz;
+        };
+        obelisk = self: super: {
+          obelisk = (import obelisk { inherit (self) system; }).command;
         };
       };
       systemModule = { hostName, hardwareConfig, config }:
@@ -37,7 +46,7 @@
 
           nix.registry.nixpkgs.flake = nixpkgs;
 
-          nixpkgs.overlays = [ nur.overlay overlays.deconz ];
+          nixpkgs.overlays = [ nur.overlay overlays.deconz overlays.obelisk ];
 
           imports =
             [ hardwareConfig home-manager.nixosModules.home-manager config ];
