@@ -4,20 +4,23 @@ with pkgs;
 let
   pop-shell = stdenv.mkDerivation rec {
     pname = "pop-shell";
-    version = "2020-09-08";
+    version = "1.2.0";
 
     src = fetchFromGitHub {
       owner = "pop-os";
       repo = "shell";
-      rev = "017c92e04f4eefead2561fa35559891eb83388c9";
-      sha256 = "12ch08ny3m2hf6ii2niw0x07pfcknl3r8rixvijaj36wvbgviaxa";
+      rev = version;
+      sha256 = "0yv8gjimiix9bzk7k1plbwfvn5kxc3z5ndqv9j5y42d4g7yk498y";
     };
 
-    nativeBuildInputs = [ glib ];
-    buildInputs = [ nodePackages.typescript ];
+    nativeBuildInputs = [ glib nodePackages.typescript ];
 
     # the gschema doesn't seem to be installed properly (see dconf)
-    makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
+    makeFlags = [
+      "INSTALLBASE=$(out)/share/gnome-shell/extensions"
+      "PLUGIN_BASE=$(out)/share/pop-shell/launcher"
+      "SCRIPTS_BASE=$(out)/share/pop-shell/scripts"
+    ];
   };
 in {
   environment.systemPackages = with pkgs;
