@@ -10,7 +10,7 @@ let
       owner = "pop-os";
       repo = "shell";
       rev = version;
-      sha256 = "0yv8gjimiix9bzk7k1plbwfvn5kxc3z5ndqv9j5y42d4g7yk498y";
+      sha256 = "1ba1nrnk4cqgjx5mygqdkw74xlankrkiib9rw0vwkjcgv9bj024a";
     };
 
     nativeBuildInputs = [ glib nodePackages.typescript ];
