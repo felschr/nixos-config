@@ -1,0 +1,100 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p bash
+
+set -euo pipefail
+
+read -p "enter the name of the storage device to partition (e.g. /dev/nvme0n1): " -r
+drive=$REPLY
+
+if [[ $drive =~ "nvme" ]]; then
+  boot="${drive}p1"
+  system="${drive}p2"
+else
+  boot="${drive}1"
+  system="${drive}2"
+fi
+
+echo
+echo "The following layout will be created:"
+echo "
+$drive
+   |
+   ├── $boot (boot partition, fat32)
+   |
+   └── $system (LUKS2 system partition, btrfs)
+           |
+           ├── @ (mounted as /)
+           |       |
+           |       ├── /home (mounted @home subvolume)
+           |       |
+           |       ├── /boot (mounted boot partition)
+           |       |
+           |       ├── /swap (mounted @swap subvolume)
+           |       |
+           |       └── /.snapshots (mounted @snapshots subvolume)
+           |
+           ├── @home (mounted as /home)
+           |
+           ├── @swap (mounted as /swap, contains swap file)
+           |
+           └── @snapshots (mounted as /.snapshots)
+"
+
+echo
+echo "WARNING! Continuing will cause $drive to be formatted."
+read -p "Do you really want to continue? [Y/n]" -n 1 -r
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then exit 1; fi
+
+# create partition table
+parted "$drive" -- mklabel gpt
+
+# create boot pabootrtition
+parted "$boot" -- mkpart ESP fat32 1MiB 512MiB
+parted "$boot" -- set 3 esp on
+
+# create system partition
+parted "$system" -- mkpart primary 512MiB 100%
+
+# setup LUKS partition
+cryptsetup -y -v luksFormat "$system"
+cryptsetup open "$system" enc
+
+# setup btrfs partition
+mkfs.btrfs /dev/mapper/enc
+
+# setup subvolumes
+mount -t btrfs /dev/mapper/enc /mnt
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@swap
+btrfs subvolume create /mnt/@snapshots
+umount /mnt
+
+# mount subvolumes
+mount -o subvol=@,compress-force=zstd,noatime /dev/mapper/enc /mnt
+mkdir /mnt/home
+mount -o subvol=@home,compress-force=zstd,noatime /dev/mapper/enc /mnt/home
+mkdir /mnt/swap
+mount -o subvol=@swap,noatime /dev/mapper/enc /mnt/swap
+mkdir /mnt/.snapshots
+mount -o subvol=@snapshots,compress-force=zstd,noatime /dev/mapper/enc /mnt/.snapshots
+mkdir /mnt/boot
+mount "$boot" /mnt/boot
+
+# setup swap file
+truncate -s 0 /mnt/swap/swapfile
+chattr +C /mnt/swap/swapfile
+fallocate -l 8G /mnt/swap/swapfile
+chmod 600 /mnt/swap/swapfile
+mkswap /mnt/swap/swapfile
+swapon /mnt/swap/swapfile
+
+# generate hardware-configuration.nix
+nixos-generate-config --root /mnt
+
+echo
+echo "Partitions have been created and hardware-configuration.nix has been generated."
+echo "WARNING: Some hardware-configuration.nix options might need to be set manually:"
+echo "- add compress-force & noatime options"
+echo '- add "neededForBoot = true;" to /swap'
+
