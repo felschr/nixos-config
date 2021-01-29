@@ -21,7 +21,7 @@ $drive
    |
    ├── $boot (boot partition, fat32)
    |
-   └── $system (LUKS2 system partition, btrfs)
+   └── $system (system partition, LUKS2 + btrfs)
            |
            ├── @ (mounted as /)
            |       |

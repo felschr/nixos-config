@@ -7,7 +7,7 @@ Clone the configuration into `etc/nixos`.
 On a new machine run:
 
 ```sh
-nixos-generate-config --root /mnt
+scripts/setup-partitions
 ```
 
 Then move the resulting `/etc/nixos/hardware-configuration.nix` to `./hardware/<config>.nix` and adjust it and the `flake.nix` accodringly.
