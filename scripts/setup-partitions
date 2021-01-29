@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash
+#! nix-shell -i bash -p bash parted cryptsetup btrfs-progs
 
 set -euo pipefail
 
