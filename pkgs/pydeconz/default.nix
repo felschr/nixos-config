@@ -2,11 +2,11 @@
 
 buildPythonPackage rec {
   pname = "pydeconz";
-  version = "73";
+  version = "77";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "Lm7J0p2dp2gyesDpgN0WGpxPewC1z/IUy0CDEqofQGA=";
+    sha256 = "8AlygjJqAjHwwjLJJM7bNEajgQ9UDQ9gB8m7wMNgBuw=";
   };
 
   propagateBuildInputs = [ setuptools ];

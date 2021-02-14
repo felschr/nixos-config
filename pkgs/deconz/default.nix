@@ -3,12 +3,11 @@
 
 mkDerivation rec {
   name = "deconz-${version}";
-  version = "2.05.82";
+  version = "2.09.03";
 
   src = fetchurl {
-    url =
-      "https://deconz.dresden-elektronik.de/raspbian/alpha/deconz_${version}-debian-stretch-beta_arm64.deb";
-    sha256 = "cCH7XhRXCHKm5AVsM19TyHwAjhbTv4qyDx2GamuDWQw=";
+    url = "https://deconz.dresden-elektronik.de/debian/stable/deconz_${version}-debian-stretch-stable_arm64.deb";
+    sha256 = "6EXYoXOg+6dTR9/hRHmNafZuBeNnAAS4z8ia15s1+9U=";
   };
 
   nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
