@@ -29,14 +29,18 @@ with builtins; {
 
   security.acme = {
     acceptTerms = true;
-    email = "felschr@pm.me";
+    email = "dev@felschr.com";
   };
 
   services.cfdyndns = {
     enable = true;
     email = "felschr@pm.me";
     apikeyFile = "/etc/nixos/secrets/cfdyndns-apikey";
-    records = [ "home.felschr.com" ];
+    records = [ 
+      "*.home.felschr.com"
+      "home.felschr.com"
+      "owntracks.felschr.com"
+    ];
   };
 
   services.nginx = {
