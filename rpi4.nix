@@ -9,6 +9,7 @@ with builtins; {
     ./system/i18n.nix
     ./services/syncthing/rpi4.nix
     ./services/jellyfin.nix
+    ./services/etebase.nix
     ./services/home-assistant.nix
     ./services/owntracks.nix
   ];
@@ -40,6 +41,7 @@ with builtins; {
       "*.home.felschr.com"
       "home.felschr.com"
       "owntracks.felschr.com"
+      "etebase.felschr.com"
     ];
   };
 
