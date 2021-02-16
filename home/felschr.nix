@@ -16,7 +16,7 @@
     ./ausweisapp.nix
   ];
 
-  services.redshift = {
+  services.gammastep = {
     enable = true;
     latitude = "53.2603609";
     longitude = "10.4014691";

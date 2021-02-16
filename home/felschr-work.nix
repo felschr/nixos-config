@@ -13,7 +13,7 @@ with pkgs; {
     ./planck.nix
   ];
 
-  services.redshift = {
+  services.gammastep = {
     enable = true;
     latitude = "53.2472211";
     longitude = "10.4021562";
