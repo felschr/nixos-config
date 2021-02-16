@@ -6,14 +6,8 @@ let
   mqttDomain = "mqtt.${config.networking.domain}";
   mqttWSPort = "9001";
 in {
+  # just installed for ConBee firmware updates
   environment.systemPackages = with pkgs; [ deconz ];
-
-  local.services.deconz = {
-    enable = true;
-    httpPort = 8080;
-    wsPort = 1443;
-    openFirewall = true;
-  };
 
   services.nginx = {
     virtualHosts = {
@@ -68,9 +62,6 @@ in {
 
   services.home-assistant = {
     enable = true;
-    package = home-assistant.override {
-      extraPackages = ps: with ps; [ (callPackage pydeconz { }) ];
-    };
     openFirewall = true;
     config = {
       homeassistant = {
@@ -93,10 +84,15 @@ in {
       zeroconf = { };
       ssdp = { };
       shopping_list = { };
-      deconz = {
-        host = "localhost";
-        port = 8080;
-        api_key = "!secret deconz_apikey";
+      zha = {
+        usb_path = "/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2197055-if00";
+        radio_type = "deconz";
+        database_path = "/var/lib/hass/zigbee.db";
+        zigpy_config = {
+          ota = {
+            ikea_provider = true;
+          };
+        };
       };
       mqtt = {
         broker = "localhost";
