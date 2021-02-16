@@ -37,7 +37,7 @@ with builtins; {
     enable = true;
     email = "felschr@pm.me";
     apikeyFile = "/etc/nixos/secrets/cfdyndns-apikey";
-    records = [ 
+    records = [
       "*.home.felschr.com"
       "home.felschr.com"
       "owntracks.felschr.com"
@@ -95,6 +95,4 @@ with builtins; {
 
   # only change this when specified in release notes
   system.stateVersion = "20.09";
-
-  system.autoUpgrade.enable = true;
 }
