@@ -14,6 +14,7 @@
     ./browsers
     ./planck.nix
     ./ausweisapp.nix
+    ./steam.nix
   ];
 
   services.gammastep = {
@@ -74,7 +75,6 @@
     anki
 
     # gaming
-    steam
     lutris
 
     # privacy

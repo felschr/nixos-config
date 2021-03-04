@@ -4,6 +4,7 @@
   imports = [
     ./hardware/base.nix
     ./hardware/gpu-nvidia.nix
+    ./hardware/steam.nix
     ./hardware/ledger.nix
     ./system
     ./desktop
