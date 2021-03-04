@@ -14,6 +14,8 @@
     ./services/pcscd.nix
   ];
 
+  # declarative config broken atm: https://github.com/NixOS/nixpkgs/issues/91986
+  # { device = "/swap/swapfile"; size = 8192; }
   swapDevices = [{ device = "/swap/swapfile"; }];
 
   nixpkgs.config.allowUnfree = true;
