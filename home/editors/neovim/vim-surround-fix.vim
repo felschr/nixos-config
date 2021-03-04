@@ -1,4 +1,5 @@
-" fix for vim-surround in neovim
+" fix for timeout issue with vim-surround in neovim
+" but it also breaks yss
 " https://github.com/tpope/vim-surround/issues/272
 
 let g:surround_no_mappings = 1
