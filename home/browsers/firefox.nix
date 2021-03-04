@@ -49,6 +49,7 @@ let
 
     # Other
     "browser.startup.page" = 3;
+    "browser.toolbars.bookmarks.visibility" = "newtab";
     "browser.tabs.drawInTitlebar" = true;
     "browser.aboutConfig.showWarning" = false;
     "signon.rememberSignons" = false;
@@ -86,6 +87,7 @@ in {
       darkreader
       languagetool
       metamask
+      privacy-redirect
       # not available yet:
       # fx_cast
       # google-lighthouse
