@@ -49,7 +49,6 @@ let
 
     # Other
     "browser.startup.page" = 3;
-    "browser.ssb.enabled" = true;
     "browser.tabs.drawInTitlebar" = true;
     "browser.aboutConfig.showWarning" = false;
     "signon.rememberSignons" = false;
@@ -110,21 +109,6 @@ in {
           StartupWMClass="${escapeDesktopArg attrs.name}"
         '';
       });
-    makeFirefoxWebAppDesktopItem = attrs:
-      let
-        # --class not yet respected: https://bugzilla.mozilla.org/show_bug.cgi?id=1606247
-        mkExec = with lib;
-          { app, name, profile ? "private", ... }: ''
-            firefox -p "${escapeDesktopArg profile}" --ssb="${
-              escapeDesktopArg app
-            }" --class="${escapeDesktopArg name}"
-          '';
-      in pkgs.makeDesktopItem ((removeAttrs attrs [ "app" "profile" ]) // {
-        exec = mkExec attrs;
-        extraEntries = ''
-          StartupWMClass="${escapeDesktopArg attrs.name}"
-        '';
-      });
   in (with pkgs;
     [ (tor-browser-bundle-bin.override { pulseaudioSupport = true; }) ]) ++ [
       (makeFirefoxProfileDesktopItem {
@@ -132,16 +116,6 @@ in {
         desktopName = "Firefox (Work)";
         icon = "firefox"; # TODO looks different
         profile = "work";
-      })
-      (makeFirefoxWebAppDesktopItem {
-        name = "element";
-        desktopName = "Element";
-        app = "https://app.element.io";
-      })
-      (makeFirefoxWebAppDesktopItem {
-        name = "youtube-music";
-        desktopName = "YouTube Music";
-        app = "https://music.youtube.com";
       })
     ];
 }
