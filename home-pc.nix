@@ -20,6 +20,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  boot.loader.systemd-boot.memtest86.enable = true;
+
   nixpkgs.config.permittedInsecurePackages = [
     "p7zip-16.02" # currently used by lutris
   ];
