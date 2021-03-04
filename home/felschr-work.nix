@@ -15,8 +15,8 @@ with pkgs; {
 
   services.gammastep = {
     enable = true;
-    latitude = "53.2472211";
-    longitude = "10.4021562";
+    latitude = "53.2603609";
+    longitude = "10.4014691";
   };
 
   programs.ssh = { enable = true; };
