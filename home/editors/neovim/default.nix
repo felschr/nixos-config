@@ -21,7 +21,10 @@ let
     EOF
   '';
 in {
-  home.packages = with pkgs; [ graphviz ];
+  home.packages = with pkgs; [
+    gcc # required for nvim-treesitter
+    graphviz
+  ];
 
   programs.neovim = {
     enable = true;
@@ -36,7 +39,6 @@ in {
       lightline-vim
       nerdtree
       vim-startify
-      vim-polyglot
       vim-visual-multi
       vim-surround
       vim-commentary
@@ -49,8 +51,13 @@ in {
       vim-closetag
       auto-pairs
       camelcasemotion
-      argtextobj-vim
       wmgraphviz-vim
+
+      # use :TSInstall & :TSUpdate to manage parsers
+      nvim-treesitter
+      nvim-treesitter-context
+      nvim-treesitter-refactor
+      nvim-treesitter-textobjects
 
       nvim-lspconfig
       # nvim-dap
@@ -63,10 +70,11 @@ in {
       readFile ./init.vim # + readFile ./vim-surround-fix.vim
       + readFile ./which-key.vim + readFile ./test.vim
       + vimLua (readFile ./lsp/extensions.lua) + readFile ./lsp/lsp.vim
-      + vimLua (readFile ./lsp/lsp.lua);
+      + vimLua (readFile ./lsp/lsp.lua) + vimLua (readFile ./treesitter.lua);
     withNodeJs = true;
     withPython = false;
   };
 
+  xdg.configFile."nvim/filetype.vim".source = ./filetype.vim;
   xdg.configFile."nvim/scripts.vim".source = ./scripts.vim;
 }
