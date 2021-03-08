@@ -52,8 +52,6 @@
 
       inherit overlays;
 
-      nixosModules.deconz = import ./services/deconz.nix;
-
       homeManagerModules.git = import ./home/modules/git.nix;
 
       nixosConfigurations.felix-nixos = nixpkgs.lib.nixosSystem {
@@ -87,7 +85,6 @@
         modules = [
           nixpkgs.nixosModules.notDetected
           { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
-          nixosModules.deconz
           (systemModule {
             hostName = "felix-rpi4";
             hardwareConfig = ./hardware/rpi4.nix;
