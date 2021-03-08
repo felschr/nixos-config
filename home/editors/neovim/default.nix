@@ -32,7 +32,7 @@ in {
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
-      gruvbox
+      gruvbox-community
       editorconfig-vim
       direnv-vim
       fzf-vim
