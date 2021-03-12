@@ -1,10 +1,11 @@
 " autocomplete config
-set completeopt=menu,preview,menuone,noinsert
+set completeopt=menuone,noinsert
+set shortmess+=c
 
-" let g:completion_timer_cycle = 20
-
-" enable completion-nvim in all buffers
 autocmd BufEnter * lua require'completion'.on_attach()
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_smart_case = 1
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
