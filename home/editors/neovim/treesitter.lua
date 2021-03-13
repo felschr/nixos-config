@@ -10,6 +10,9 @@ require'nvim-treesitter.configs'.setup {
     -- TODO seems to be broken atm
     disable = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
   },
+  autotag = {
+    enable = true,
+  },
   refactor = {
     highlight_definitions = { enable = true },
     highlight_current_scope = { enable = true },

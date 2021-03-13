@@ -2,18 +2,30 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2021-03-04";
+    version = "2021-03-12";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "df4440024bb1f1ce368f5e5844d8af925e264b63";
-      sha256 = "12mm9js8pry2hzv0znznqwkn1favzxclygwr24lhzdwfc7wd7p92";
+      rev = "dc8273f2f1e615cac5cee86709ca4ae6dbd70edf";
+      sha256 = "0xqvgdp7qvzd8jfy7s6kkr6n6bs7khg8n65vh7r1pp7xqawx4aiz";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs
       ++ [ pkgs.utf8proc pkgs.tree-sitter ];
   });
 
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
+
+  # TODO doesn't seem to work in tsx atm
+  nvim-ts-autotag = buildVimPluginFrom2Nix {
+    pname = "nvim-ts-autotag";
+    version = "2021-03-11";
+    src = pkgs.fetchFromGitHub {
+      owner = "windwp";
+      repo = "nvim-ts-autotag";
+      rev = "50410bf1d3f7519ac433b4027486a9fe3273049b";
+      sha256 = "0i7q31fn8llrxcbb5y79wanb03cj7fv02d0n8f7fa4y3cydxiiyl";
+    };
+  };
 
   vimLua = lua: ''
     lua << EOF
@@ -48,7 +60,6 @@ in {
       vim-gitgutter
       vim-fugitive
       vim-test
-      vim-closetag
       auto-pairs
       camelcasemotion
       wmgraphviz-vim
@@ -58,6 +69,7 @@ in {
       nvim-treesitter-context
       nvim-treesitter-refactor
       nvim-treesitter-textobjects
+      nvim-ts-autotag
 
       nvim-lspconfig
       # nvim-dap
