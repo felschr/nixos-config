@@ -8,6 +8,7 @@ with builtins; {
     ./system/nix.nix
     ./system/i18n.nix
     ./services/syncthing/rpi4.nix
+    ./services/kodi.nix
     ./services/jellyfin.nix
     ./services/etebase.nix
     ./services/home-assistant.nix
