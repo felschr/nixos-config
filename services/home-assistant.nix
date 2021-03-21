@@ -77,7 +77,7 @@ in {
       default_config = { };
       config = { };
       "automation editor" = "!include automations.yaml";
-      automation = {};
+      automation = { };
       frontend = { };
       mobile_app = { };
       discovery = { };
@@ -85,14 +85,8 @@ in {
       ssdp = { };
       shopping_list = { };
       zha = {
-        usb_path = "/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2197055-if00";
-        radio_type = "deconz";
         database_path = "/var/lib/hass/zigbee.db";
-        zigpy_config = {
-          ota = {
-            ikea_provider = true;
-          };
-        };
+        zigpy_config = { ota = { ikea_provider = true; }; };
       };
       mqtt = {
         broker = "localhost";
@@ -107,23 +101,21 @@ in {
         client_id = "!secret netatmo_client_id";
         client_secret = "!secret netatmo_client_secret";
       };
-      sensor = [
-        {
-          platform = "template";
-          sensors = {
-            energy_total_usage = {
-              friendly_name = "Total Energy Usage";
-              unit_of_measurement = "kWh";
-              value_template = ''
-                {{
-                  (states.sensor.outlet_computer_energy_total.state | float) +
-                  (states.sensor.outlet_tv_energy_total.state | float)
-                }}
-              '';
-            };
+      sensor = [{
+        platform = "template";
+        sensors = {
+          energy_total_usage = {
+            friendly_name = "Total Energy Usage";
+            unit_of_measurement = "kWh";
+            value_template = ''
+              {{
+                (states.sensor.outlet_computer_energy_total.state | float) +
+                (states.sensor.outlet_tv_energy_total.state | float)
+              }}
+            '';
           };
-        }
-      ];
+        };
+      }];
       utility_meter = {
         energy_total_usage_daily = {
           source = "sensor.energy_total_usage";
