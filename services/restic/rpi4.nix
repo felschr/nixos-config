@@ -1,6 +1,11 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
+with builtins;
 
 let
+  hasAnyAttr = flip (attrset: any (flip hasAttr attrset));
+
   resticConfig = args@{ name, extraPruneOpts ? [ ], ... }:
     assert !hasAnyAttr [
       "initialize"
@@ -9,7 +14,7 @@ let
       "passwordFile"
       "pruneOpts"
     ] args;
-    args // {
+    (removeAttrs args [ "name" "extraPruneOpts" ]) // {
       initialize = true;
       repository = "b2:felschr-rpi4-backup:/${name}";
       s3CredentialsFile = "/etc/nixos/secrets/restic/b2";
