@@ -1,11 +1,39 @@
 { config, pkgs, ... }:
 
-{
-  services.restic.backups.rpi4 = {
-    initialize = true;
-    repository = "b2:felschr-rpi4-backup:/";
-    s3CredentialsFile = "/etc/nixos/secrets/restic/b2";
-    passwordFile = "/etc/nixos/secrets/restic/password";
+let
+  resticConfig = args@{ name, extraPruneOpts ? [ ], ... }:
+    assert !hasAnyAttr [
+      "initialize"
+      "repository"
+      "s3CredentialsFile"
+      "passwordFile"
+      "pruneOpts"
+    ] args;
+    args // {
+      initialize = true;
+      repository = "b2:felschr-rpi4-backup:/${name}";
+      s3CredentialsFile = "/etc/nixos/secrets/restic/b2";
+      passwordFile = "/etc/nixos/secrets/restic/password";
+      timerConfig = if (args ? timerConfig) then
+        args.timerConfig
+      else {
+        OnCalendar = "daily";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 3"
+        "--keep-yearly 1"
+      ] ++ extraPruneOpts;
+    };
+in {
+  services.restic.backups.full = resticConfig {
+    name = "full";
+    paths = [ "/home" "/var" "/etc" ];
+  };
+
+  services.restic.backups.data = resticConfig {
+    name = "data";
     paths = [
       "/etc/nixos"
       "/home/felschr/.config/syncthing"
@@ -19,12 +47,6 @@
       "/var/lib/owntracks-recorder"
     ];
     timerConfig = { OnCalendar = "hourly"; };
-    pruneOpts = [
-      "--keep-hourly 24"
-      "--keep-daily 7"
-      "--keep-weekly 4"
-      "--keep-monthly 3"
-      "--keep-yearly 1"
-    ];
+    extraPruneOpts = [ "--keep-hourly 24" ];
   };
 }
