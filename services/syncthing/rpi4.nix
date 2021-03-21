@@ -17,7 +17,7 @@
         };
         pixel3 = {
           id =
-            "EUW6XKB-XWM4L2L-7Q46YGM-KD4JX3U-OFE5AAC-B3JT6QY-5YSPXXI-W7OKCQO";
+            "YM26ZEC-V5QQTOI-7U355KQ-WTHLL3X-H3YVJR5-4UPM5SS-YXWGVGA-EBWZEQP";
         };
       };
       # TODO switch to external storage
