@@ -29,13 +29,11 @@
         "Backups" = {
           id = "backups";
           path = "/home/felschr/sync/backups";
-          type = "sendonly";
           devices = [ "rpi4" ];
         };
         "Media" = {
           id = "media";
           path = "/home/felschr/sync/media";
-          type = "sendonly";
           devices = [ "rpi4" ];
         };
       };

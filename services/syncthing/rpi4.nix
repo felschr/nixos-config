@@ -30,15 +30,11 @@
         "Backups" = {
           id = "backups";
           path = "/home/felschr/sync/backups";
-          type = "receiveonly";
-          ignoreDelete = true;
           devices = [ "felix-nixos" ];
         };
         "Media" = {
           id = "media";
           path = "/home/felschr/sync/media";
-          type = "receiveonly";
-          ignoreDelete = true;
           devices = [ "felix-nixos" ];
         };
       };
