@@ -19,9 +19,11 @@ in {
     };
     "org/gnome/shell/extensions/user-theme" = { name = "Pop-dark"; };
     "org/gnome/shell/extensions/pop-shell" = {
-      active-hint = true;
-      snap-to-grid = true;
       tile-by-default = true;
+      snap-to-grid = true;
+      smart-gaps = true;
+      show-title = false;
+      active-hint = false;
     };
     "org/gnome/shell/extensions/dash-to-panel" = {
       appicon-padding = 4;
@@ -52,25 +54,29 @@ in {
     "org/gnome/shell/keybindings" = {
       open-application-menu = [ ];
       toggle-message-tray = [ "<Super>v" ];
+      toggle-overview = [ ];
     };
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super>q" ];
       minimize = [ "<Super>comma" ];
+      maximize = [ ];
+      unmaximize = [ ];
       toggle-maximized = [ "<Super>m" ];
 
       switch-to-workspace-left = [ ];
       switch-to-workspace-right = [ ];
 
-      move-to-monitor-left = [ "<Shift><Super>Left" "<Shift><Super>${left}" ];
-      move-to-workspace-down = [ "<Shift><Super>Down" "<Shift><Super>${down}" ];
-      move-to-workspace-up = [ "<Shift><Super>Up" "<Shift><Super>${up}" ];
-      move-to-monitor-right =
-        [ "<Shift><Super>Right" "<Shift><Super>${right}" ];
+      move-to-workspace-up = [ ];
+      move-to-workspace-down = [ ];
+
+      move-to-monitor-left = [ ];
+      move-to-monitor-right = [ ];
+      move-to-monitor-up = [ ];
+      move-to-monitor-down = [ ];
 
       switch-to-workspace-down =
         [ "<Primary><Super>Down" "<Primary><Super>${down}" ];
-      switch-to-workspace-up =
-        [ "<Primary><Super>Down" "<Primary><Super>${up}" ];
+      switch-to-workspace-up = [ "<Primary><Super>Up" "<Primary><Super>${up}" ];
     };
     "org/gnome/mutter/keybindings" = {
       toggle-tiled-left = [ ];
@@ -81,6 +87,7 @@ in {
       home = [ "<Super>f" ];
       email = [ "<Super>e" ];
       www = [ "<Super>b" ];
+      terminal = [ "<Super>t" ];
       rotate-video-lock-static = [ ];
     };
   };

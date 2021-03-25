@@ -4,13 +4,13 @@ with pkgs;
 let
   pop-shell = stdenv.mkDerivation rec {
     pname = "pop-shell";
-    version = "1.2.0";
+    version = "2021-03-16";
 
     src = fetchFromGitHub {
       owner = "pop-os";
       repo = "shell";
-      rev = version;
-      sha256 = "1ba1nrnk4cqgjx5mygqdkw74xlankrkiib9rw0vwkjcgv9bj024a";
+      rev = "77650a9aafa2f7adc328424e36dc91705411feb4";
+      sha256 = "0dff8gl83kx2qzzybk9hxbszv9p8qw8j40qirvfbx6mly7sqknng";
     };
 
     nativeBuildInputs = [ glib nodePackages.typescript ];
