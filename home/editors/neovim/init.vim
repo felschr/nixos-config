@@ -47,18 +47,45 @@ let maplocalleader=","
 let g:camelcasemotion_key = '<leader>'
 
 function! LspStatus() abort
-  let has_client = luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-  return has_client ? 'LSP' : ''
+  let sl = ''
+  if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
+    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
+    let infos = luaeval("vim.lsp.diagnostic.get_count(0, [[Info]])")
+    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
+    if (errors || warnings || infos || hints)
+      if errors
+        let sl .= 'E' . errors
+      endif
+      if warnings
+        let sl .= ' W' . warnings
+      endif
+      if infos
+        let sl .= ' I' . infos
+      endif
+      if hints
+        let sl .= ' H' . hints
+      endif
+    else
+      let sl .= '🗸'
+    endif
+  endif
+  return trim(sl)
+endfunction
+
+function! GitStatus()
+  return get(b:,'gitsigns_status','')
 endfunction
 
 let g:lightline = {
   \ 'colorscheme': 'powerline',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'lspstatus', 'readonly', 'filename', 'modified' ] ]
+  \             [ 'lspstatus', 'readonly', 'filename', 'gitstatus', 'modified' ] ]
   \ },
   \ 'component_function': {
-  \   'lspstatus': 'LspStatus'
+  \   'lspstatus': 'LspStatus',
+  \   'gitstatus': 'GitStatus'
   \ },
   \ }
 
