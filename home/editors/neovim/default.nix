@@ -44,7 +44,7 @@ in {
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
-      gruvbox-community
+      nvcode-color-schemes-vim
       editorconfig-vim
       direnv-vim
       fzf-vim

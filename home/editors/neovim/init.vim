@@ -6,8 +6,10 @@ set smartcase
 set termguicolors
 set timeoutlen=500
 
-colorscheme gruvbox
-let g:gruvbox_number_column = 'bg1'
+let g:nvcode_termcolors=256
+syntax on
+colorscheme nvcode
+hi TSCurrentScope guifg=NONE ctermfg=NONE guibg=#252526 ctermbg=235 gui=NONE cterm=NONE
 
 function! s:gitModified()
   let files = systemlist('git ls-files -m 2>/dev/null')

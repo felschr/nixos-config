@@ -27,6 +27,6 @@ in {
           mods = "Control";
           action = "ReceiveChar";
         }) [ "Key0" "Equals" "NumpadAdd" "NumpadSubtract" "Minus" ];
-    } (trivial.importJSON (yamlToJSON ./alacritty-gruvbox-dark.yml));
+    } (trivial.importJSON (yamlToJSON ./alacritty-vscode.yml));
   };
 }
