@@ -57,8 +57,9 @@ in {
       vim-easymotion
       vim-which-key
       vim-peekaboo
-      vim-gitgutter
       vim-fugitive
+      plenary-nvim
+      gitsigns-nvim
       vim-test
       auto-pairs
       camelcasemotion
@@ -81,6 +82,7 @@ in {
     extraConfig = with builtins;
       readFile ./init.vim # + readFile ./vim-surround-fix.vim
       + readFile ./which-key.vim + readFile ./test.vim
+      + vimLua (readFile ./gitsigns.lua)
       + vimLua (readFile ./lsp/extensions.lua) + readFile ./lsp/lsp.vim
       + vimLua (readFile ./lsp/lsp.lua) + vimLua (readFile ./treesitter.lua);
     withNodeJs = true;
