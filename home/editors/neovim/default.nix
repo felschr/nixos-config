@@ -75,7 +75,7 @@ in {
       nvim-lspconfig
       # nvim-dap
 
-      completion-nvim
+      nvim-compe
 
       vim-orgmode
     ];
