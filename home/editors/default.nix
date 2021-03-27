@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./lsp.nix ./neovim ./vscode.nix ];
+  imports = [ ./lsp.nix ./neovim ];
 
   home.packages = with pkgs; [ fzf ripgrep ];
 
