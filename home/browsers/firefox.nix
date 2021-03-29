@@ -100,12 +100,10 @@ in {
     makeFirefoxProfileBin = args@{ profile, ... }:
       let
         name = "firefox-${profile}";
-        script = ''
+        scriptBin = pkgs.writeScriptBin name ''
           firefox -p "${escapeDesktopArg profile}" --class="${
             escapeDesktopArg name
-          }"'';
-        scriptBin = pkgs.writeScriptBin name ''
-          ${script} $@
+          }" $@
         '';
         desktopFile = pkgs.makeDesktopItem ((removeAttrs args [ "profile" ])
           // {
