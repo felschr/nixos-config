@@ -97,27 +97,46 @@ in {
   home.packages = let
     escapeDesktopArg = arg:
       replaceStrings [ ''"'' ] [ ''"\""'' ] (toString arg);
-    makeFirefoxProfileDesktopItem = attrs:
+    makeFirefoxProfileBin = args@{ profile, ... }:
       let
-        mkExec = with lib;
-          { name, profile, ... }: ''
-            firefox -p "${escapeDesktopArg profile}" --class="firefox-${
-              escapeDesktopArg name
-            }"
-          '';
-      in pkgs.makeDesktopItem ((removeAttrs attrs [ "profile" ]) // {
-        exec = mkExec attrs;
-        extraEntries = ''
-          StartupWMClass="${escapeDesktopArg attrs.name}"
+        name = "firefox-${profile}";
+        script = ''
+          firefox -p "${escapeDesktopArg profile}" --class="${
+            escapeDesktopArg name
+          }"'';
+        scriptBin = pkgs.writeScriptBin name ''
+          ${script} $@
         '';
-      });
+        desktopFile = pkgs.makeDesktopItem ((removeAttrs args [ "profile" ])
+          // {
+            inherit name;
+            exec = "${scriptBin}/bin/${name} %U";
+            extraEntries = ''
+              StartupWMClass="${escapeDesktopArg name}"
+            '';
+            genericName = "Web Browser";
+            mimeType = lib.concatStringsSep ";" [
+              "text/html"
+              "text/xml"
+              "application/xhtml+xml"
+              "application/vnd.mozilla.xul+xml"
+              "x-scheme-handler/http"
+              "x-scheme-handler/https"
+              "x-scheme-handler/ftp"
+            ];
+            categories = "Network;WebBrowser;";
+          });
+      in pkgs.runCommand name { } ''
+        mkdir -p $out/{bin,share}
+        cp -r ${scriptBin}/bin/${name} $out/bin/${name}
+        cp -r ${desktopFile}/share/applications $out/share/applications
+      '';
   in (with pkgs;
     [ (tor-browser-bundle-bin.override { pulseaudioSupport = true; }) ]) ++ [
-      (makeFirefoxProfileDesktopItem {
-        name = "firefox-work";
-        desktopName = "Firefox (Work)";
-        icon = "firefox"; # TODO looks different
+      (makeFirefoxProfileBin {
         profile = "work";
+        desktopName = "Firefox (Work)";
+        icon = "firefox";
       })
     ];
 }
