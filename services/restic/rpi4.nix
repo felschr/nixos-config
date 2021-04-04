@@ -46,6 +46,7 @@ in {
       "/var/lib/etebase-server"
       "/var/lib/hass"
       "/var/lib/mosquitto"
+      "/var/lib/photoprism"
       "/var/lib/syncthing"
       "/var/lib/jellyfin"
       "/var/lib/owntracks"

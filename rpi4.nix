@@ -12,6 +12,7 @@ with builtins; {
     ./services/kodi.nix
     ./services/jellyfin.nix
     ./services/etebase.nix
+    ./services/photoprism.nix
     ./services/home-assistant.nix
     ./services/owntracks.nix
   ];

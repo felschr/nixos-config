@@ -15,6 +15,13 @@
     flake = false;
   };
 
+  inputs.photoprism-flake = {
+    # url = "github:GTrunSec/photoprism-flake";
+    url = "github:felschr/photoprism-flake/multi-arch";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-utils.follows = "flake-utils";
+  };
+
   inputs.pre-commit-hooks = {
     url =
       # "github:Myhlamaeus/pre-commit-hooks.nix/feat/flake";
@@ -23,7 +30,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, nur, obelisk
-    , pre-commit-hooks }:
+    , photoprism-flake, pre-commit-hooks }:
     let
       overlays = {
         deconz = self: super: {
@@ -31,6 +38,10 @@
         };
         obelisk = self: super: {
           obelisk = (import obelisk { inherit (self) system; }).command;
+        };
+        # custom overlay so it's using the flake's nixpkgs
+        photoprism = self: super: {
+          photoprism = photoprism-flake.defaultPackage.${self.system};
         };
       };
       systemModule = { hostName, hardwareConfig, config }:
@@ -43,7 +54,12 @@
 
           nix.registry.nixpkgs.flake = nixpkgs;
 
-          nixpkgs.overlays = [ nur.overlay overlays.deconz overlays.obelisk ];
+          nixpkgs.overlays = [
+            nur.overlay
+            overlays.deconz
+            overlays.photoprism
+            overlays.obelisk
+          ];
 
           imports =
             [ hardwareConfig home-manager.nixosModules.home-manager config ];
@@ -85,6 +101,7 @@
         modules = [
           nixpkgs.nixosModules.notDetected
           { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
+          photoprism-flake.nixosModules.photoprism
           (systemModule {
             hostName = "felix-rpi4";
             hardwareConfig = ./hardware/rpi4.nix;
