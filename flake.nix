@@ -99,8 +99,10 @@
         system = "aarch64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
-          { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
-          photoprism-flake.nixosModules.photoprism
+          {
+            home-manager.users.felschr.imports = [ homeManagerModules.git ];
+          }
+          # photoprism-flake.nixosModules.photoprism
           (systemModule {
             hostName = "felix-rpi4";
             hardwareConfig = ./hardware/rpi4.nix;
