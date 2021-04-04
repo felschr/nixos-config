@@ -134,13 +134,28 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1607560137,
+        "narHash": "sha256-qI5U28r9Ie11OlkwzNFkhW0Z4jLanntJdb3JeFq/85A=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7ff5e241a2b96fff7912b7d793a06b4374bd846c",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "7ff5e241a2b96fff7912b7d793a06b4374bd846c",
+        "type": "indirect"
+      }
+    },
     "nur": {
       "locked": {
-        "lastModified": 1617544900,
-        "narHash": "sha256-C4uHa3IJHvQFmF4M4hK1FhASliEyag9M/qZLQsQD1iE=",
+        "lastModified": 1617554144,
+        "narHash": "sha256-OWUcx2gRpo/bR3Sr7gfF7Yj3ZFoo3+qUzD1MZXnxowk=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "18e3badc327531f85031b09511dc16bbb0bdd8f4",
+        "rev": "f8ee368e1bf173c2f31feb20b82e0fa017eaede6",
         "type": "github"
       },
       "original": {
@@ -188,9 +203,7 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_2",
         "photoprism": "photoprism",
         "ranz2nix": "ranz2nix"
       },
