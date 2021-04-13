@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2021-03-12";
+    version = "2021-04-13";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "dc8273f2f1e615cac5cee86709ca4ae6dbd70edf";
-      sha256 = "0xqvgdp7qvzd8jfy7s6kkr6n6bs7khg8n65vh7r1pp7xqawx4aiz";
+      rev = "c9817603cff5a5ca7ef4e4c12c8bf0e16d859e9a";
+      sha256 = "10ynpvrdm7sdkvmv96rgk0a6xa7489v65pxshml99vd4h7x8cfzl";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs
       ++ [ pkgs.utf8proc pkgs.tree-sitter ];
@@ -15,15 +15,25 @@ let
 
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
-  # TODO doesn't seem to work in tsx atm
   nvim-ts-autotag = buildVimPluginFrom2Nix {
     pname = "nvim-ts-autotag";
-    version = "2021-03-11";
+    version = "2021-03-26";
     src = pkgs.fetchFromGitHub {
       owner = "windwp";
       repo = "nvim-ts-autotag";
-      rev = "50410bf1d3f7519ac433b4027486a9fe3273049b";
-      sha256 = "0i7q31fn8llrxcbb5y79wanb03cj7fv02d0n8f7fa4y3cydxiiyl";
+      rev = "00b79b593af52585809e341c8dd1b7d839b3c466";
+      sha256 = "0a17jp6xn9vb8f205ivsw1fx1bapg6l5ywl1miacc06py459c7ch";
+    };
+  };
+
+  nvim-ts-context-commentstring = buildVimPluginFrom2Nix {
+    pname = "nvim-ts-context-commentstring";
+    version = "2021-04-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "JoosepAlviste";
+      repo = "nvim-ts-context-commentstring";
+      rev = "5024c83e92c3988f6e7119bfa1b2347ae3a42c3e";
+      sha256 = "13k7gwbrkbxjb3bf98zv6b64qqlas8z8xr9hxlr5l5hwmz5gw83i";
     };
   };
 
@@ -35,6 +45,7 @@ let
 in {
   home.packages = with pkgs; [
     gcc # required for nvim-treesitter
+    tree-sitter
     graphviz
   ];
 
@@ -56,26 +67,28 @@ in {
       vim-commentary
       vim-easymotion
       vim-which-key
-      vim-peekaboo
       vim-fugitive
+      registers-nvim
       plenary-nvim
       gitsigns-nvim
       vim-test
       auto-pairs
       camelcasemotion
       wmgraphviz-vim
+      nvim-compe
 
       # use :TSInstall & :TSUpdate to manage parsers
       nvim-treesitter
+      # TODO https://github.com/NixOS/nixpkgs/pull/115445
+      # nvim-treesitter.withPlugins (builtins.attrValues pkgs.tree-sitter.builtGrammars)
       nvim-treesitter-context
       nvim-treesitter-refactor
       nvim-treesitter-textobjects
       nvim-ts-autotag
+      nvim-ts-context-commentstring
 
       nvim-lspconfig
       # nvim-dap
-
-      nvim-compe
 
       vim-orgmode
     ];
@@ -85,7 +98,7 @@ in {
       + vimLua (readFile ./gitsigns.lua)
       + vimLua (readFile ./lsp/extensions.lua) + readFile ./lsp/lsp.vim
       + vimLua (readFile ./lsp/lsp.lua) + vimLua (readFile ./treesitter.lua);
-    withNodeJs = true;
+    withNodeJs = false;
     withPython = false;
   };
 
