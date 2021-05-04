@@ -2,12 +2,12 @@
 
 let
   neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2021-04-13";
+    version = "2021-05-04";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "c9817603cff5a5ca7ef4e4c12c8bf0e16d859e9a";
-      sha256 = "10ynpvrdm7sdkvmv96rgk0a6xa7489v65pxshml99vd4h7x8cfzl";
+      rev = "63d8a8f4e8b02e524d85aed08aa16c5d9815598c";
+      sha256 = "0zfrbvj8f2993n1gy37cnfmgixi6zgickzf44c1ll888k5f5rrx3";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs
       ++ [ pkgs.utf8proc pkgs.tree-sitter ];
@@ -17,23 +17,23 @@ let
 
   nvim-ts-autotag = buildVimPluginFrom2Nix {
     pname = "nvim-ts-autotag";
-    version = "2021-03-26";
+    version = "2021-04-25";
     src = pkgs.fetchFromGitHub {
       owner = "windwp";
       repo = "nvim-ts-autotag";
-      rev = "00b79b593af52585809e341c8dd1b7d839b3c466";
-      sha256 = "0a17jp6xn9vb8f205ivsw1fx1bapg6l5ywl1miacc06py459c7ch";
+      rev = "3d96e14e4400ce56e4fe0bf9b5e2e64b69dd7e65";
+      sha256 = "1ay93fak6m7x06ik8f4km00ln92l7cmlfmknms9czl2sl4pnrvzq";
     };
   };
 
   nvim-ts-context-commentstring = buildVimPluginFrom2Nix {
     pname = "nvim-ts-context-commentstring";
-    version = "2021-04-06";
+    version = "2021-04-17";
     src = pkgs.fetchFromGitHub {
       owner = "JoosepAlviste";
       repo = "nvim-ts-context-commentstring";
-      rev = "5024c83e92c3988f6e7119bfa1b2347ae3a42c3e";
-      sha256 = "13k7gwbrkbxjb3bf98zv6b64qqlas8z8xr9hxlr5l5hwmz5gw83i";
+      rev = "03a9c64d0b4249d91fd371de48bf3f6ac8a22d33";
+      sha256 = "1d4yygrz05vnp24bszwncajcksnkg66x0qks7y5398rr675kzl2g";
     };
   };
 
@@ -43,11 +43,7 @@ let
     EOF
   '';
 in {
-  home.packages = with pkgs; [
-    gcc # required for nvim-treesitter
-    tree-sitter
-    graphviz
-  ];
+  home.packages = with pkgs; [ graphviz ];
 
   programs.neovim = {
     enable = true;
@@ -66,9 +62,8 @@ in {
       vim-surround
       vim-commentary
       vim-easymotion
-      vim-which-key
+      which-key-nvim
       vim-fugitive
-      registers-nvim
       plenary-nvim
       gitsigns-nvim
       vim-test
@@ -77,10 +72,7 @@ in {
       wmgraphviz-vim
       nvim-compe
 
-      # use :TSInstall & :TSUpdate to manage parsers
-      nvim-treesitter
-      # TODO https://github.com/NixOS/nixpkgs/pull/115445
-      # nvim-treesitter.withPlugins (builtins.attrValues pkgs.tree-sitter.builtGrammars)
+      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       nvim-treesitter-context
       nvim-treesitter-refactor
       nvim-treesitter-textobjects
@@ -94,12 +86,12 @@ in {
     ];
     extraConfig = with builtins;
       readFile ./init.vim # + readFile ./vim-surround-fix.vim
-      + readFile ./which-key.vim + readFile ./test.vim
-      + vimLua (readFile ./gitsigns.lua)
-      + vimLua (readFile ./lsp/extensions.lua) + readFile ./lsp/lsp.vim
-      + vimLua (readFile ./lsp/lsp.lua) + vimLua (readFile ./treesitter.lua);
+      + vimLua (readFile ./which-key.lua) + vimLua (readFile ./gitsigns.lua)
+      + readFile ./test.vim + vimLua (readFile ./lsp/extensions.lua)
+      + readFile ./lsp/lsp.vim + vimLua (readFile ./lsp/lsp.lua)
+      + vimLua (readFile ./treesitter.lua);
     withNodeJs = false;
-    withPython = false;
+    withPython3 = false;
   };
 
   xdg.configFile."nvim/filetype.vim".source = ./filetype.vim;

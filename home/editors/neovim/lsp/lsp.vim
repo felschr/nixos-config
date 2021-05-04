@@ -32,7 +32,7 @@ nnoremap <silent> K          <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <c-k>      <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <leader>sd <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <leader>sw <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> <leader>f  <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> <leader>f  <cmd>lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'tsserver', 'diagnosticls' })<CR>
 nnoremap <silent> <leader>a  <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>r  <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>d  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
