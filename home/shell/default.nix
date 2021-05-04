@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let shellAliases = { emacs = "emacsclient -c"; };
+let shellAliases = { };
 in {
   imports = [ ./terminal.nix ];
 
