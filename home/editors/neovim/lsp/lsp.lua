@@ -109,20 +109,14 @@ config.diagnosticls.setup{
       eslint = {
         command = "eslint_d",
         args = {
-          -- TODO eslint_d's stdin option doesn't work for some reason
-          -- "--cache",
-          -- "--fix-to-stdout",
-          -- "--stdin",
-          -- "--stdin-filename",
-          -- "%filepath"
           "--cache",
-          "--fix",
+          "--fix-to-stdout",
+          "--stdin",
+          "--stdin-filename",
           "%filepath"
         },
         debounce = 50,
         rootPatterns = {".eslintrc.js", ".eslintrc.json", ".git"},
-        isStdout = false,
-        doesWriteToFile = true,
       },
       stylelint = {
         command = "stylelint",
