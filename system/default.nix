@@ -3,7 +3,7 @@
 {
   imports = [ ./hardened.nix ./i18n.nix ./nix.nix ./networking.nix ./vpn.nix ];
 
-  environment.systemPackages = with pkgs; [ wget curl neovim ];
+  environment.systemPackages = with pkgs; [ wget curl openssl neovim ];
 
   fonts.fonts = with pkgs; [
     fira-code

@@ -57,7 +57,6 @@ with pkgs; {
 
     # development
     unzip
-    openssl
     postman
     jq
     dos2unix
