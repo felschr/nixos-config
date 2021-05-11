@@ -30,6 +30,9 @@ let
     "browser.sessionstore.privacy_level" = 2;
     "network.IDN_show_punycode" = true;
 
+    # Disable DNS over HTTPS (done system-wide)
+    "network.trr.mode" = 5;
+
     # Theme
     "ui.systemUsesDarkTheme" = prefer-dark-theme;
     "extensions.activeThemeID" = concatStrings [
