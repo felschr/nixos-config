@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./firefox.nix ./chromium.nix ];
+  imports = [ ./firefox.nix ./brave.nix ];
 
   home.sessionVariables = { BROWSER = "firefox"; };
 }
