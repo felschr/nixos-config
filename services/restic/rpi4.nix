@@ -32,6 +32,8 @@ let
       ] ++ extraPruneOpts;
     };
 in {
+  environment.systemPackages = with pkgs; [ restic ];
+
   services.restic.backups.full = resticConfig {
     name = "full";
     paths = [ "/home" "/var" "/etc" ];
