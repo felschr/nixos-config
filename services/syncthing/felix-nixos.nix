@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
-{
+let
+  versioning = {
+    type = "trashcan";
+    params.cleanoutDays = "30";
+  };
+in {
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
@@ -33,8 +38,9 @@
         };
         "Media" = {
           id = "media";
-          path = "/home/felschr/sync/media";
+          path = "/run/media/felschr/HDD/Media";
           devices = [ "rpi4" ];
+          inherit versioning;
         };
       };
     };
