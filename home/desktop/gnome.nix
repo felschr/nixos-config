@@ -12,12 +12,11 @@ in {
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "pop-shell@system76.com"
         "native-window-placement@gnome-shell-extensions.gcampax.github.com" # works better with pop-shell
-        "dash-to-panel@jderose9.github.com"
         "appindicatorsupport@rgcjonas.gmail.com"
       ];
       favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" ];
     };
-    "org/gnome/shell/extensions/user-theme" = { name = "Pop-dark"; };
+    "org/gnome/shell/extensions/user-theme" = { name = "Adwaita-dark"; };
     "org/gnome/shell/extensions/pop-shell" = {
       tile-by-default = true;
       snap-to-grid = true;
@@ -25,11 +24,7 @@ in {
       show-title = false;
       active-hint = false;
     };
-    "org/gnome/shell/extensions/dash-to-panel" = {
-      appicon-padding = 4;
-      panel-size = 36;
-    };
-    "org/gnome/desktop/sound" = { theme-name = "Pop"; };
+    "org/gnome/desktop/sound" = { theme-name = "freedesktop"; };
     "org/gnome/desktop/input-sources" = {
       sources = map mkTuple [ [ "xkb" "gb" ] [ "ibus" "mozc-jp" ] ];
       xkb-options = [ "compose:ralt" ];

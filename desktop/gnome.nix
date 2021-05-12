@@ -4,13 +4,13 @@ with pkgs;
 let
   pop-shell = stdenv.mkDerivation rec {
     pname = "pop-shell";
-    version = "2021-03-16";
+    version = "2021-05-07";
 
     src = fetchFromGitHub {
       owner = "pop-os";
       repo = "shell";
-      rev = "77650a9aafa2f7adc328424e36dc91705411feb4";
-      sha256 = "0dff8gl83kx2qzzybk9hxbszv9p8qw8j40qirvfbx6mly7sqknng";
+      rev = "9507dc38f75f56e657cf071d5f8dc578c5dc9352";
+      sha256 = "161946y5nk1nlxafhkxyshqn4va10rk911bdbcwxjnak1w7557gm";
     };
 
     nativeBuildInputs = [ glib nodePackages.typescript ];
@@ -28,7 +28,6 @@ in {
       gnome.dconf-editor
       gnome.gnome-tweaks
       gnome.gnome-shell-extensions # required for user-theme
-      dash-to-panel
       appindicator
       pop-shell
     ];
