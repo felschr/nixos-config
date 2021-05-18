@@ -5,12 +5,12 @@ let
 
   nvim-ts-autotag = buildVimPluginFrom2Nix {
     pname = "nvim-ts-autotag";
-    version = "2021-04-25";
+    version = "2021-05-09";
     src = pkgs.fetchFromGitHub {
       owner = "windwp";
       repo = "nvim-ts-autotag";
-      rev = "3d96e14e4400ce56e4fe0bf9b5e2e64b69dd7e65";
-      sha256 = "1ay93fak6m7x06ik8f4km00ln92l7cmlfmknms9czl2sl4pnrvzq";
+      rev = "cb2d352bebaa21c7bed2dc2534d7094e83753e83";
+      sha256 = "0ph9v5k3q89rcpakaga5vw1lijmfi7018f9ffg9lr3yl9k8d974c";
     };
   };
 
