@@ -10,6 +10,12 @@
 
   inputs.nur.url = "github:nix-community/NUR/master";
 
+  inputs.neovim = {
+    url = "github:neovim/neovim?dir=contrib";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-utils.follows = "flake-utils";
+  };
+
   inputs.obelisk = {
     url = "github:obsidiansystems/obelisk";
     flake = false;
@@ -27,10 +33,13 @@
     inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, nur, obelisk
+  outputs = { self, nixpkgs, flake-utils, home-manager, nur, neovim, obelisk
     , photoprism-flake, pre-commit-hooks }:
     let
       overlays = {
+        neovim = self: super: {
+          neovim-nightly = neovim.packages.${self.system}.neovim;
+        };
         deconz = self: super: {
           deconz = self.qt5.callPackage ./pkgs/deconz { };
         };
@@ -54,6 +63,7 @@
 
           nixpkgs.overlays = [
             nur.overlay
+            overlays.neovim
             overlays.deconz
             overlays.photoprism
             overlays.obelisk

@@ -1,18 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: rec {
-    version = "2021-05-04";
-    src = pkgs.fetchFromGitHub {
-      owner = "neovim";
-      repo = "neovim";
-      rev = "63d8a8f4e8b02e524d85aed08aa16c5d9815598c";
-      sha256 = "0zfrbvj8f2993n1gy37cnfmgixi6zgickzf44c1ll888k5f5rrx3";
-    };
-    nativeBuildInputs = oldAttrs.nativeBuildInputs
-      ++ [ pkgs.utf8proc pkgs.tree-sitter ];
-  });
-
   buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
   nvim-ts-autotag = buildVimPluginFrom2Nix {
@@ -47,7 +35,7 @@ in {
 
   programs.neovim = {
     enable = true;
-    package = neovim-unwrapped;
+    package = pkgs.neovim-nightly;
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
