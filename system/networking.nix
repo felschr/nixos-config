@@ -34,4 +34,13 @@
   systemd.services.dnscrypt-proxy2.serviceConfig = {
     StateDirectory = lib.mkForce "dnscrypt-proxy2";
   };
+
+  # prefer IPv6
+  environment.etc."gai.conf".text = ''
+    label ::1/128       0
+    label ::/0          1
+    label 2002::/16     2
+    label ::/96         3
+    label ::ffff:0:0/96 4
+  '';
 }
