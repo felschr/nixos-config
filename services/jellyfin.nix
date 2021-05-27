@@ -1,13 +1,14 @@
 { config, pkgs, ... }:
 
-let user = "felschr";
-in {
+{
+  users.groups.media = { };
+
   services.jellyfin.enable = true;
-  services.jellyfin.user = user;
+  services.jellyfin.group = "media";
   services.jellyfin.openFirewall = true;
 
   # for hardware acceleration
-  users.users."${user}".extraGroups = [ "video" "render" ];
+  users.users.jellyfin.extraGroups = [ "video" "render" ];
 
   services.nginx = {
     virtualHosts."media.felschr.com" = {

@@ -85,7 +85,7 @@ with builtins; {
 
   users.users.felschr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "disk" ];
+    extraGroups = [ "wheel" "audio" "disk" "media" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [ ./key ];
   };
