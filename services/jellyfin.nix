@@ -3,8 +3,16 @@
 {
   services.jellyfin.enable = true;
   services.jellyfin.user = "felschr";
-  networking.firewall.allowedTCPPorts = [ 8920 8096 1900 7359 ];
+  services.jellyfin.openFirewall = true;
 
   # for hardware acceleration
-  users.users.jellyfin.extraGroups = [ "video" ];
+  users.users.jellyfin.extraGroups = [ "video" "render" ];
+
+  services.nginx = {
+    virtualHosts."jellyfin.felschr.com" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/".proxyPass = "http://localhost:8096";
+    };
+  };
 }
