@@ -10,7 +10,7 @@ in {
   users.users."${user}".extraGroups = [ "video" "render" ];
 
   services.nginx = {
-    virtualHosts."jellyfin.felschr.com" = {
+    virtualHosts."media.felschr.com" = {
       enableACME = true;
       forceSSL = true;
       locations."/".proxyPass = "http://localhost:8096";
