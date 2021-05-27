@@ -6,13 +6,7 @@
     setLdLibraryPath = true;
     package = pkgs.mesa_drivers;
   };
-  hardware.deviceTree = {
-    overlays = [ "${pkgs.device-tree_rpi.overlays}/vc4-fkms-v3d.dtbo" ];
-  };
-  services.xserver = {
-    enable = false;
-    videoDrivers = [ "modesetting" ];
-  };
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
   boot.loader.raspberryPi.firmwareConfig = ''
     gpu_mem=320
   '';

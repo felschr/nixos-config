@@ -1,6 +1,8 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+  inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   inputs.home-manager = {
@@ -33,8 +35,8 @@
     inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, nur, neovim, obelisk
-    , photoprism-flake, pre-commit-hooks }:
+  outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
+    , neovim, obelisk, photoprism-flake, pre-commit-hooks }:
     let
       overlays = {
         neovim = self: super: {
@@ -108,6 +110,7 @@
         system = "aarch64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
+          nixos-hardware.nixosModules.raspberry-pi-4
           {
             home-manager.users.felschr.imports = [ homeManagerModules.git ];
           }
