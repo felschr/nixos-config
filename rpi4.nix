@@ -44,6 +44,7 @@ with builtins; {
     records = [
       "*.home.felschr.com"
       "home.felschr.com"
+      "media.felschr.com"
       "owntracks.felschr.com"
       "etebase.felschr.com"
     ];
