@@ -143,17 +143,16 @@
     "photoprism": {
       "flake": false,
       "locked": {
-        "lastModified": 1613655548,
-        "narHash": "sha256-ip5QC2fZyJLYdcgaeCiCmbIb6byoqP9SYN79KAZSsVc=",
+        "lastModified": 1622032919,
+        "narHash": "sha256-1Xzs1+fNL9DrI8HZL1Hh6U6tMnE+2lHLwJ8K6ZgTr70=",
         "owner": "photoprism",
         "repo": "photoprism",
-        "rev": "a9f64f98c2c99c07a9e69a82a1122e3b520790cf",
+        "rev": "64d45c6dab8a65b65219fca51f21a2ddc0bbea95",
         "type": "github"
       },
       "original": {
         "owner": "photoprism",
         "repo": "photoprism",
-        "rev": "a9f64f98c2c99c07a9e69a82a1122e3b520790cf",
         "type": "github"
       }
     },
@@ -167,16 +166,15 @@
         "ranz2nix": "ranz2nix"
       },
       "locked": {
-        "lastModified": 1620861791,
-        "narHash": "sha256-vA28OHzde4R+VkJz9xVPXR0Drs+a8Iz75B2zk9Gq4eU=",
-        "owner": "felschr",
+        "lastModified": 1621834972,
+        "narHash": "sha256-WbSloujOsC5ljiYwQa2tz0Qa2E5dshjDkpnnguuR7nk=",
+        "owner": "GTrunSec",
         "repo": "photoprism-flake",
-        "rev": "3023179da4773440409f1b33d52b075e34bf41a2",
+        "rev": "cb41f10aaf8396f9ca7ca2014e7b4c857a1b75d5",
         "type": "github"
       },
       "original": {
-        "owner": "felschr",
-        "ref": "multi-arch",
+        "owner": "GTrunSec",
         "repo": "photoprism-flake",
         "type": "github"
       }

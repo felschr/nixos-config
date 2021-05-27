@@ -24,8 +24,7 @@
   };
 
   inputs.photoprism-flake = {
-    # url = "github:GTrunSec/photoprism-flake";
-    url = "github:felschr/photoprism-flake/multi-arch";
+    url = "github:GTrunSec/photoprism-flake";
     inputs.flake-utils.follows = "flake-utils";
   };
 
