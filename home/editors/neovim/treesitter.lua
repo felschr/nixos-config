@@ -1,7 +1,4 @@
--- TODO install parsers declaratively instead of :TSInstall & :TSUpdate
-
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = 'all',
   highlight = {
     enable = true,
   },
