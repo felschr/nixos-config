@@ -34,6 +34,7 @@ let
     "network.trr.mode" = 5;
 
     # Theme
+    "browser.theme.toolbar-theme" = 0;
     "ui.systemUsesDarkTheme" = prefer-dark-theme;
     "extensions.activeThemeID" = concatStrings [
       "firefox-compact-"
