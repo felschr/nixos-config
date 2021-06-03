@@ -91,5 +91,5 @@
     ledger-live-desktop
   ];
 
-  home.stateVersion = "20.09";
+  home.stateVersion = "21.05";
 }
