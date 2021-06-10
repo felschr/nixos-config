@@ -82,7 +82,7 @@ in {
     };
     extensions = with firefox-addons; [
       ublock-origin
-      decentraleyes
+      localcdn
       clearurls
       terms-of-service-didnt-read
       vimium
@@ -92,6 +92,7 @@ in {
       languagetool
       metamask
       privacy-redirect
+      to-deepl
       # not available yet:
       # fx_cast
       # google-lighthouse
