@@ -79,6 +79,7 @@ with builtins; {
     permitRootLogin = "no";
   };
 
+  # ssh root@hostname "echo "$(read -s pass; echo \'"$pass"\')" > /crypt-ramfs/passphrase"
   boot.initrd.network.ssh = {
     enable = true;
     authorizedKeys = [ (readFile "./key") ];
