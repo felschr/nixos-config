@@ -30,6 +30,8 @@
 
   programs.zsh.enable = true;
 
+  services.printing.drivers = with pkgs; [ epson-escpr ];
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "docker" "disk" ];

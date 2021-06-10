@@ -41,6 +41,8 @@
     "87.98.162.88" = [ "portcheck.transmissionbt.com" ];
   };
 
+  services.printing.drivers = with pkgs; [ epson-escpr ];
+
   users.users.felschr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "docker" "disk" ];
