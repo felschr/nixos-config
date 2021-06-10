@@ -15,10 +15,8 @@
 
   environment.systemPackages = [
     (pkgs.kodi.override {
-      plugins = with pkgs.kodiPlugins; [
-        advanced-launcher
-        pkgs.nur.repos.marzipankaiser.kodiPlugins.netflix
-      ];
+      plugins = with pkgs.kodiPlugins;
+        [ pkgs.nur.repos.marzipankaiser.kodiPlugins.netflix ];
     })
   ];
 }
