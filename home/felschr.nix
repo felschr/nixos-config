@@ -58,18 +58,17 @@
     # productivity
     discord
     libreoffice-fresh
+    xournalpp
     skypeforlinux
     tabbed
 
     # development
-    haskellPackages.ghc
-    haskellPackages.cabal-install
-    stack
-    obelisk
     postman
 
     # entertainment
     celluloid
+    google-play-music-desktop-player
+    # audiotube
 
     # learning
     anki
@@ -89,6 +88,7 @@
     # other
     bitwarden
     ledger-live-desktop
+    portfolio
   ];
 
   home.stateVersion = "21.05";
