@@ -34,8 +34,12 @@
   programs.zsh.enable = true;
 
   networking.firewall.allowedTCPPorts = [
-    4824 # transmission
+    54950 # transmission
   ];
+  networking.hosts = {
+    # force IPv4, see: https://github.com/transmission/transmission/issues/407
+    "87.98.162.88" = [ "portcheck.transmissionbt.com" ];
+  };
 
   users.users.felschr = {
     isNormalUser = true;
