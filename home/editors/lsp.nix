@@ -3,12 +3,12 @@
 let
   omnisharp-roslyn = pkgs.omnisharp-roslyn.overrideAttrs (oldAttrs: rec {
     pname = "omnisharp-roslyn";
-    version = "1.37.8";
+    version = "1.37.10";
 
     src = pkgs.fetchurl {
       url =
         "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${version}/omnisharp-mono.tar.gz";
-      sha256 = "0kgv4l15rli9a7grmcsbv72csmxi7vqa7lrrr8bd4cq9ighh54q3";
+      sha256 = "0wrkw04yw0lx8w7gwwbiz0pdh2qcqmmdh5wmf0d9v0nxib18dxrs";
     };
   });
 in {
