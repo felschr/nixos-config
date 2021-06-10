@@ -69,6 +69,7 @@ in {
 
       nvim-lspconfig
       # nvim-dap
+      # nvim-dap-virtual-text
 
       vim-orgmode
     ];
