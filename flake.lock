@@ -124,6 +124,38 @@
         "type": "github"
       }
     },
+    "nvim-ts-autotag": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1623246197,
+        "narHash": "sha256-JUlVY0fOYnCMEMCgI9jKnnxKWse2C+MDyKC0SBj48mw=",
+        "owner": "windwp",
+        "repo": "nvim-ts-autotag",
+        "rev": "0d7f288dae497aae7b7f00a2381fb72f6a489638",
+        "type": "github"
+      },
+      "original": {
+        "owner": "windwp",
+        "repo": "nvim-ts-autotag",
+        "type": "github"
+      }
+    },
+    "nvim-ts-context-commentstring": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1622998430,
+        "narHash": "sha256-RPsM6mcjWtQd0tL1CnGV/72RLXs2Tedd0WWNjNW0jRI=",
+        "owner": "JoosepAlviste",
+        "repo": "nvim-ts-context-commentstring",
+        "rev": "a234c51566bf4042d47328f1dc0e3bb09032adba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "JoosepAlviste",
+        "repo": "nvim-ts-context-commentstring",
+        "type": "github"
+      }
+    },
     "obelisk": {
       "flake": false,
       "locked": {
@@ -226,6 +258,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "nvim-ts-autotag": "nvim-ts-autotag",
+        "nvim-ts-context-commentstring": "nvim-ts-context-commentstring",
         "obelisk": "obelisk",
         "photoprism-flake": "photoprism-flake",
         "pre-commit-hooks": "pre-commit-hooks"

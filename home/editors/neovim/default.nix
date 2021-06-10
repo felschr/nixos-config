@@ -1,30 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-
-  nvim-ts-autotag = buildVimPluginFrom2Nix {
-    pname = "nvim-ts-autotag";
-    version = "2021-05-09";
-    src = pkgs.fetchFromGitHub {
-      owner = "windwp";
-      repo = "nvim-ts-autotag";
-      rev = "cb2d352bebaa21c7bed2dc2534d7094e83753e83";
-      sha256 = "0ph9v5k3q89rcpakaga5vw1lijmfi7018f9ffg9lr3yl9k8d974c";
-    };
-  };
-
-  nvim-ts-context-commentstring = buildVimPluginFrom2Nix {
-    pname = "nvim-ts-context-commentstring";
-    version = "2021-04-17";
-    src = pkgs.fetchFromGitHub {
-      owner = "JoosepAlviste";
-      repo = "nvim-ts-context-commentstring";
-      rev = "03a9c64d0b4249d91fd371de48bf3f6ac8a22d33";
-      sha256 = "1d4yygrz05vnp24bszwncajcksnkg66x0qks7y5398rr675kzl2g";
-    };
-  };
-
   vimLua = lua: ''
     lua << EOF
     ${lua}

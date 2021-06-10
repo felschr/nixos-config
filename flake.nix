@@ -34,13 +34,39 @@
     inputs.flake-utils.follows = "flake-utils";
   };
 
+  inputs.nvim-ts-autotag = {
+    url = "github:windwp/nvim-ts-autotag";
+    flake = false;
+  };
+
+  inputs.nvim-ts-context-commentstring = {
+    url = "github:JoosepAlviste/nvim-ts-context-commentstring";
+    flake = false;
+  };
+
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , neovim, obelisk, photoprism-flake, pre-commit-hooks }:
+    , neovim, obelisk, photoprism-flake, pre-commit-hooks, nvim-ts-autotag
+    , nvim-ts-context-commentstring }:
     let
       overlays = {
-        neovim = self: super: {
-          neovim-nightly = neovim.packages.${self.system}.neovim;
-        };
+        neovim = self: super:
+          with super.pkgs.vimUtils; {
+            neovim-nightly = neovim.packages.${self.system}.neovim;
+            vimPlugins = super.vimPlugins // {
+              nvim-ts-autotag = buildVimPluginFrom2Nix {
+                pname = "nvim-ts-autotag";
+                version = nvim-ts-autotag.rev;
+                versionSuffix = "-git";
+                src = nvim-ts-autotag;
+              };
+              nvim-ts-context-commentstring = buildVimPluginFrom2Nix {
+                pname = "nvim-ts-context-commentstring";
+                version = nvim-ts-context-commentstring.rev;
+                versionSuffix = "-git";
+                src = nvim-ts-context-commentstring;
+              };
+            };
+          };
         deconz = self: super: {
           deconz = self.qt5.callPackage ./pkgs/deconz { };
         };
