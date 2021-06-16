@@ -76,7 +76,10 @@ in {
 
   programs.direnv = {
     enable = true;
-    enableNixDirenvIntegration = true;
+    nix-direnv = {
+      enable = true;
+      enableFlakes = true;
+    };
   };
 
   # for .envrc's in child directories add "source_up"
