@@ -1,7 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardened.nix ./i18n.nix ./nix.nix ./networking.nix ./vpn.nix ];
+  imports = [
+    ./hardened.nix
+    ./sound.nix
+    ./i18n.nix
+    ./nix.nix
+    ./networking.nix
+    ./vpn.nix
+  ];
 
   environment.systemPackages = with pkgs; [ wget curl openssl neovim ];
 

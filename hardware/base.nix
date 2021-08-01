@@ -16,14 +16,4 @@
   hardware.bluetooth.settings = {
     General = { Enable = "Source,Sink,Media,Socket"; };
   };
-
-  # Sound.
-  sound.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    support32Bit = true;
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
-    package = pkgs.pulseaudioFull;
-  };
 }
-
