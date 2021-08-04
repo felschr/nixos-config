@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 
+# using the restic cli:
+# load credentials into shell via: export $(cat /path/to/credentials/file | xargs)
+# useful commands for analysing restic stats [snapshot-id], restic diff [s1] [s2],
+
 with lib;
 with builtins;
-
 let
   hasAnyAttr = flip (attrset: any (flip hasAttr attrset));
 
@@ -52,9 +55,9 @@ in {
       "/var/lib/syncthing"
       "/var/lib/jellyfin"
       "/var/lib/owntracks"
-      "/var/lib/owntracks-recorder"
     ];
     timerConfig = { OnCalendar = "hourly"; };
     extraPruneOpts = [ "--keep-hourly 24" ];
+    extraOptions = [ "--exclude=/var/lib/jellyfin/transcodes" ];
   };
 }
