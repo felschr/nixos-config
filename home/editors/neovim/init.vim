@@ -6,6 +6,9 @@ set smartcase
 set termguicolors
 set timeoutlen=500
 
+" reduce CursorHold delay
+set updatetime=500
+
 let g:nvcode_termcolors=256
 syntax on
 colorscheme nvcode

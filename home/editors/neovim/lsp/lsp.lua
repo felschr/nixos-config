@@ -1,32 +1,52 @@
 local config = require'lspconfig'
 
+local pid = vim.fn.getpid()
+
+-- lightbulb
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+
+local on_attach = function(_, bufnr)
+  -- codelens
+  vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>l", "<Cmd>lua vim.lsp.codelens.run()<CR>", {silent = true;})
+end
+
 -- format on save
 local diagnosticls_on_attach = function(_, bufnr)
+  on_attach(_, bufnr)
   vim.api.nvim_command(
     "au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'tsserver', 'diagnosticls' })")
 end
 
-local pid = vim.fn.getpid()
+-- enable lsp snippets for nvim-compe
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+local servers = {
+  "bashls",
+  "jsonls",
+  "yamlls",
+  "html",
+  "cssls",
+  "dockerls",
+  "rnix",
+  "tsserver",
+  "pylsp",
+  "terraformls",
+  "hls",
+  "rust_analyzer",
+}
+for _, lsp in ipairs(servers) do
+  config[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end
 
-config.bashls.setup{}
-config.jsonls.setup{}
-config.yamlls.setup{}
-config.html.setup{}
-config.cssls.setup{}
-config.vimls.setup{}
-config.dockerls.setup{}
-config.rnix.setup{}
-config.tsserver.setup{}
 config.omnisharp.setup{
+  capabilities = capabilities,
   cmd = {"omnisharp", "--languageserver", "--hostPID", tostring(pid)},
 }
-config.pyls.setup{}
-config.terraformls.setup{}
-config.hls.setup{}
 
--- based on: https://github.com/mikew/vimrc/blob/master/src/nvim/coc-settings.json
--- TODO breaks auto-completion when using with other lsp
--- TODO some ts projects are using tsc eslint plugin
 config.diagnosticls.setup{
   on_attach = diagnosticls_on_attach,
   filetypes = {
@@ -148,8 +168,34 @@ config.diagnosticls.setup{
       json = {"prettier"},
       yaml = {"prettier"},
       markdown = {"prettier"},
+      nix = {"nixfmt"},
       html = {"prettier"},
       css = {"stylelint"},
     },
   },
 }
+
+-- nvim-autoclose & nvim-compe compatibility
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+
+npairs.setup({
+  check_ts = true,
+})
+
+_G.MUtils= {}
+
+vim.g.completion_confirm_key = ""
+MUtils.completion_confirm=function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+    else
+      return npairs.esc("<cr>")
+    end
+  else
+    return npairs.autopairs_cr()
+  end
+end
+
+remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})

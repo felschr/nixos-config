@@ -6,7 +6,7 @@
     omnisharp-roslyn
     rnix-lsp
     terraform-ls
-    python3Packages.python-language-server
+    python3Packages.python-lsp-server
     nodePackages.bash-language-server
     nodePackages.vim-language-server
     nodePackages.yaml-language-server
@@ -17,8 +17,9 @@
     nodePackages.dockerfile-language-server-nodejs
     haskellPackages.haskell-language-server
     nodePackages.diagnostic-languageserver
+    rust-analyzer
 
-    # linters
+    # linters & formatters
     nodePackages.eslint
     # nodePackages.stylelint
     nodePackages.prettier

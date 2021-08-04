@@ -10,6 +10,7 @@ let g:compe.source = {}
 let g:compe.source.path = v:true
 let g:compe.source.calc = v:true
 let g:compe.source.nvim_lsp = v:true
+let g:compe.source.vsnip = v:true
 
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
@@ -36,4 +37,7 @@ nnoremap <silent> <leader>f  <cmd>lua vim.lsp.buf.formatting_seq_sync(nil, nil, 
 nnoremap <silent> <leader>a  <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>r  <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>d  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> <leader>q  <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent> [d         <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]d         <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 

@@ -11,7 +11,6 @@ in {
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
@@ -31,10 +30,11 @@ in {
       plenary-nvim
       gitsigns-nvim
       vim-test
-      auto-pairs
+      nvim-autopairs
       camelcasemotion
       wmgraphviz-vim
       nvim-compe
+      vim-vsnip
 
       (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       nvim-treesitter-context
@@ -43,7 +43,11 @@ in {
       nvim-ts-autotag
       nvim-ts-context-commentstring
 
+      # lsp
       nvim-lspconfig
+      nvim-lightbulb
+
+      # dap
       # nvim-dap
       # nvim-dap-virtual-text
 
