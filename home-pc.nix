@@ -7,6 +7,7 @@
     ./hardware/steam.nix
     ./hardware/ledger.nix
     ./system
+    ./system/gaming.nix
     ./desktop
     ./virtualisation/docker.nix
     ./services/syncthing/felix-nixos.nix

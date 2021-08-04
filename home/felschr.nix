@@ -14,7 +14,7 @@
     ./browsers
     ./planck.nix
     ./ausweisapp.nix
-    ./steam.nix
+    ./gaming
   ];
 
   services.gammastep = {
@@ -72,9 +72,6 @@
 
     # learning
     anki
-
-    # gaming
-    lutris
 
     # privacy
     onionshare-gui
