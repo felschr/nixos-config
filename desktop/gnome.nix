@@ -33,12 +33,18 @@ in {
     ];
 
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = false;
+  services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.displayManager.gdm.nvidiaWayland = true;
+  services.xserver.displayManager.defaultSession = "gnome-xorg";
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
     [org/gnome/desktop/input-sources]
     sources=[('xkb', 'gb'), ('xkb', 'mozc-jp')]
+
+    [org/gnome/mutter]
+    experimental-features=['kms-modifiers']
   '';
+  programs.xwayland.enable = true;
 
   # exclude some default applications
   environment.gnome.excludePackages = with pkgs; [
