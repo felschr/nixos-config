@@ -1,17 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  omnisharp-roslyn = pkgs.omnisharp-roslyn.overrideAttrs (oldAttrs: rec {
-    pname = "omnisharp-roslyn";
-    version = "1.37.10";
-
-    src = pkgs.fetchurl {
-      url =
-        "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${version}/omnisharp-mono.tar.gz";
-      sha256 = "0wrkw04yw0lx8w7gwwbiz0pdh2qcqmmdh5wmf0d9v0nxib18dxrs";
-    };
-  });
-in {
+{
   home.packages = with pkgs; [
     # language servers
     omnisharp-roslyn
@@ -39,15 +28,14 @@ in {
   home.file.".omnisharp/omnisharp.json" = {
     text = ''
       {
-        "MsBuild": {
-          "UseLegacySdkResolver": true,
-          "EnablePackageAutoRestore": true
+        "msbuild": {
+          "enablePackageAutoRestore": true
         },
-        "FormattingOptions": {
-          "EnableEditorConfigSupport": true
+        "formattingOptions": {
+          "enableEditorConfigSupport": true
         },
-        "RoslynExtensionsOptions": {
-          "EnableAnalyzersSupport": true
+        "roslynExtensionsOptions": {
+          "enableAnalyzersSupport": true
         }
       }
     '';
