@@ -4,6 +4,18 @@
   home.packages = with pkgs; [ lutris ];
 
   xdg.dataFile = {
+    wine-ge = let
+      version = "6.14-GE-2";
+      name = "wine-lutris-ge-6.14-2-x86_64";
+    in {
+      recursive = false;
+      source = builtins.fetchTarball {
+        url =
+          "https://github.com/GloriousEggroll/wine-ge-custom/releases/download/${version}/${name}.tar.xz";
+        sha256 = "0ss693vg7gq6dp4x0ilhlkbz2il941ravhrh7l7s6zzx415c468x";
+      };
+      target = "lutris/runners/wine/${name}";
+    };
     wine-runner-sc = let
       package = { }:
         pkgs.stdenv.mkDerivation rec {
