@@ -46,7 +46,7 @@
 
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
     , neovim, obelisk, photoprism-flake, pre-commit-hooks, nvim-ts-autotag
-    , nvim-ts-context-commentstring }:
+    , nvim-ts-context-commentstring }@inputs:
     let
       overlays = {
         neovim = self: super:
@@ -78,42 +78,57 @@
           photoprism = photoprism-flake.defaultPackage.${self.system};
         };
       };
-      systemModule = { hostName, hardwareConfig, config }:
-        ({ pkgs, ... }: {
-          networking.hostName = hostName;
+      nixosModules = { flakeDefaults = import ./modules/flakeDefaults.nix; };
+      homeManagerModules = { git = import ./home/modules/git.nix; };
+      systemDefaults = {
+        modules = [ nixosModules.flakeDefaults ];
+        overlays = [
+          nur.overlay
+          overlays.wayland
+          overlays.neovim
+          overlays.deconz
+          overlays.photoprism
+          overlays.obelisk
+        ];
+      };
+      lib = rec {
+        createSystem = hostName:
+          { hardwareConfig, config }:
+          ({ pkgs, lib, ... }: {
+            networking.hostName = hostName;
 
-          # Let 'nixos-version --json' know about the Git revision
-          # of this flake.
-          system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
+            nixpkgs.overlays = systemDefaults.overlays;
 
-          nix.registry.nixpkgs.flake = nixpkgs;
-
-          nixpkgs.overlays = [
-            nur.overlay
-            overlays.neovim
-            overlays.deconz
-            overlays.photoprism
-            overlays.obelisk
-          ];
-
-          imports =
-            [ hardwareConfig home-manager.nixosModules.home-manager config ];
-        });
+            imports = systemDefaults.modules ++ [
+              hardwareConfig
+              config
+              {
+                # make arguments available to modules
+                _module.args = { inherit self inputs; };
+              }
+            ];
+          });
+        createUser' = import ./lib/createUser.nix;
+        createUser = name: args:
+          ({ pkgs, ... }@args2:
+            (createUser' name args) ({ inherit home-manager; } // args2));
+      };
     in rec {
 
-      inherit overlays;
-
-      homeManagerModules.git = import ./home/modules/git.nix;
+      inherit lib overlays nixosModules homeManagerModules;
 
       nixosConfigurations.felix-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
-          { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
-          (systemModule {
-            hostName = "felix-nixos";
+          (lib.createSystem "felix-nixos" {
             hardwareConfig = ./hardware/felix-nixos.nix;
             config = ./home-pc.nix;
+          })
+          (lib.createUser "felschr" {
+            user.extraGroups = [ "wheel" "audio" "docker" "disk" ];
+            modules = [ homeManagerModules.git ];
+            config = ./home/felschr.nix;
           })
         ];
       };
@@ -122,11 +137,14 @@
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
-          { home-manager.users.felschr.imports = [ homeManagerModules.git ]; }
-          (systemModule {
-            hostName = "pilot1";
+          (lib.createSystem "pilot1" {
             hardwareConfig = ./hardware-configuration.nix; # TODO
             config = ./work-pc.nix;
+          })
+          (lib.createUser "felschr" {
+            user.extraGroups = [ "wheel" "audio" "docker" "disk" ];
+            modules = [ homeManagerModules.git ];
+            config = ./home/felschr-work.nix;
           })
         ];
       };
@@ -136,14 +154,18 @@
         modules = [
           nixpkgs.nixosModules.notDetected
           nixos-hardware.nixosModules.raspberry-pi-4
-          {
-            home-manager.users.felschr.imports = [ homeManagerModules.git ];
-          }
           # photoprism-flake.nixosModules.photoprism
-          (systemModule {
-            hostName = "felix-rpi4";
+          (lib.createSystem "felix-rpi4" {
             hardwareConfig = ./hardware/rpi4.nix;
             config = ./rpi4.nix;
+          })
+          (lib.createUser "felschr" {
+            user = {
+              extraGroups = [ "wheel" "audio" "disk" "media" ];
+              openssh.authorizedKeys.keyFiles = [ ./key ];
+            };
+            modules = [ homeManagerModules.git ];
+            config = ./home/felschr-rpi4.nix;
           })
         ];
       };

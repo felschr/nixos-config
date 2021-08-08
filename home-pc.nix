@@ -44,19 +44,6 @@
 
   services.printing.drivers = with pkgs; [ epson-escpr ];
 
-  users.users.felschr = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "docker" "disk" ];
-    shell = pkgs.zsh;
-  };
-
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    backupFileExtension = "backup";
-    users.felschr = import ./home/felschr.nix;
-  };
-
   # only change this when specified in release notes
   system.stateVersion = "21.05";
 }

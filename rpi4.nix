@@ -85,20 +85,6 @@ with builtins; {
     authorizedKeys = [ (readFile "./key") ];
   };
 
-  users.users.felschr = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "disk" "media" ];
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keyFiles = [ ./key ];
-  };
-
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    backupFileExtension = "backup";
-    users.felschr = import ./home/felschr-rpi4.nix;
-  };
-
   # only change this when specified in release notes
   system.stateVersion = "21.05";
 }
