@@ -24,8 +24,6 @@
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
 
-  services.tlp.enable = true;
-
   programs.adb.enable = true;
 
   programs.zsh.enable = true;
