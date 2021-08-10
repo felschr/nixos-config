@@ -20,6 +20,7 @@
     [ { device = "/dev/disk/by-uuid/397a1a92-596f-421b-99e1-c9b2cb821309"; }
     ];
 
-  nix.maxJobs = lib.mkDefault 8;
+  # TODO keep this disabled?
+  # nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware/base.nix
-    ./hardware/gpu-bumblebee.nix
+    ./hardware/gpu-intel.nix
     ./system
     ./desktop
     ./virtualisation/docker.nix
