@@ -137,7 +137,7 @@
         modules = [
           nixpkgs.nixosModules.notDetected
           (lib.createSystem "pilot1" {
-            hardwareConfig = ./hardware-configuration.nix; # TODO
+            hardwareConfig = ./hardware/pilot1.nix;
             config = ./work-pc.nix;
           })
           (lib.createUser "felschr" {

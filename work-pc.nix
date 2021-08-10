@@ -21,8 +21,8 @@
 
   hardware.enableAllFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.logitech.enable = true;
-  hardware.logitech.enableGraphical = true;
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
   services.tlp.enable = true;
 
