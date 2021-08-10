@@ -84,7 +84,6 @@
         modules = [ nixosModules.flakeDefaults ];
         overlays = [
           nur.overlay
-          overlays.wayland
           overlays.neovim
           overlays.deconz
           overlays.photoprism
