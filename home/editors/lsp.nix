@@ -10,9 +10,7 @@
     nodePackages.bash-language-server
     nodePackages.vim-language-server
     nodePackages.yaml-language-server
-    nodePackages.vscode-json-languageserver
-    nodePackages.vscode-css-languageserver-bin
-    nodePackages.vscode-html-languageserver-bin
+    nodePackages.vscode-langservers-extracted
     nodePackages.typescript-language-server
     nodePackages.dockerfile-language-server-nodejs
     haskellPackages.haskell-language-server
