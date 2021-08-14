@@ -49,11 +49,11 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then exit 1; fi
 parted "$drive" -- mklabel gpt
 
 # create boot pabootrtition
-parted "$boot" -- mkpart ESP fat32 1MiB 512MiB
-parted "$boot" -- set 3 esp on
+parted "$drive" -- mkpart ESP fat32 1MiB 512MiB
+parted "$drive" -- set 1 esp on
 
 # create system partition
-parted "$system" -- mkpart primary 512MiB 100%
+parted "$drive" -- mkpart primary 512MiB 100%
 
 # setup LUKS partition
 cryptsetup -y -v luksFormat "$system"
