@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./lsp.nix ./neovim ];
+  imports = [ ./lsp.nix ./dap.nix ./neovim ];
 
   home.packages = with pkgs; [ fzf ripgrep ];
 

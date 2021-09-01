@@ -48,8 +48,8 @@ in {
       nvim-lightbulb
 
       # dap
-      # nvim-dap
-      # nvim-dap-virtual-text
+      nvim-dap
+      nvim-dap-virtual-text
 
       vim-orgmode
     ];
@@ -58,6 +58,7 @@ in {
       + vimLua (readFile ./which-key.lua) + vimLua (readFile ./gitsigns.lua)
       + readFile ./test.vim + vimLua (readFile ./lsp/extensions.lua)
       + readFile ./lsp/lsp.vim + vimLua (readFile ./lsp/lsp.lua)
+      + readFile ./dap/dap.vim + vimLua (readFile ./dap/dap.lua)
       + vimLua (readFile ./treesitter.lua);
     withNodeJs = false;
     withPython3 = false;
