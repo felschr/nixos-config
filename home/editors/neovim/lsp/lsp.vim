@@ -36,8 +36,7 @@ nnoremap <silent> <leader>sw <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> <leader>f  <cmd>lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'tsserver', 'diagnosticls' })<CR>
 nnoremap <silent> <leader>a  <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>r  <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>d  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> <leader>i  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> <leader>q  <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> [d         <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> ]d         <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-
