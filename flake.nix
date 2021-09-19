@@ -70,6 +70,9 @@
         deconz = self: super: {
           deconz = self.qt5.callPackage ./pkgs/deconz { };
         };
+        pop-shell = self: super: {
+          pop-shell = self.callPackage ./pkgs/pop-shell { };
+        };
         obelisk = self: super: {
           obelisk = (import obelisk { inherit (self) system; }).command;
         };
@@ -86,6 +89,7 @@
           nur.overlay
           overlays.neovim
           overlays.deconz
+          overlays.pop-shell
           overlays.photoprism
           overlays.obelisk
         ];
