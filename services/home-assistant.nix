@@ -19,6 +19,14 @@ in {
           proxyWebsockets = true;
         };
       };
+      ${config.networking.domain} = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://localhost:8123";
+          proxyWebsockets = true;
+        };
+      };
     };
   };
 

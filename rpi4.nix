@@ -57,17 +57,6 @@ with builtins; {
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
-
-    virtualHosts = {
-      ${config.networking.domain} = {
-        enableACME = true;
-        forceSSL = true;
-        locations."/" = {
-          proxyPass = "http://localhost:8123";
-          proxyWebsockets = true;
-        };
-      };
-    };
   };
 
   programs.zsh.enable = true;
