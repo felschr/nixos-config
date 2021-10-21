@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ gjs ];
 
   preBuildHook = ''
-    ./fix-gjs.patch
     find . -name '*.ts' -exec sed -i -E 's|^#!/usr/bin/gjs|#!/usr/bin/env gjs|' \{\} \;
-    (fetchpatch {
+    find . -name '*.ts' -exec sed -i -E 's|\["gjs", path]|[path]|' \{\} \;
+    find . -name '*.ts' -exec sed -i -E 's|`gjs $\{path}`|path|' \{\} \;
   '';
 
   patches = [ ./gnome-41.patch ];
@@ -32,10 +32,6 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     chmod +x $out/share/gnome-shell/extensions/pop-shell@system76.com/floating_exceptions/main.js
-    chmod +x $out/share/gnome-shell/extensions/pop-shell@system76.com/floating_exceptions/main.js
     chmod +x $out/share/gnome-shell/extensions/pop-shell@system76.com/color_dialog/main.js
-    chmod +x $out/share/gnome-shell/extensions/pop-shell@system76.com/color_dialog/main.js
-    rm -rf $out/bin
-    rm -rf $out/bin
   '';
 }
