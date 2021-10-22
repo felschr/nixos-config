@@ -39,25 +39,9 @@ in {
 
   services.restic.backups.full = resticConfig {
     name = "full";
-    paths = [ "/home" "/var" "/etc" ];
-  };
-
-  services.restic.backups.data = resticConfig {
-    name = "data";
-    paths = [
-      "/etc/nixos"
-      "/home/felschr/.config/syncthing"
-      "/home/felschr/sync/backups"
-      "/var/lib/etebase-server"
-      "/var/lib/hass"
-      "/var/lib/mosquitto"
-      "/var/lib/photoprism"
-      "/var/lib/syncthing"
-      "/var/lib/jellyfin"
-      "/var/lib/owntracks"
-    ];
-    timerConfig = { OnCalendar = "hourly"; };
-    extraPruneOpts = [ "--keep-hourly 24" ];
+    paths = [ "/etc/nixos" "/var/lib" "/home" ];
+    timerConfig.OnCalendar = "0/4:00:00";
+    extraPruneOpts = [ "--keep-last 6" ];
     extraOptions = [ "--exclude=/var/lib/jellyfin/transcodes" ];
   };
 }
