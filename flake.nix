@@ -165,7 +165,9 @@
           (lib.createUser "felschr" {
             user = {
               extraGroups = [ "wheel" "audio" "disk" "media" ];
-              openssh.authorizedKeys.keyFiles = [ ./key ];
+              openssh.authorizedKeys.keys = [
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIINDTp/k2m9yUn8NGDpCzyX2iK9lOwe6lJR5sk19apxC openpgp:0xBBA675EA"
+              ];
             };
             modules = [ homeManagerModules.git ];
             config = ./home/felschr-rpi4.nix;

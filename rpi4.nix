@@ -1,6 +1,14 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-with builtins; {
+let
+  # mkdir /etc/secrets/initrd -p
+  # chmod 700 -R /etc/secrets/
+  # ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
+  hostKeys = [{
+    path = "/etc/secrets/initrd/ssh_host_ed25519_key";
+    type = "ed25519";
+  }];
+in with builtins; {
   imports = [
     # ./hardware/base.nix
     ./hardware/gpu-rpi4.nix
@@ -66,12 +74,19 @@ with builtins; {
     challengeResponseAuthentication = false;
     passwordAuthentication = false;
     permitRootLogin = "no";
+    inherit hostKeys;
   };
 
   # ssh root@hostname "echo "$(read -s pass; echo \'"$pass"\')" > /crypt-ramfs/passphrase"
-  boot.initrd.network.ssh = {
+  boot.initrd.network = {
     enable = true;
-    authorizedKeys = [ (readFile "./key") ];
+    ssh = {
+      enable = true;
+      # requires support for initrd secrets (might work w/ uboot when it's supported)
+      # hostKeys = map (f: f.path) hostKeys;
+      hostKeys = [ ./host_key ];
+      authorizedKeys = config.users.users.felschr.openssh.authorizedKeys.keys;
+    };
   };
 
   # only change this when specified in release notes
