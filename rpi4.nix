@@ -46,6 +46,7 @@ in with builtins; {
   networking.domain = "home.felschr.com";
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedUDPPorts = [ 80 443 ];
 
   security.acme = {
     acceptTerms = true;
@@ -60,6 +61,7 @@ in with builtins; {
       "*.home.felschr.com"
       "home.felschr.com"
       "media.felschr.com"
+      "mqtt.felschr.com"
       "owntracks.felschr.com"
       "etebase.felschr.com"
     ];

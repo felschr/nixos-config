@@ -71,6 +71,11 @@ in {
   services.home-assistant = {
     enable = true;
     openFirewall = true;
+    package = (pkgs.home-assistant.overrideAttrs (oldAttrs: rec {
+      # pytestCheckPhase uses too much RAM and pi can't handle it
+      doCheck = false;
+      doInstallCheck = false;
+    })).override { extraComponents = [ "otp" ]; };
     config = {
       homeassistant = {
         name = "Home";
