@@ -8,6 +8,7 @@ let
 in {
   dconf.settings = with lib.hm.gvariant; {
     "org/gnome/shell" = {
+      disable-user-extensions = false;
       enabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "pop-shell@system76.com"
