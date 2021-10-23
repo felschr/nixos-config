@@ -30,11 +30,18 @@ in with builtins; {
 
   # rpi4 base config
   boot.loader.grub.enable = false;
+  boot.loader.generic-extlinux-compatible.enable = true;
   boot.loader.raspberryPi.enable = true;
   boot.loader.raspberryPi.version = 4;
-  boot.kernelPackages = pkgs.linuxPackages_rpi4;
+  boot.loader.raspberryPi.uboot.enable = true;
+  boot.loader.raspberryPi.firmwareConfig = ''
+    gpu_mem=320
+    hdmi_group=1
+    hdmi_mode=97
+    hdmi_enable_4kp60=1
+    disable_overscan=1
+  '';
   boot.kernelParams = [ "console=ttyAMA0,115200" "console=tty1" ];
-  hardware.enableRedistributableFirmware = true;
 
   networking.domain = "home.felschr.com";
 
