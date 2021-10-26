@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pop-shell";
-  version = "2021-10-18";
+  version = "2021-10-24";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "shell";
-    rev = "1de4139c5739ff79d7a3ddef7a9a77988a358782";
-    sha256 = "094siblqpsjj356s32dn3rqq0vd47xrmbklzzyx26nh4hxlvzkzb";
+    rev = "d39f185ee16cb024f86163ea2f7d24c7e15b695d";
+    sha256 = "2RsfW6uFVl2F3eVnezD2vrOqdA4Poap5wEgtgnse8aI=";
   };
 
   nativeBuildInputs = [ glib nodePackages.typescript gjs ];
@@ -20,8 +20,6 @@ stdenv.mkDerivation rec {
     find . -name '*.ts' -exec sed -i -E 's|\["gjs", path]|[path]|' \{\} \;
     find . -name '*.ts' -exec sed -i -E 's|`gjs $\{path}`|path|' \{\} \;
   '';
-
-  patches = [ ./gnome-41.patch ];
 
   # the gschema doesn't seem to be installed properly (see dconf)
   makeFlags = [
