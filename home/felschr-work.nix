@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with pkgs; {
   imports = [
@@ -19,7 +19,7 @@ with pkgs; {
     longitude = "10.4014691";
   };
 
-  programs.ssh = { enable = true; };
+  programs.gpg.enable = true;
 
   services.gpg-agent = {
     enable = true;
@@ -29,8 +29,12 @@ with pkgs; {
     defaultCacheTtlSsh = 600;
     pinentryFlavor = "gnome3";
   };
+  # https://github.com/nix-community/home-manager/issues/667#issuecomment-902236379
+  # https://github.com/nix-community/home-manager/pull/2253
+  home.sessionVariables.SSH_AUTH_SOCK =
+    "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
 
-  programs.gpg.enable = true;
+  programs.ssh.enable = true;
 
   programs.git = { defaultProfile = "work"; };
 
