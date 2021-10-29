@@ -37,6 +37,9 @@
   networking.firewall.allowedTCPPorts = [
     54950 # transmission
   ];
+  networking.firewall.allowedUDPPorts = [
+    24727 # AusweisApp2
+  ];
   networking.hosts = {
     # force IPv4, see: https://github.com/transmission/transmission/issues/407
     "87.98.162.88" = [ "portcheck.transmissionbt.com" ];
