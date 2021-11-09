@@ -69,7 +69,10 @@ in {
   programs.firefox = {
     enable = true;
     package = with pkgs;
-      wrapFirefox firefox-unwrapped { cfg.enableFXCastBridge = true; };
+      wrapFirefox firefox-unwrapped {
+        forceWayland = true;
+        cfg.enableFXCastBridge = true;
+      };
     profiles = {
       private = {
         id = 0;

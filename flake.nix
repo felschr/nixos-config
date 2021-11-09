@@ -49,6 +49,31 @@
     , nvim-ts-context-commentstring }@inputs:
     let
       overlays = {
+        # newer packages that support NVIDIA's GBM Wayland backend
+        wayland = self: super: {
+          egl-wayland = super.egl-wayland.overrideAttrs (old: rec {
+            pname = "egl-wayland";
+            version = "1.1.9-master";
+            name = "${pname}-${version}";
+            src = self.fetchFromGitHub {
+              owner = "Nvidia";
+              repo = "egl-wayland";
+              rev = "daab8546eca8428543a4d958a2c53fc747f70672";
+              sha256 = "IrLeqBW74mzo2OOd5GzUPDcqaxrsoJABwYyuKTGtPsw=";
+            };
+            buildInputs = old.buildInputs ++ [ self.wayland-protocols ];
+          });
+          xwayland = super.xwayland.overrideAttrs (old: rec {
+            version = "21.1.3";
+            src = self.fetchFromGitLab {
+              domain = "gitlab.freedesktop.org";
+              owner = "xorg";
+              repo = "xserver";
+              rev = "xwayland-21.1.3";
+              sha256 = "VnFzKyxg/6gVBg+bHTwDbUwCQHWt04gmiaAFLSwg7XA=";
+            };
+          });
+        };
         neovim = self: super:
           with super.pkgs.vimUtils; {
             neovim-nightly = neovim.packages.${self.system}.neovim;
@@ -87,6 +112,7 @@
         modules = [ nixosModules.flakeDefaults ];
         overlays = [
           nur.overlay
+          overlays.wayland
           overlays.neovim
           overlays.deconz
           overlays.pop-shell
