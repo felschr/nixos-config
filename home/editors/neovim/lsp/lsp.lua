@@ -18,6 +18,8 @@ local diagnosticls_on_attach = function(_, bufnr)
     "au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'tsserver', 'diagnosticls' })")
 end
 
+require('lspfuzzy').setup {}
+
 -- enable lsp snippets for nvim-compe
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true

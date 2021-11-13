@@ -44,9 +44,14 @@
     flake = false;
   };
 
+  inputs.nvim-lspfuzzy = {
+    url = "github:ojroques/nvim-lspfuzzy";
+    flake = false;
+  };
+
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
     , neovim, obelisk, photoprism-flake, pre-commit-hooks, nvim-ts-autotag
-    , nvim-ts-context-commentstring }@inputs:
+    , nvim-ts-context-commentstring, nvim-lspfuzzy }@inputs:
     let
       overlays = {
         # newer packages that support NVIDIA's GBM Wayland backend
@@ -75,21 +80,23 @@
           });
         };
         neovim = self: super:
-          with super.pkgs.vimUtils; {
+          let
+            buildVimPlugin = name: input:
+              super.pkgs.vimUtils.buildVimPluginFrom2Nix {
+                pname = name;
+                version = input.rev;
+                versionSuffix = "-git";
+                src = input;
+              };
+          in {
             neovim-nightly = neovim.packages.${self.system}.neovim;
             vimPlugins = super.vimPlugins // {
-              nvim-ts-autotag = buildVimPluginFrom2Nix {
-                pname = "nvim-ts-autotag";
-                version = nvim-ts-autotag.rev;
-                versionSuffix = "-git";
-                src = nvim-ts-autotag;
-              };
-              nvim-ts-context-commentstring = buildVimPluginFrom2Nix {
-                pname = "nvim-ts-context-commentstring";
-                version = nvim-ts-context-commentstring.rev;
-                versionSuffix = "-git";
-                src = nvim-ts-context-commentstring;
-              };
+              nvim-ts-autotag =
+                buildVimPlugin "nvim-ts-autotag" nvim-ts-autotag;
+              nvim-ts-context-commentstring =
+                buildVimPlugin "nvim-ts-context-commentstring"
+                nvim-ts-context-commentstring;
+              nvim-lspfuzzy = buildVimPlugin "nvim-lspfuzzy" nvim-lspfuzzy;
             };
           };
         deconz = self: super: {

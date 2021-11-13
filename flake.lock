@@ -163,6 +163,22 @@
         "type": "github"
       }
     },
+    "nvim-lspfuzzy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1636365124,
+        "narHash": "sha256-wZx+tfzkX29vjGg5FFAtNstprzmEKdFOpR4RsIAJarc=",
+        "owner": "ojroques",
+        "repo": "nvim-lspfuzzy",
+        "rev": "d589cd2061830a32bb57bb410f5278afa267d0c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ojroques",
+        "repo": "nvim-lspfuzzy",
+        "type": "github"
+      }
+    },
     "nvim-ts-autotag": {
       "flake": false,
       "locked": {
@@ -299,6 +315,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "nvim-lspfuzzy": "nvim-lspfuzzy",
         "nvim-ts-autotag": "nvim-ts-autotag",
         "nvim-ts-context-commentstring": "nvim-ts-context-commentstring",
         "obelisk": "obelisk",

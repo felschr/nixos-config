@@ -46,6 +46,7 @@ in {
       # lsp
       nvim-lspconfig
       nvim-lightbulb
+      nvim-lspfuzzy
 
       # dap
       nvim-dap
