@@ -20,7 +20,7 @@ let
     (removeAttrs args [ "name" "extraPruneOpts" ]) // {
       initialize = true;
       repository = "b2:felschr-rpi4-backup:/${name}";
-      s3CredentialsFile = "/etc/nixos/secrets/restic/b2";
+      environmentFile = "/etc/nixos/secrets/restic/b2";
       passwordFile = "/etc/nixos/secrets/restic/password";
       timerConfig = if (args ? timerConfig) then
         args.timerConfig
