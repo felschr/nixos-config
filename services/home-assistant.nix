@@ -4,6 +4,7 @@ with pkgs;
 
 let
   mqttDomain = "mqtt.${config.networking.domain}";
+  mqttPort = 1883;
   mqttWSPort = 9001;
 in {
   # just installed for ConBee firmware updates
@@ -23,47 +24,55 @@ in {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
-          proxyPass = "http://localhost:8123";
+          proxyPass =
+            "http://localhost:${toString config.services.home-assistant.port}";
           proxyWebsockets = true;
         };
       };
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ mqttWSPort ];
+  networking.firewall.allowedTCPPorts = [ mqttPort ];
 
   services.mosquitto = {
     enable = true;
-    listeners = [{
-      port = mqttWSPort;
-      settings.protocol = "websockets";
-      users = {
-        "hass" = {
-          acl = [
-            "readwrite homeassistant/#"
-            "readwrite tasmota/#"
-            "readwrite owntracks/#"
-          ];
-          hashedPasswordFile = "/etc/nixos/secrets/mqtt/hass";
+    listeners = [
+      {
+        port = mqttPort;
+        users = {
+          "hass" = {
+            acl = [
+              "readwrite homeassistant/#"
+              "readwrite tasmota/#"
+              "readwrite owntracks/#"
+            ];
+            hashedPasswordFile = "/etc/nixos/secrets/mqtt/hass";
+          };
+          "tasmota" = {
+            acl = [ "readwrite tasmota/#" "readwrite homeassistant/#" ];
+            hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
+          };
+          "owntracks" = {
+            acl = [ "readwrite owntracks/#" ];
+            hashedPasswordFile = "/etc/nixos/secrets/mqtt/owntracks";
+          };
         };
-        "tasmota" = {
-          acl = [ "readwrite tasmota/#" "readwrite homeassistant/#" ];
-          hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
+      }
+      {
+        port = mqttWSPort;
+        settings.protocol = "websockets";
+        users = {
+          "felix" = {
+            acl = [ "read owntracks/#" "readwrite owntracks/felix/#" ];
+            hashedPasswordFile = "/etc/nixos/secrets/mqtt/felix";
+          };
+          "birgit" = {
+            acl = [ "read owntracks/#" "readwrite owntracks/birgit/#" ];
+            hashedPasswordFile = "/etc/nixos/secrets/mqtt/birgit";
+          };
         };
-        "owntracks" = {
-          acl = [ "readwrite owntracks/#" ];
-          hashedPasswordFile = "/etc/nixos/secrets/mqtt/owntracks";
-        };
-        "felix" = {
-          acl = [ "read owntracks/#" "readwrite owntracks/felix/#" ];
-          hashedPasswordFile = "/etc/nixos/secrets/mqtt/felix";
-        };
-        "birgit" = {
-          acl = [ "read owntracks/#" "readwrite owntracks/birgit/#" ];
-          hashedPasswordFile = "/etc/nixos/secrets/mqtt/birgit";
-        };
-      };
-    }];
+      }
+    ];
   };
 
   services.home-assistant = {
@@ -105,7 +114,7 @@ in {
       };
       mqtt = {
         broker = "localhost";
-        port = mqttWSPort;
+        port = mqttPort;
         username = "hass";
         password = "!secret mqtt_password";
         discovery = true;
