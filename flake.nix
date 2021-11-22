@@ -68,16 +68,6 @@
             };
             buildInputs = old.buildInputs ++ [ self.wayland-protocols ];
           });
-          xwayland = super.xwayland.overrideAttrs (old: rec {
-            version = "21.1.3";
-            src = self.fetchFromGitLab {
-              domain = "gitlab.freedesktop.org";
-              owner = "xorg";
-              repo = "xserver";
-              rev = "xwayland-21.1.3";
-              sha256 = "VnFzKyxg/6gVBg+bHTwDbUwCQHWt04gmiaAFLSwg7XA=";
-            };
-          });
         };
         neovim = self: super:
           let
