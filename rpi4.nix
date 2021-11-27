@@ -53,11 +53,15 @@ in with builtins; {
     email = "dev@felschr.com";
   };
 
-  services.cfdyndns = {
+  services.ddclient = {
     enable = true;
-    email = "felschr@pm.me";
-    apikeyFile = "/etc/nixos/secrets/cfdyndns-apikey";
-    records = [
+    protocol = "cloudflare";
+    ssl = true;
+    use = "web";
+    zone = "felschr.com";
+    username = "felschr@pm.me";
+    # passwordFile = "/etc/nixos/secrets/cfdyndns-apikey";
+    domains = [
       "*.home.felschr.com"
       "home.felschr.com"
       "media.felschr.com"
