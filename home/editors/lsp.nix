@@ -19,6 +19,13 @@
 
     # linters & formatters
     nodePackages.eslint
+    # TODO uses custom script until json support is fixed
+    (pkgs.writeScriptBin "nix-linter" ''
+      echo '['
+      ${nix-linter}/bin/nix-linter --json-stream "$1" | sed '$!s/$/,/'
+      echo ']'
+    '')
+    nixfmt
     # nodePackages.stylelint
     nodePackages.prettier
   ];

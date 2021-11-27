@@ -61,6 +61,7 @@ config.diagnosticls.setup{
     "json",
     "yaml",
     "markdown",
+    "nix",
     "html",
     "css"
   },
@@ -117,6 +118,19 @@ config.diagnosticls.setup{
           warning = "warning",
         },
       },
+      ["nix-linter"] = {
+        -- TODO uses custom script until json support is fixed
+        command = "nix-linter",
+        sourceName = "nix-linter",
+        debounce = 50,
+        parseJson = {
+          line = "pos.spanBegin.sourceLine",
+          column = "pos.spanBegin.sourceColumn",
+          endLine = "pos.spanEnd.sourceLine",
+          endColumn = "pos.spanEnd.sourceColumn",
+          message = "${description}",
+        },
+      },
     },
     filetypes = {
       javascript = {"eslint"},
@@ -126,6 +140,7 @@ config.diagnosticls.setup{
       ["typescript.jsx"] = {"eslint"},
       typescriptreact = {"eslint"},
       css = {"stylelint"},
+      nix = {"nix-linter"},
     },
     formatters = {
       eslint = {
@@ -158,6 +173,9 @@ config.diagnosticls.setup{
           "%filepath"
         },
         rootPatterns = {".prettierrc.json", ".git"},
+      },
+      nixfmt = {
+        command = "nixfmt",
       },
     },
     formatFiletypes = {
