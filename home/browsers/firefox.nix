@@ -24,7 +24,8 @@ let
     "media.gmp-widevinecdm.enabled" = false;
     "media.navigator.enabled" = false;
     "network.cookie.cookieBehavior" = 1;
-    "network.http.referer.XOriginPolicy" = 2;
+    # causes CORS error on waves.exchange when set to 2
+    "network.http.referer.XOriginPolicy" = 1;
     "network.http.referer.XOriginTrimmingPolicy" = 2;
     # "webgl.disabled" = true;
     "browser.sessionstore.privacy_level" = 2;
