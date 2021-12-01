@@ -103,5 +103,5 @@ in with builtins; {
   };
 
   # only change this when specified in release notes
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.11";
 }

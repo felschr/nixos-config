@@ -31,5 +31,5 @@
   services.printing.drivers = with pkgs; [ epson-escpr ];
 
   # only change this when specified in release notes
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.11";
 }
