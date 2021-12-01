@@ -33,10 +33,7 @@
     },
     "gomod2nix": {
       "inputs": {
-        "nixpkgs": [
-          "photoprism-flake",
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_2",
         "utils": "utils"
       },
       "locked": {
@@ -133,18 +130,18 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1637723398,
-        "narHash": "sha256-DGSZANWNb6/Serix9FdTQLnjHcFTPTmI/gtBVmLn1U8=",
-        "ref": "release-21.11",
-        "rev": "a7e4a67cc1a95780dc3bcd082339411d74489c0d",
-        "revCount": 333570,
-        "type": "git",
-        "url": "file:///nix/nixpkgs"
+        "lastModified": 1638286143,
+        "narHash": "sha256-A+rgjbIpz3uPRKHPXwdmouVcVn5pZqLnaZHymjkraG4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "29d1f6e1f625d246dcf84a78ef97b4da3cafc6ea",
+        "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "ref": "release-21.11",
-        "type": "indirect"
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nur": {
@@ -243,14 +240,16 @@
         "type": "github"
       }
     },
-    "photoprism-flake": {
+    "photoprism2nix": {
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": [
           "flake-utils"
         ],
         "gomod2nix": "gomod2nix",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "photoprism": "photoprism",
         "ranz2nix": "ranz2nix"
       },
@@ -258,13 +257,13 @@
         "lastModified": 1637816713,
         "narHash": "sha256-/GcZROyveHIoJoEu4GYtsrgOqN0KYeOiLMO7ysrwiww=",
         "owner": "GTrunSec",
-        "repo": "photoprism-flake",
+        "repo": "photoprism2nix",
         "rev": "91157226909dbf8c31b61b6e42e2d10d959ff452",
         "type": "github"
       },
       "original": {
         "owner": "GTrunSec",
-        "repo": "photoprism-flake",
+        "repo": "photoprism2nix",
         "type": "github"
       }
     },
@@ -319,7 +318,7 @@
         "nvim-ts-autotag": "nvim-ts-autotag",
         "nvim-ts-context-commentstring": "nvim-ts-context-commentstring",
         "obelisk": "obelisk",
-        "photoprism-flake": "photoprism-flake",
+        "photoprism2nix": "photoprism2nix",
         "pre-commit-hooks": "pre-commit-hooks"
       }
     },

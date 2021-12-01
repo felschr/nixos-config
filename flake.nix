@@ -23,8 +23,9 @@
     flake = false;
   };
 
-  inputs.photoprism-flake = {
-    url = "github:GTrunSec/photoprism-flake";
+  inputs.photoprism2nix = {
+    url = "github:GTrunSec/photoprism2nix";
+    inputs.nixpkgs.follows = "nixpkgs";
     inputs.flake-utils.follows = "flake-utils";
   };
 
@@ -50,7 +51,7 @@
   };
 
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , neovim, obelisk, photoprism-flake, pre-commit-hooks, nvim-ts-autotag
+    , neovim, obelisk, photoprism2nix, pre-commit-hooks, nvim-ts-autotag
     , nvim-ts-context-commentstring, nvim-lspfuzzy }@inputs:
     let
       overlays = {
@@ -85,7 +86,7 @@
         };
         # custom overlay so it's using the flake's nixpkgs
         photoprism = self: super: {
-          photoprism = photoprism-flake.defaultPackage.${self.system};
+          photoprism = photoprism2nix.defaultPackage.${self.system};
         };
       };
       nixosModules = { flakeDefaults = import ./modules/flakeDefaults.nix; };
@@ -164,7 +165,7 @@
         modules = [
           nixpkgs.nixosModules.notDetected
           nixos-hardware.nixosModules.raspberry-pi-4
-          # photoprism-flake.nixosModules.photoprism
+          # photoprism2nix.nixosModules.photoprism
           (lib.createSystem "felix-rpi4" {
             hardwareConfig = ./hardware/rpi4.nix;
             config = ./rpi4.nix;
