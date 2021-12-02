@@ -86,8 +86,6 @@ in {
     };
     extensions = with firefox-addons; [
       ublock-origin
-      localcdn
-      clearurls
       terms-of-service-didnt-read
       vimium
       ipfs-companion
