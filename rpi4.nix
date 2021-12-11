@@ -18,7 +18,7 @@ in with builtins; {
     ./system/networking.nix
     ./services/restic/rpi4.nix
     ./services/syncthing/rpi4.nix
-    ./services/kodi.nix
+    # ./services/kodi.nix
     ./services/jellyfin.nix
     ./services/etebase.nix
     # ./services/photoprism.nix # TODO not working on aarch64 due to tensorflow
