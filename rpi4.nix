@@ -24,6 +24,7 @@ in with builtins; {
     # ./services/photoprism.nix # TODO not working on aarch64 due to tensorflow
     ./services/home-assistant.nix
     ./services/owntracks.nix
+    ./services/miniflux.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -65,6 +66,7 @@ in with builtins; {
       "*.home.felschr.com"
       "home.felschr.com"
       "media.felschr.com"
+      "news.felschr.com"
       "mqtt.felschr.com"
       "owntracks.felschr.com"
       "etebase.felschr.com"
