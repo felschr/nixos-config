@@ -3,12 +3,11 @@
 with pkgs;
 
 let
-  host = "mqtt.felschr.com";
   port = 1883;
   wsPort = 9001;
 in {
   services.nginx = {
-    virtualHosts."${mqttHost}" = {
+    virtualHosts."mqtt.felschr.com" = {
       serverAliases = [ "mqtt.home.felschr.com" ];
       enableACME = true;
       forceSSL = true;
