@@ -3,7 +3,7 @@
 with pkgs;
 
 let
-  mqttDomain = "mqtt.${config.networking.domain}";
+  mqttHost = "mqtt.felschr.com";
   mqttPort = 1883;
   mqttWSPort = 9001;
 in {
@@ -12,7 +12,8 @@ in {
 
   services.nginx = {
     virtualHosts = {
-      ${mqttDomain} = {
+      ${mqttHost} = {
+        serverAliases = [ "mqtt.home.felschr.com" ];
         enableACME = true;
         forceSSL = true;
         locations."/" = {
