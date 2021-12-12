@@ -8,28 +8,18 @@ let
     config.gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme;
 
   sharedSettings = {
-    # Privacy recommendations from https://www.privacytools.io/browsers/#about_config
-    "privacy.firstparty.isolate" = true;
-    # "privacy.resistFingerprinting" = true; # forces ui.systemUsesDarkTheme to false
-    "privacy.trackingprotection.fingerprinting.enabled" = true;
-    "privacy.trackingprotection.cryptomining.enabled" = true;
-    "privacy.trackingprotection.socialtracking.enabled" = true;
-    "privacy.trackingprotection.enabled" = true;
-    "browser.send_pings" = false;
+    # Privacy & Security Improvements
+    "browser.contentblocking.category" = "strict";
     "browser.urlbar.speculativeConnect.enabled" = false;
-    "dom.event.clipboardevents.enabled" = false;
     "dom.security.https_only_mode" = true;
-    "dom.security.https_only_mode_ever_enabled" = true;
-    "media.eme.enabled" = false;
-    "media.gmp-widevinecdm.enabled" = false;
-    "media.navigator.enabled" = false;
-    "network.cookie.cookieBehavior" = 1;
+    "media.eme.enabled" = false; # disables DRM
     # causes CORS error on waves.exchange when set to 2
     "network.http.referer.XOriginPolicy" = 1;
     "network.http.referer.XOriginTrimmingPolicy" = 2;
-    # "webgl.disabled" = true;
-    "browser.sessionstore.privacy_level" = 2;
     "network.IDN_show_punycode" = true;
+    # forces ui.systemUsesDarkTheme to false
+    # "privacy.resistFingerprinting" = true;
+    # "webgl.disabled" = true;
 
     # Disable DNS over HTTPS (done system-wide)
     "network.trr.mode" = 5;
