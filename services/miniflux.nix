@@ -5,14 +5,14 @@ in {
   services.miniflux = {
     enable = true;
     adminCredentialsFile = "/etc/nixos/secrets/miniflux";
-    config = { LISTEN_ADDR = "localhost:${port}"; };
+    config = { LISTEN_ADDR = "localhost:${toString port}"; };
   };
 
   services.nginx = {
     virtualHosts."news.felschr.com" = {
       enableACME = true;
       forceSSL = true;
-      locations."/".proxyPass = "http://localhost:${port}";
+      locations."/".proxyPass = "http://localhost:${toString port}";
     };
   };
 }
