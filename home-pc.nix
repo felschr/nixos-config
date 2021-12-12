@@ -15,8 +15,10 @@
   ];
 
   # declarative config broken atm: https://github.com/NixOS/nixpkgs/issues/91986
-  # { device = "/swap/swapfile"; size = 8192; }
-  swapDevices = [{ device = "/swap/swapfile"; }];
+  swapDevices = [{
+    device = "/swap/swapfile";
+    size = 8192;
+  }];
 
   nixpkgs.config.allowUnfree = true;
 
