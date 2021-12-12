@@ -2,78 +2,21 @@
 
 with pkgs;
 
-let
-  mqttHost = "mqtt.felschr.com";
-  mqttPort = 1883;
-  mqttWSPort = 9001;
+let mqttPort = 1883;
 in {
   # just installed for ConBee firmware updates
   environment.systemPackages = with pkgs; [ deconz ];
 
   services.nginx = {
-    virtualHosts = {
-      ${mqttHost} = {
-        serverAliases = [ "mqtt.home.felschr.com" ];
-        enableACME = true;
-        forceSSL = true;
-        locations."/" = {
-          proxyPass = "http://localhost:${toString mqttWSPort}";
-          proxyWebsockets = true;
-        };
-      };
-      ${config.networking.domain} = {
-        enableACME = true;
-        forceSSL = true;
-        locations."/" = {
-          proxyPass =
-            "http://localhost:${toString config.services.home-assistant.port}";
-          proxyWebsockets = true;
-        };
+    virtualHosts."${config.networking.domain}" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass =
+          "http://localhost:${toString config.services.home-assistant.port}";
+        proxyWebsockets = true;
       };
     };
-  };
-
-  networking.firewall.allowedTCPPorts = [ mqttPort ];
-
-  services.mosquitto = {
-    enable = true;
-    listeners = [
-      {
-        port = mqttPort;
-        users = {
-          "hass" = {
-            acl = [
-              "readwrite homeassistant/#"
-              "readwrite tasmota/#"
-              "readwrite owntracks/#"
-            ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/hass";
-          };
-          "tasmota" = {
-            acl = [ "readwrite tasmota/#" "readwrite homeassistant/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
-          };
-          "owntracks" = {
-            acl = [ "readwrite owntracks/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/owntracks";
-          };
-        };
-      }
-      {
-        port = mqttWSPort;
-        settings.protocol = "websockets";
-        users = {
-          "felix" = {
-            acl = [ "read owntracks/#" "readwrite owntracks/felix/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/felix";
-          };
-          "birgit" = {
-            acl = [ "read owntracks/#" "readwrite owntracks/birgit/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/birgit";
-          };
-        };
-      }
-    ];
   };
 
   services.home-assistant = {
@@ -89,7 +32,7 @@ in {
         name = "Home";
         latitude = "!secret latitude";
         longitude = "!secret longitude";
-        elevation = 0;
+        elevation = 42;
         unit_system = "metric";
         temperature_unit = "C";
         external_url = "https://home.felschr.com";
@@ -133,10 +76,10 @@ in {
             friendly_name = "Total Energy Usage";
             unit_of_measurement = "kWh";
             value_template = ''
-              {{
-                (states.sensor.outlet_computer_energy_total.state | float) +
-                (states.sensor.outlet_tv_energy_total.state | float)
-              }}
+              {% computer = states('sensor.outlet_computer_energy_total') | float %}
+              {% tv = states('sensor.outlet_tv_energy_total') | float %}
+
+              {{ computer + tv }}
             '';
           };
         };
