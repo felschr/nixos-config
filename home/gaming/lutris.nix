@@ -5,14 +5,14 @@
 
   xdg.dataFile = {
     wine-ge = let
-      version = "6.14-GE-2";
-      name = "wine-lutris-ge-6.14-2-x86_64";
+      version = "7.0rc2-GE-1";
+      name = "wine-lutris-ge-7.0rc2-1-x86_64";
     in {
       recursive = false;
       source = builtins.fetchTarball {
         url =
           "https://github.com/GloriousEggroll/wine-ge-custom/releases/download/${version}/${name}.tar.xz";
-        sha256 = "0ss693vg7gq6dp4x0ilhlkbz2il941ravhrh7l7s6zzx415c468x";
+        sha256 = "14lpn9zx10vmrwdgdkwjvk2mnp2q1scfi5j7xkzgrcvvs81qq4ic";
       };
       target = "lutris/runners/wine/${name}";
     };

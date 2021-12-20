@@ -13,13 +13,12 @@ in {
   home.packages = [ steam steam.run pkgs.protontricks ];
 
   home.file = {
-    # TODO doesn't show up in steam
     proton-ge = let
-      version = "6.14-GE-2";
+      version = "7.0rc2-GE-1";
       source = builtins.fetchTarball {
         url =
           "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/Proton-${version}.tar.gz";
-        sha256 = "18hfag1nzj6ldy0ign2yjfzfms0w23vmcykgl8h1dfk0xjaql8gk";
+        sha256 = "0ch1vm371zrp2iqai4n3zfzl2s9kgp8a6ph9vgfwclwplc787xbr";
       };
     in rec {
       recursive = true;
