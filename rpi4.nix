@@ -27,6 +27,7 @@ in with builtins; {
     ./services/owntracks.nix
     ./services/miniflux.nix
     ./services/paperless.nix
+    ./services/nextcloud.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -66,6 +67,7 @@ in with builtins; {
     passwordFile = "/etc/nixos/secrets/cfdyndns-apikey";
     domains = [
       "home.felschr.com"
+      "cloud.felschr.com"
       "media.felschr.com"
       "news.felschr.com"
       "mqtt.felschr.com"
