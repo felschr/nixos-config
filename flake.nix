@@ -18,11 +18,6 @@
     inputs.flake-utils.follows = "flake-utils";
   };
 
-  inputs.obelisk = {
-    url = "github:obsidiansystems/obelisk";
-    flake = false;
-  };
-
   inputs.photoprism2nix = {
     url = "github:GTrunSec/photoprism2nix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -51,7 +46,7 @@
   };
 
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , neovim, obelisk, photoprism2nix, pre-commit-hooks, nvim-ts-autotag
+    , neovim, photoprism2nix, pre-commit-hooks, nvim-ts-autotag
     , nvim-ts-context-commentstring, nvim-lspfuzzy }@inputs:
     let
       overlays = {
@@ -78,9 +73,6 @@
         deconz = self: super: {
           deconz = self.qt5.callPackage ./pkgs/deconz { };
         };
-        obelisk = self: super: {
-          obelisk = (import obelisk { inherit (self) system; }).command;
-        };
         # custom overlay so it's using the flake's nixpkgs
         photoprism = self: super: {
           photoprism = photoprism2nix.defaultPackage.${self.system};
@@ -90,13 +82,8 @@
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults ];
-        overlays = [
-          nur.overlay
-          overlays.neovim
-          overlays.deconz
-          overlays.photoprism
-          overlays.obelisk
-        ];
+        overlays =
+          [ nur.overlay overlays.neovim overlays.deconz overlays.photoprism ];
       };
       lib = rec {
         createSystem = hostName:

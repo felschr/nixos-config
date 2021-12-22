@@ -8,14 +8,9 @@
     options = "--delete-older-than 30d";
   };
 
-  nix.binaryCaches = [
-    "https://hydra.iohk.io"
-    "https://nixcache.reflex-frp.org"
-    "https://shajra.cachix.org"
-  ];
+  nix.binaryCaches = [ "https://hydra.iohk.io" "https://shajra.cachix.org" ];
   nix.binaryCachePublicKeys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
     "shajra.cachix.org-1:V0x7Wjgd/mHGk2KQwzXv8iydfIgLupbnZKLSQt5hh9o="
   ];
 }
