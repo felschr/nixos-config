@@ -6,7 +6,10 @@ in {
     enable = true;
     inherit port;
     passwordFile = "/etc/nixos/secrets/paperless";
-    extraConfig = { PAPERLESS_OCR_LANGUAGE = "deu+eng"; };
+    extraConfig = {
+      PAPERLESS_ADMIN_USER = "felschr";
+      PAPERLESS_OCR_LANGUAGE = "deu+eng";
+    };
   };
 
   services.nginx = {
