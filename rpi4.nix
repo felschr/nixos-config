@@ -26,6 +26,7 @@ in with builtins; {
     ./services/home-assistant.nix
     ./services/owntracks.nix
     ./services/miniflux.nix
+    ./services/paperless.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -71,6 +72,7 @@ in with builtins; {
       "mqtt.felschr.com"
       "owntracks.felschr.com"
       "etebase.felschr.com"
+      "paperless.felschr.com"
     ];
   };
 
