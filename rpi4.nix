@@ -65,7 +65,6 @@ in with builtins; {
     username = "felschr@pm.me";
     passwordFile = "/etc/nixos/secrets/cfdyndns-apikey";
     domains = [
-      "*.home.felschr.com"
       "home.felschr.com"
       "media.felschr.com"
       "news.felschr.com"
