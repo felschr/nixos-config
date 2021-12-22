@@ -17,7 +17,7 @@ in {
     autoUpdateApps.enable = true;
   };
 
-  services.nginx.virtualHosts.${hostName} = {
+  services.nginx.virtualHosts.${host} = {
     forceSSL = true;
     enableACME = true;
   };
