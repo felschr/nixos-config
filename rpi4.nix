@@ -106,6 +106,8 @@ in with builtins; {
     };
   };
 
+  virtualisation.oci-containers.backend = "podman";
+
   # only change this when specified in release notes
   system.stateVersion = "21.11";
 }
