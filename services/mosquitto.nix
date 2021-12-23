@@ -8,7 +8,6 @@ let
 in {
   services.nginx = {
     virtualHosts."mqtt.felschr.com" = {
-      serverAliases = [ "mqtt.home.felschr.com" ];
       enableACME = true;
       forceSSL = true;
       locations."/" = {
