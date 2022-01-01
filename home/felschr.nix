@@ -63,8 +63,10 @@
     discord
     libreoffice-fresh
     xournalpp
-    skypeforlinux
     tabbed
+
+    # work
+    teams
 
     # development
     postman
