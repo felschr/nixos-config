@@ -59,11 +59,7 @@ let
 in {
   programs.firefox = {
     enable = true;
-    package = with pkgs;
-      wrapFirefox firefox-unwrapped {
-        forceWayland = true;
-        cfg.enableFXCastBridge = true;
-      };
+    package = with pkgs; wrapFirefox firefox-unwrapped { forceWayland = true; };
     profiles = {
       private = {
         id = 0;
@@ -86,7 +82,6 @@ in {
       privacy-redirect
       to-deepl
       # not available yet:
-      # fx_cast
       # google-lighthouse
     ];
   };
