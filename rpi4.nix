@@ -52,10 +52,8 @@ in with builtins; {
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   networking.firewall.allowedUDPPorts = [ 80 443 ];
 
-  security.acme = {
-    acceptTerms = true;
-    email = "dev@felschr.com";
-  };
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "dev@felschr.com";
 
   services.ddclient = {
     enable = true;
