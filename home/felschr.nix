@@ -73,7 +73,7 @@
 
     # entertainment
     celluloid
-    google-play-music-desktop-player
+    spotify
     # audiotube
 
     # learning
