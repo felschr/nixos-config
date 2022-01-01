@@ -121,12 +121,12 @@ in {
         cp -r ${scriptBin}/bin/${name} $out/bin/${name}
         cp -r ${desktopFile}/share/applications $out/share/applications
       '';
-  in (with pkgs;
-    [ (tor-browser-bundle-bin.override { pulseaudioSupport = true; }) ]) ++ [
-      (makeFirefoxProfileBin {
-        profile = "work";
-        desktopName = "Firefox (Work)";
-        icon = "firefox";
-      })
-    ];
+  in with pkgs; [
+    (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
+    (makeFirefoxProfileBin {
+      profile = "work";
+      desktopName = "Firefox (Work)";
+      icon = "firefox";
+    })
+  ];
 }

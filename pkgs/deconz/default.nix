@@ -6,7 +6,8 @@ mkDerivation rec {
   version = "2.09.03";
 
   src = fetchurl {
-    url = "https://deconz.dresden-elektronik.de/debian/stable/deconz_${version}-debian-stretch-stable_arm64.deb";
+    url =
+      "https://deconz.dresden-elektronik.de/debian/stable/deconz_${version}-debian-stretch-stable_arm64.deb";
     sha256 = "6EXYoXOg+6dTR9/hRHmNafZuBeNnAAS4z8ia15s1+9U=";
   };
 

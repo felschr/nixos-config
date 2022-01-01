@@ -20,7 +20,9 @@ in {
       };
       # easypi/ot-recorder-arm uses different store location
       # volumes = [ "/var/lib/owntracks/recorder/store:/store" ];
-      volumes = [ "/var/lib/owntracks/recorder/store:/var/spool/owntracks/recorder/store" ];
+      volumes = [
+        "/var/lib/owntracks/recorder/store:/var/spool/owntracks/recorder/store"
+      ];
       extraOptions = [
         # TODO systemd doesn't substitute variables because it doesn't run in a shell
         # "-e OTR_PASS=\"$(cat /etc/nixos/secrets/mqtt/owntracks-plain)\""
@@ -36,9 +38,7 @@ in {
         SERVER_PORT = "8083";
         LISTEN_PORT = "8085";
       };
-      volumes = [
-        "${frontend-config}:/usr/share/nginx/html/config/config.js"
-      ];
+      volumes = [ "${frontend-config}:/usr/share/nginx/html/config/config.js" ];
       extraOptions = [ "--network=host" ];
     };
   };
