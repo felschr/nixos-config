@@ -7,13 +7,15 @@
       private = {
         name = "Felix Tenley";
         email = "dev@felschr.com";
-        signingKey = "6AB3 7A28 5420 9A41 82D9  0068 910A CB9F 6BD2 6F58";
+        # use sign subkey's fingerprint: gpg2 -K --with-subkey-fingerprint
+        signingKey = "7E08 6842 0934 AA1D 6821  1F2A 671E 39E6 744C 807D";
         dirs = [ "~/dev/private/" "/etc/nixos" ];
       };
       work = {
         name = "Felix Schröter";
         email = "fs@upsquared.com";
-        signingKey = "F28B FB74 4421 7580 5A49  2930 BE85 F0D9 987F A014";
+        # use sign subkey's fingerprint: gpg2 -K --with-subkey-fingerprint
+        signingKey = "16F6 4623 8B1C 80C4 6267  6FF9 4D13 24C5 006E 9B2E";
         dirs = [ "~/dev/work/" ];
       };
     };

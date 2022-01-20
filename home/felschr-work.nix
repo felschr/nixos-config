@@ -24,7 +24,8 @@ with pkgs; {
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    sshKeys = [ "967EC4516D18D0E1211FCFC38B1CAF89FF627FCA" ];
+    # use auth subkey's keygrip: gpg2 -K --with-keygrip
+    sshKeys = [ "8A6213DCDAF86BD3A63549FCFDF71B2C92DAE02C" ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
     pinentryFlavor = "gnome3";

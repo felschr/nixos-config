@@ -12,7 +12,8 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    sshKeys = [ "4AE1DDE05F4BB6C8E220501F1336A98E89836D90" ];
+    # use auth subkey's keygrip: gpg2 -K --with-keygrip
+    sshKeys = [ "3C48489F3B0FBB44E72180D4B1D7541C201C9987" ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
     pinentryFlavor = "curses";
