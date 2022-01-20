@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
 
 {
-  services.dbus.packages = with pkgs; [ gnome.dconf ];
+  services.dbus.packages = with pkgs; [ dconf ];
 }
