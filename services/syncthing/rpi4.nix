@@ -14,7 +14,7 @@ in {
     dataDir = "/home/felschr/.local/share/syncthing";
     devices = {
       felix-nixos = {
-        id = "MKVEPJK-HWGFVLN-SRHE4NR-ZADXKMF-AMYIKZ7-MGUJH3L-XH2FBOW-AMQRIAW";
+        id = "JYCS3KB-K3TQ57P-UDIJNGI-SPPUPQX-UXS7ZU5-UNQJ52Y-2AOTUK2-K3AF4AC";
       };
       pixel3 = {
         id = "YM26ZEC-V5QQTOI-7U355KQ-WTHLL3X-H3YVJR5-4UPM5SS-YXWGVGA-EBWZEQP";
