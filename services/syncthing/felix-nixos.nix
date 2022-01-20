@@ -12,8 +12,6 @@ in {
     user = "felschr";
     configDir = "/home/felschr/.config/syncthing";
     dataDir = "/home/felschr/.local/share/syncthing";
-    cert = "/etc/nixos/secrets/syncthing/cert.pem";
-    key = "/etc/nixos/secrets/syncthing/key.pem";
     devices = {
       rpi4 = {
         id = "RBKVWQQ-TGYBMQK-P4AADKE-7LGPHL7-UY4FEZA-6N7HQ4R-UCPSZPV-LWFK4AP";

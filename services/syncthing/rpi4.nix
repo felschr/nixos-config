@@ -12,9 +12,6 @@ in {
     user = "felschr";
     configDir = "/home/felschr/.config/syncthing";
     dataDir = "/home/felschr/.local/share/syncthing";
-
-    cert = "/etc/nixos/secrets/syncthing/cert.pem";
-    key = "/etc/nixos/secrets/syncthing/key.pem";
     devices = {
       felix-nixos = {
         id = "MKVEPJK-HWGFVLN-SRHE4NR-ZADXKMF-AMYIKZ7-MGUJH3L-XH2FBOW-AMQRIAW";
