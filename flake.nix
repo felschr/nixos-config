@@ -157,7 +157,7 @@
             user = {
               extraGroups = [ "wheel" "audio" "disk" "media" ];
               openssh.authorizedKeys.keys = [
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIINDTp/k2m9yUn8NGDpCzyX2iK9lOwe6lJR5sk19apxC openpgp:0xBBA675EA"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP751vlJUnB7Pfe1KNr6weWkx/rkP4J3lTYpAekHdOgV"
               ];
             };
             modules = [ homeManagerModules.git ];
