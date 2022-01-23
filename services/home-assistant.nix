@@ -99,6 +99,18 @@ in {
         };
       };
     };
+    alarm_control_panel = [{
+      platform = "manual";
+      code = "!secret alarm_code";
+      arming_time = 30;
+      delay_time = 20;
+      trigger_time = 10;
+      disarmed = { trigger_time = 0; };
+      armed_home = {
+        arming_time = 0;
+        delay_time = 0;
+      };
+    }];
     # configWritable = true; # doesn't work atm
   };
 }
