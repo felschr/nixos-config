@@ -11,6 +11,7 @@
     ./desktop
     ./virtualisation/docker.nix
     ./services/syncthing/felix-nixos.nix
+    ./services/restic/home-pc.nix
     ./services/pcscd.nix
   ];
 

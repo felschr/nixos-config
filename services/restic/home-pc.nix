@@ -11,18 +11,28 @@ in {
   environment.systemPackages = with pkgs; [ restic ];
 
   services.restic.backups.full = common.resticConfig {
-    name = "rpi4";
-    paths = [ "/etc/nixos" "/var/lib" "/home" ];
-    timerConfig.OnCalendar = "0/4:00:00";
-    extraPruneOpts = [ "--keep-last 6" ];
-    extraOptions = let
-      exclude = ''
+    name = "home-pc";
+    dynamicFilesFrom = let
+      ignore = builtins.toFile "excludes" ''
         /var/lib/lxcfs
         /var/lib/docker
         /home/*/.local/share/Trash
         /home/*/.cache
-        /var/lib/jellyfin/transcodes
+        /home/*/Downloads
+        /home/*/.npm
+        /home/*/.steam
+        /home/*/.local/share/Steam
+        /home/*/.local/share/lutris
+        /home/felschr/sync
+        /home/felschr/Sync
+        /home/felschr/keybase
       '';
-    in [ "--exclude=/var/lib/jellyfin/transcodes" ];
+    in ''
+      ${pkgs.ripgrep}/bin/rg \
+        --files /etc/nixos /var/lib /home \
+        --ignore-file ${ignore}
+    '';
+    timerConfig.OnCalendar = "0/4:00:00";
+    extraPruneOpts = [ "--keep-last 6" ];
   };
 }
