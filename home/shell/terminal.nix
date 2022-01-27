@@ -23,7 +23,7 @@ in {
   };
 
   xdg.configFile."kitty/pass_keys.py".source =
-    "${vimPlugins.vim-kitty-navigator}/share/vim-plugins/vim-kitty-navigator/pass_keys.py";
+    "${vimPlugins.vim-kitty-navigator}/pass_keys.py";
   xdg.configFile."kitty/neighboring_window.py".source =
-    "${vimPlugins.vim-kitty-navigator}/share/vim-plugins/vim-kitty-navigator/neighboring_window.py";
+    "${vimPlugins.vim-kitty-navigator}/neighboring_window.py";
 }
