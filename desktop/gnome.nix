@@ -18,7 +18,7 @@
     sources=[('xkb', 'gb'), ('xkb', 'mozc-jp')]
 
     [org/gnome/mutter]
-    experimental-features=['kms-modifiers']
+    experimental-features=['kms-modifiers', 'scale-monitor-framebuffer']
   '';
   programs.xwayland.enable = true;
 

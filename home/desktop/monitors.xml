@@ -7,15 +7,15 @@
       <primary>yes</primary>
       <monitor>
         <monitorspec>
-          <connector>DP-2</connector>
-          <vendor>NVD</vendor>
-          <product>G-SYNC 241910</product>
-          <serial>#ASNICAsHCG3d</serial>
+          <connector>DP-3</connector>
+          <vendor>GSM</vendor>
+          <product>LG ULTRAGEAR</product>
+          <serial>110MAZVPXP89</serial>
         </monitorspec>
         <mode>
-          <width>1920</width>
-          <height>1080</height>
-          <rate>119.982177734375</rate>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>143.97325134277344</rate>
         </mode>
       </monitor>
     </logicalmonitor>

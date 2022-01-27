@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware/base.nix
-    ./hardware/gpu-nvidia.nix
+    ./hardware/gpu-amd.nix
     ./hardware/steam.nix
     ./hardware/ledger.nix
     ./system
@@ -17,7 +17,7 @@
 
   # declarative config broken atm: https://github.com/NixOS/nixpkgs/issues/91986
   swapDevices = [{
-    device = "/swap/swapfile";
+    device = "/.swap/swapfile";
     size = 8192;
   }];
 
@@ -38,7 +38,7 @@
   programs.zsh.enable = true;
 
   networking.firewall.allowedTCPPorts = [
-    54950 # transmission
+    58324 # transmission
   ];
   networking.firewall.allowedUDPPorts = [
     24727 # AusweisApp2

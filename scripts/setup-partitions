@@ -29,13 +29,13 @@ $drive
            |       |
            |       ├── /boot (mounted boot partition)
            |       |
-           |       ├── /swap (mounted @swap subvolume)
+           |       ├── /.swap (mounted @swap subvolume)
            |       |
            |       └── /.snapshots (mounted @snapshots subvolume)
            |
            ├── @home (mounted as /home)
            |
-           ├── @swap (mounted as /swap, contains swap file)
+           ├── @swap (mounted as /.swap, contains swap file)
            |
            └── @snapshots (mounted as /.snapshots)
 "
@@ -74,7 +74,7 @@ umount /mnt
 mount -o subvol=@,compress-force=zstd,noatime /dev/mapper/enc /mnt
 mkdir /mnt/home
 mount -o subvol=@home,compress-force=zstd,noatime /dev/mapper/enc /mnt/home
-mkdir /mnt/swap
+mkdir /mnt/.swap
 mount -o subvol=@swap,noatime /dev/mapper/enc /mnt/swap
 mkdir /mnt/.snapshots
 mount -o subvol=@snapshots,compress-force=zstd,noatime /dev/mapper/enc /mnt/.snapshots
@@ -82,12 +82,12 @@ mkdir /mnt/boot
 mount "$boot" /mnt/boot
 
 # setup swap file
-truncate -s 0 /mnt/swap/swapfile
-chattr +C /mnt/swap/swapfile
-fallocate -l 8G /mnt/swap/swapfile
-chmod 600 /mnt/swap/swapfile
-mkswap /mnt/swap/swapfile
-swapon /mnt/swap/swapfile
+truncate -s 0 /mnt/.swap/swapfile
+chattr +C /mnt/.swap/swapfile
+fallocate -l 8G /mnt/.swap/swapfile
+chmod 600 /mnt/.swap/swapfile
+mkswap /mnt/.swap/swapfile
+swapon /mnt/.swap/swapfile
 
 # generate hardware-configuration.nix
 nixos-generate-config --root /mnt
@@ -96,5 +96,6 @@ echo
 echo "Partitions have been created and hardware-configuration.nix has been generated."
 echo "WARNING: Some hardware-configuration.nix options might need to be set manually:"
 echo "- add compress-force & noatime options"
-echo '- add "neededForBoot = true;" to /swap'
+echo "- add nodatacow option to /.swap"
+echo '- add "neededForBoot = true;" to /.swap'
 
