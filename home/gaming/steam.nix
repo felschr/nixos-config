@@ -14,16 +14,16 @@ in {
 
   home.file = {
     proton-ge = let
-      version = "7.0rc3-GE-1";
+      version = "7.0rc6-GE-1";
       source = builtins.fetchTarball {
         url =
           "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/Proton-${version}.tar.gz";
-        sha256 = "1nvrbifsbgm2fz9114q3wyzdrm52jnjir3ncjc7inalmdymsmq4g";
+        sha256 = "sha256:07i4nfiilrqjzingnjdi3ih4g04bfr9a7xxrw8jbpb7z9nrf3gqc";
       };
     in rec {
       recursive = true;
       inherit source;
-      target = ".steam/root/compatibilitytools.d/Proton-${version}/";
+      target = ".local/share/Steam/compatibilitytools.d/Proton-${version}/";
     };
   };
 }
