@@ -26,7 +26,7 @@ in {
       # pytestCheckPhase uses too much RAM and pi can't handle it
       doCheck = false;
       doInstallCheck = false;
-    })).override { extraComponents = [ "otp" ]; };
+    })).override { extraComponents = [ "otp" "roku" ]; };
     config = {
       homeassistant = {
         name = "Home";
@@ -98,19 +98,19 @@ in {
           cycle = "yearly";
         };
       };
+      alarm_control_panel = [{
+        platform = "manual";
+        code = "!secret alarm_code";
+        arming_time = 30;
+        delay_time = 20;
+        trigger_time = 120;
+        disarmed = { trigger_time = 0; };
+        armed_home = {
+          arming_time = 0;
+          delay_time = 0;
+        };
+      }];
     };
-    alarm_control_panel = [{
-      platform = "manual";
-      code = "!secret alarm_code";
-      arming_time = 30;
-      delay_time = 20;
-      trigger_time = 120;
-      disarmed = { trigger_time = 0; };
-      armed_home = {
-        arming_time = 0;
-        delay_time = 0;
-      };
-    }];
     # configWritable = true; # doesn't work atm
   };
 }
