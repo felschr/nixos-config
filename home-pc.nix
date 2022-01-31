@@ -15,12 +15,6 @@
     ./services/pcscd.nix
   ];
 
-  # declarative config broken atm: https://github.com/NixOS/nixpkgs/issues/91986
-  swapDevices = [{
-    device = "/.swap/swapfile";
-    size = 8192;
-  }];
-
   nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.memtest86.enable = true;
