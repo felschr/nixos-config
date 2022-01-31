@@ -52,10 +52,10 @@ let g:camelcasemotion_key = '<leader>'
 function! LspStatus() abort
   let sl = ''
   if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-    let errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
-    let warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
-    let infos = luaeval("vim.lsp.diagnostic.get_count(0, [[Info]])")
-    let hints = luaeval("vim.lsp.diagnostic.get_count(0, [[Hint]])")
+    let errors = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })")
+    let warnings = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })")
+    let infos = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })")
+    let hints = luaeval("#vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })")
     if (errors || warnings || infos || hints)
       if errors
         let sl .= 'E' . errors
