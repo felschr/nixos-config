@@ -5,7 +5,7 @@
 with lib; {
   boot.loader.systemd-boot.editor = mkDefault false;
 
-  nix.allowedUsers = mkDefault [ "@users" ];
+  nix.settings.allowed-users = mkDefault [ "@users" ];
 
   # causes Firefox & Tor Browser segfaults
   # environment.memoryAllocator.provider = mkDefault "scudo";
