@@ -14,10 +14,7 @@ in {
     dataDir = "/home/felschr/.local/share/syncthing";
     devices = {
       felix-nixos = {
-        id = "JYCS3KB-K3TQ57P-UDIJNGI-SPPUPQX-UXS7ZU5-UNQJ52Y-2AOTUK2-K3AF4AC";
-      };
-      pixel3 = {
-        id = "YM26ZEC-V5QQTOI-7U355KQ-WTHLL3X-H3YVJR5-4UPM5SS-YXWGVGA-EBWZEQP";
+        id = "S4GZGYU-YN4SRVQ-SXSVWSJ-QYJYNIZ-LECWTJN-YMIUN5U-SNKECTW-BD3KOAB";
       };
     };
     # TODO switch to external storage
@@ -25,7 +22,7 @@ in {
       "Default" = {
         id = "default";
         path = "/home/felschr/sync/default";
-        devices = [ "felix-nixos" "pixel3" ];
+        devices = [ "felix-nixos" ];
         inherit versioning;
       };
       "Backups" = {
