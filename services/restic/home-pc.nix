@@ -20,6 +20,7 @@ in {
         /home/*/.cache
         /home/*/Downloads
         /home/*/.npm
+        /home/*/Games
         /home/*/.steam
         /home/*/.local/share/Steam
         /home/*/.local/share/lutris
