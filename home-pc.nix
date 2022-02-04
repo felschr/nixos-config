@@ -10,6 +10,7 @@
     ./system/gaming.nix
     ./desktop
     ./virtualisation/docker.nix
+    ./services/samba/home-pc.nix
     ./services/syncthing/felix-nixos.nix
     ./services/restic/home-pc.nix
     ./services/pcscd.nix

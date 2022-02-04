@@ -24,8 +24,8 @@ in {
         /home/*/.steam
         /home/*/.local/share/Steam
         /home/*/.local/share/lutris
+        /home/felschr/media
         /home/felschr/sync
-        /home/felschr/Sync
         /home/felschr/keybase
       '';
     in ''

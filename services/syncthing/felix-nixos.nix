@@ -28,12 +28,6 @@ in {
         path = "/home/felschr/sync/backups";
         devices = [ "rpi4" ];
       };
-      "Media" = {
-        id = "media";
-        path = "/home/felschr/sync/media";
-        devices = [ "rpi4" ];
-        inherit versioning;
-      };
     };
   };
 }

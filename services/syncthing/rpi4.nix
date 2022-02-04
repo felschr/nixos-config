@@ -31,13 +31,6 @@ in {
         devices = [ "felix-nixos" ];
         inherit versioning;
       };
-      "Media" = {
-        id = "media";
-        path = "/media";
-        # path = "/media/inbox";
-        devices = [ "felix-nixos" ];
-        # inherit versioning;
-      };
     };
   };
 }

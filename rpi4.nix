@@ -17,6 +17,7 @@ in with builtins; {
     ./system/i18n.nix
     ./system/networking.nix
     ./services/restic/rpi4.nix
+    ./services/samba/rpi4.nix
     ./services/syncthing/rpi4.nix
     # ./services/kodi.nix
     ./services/jellyfin.nix
