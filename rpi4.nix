@@ -88,7 +88,7 @@ in with builtins; {
 
   services.openssh = {
     enable = true;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     passwordAuthentication = false;
     permitRootLogin = "no";
     inherit hostKeys;
