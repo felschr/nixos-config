@@ -9,6 +9,7 @@
     ./system
     ./system/gaming.nix
     ./desktop
+    ./virtualisation/libvirt.nix
     ./virtualisation/docker.nix
     ./services/samba/home-pc.nix
     ./services/syncthing/home-pc.nix
