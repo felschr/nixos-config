@@ -28,7 +28,7 @@
   fileSystems."/.swap" = {
     device = "/dev/disk/by-uuid/5830e9b3-260b-451c-bfee-2028c64c6199";
     fsType = "btrfs";
-    options = [ "subvol=@swap" "nodatacow" ];
+    options = [ "subvol=@swap" "nodatacow" "noatime" ];
     neededForBoot = true;
   };
 

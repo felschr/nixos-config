@@ -111,12 +111,12 @@
 
       inherit lib overlays nixosModules homeManagerModules;
 
-      nixosConfigurations.felix-nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.home-pc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
-          (lib.createSystem "felix-nixos" {
-            hardwareConfig = ./hardware/felix-nixos.nix;
+          (lib.createSystem "home-pc" {
+            hardwareConfig = ./hardware/home-pc.nix;
             config = ./home-pc.nix;
           })
           (lib.createUser "felschr" {

@@ -13,7 +13,7 @@ in {
     configDir = "/home/felschr/.config/syncthing";
     dataDir = "/home/felschr/.local/share/syncthing";
     devices = {
-      felix-nixos = {
+      home-pc = {
         id = "S4GZGYU-YN4SRVQ-SXSVWSJ-QYJYNIZ-LECWTJN-YMIUN5U-SNKECTW-BD3KOAB";
       };
     };
@@ -22,13 +22,13 @@ in {
       "Default" = {
         id = "default";
         path = "/home/felschr/sync/default";
-        devices = [ "felix-nixos" ];
+        devices = [ "home-pc" ];
         inherit versioning;
       };
       "Backups" = {
         id = "backups";
         path = "/home/felschr/sync/backups";
-        devices = [ "felix-nixos" ];
+        devices = [ "home-pc" ];
         inherit versioning;
       };
     };
