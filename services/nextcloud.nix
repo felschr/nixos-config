@@ -31,6 +31,26 @@ in {
     }];
   };
 
+  # Office
+  # TODO move to own config
+  virtualisation.oci-containers.containers.collabora-office = {
+    image = "collabora/code";
+    ports = [ "9980:9980" ];
+    environment = {
+      domain = builtins.replaceStrings [ "." ] [ "\\." ] "office.felschr.com";
+      extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
+    };
+    extraOptions = [ "--network=host" ];
+  };
+  services.nginx.virtualHosts."office.felschr.com" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://localhost:9980";
+      proxyWebsockets = true;
+    };
+  };
+
   # ensure that postgres is running *before* running the setup
   systemd.services."nextcloud-setup" = {
     requires = [ "postgresql.service" ];

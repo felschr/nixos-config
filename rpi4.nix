@@ -67,6 +67,7 @@ in with builtins; {
     domains = [
       "home.felschr.com"
       "cloud.felschr.com"
+      "office.felschr.com"
       "media.felschr.com"
       "news.felschr.com"
       "mqtt.felschr.com"
