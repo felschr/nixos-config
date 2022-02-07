@@ -34,11 +34,10 @@ in with builtins; {
   nixpkgs.config.allowUnfree = true;
 
   # rpi4 base config
-  boot.loader.grub.enable = false;
-  boot.loader.generic-extlinux-compatible.enable = true;
+  boot.loader.generic-extlinux-compatible.enable = false;
   boot.loader.raspberryPi.enable = true;
   boot.loader.raspberryPi.version = 4;
-  boot.loader.raspberryPi.uboot.enable = true;
+  # boot.loader.raspberryPi.uboot.enable = true;
   boot.loader.raspberryPi.firmwareConfig = ''
     gpu_mem=320
     hdmi_group=1
