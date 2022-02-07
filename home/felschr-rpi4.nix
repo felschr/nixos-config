@@ -9,6 +9,7 @@
 
   home.packages = with pkgs; [ ncurses ];
 
+  programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
@@ -18,15 +19,17 @@
     defaultCacheTtlSsh = 600;
     pinentryFlavor = "curses";
   };
+  # https://github.com/nix-community/home-manager/issues/667#issuecomment-902236379
+  # https://github.com/nix-community/home-manager/pull/2253
+  home.sessionVariables.SSH_AUTH_SOCK =
+    "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
 
-  programs.gpg.enable = true;
+  programs.git.defaultProfile = "private";
 
   home.sessionVariables = with pkgs; { EDITOR = "nvim"; };
   programs.neovim.enable = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
-
-  programs.git.defaultProfile = "private";
 
   xdg.configFile."nixpkgs/config.nix".text = ''
     {
