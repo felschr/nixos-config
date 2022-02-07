@@ -26,7 +26,7 @@
 
   programs.git.defaultProfile = "private";
 
-  home.sessionVariables = with pkgs; { EDITOR = "nvim"; };
+  home.sessionVariables.EDITOR = "nvim";
   programs.neovim.enable = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
