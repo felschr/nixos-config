@@ -19,6 +19,11 @@
 
     [org/gnome/mutter]
     experimental-features=['kms-modifiers', 'scale-monitor-framebuffer']
+
+    [org/gnome/settings-daemon/plugins/color]
+    night-light-enabled=true
+    night-light-last-coordinates=(53.2593, 10.4)
+    night-light-temperature=3700
   '';
   programs.xwayland.enable = true;
 

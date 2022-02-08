@@ -13,12 +13,6 @@ with pkgs; {
     ./planck.nix
   ];
 
-  services.gammastep = {
-    enable = true;
-    latitude = "53.2603609";
-    longitude = "10.4014691";
-  };
-
   programs.gpg.enable = true;
 
   services.gpg-agent = {

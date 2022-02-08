@@ -17,18 +17,6 @@
     ./gaming
   ];
 
-  services.gammastep = {
-    enable = true;
-    latitude = "53.2603609";
-    longitude = "10.4014691";
-    settings = {
-      general = {
-        brightness-day = "0.9";
-        brightness-night = "0.9";
-      };
-    };
-  };
-
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
