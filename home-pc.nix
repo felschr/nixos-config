@@ -21,6 +21,9 @@
 
   boot.loader.systemd-boot.memtest86.enable = true;
 
+  # cross-compilation support
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   hardware.enableAllFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
   services.fwupd.enable = true;
