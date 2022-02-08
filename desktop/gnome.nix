@@ -14,16 +14,13 @@
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
-    [org/gnome/desktop/input-sources]
+    [org.gnome.desktop.input-sources]
     sources=[('xkb', 'gb'), ('xkb', 'mozc-jp')]
 
-    [org/gnome/mutter]
-    experimental-features=['kms-modifiers', 'scale-monitor-framebuffer']
-
-    [org/gnome/settings-daemon/plugins/color]
+    [org.gnome.settings-daemon.plugins.color]
     night-light-enabled=true
     night-light-last-coordinates=(53.2593, 10.4)
-    night-light-temperature=3700
+    night-light-temperature=uint32 3700
   '';
   programs.xwayland.enable = true;
 
