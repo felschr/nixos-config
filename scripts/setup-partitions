@@ -75,7 +75,7 @@ mount -o subvol=@,compress-force=zstd,noatime /dev/mapper/enc /mnt
 mkdir /mnt/home
 mount -o subvol=@home,compress-force=zstd,noatime /dev/mapper/enc /mnt/home
 mkdir /mnt/.swap
-mount -o subvol=@swap,noatime /dev/mapper/enc /mnt/swap
+mount -o subvol=@swap,noatime /dev/mapper/enc /mnt/.swap
 mkdir /mnt/.snapshots
 mount -o subvol=@snapshots,compress-force=zstd,noatime /dev/mapper/enc /mnt/.snapshots
 mkdir /mnt/boot
@@ -84,7 +84,8 @@ mount "$boot" /mnt/boot
 # setup swap file
 truncate -s 0 /mnt/.swap/swapfile
 chattr +C /mnt/.swap/swapfile
-fallocate -l 8G /mnt/.swap/swapfile
+btrfs property set /mnt/.swap/swapfile compression none
+dd if=/dev/zero of=/mnt/.swap/swapfile bs=1M count=8192 status=progress
 chmod 600 /mnt/.swap/swapfile
 mkswap /mnt/.swap/swapfile
 swapon /mnt/.swap/swapfile
