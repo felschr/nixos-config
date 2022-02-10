@@ -58,21 +58,26 @@ in {
       maximize = [ ];
       unmaximize = [ ];
       toggle-maximized = [ "<Super>m" ];
+      toggle-fullscreen = [ "<Super>f" ];
+      toggle-on-all-workspaces = [ "<Super>p" ];
 
-      switch-to-workspace-left = [ ];
-      switch-to-workspace-right = [ ];
+      switch-to-workspace-left =
+        [ "<Primary><Super>Left" "<Primary><Super>${left}" ];
+      switch-to-workspace-right =
+        [ "<Primary><Super>Right" "<Primary><Super>${right}" ];
+      switch-to-workspace-down = [ ];
+      switch-to-workspace-up = [ ];
 
-      move-to-workspace-up = [ ];
+      move-to-workspace-left = [ "<Shift><Super>Left" "<Shift><Super>${left}" ];
+      move-to-workspace-right =
+        [ "<Shift><Super>Right" "<Shift><Super>${right}" ];
       move-to-workspace-down = [ ];
+      move-to-workspace-up = [ ];
 
       move-to-monitor-left = [ ];
       move-to-monitor-right = [ ];
       move-to-monitor-up = [ ];
       move-to-monitor-down = [ ];
-
-      switch-to-workspace-down =
-        [ "<Primary><Super>Down" "<Primary><Super>${down}" ];
-      switch-to-workspace-up = [ "<Primary><Super>Up" "<Primary><Super>${up}" ];
     };
     "org/gnome/mutter/keybindings" = {
       toggle-tiled-left = [ ];
