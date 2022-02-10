@@ -2,7 +2,7 @@
 
 ## Installation
 
-Clone the configuration into `etc/nixos`.
+Clone the configuration into `/etc/nixos`.
 
 On a new machine run:
 
@@ -10,22 +10,29 @@ On a new machine run:
 scripts/setup-partitions
 ```
 
-Then move the resulting `/etc/nixos/hardware-configuration.nix` to `./hardware/<config>.nix` and adjust it and the `flake.nix` accodringly.
-Make sure everything was properly recognised. Btrfs mount options might be missing, for example.
+Then move the resulting `/etc/nixos/hardware-configuration.nix` to `./hardware/<config>.nix`.
+Update the configuration according to the script output, if necessary. Btrfs mount options likely need to be added, for example.
+
+Reference this hardware config in a `nixosConfigurations.<config>` section in `flake.nix`.
 
 To install run the following command where `<config>` matches `outputs.nixosConfigurations.<config>` in `flake.nix`:
 
 ```sh
-nixos-install --flake /etc/nixos#<config>
+nixos-install --flake '/etc/nixos#<config>'
 ```
 
 ## Updating
 
-Update all or specific locked flake inputs:
+Update all flake inputs:
 
 ```sh
 nix flake update
-nix flake update --update-input <input>
+```
+
+Update a specific flake input:
+
+```
+nix flake lock --update-input <input>
 ```
 
 ## Rebuilding the system
@@ -36,8 +43,9 @@ Rebuild the system:
 sudo nixos-rebuild switch
 ```
 
-Update flake.lock and rebuild the system:
+Rebuild the system for a remote machine:
 
 ```sh
-nix flake update && sudo nixos-rebuild switch
+sudo nixos-rebuild switch --flake '/etc/nixos#<config>' --target-host user@hostname --use-remote-sudo
 ```
+
