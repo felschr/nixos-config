@@ -101,20 +101,17 @@ in {
           // {
             inherit name;
             exec = "${scriptBin}/bin/${name} %U";
-            extraEntries = ''
-              StartupWMClass="${escapeDesktopArg name}"
-            '';
+            extraConfig.StartupWMClass = name;
             genericName = "Web Browser";
-            mimeType = lib.concatStringsSep ";" [
+            mimeTypes = [
               "text/html"
               "text/xml"
               "application/xhtml+xml"
               "application/vnd.mozilla.xul+xml"
               "x-scheme-handler/http"
               "x-scheme-handler/https"
-              "x-scheme-handler/ftp"
             ];
-            categories = "Network;WebBrowser;";
+            categories = [ "Network" "WebBrowser" ];
           });
       in pkgs.runCommand name { } ''
         mkdir -p $out/{bin,share}
