@@ -87,15 +87,11 @@ in {
   };
 
   home.packages = let
-    escapeDesktopArg = arg:
-      replaceStrings [ ''"'' ] [ ''"\""'' ] (toString arg);
     makeFirefoxProfileBin = args@{ profile, ... }:
       let
         name = "firefox-${profile}";
         scriptBin = pkgs.writeScriptBin name ''
-          firefox -p "${escapeDesktopArg profile}" --class="${
-            escapeDesktopArg name
-          }" $@
+          firefox -P "${profile}" --name="${name}" $@
         '';
         desktopFile = pkgs.makeDesktopItem ((removeAttrs args [ "profile" ])
           // {
