@@ -2,7 +2,9 @@
 
 with pkgs;
 
-let mqttPort = 1883;
+let
+  port = config.services.home-assistant.config.http.server_port;
+  mqttPort = 1883;
 in {
   # just installed for ConBee firmware updates
   environment.systemPackages = with pkgs; [ deconz ];
@@ -12,8 +14,7 @@ in {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
-        proxyPass =
-          "http://localhost:${toString config.services.home-assistant.port}";
+        proxyPass = "http://localhost:${toString port}";
         proxyWebsockets = true;
       };
     };
