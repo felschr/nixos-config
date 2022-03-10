@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   vimLua = lua: ''
@@ -20,6 +20,7 @@ in {
       fzf-vim
       lightline-vim
       nerdtree
+      toggleterm-nvim
       vim-startify
       vim-visual-multi
       vim-surround
@@ -55,12 +56,21 @@ in {
       vim-orgmode
     ];
     extraConfig = with builtins;
-      readFile ./init.vim # + readFile ./vim-surround-fix.vim
-      + vimLua (readFile ./which-key.lua) + vimLua (readFile ./gitsigns.lua)
-      + readFile ./test.vim + vimLua (readFile ./lsp/extensions.lua)
-      + readFile ./lsp/lsp.vim + vimLua (readFile ./lsp/lsp.lua)
-      + readFile ./dap/dap.vim + vimLua (readFile ./dap/dap.lua)
-      + vimLua (readFile ./treesitter.lua);
+    # readFile ./vim-surround-fix.vim +
+      vimLua (lib.foldl (r: f: r + "\n" + readFile f) "" [
+        ./init.lua
+        ./startify.lua
+        ./lightline.lua
+        ./which-key.lua
+        ./gitsigns.lua
+        ./test.lua
+        ./lsp/extensions.lua
+        ./lsp/lsp.lua
+        ./lsp/mappings.lua
+        ./dap/dap.lua
+        ./dap/mappings.lua
+        ./treesitter.lua
+      ]);
     withNodeJs = false;
     withPython3 = false;
   };

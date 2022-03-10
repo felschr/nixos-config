@@ -1,4 +1,18 @@
-local config = require'lspconfig'
+-- autocomplete config
+vim.opt.completeopt="menuone,noinsert"
+vim.opt.shortmess:append("c")
+
+require'compe'.setup {
+  enabled = true,
+  preselect = "always",
+  allow_prefix_unmatch = true,
+  source = {
+    path = true,
+    calc = true,
+    nvim_lsp = true,
+    vsnip = true,
+  },
+}
 
 local pid = vim.fn.getpid()
 
@@ -21,6 +35,8 @@ end
 require('lspfuzzy').setup {}
 
 -- enable lsp snippets for nvim-compe
+
+local config = require'lspconfig'
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 local servers = {
@@ -32,6 +48,7 @@ local servers = {
   "dockerls",
   "rnix",
   "tsserver",
+  "graphql",
   "pylsp",
   "terraformls",
   "hls",
@@ -222,7 +239,7 @@ config.diagnosticls.setup {
 }
 
 -- nvim-autoclose & nvim-compe compatibility
-local remap = vim.api.nvim_set_keymap
+local map = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 
 npairs.setup({
@@ -244,4 +261,4 @@ MUtils.completion_confirm=function()
   end
 end
 
-remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
