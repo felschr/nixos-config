@@ -13,9 +13,10 @@
     nodePackages.vscode-langservers-extracted
     nodePackages.typescript-language-server
     nodePackages.dockerfile-language-server-nodejs
-    haskellPackages.haskell-language-server
     nodePackages.diagnostic-languageserver
+    haskellPackages.haskell-language-server
     rust-analyzer
+    sumneko-lua-language-server
 
     # linters & formatters
     nodePackages.eslint
