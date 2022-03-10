@@ -36,6 +36,7 @@ local servers = {
   "terraformls",
   "hls",
   "rust_analyzer",
+  "vimls",
 }
 for _, lsp in ipairs(servers) do
   config[lsp].setup {
