@@ -14,11 +14,11 @@ in {
 
   home.file = {
     proton-ge = let
-      version = "7.1-GE-2";
+      version = "GE-Proton7-9";
       source = builtins.fetchTarball {
         url =
-          "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/Proton-${version}.tar.gz";
-        sha256 = "1dkb6lf3pjg25rd7asbcd35343zivsgybsbal3i5rzvvi7h202lf";
+          "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
+        sha256 = "0hdk22bvxm48sdadmzcap9j7qidqkv0p0vb9jszksvlh0n6a5mji";
       };
     in rec {
       recursive = true;
