@@ -64,6 +64,7 @@
 
     # entertainment
     celluloid
+    spot
     spotify
     # audiotube
 
