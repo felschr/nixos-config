@@ -28,10 +28,7 @@
           "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
       };
 
-      server_names = [
-        "quad9-doh-ip4-port443-nofilter-pri"
-        "quad9-doh-ip6-port443-nofilter-pri"
-      ];
+      server_names = [ "mullvad-adblock-doh" ];
     };
   };
 
