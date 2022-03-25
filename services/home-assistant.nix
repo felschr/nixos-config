@@ -46,6 +46,8 @@ in {
         trusted_proxies = [ "127.0.0.1" "::1" ];
       };
       "automation editor" = "!include automations.yaml";
+      "scene editor" = "!include scenes.yaml";
+      "script editor" = "!include scripts.yaml";
       automation = { };
       frontend = { };
       mobile_app = { };
