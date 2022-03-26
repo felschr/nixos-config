@@ -12,32 +12,17 @@
 
   inputs.nur.url = "github:nix-community/NUR/master";
 
-  inputs.neovim = {
-    url = "github:neovim/neovim?dir=contrib";
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.flake-utils.follows = "flake-utils";
-  };
-
-  inputs.photoprism2nix = {
-    url = "github:GTrunSec/photoprism2nix";
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.flake-utils.follows = "flake-utils";
-  };
+  # TODO this looks preferable: https://github.com/NixOS/nixpkgs/issues/96043#issuecomment-1030936467
+  # inputs.photoprism2nix = {
+  # url = "github:GTrunSec/photoprism2nix";
+  # inputs.nixpkgs.follows = "nixpkgs";
+  # inputs.flake-utils.follows = "flake-utils";
+  # };
 
   inputs.pre-commit-hooks = {
     url = "github:cachix/pre-commit-hooks.nix";
     inputs.nixpkgs.follows = "nixpkgs";
     inputs.flake-utils.follows = "flake-utils";
-  };
-
-  inputs.nvim-ts-autotag = {
-    url = "github:windwp/nvim-ts-autotag";
-    flake = false;
-  };
-
-  inputs.nvim-ts-context-commentstring = {
-    url = "github:JoosepAlviste/nvim-ts-context-commentstring";
-    flake = false;
   };
 
   inputs.nvim-lspfuzzy = {
@@ -46,8 +31,7 @@
   };
 
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , neovim, photoprism2nix, pre-commit-hooks, nvim-ts-autotag
-    , nvim-ts-context-commentstring, nvim-lspfuzzy }@inputs:
+    , pre-commit-hooks, nvim-lspfuzzy }@inputs:
     let
       overlays = {
         neovim = self: super:
@@ -60,13 +44,7 @@
                 src = input;
               };
           in {
-            neovim-nightly = neovim.packages.${self.system}.neovim;
             vimPlugins = super.vimPlugins // {
-              nvim-ts-autotag =
-                buildVimPlugin "nvim-ts-autotag" nvim-ts-autotag;
-              nvim-ts-context-commentstring =
-                buildVimPlugin "nvim-ts-context-commentstring"
-                nvim-ts-context-commentstring;
               nvim-lspfuzzy = buildVimPlugin "nvim-lspfuzzy" nvim-lspfuzzy;
             };
           };
@@ -74,9 +52,10 @@
           deconz = self.qt5.callPackage ./pkgs/deconz { };
         };
         # custom overlay so it's using the flake's nixpkgs
-        photoprism = self: super: {
-          photoprism = photoprism2nix.defaultPackage.${self.system};
-        };
+        photoprism = self: super:
+          {
+            # photoprism = photoprism2nix.defaultPackage.${self.system};
+          };
       };
       nixosModules = { flakeDefaults = import ./modules/flakeDefaults.nix; };
       homeManagerModules = { git = import ./home/modules/git.nix; };
