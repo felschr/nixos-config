@@ -14,6 +14,8 @@ if getline(1) =~ '^#!.*nix-shell'
       set ft=make
     elseif s:command =~ '^node\(js\)\=\>\|^js\>'
       set ft=javascript
+    elseif s:command =~ '^runhaskell'
+      set ft=haskell
     elseif s:command =~ '^ghci'
       set ft=haskell
     elseif s:command =~ 'python'
