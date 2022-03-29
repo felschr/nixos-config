@@ -15,7 +15,7 @@ in {
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
       nvcode-color-schemes-vim
-      editorconfig-vim
+      editorconfig-nvim
       direnv-vim
       fzf-vim
       lightline-vim
