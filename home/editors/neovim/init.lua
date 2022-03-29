@@ -45,4 +45,5 @@ vim.g.netrw_winsize = 20
 
 require("toggleterm").setup{
   open_mapping = "<A-t>",
+  size = 16,
 }
