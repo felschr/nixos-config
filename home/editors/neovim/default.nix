@@ -25,7 +25,7 @@ in {
       vim-visual-multi
       vim-surround
       kommentary
-      vim-easymotion
+      lightspeed-nvim
       which-key-nvim
       neogit
       plenary-nvim
