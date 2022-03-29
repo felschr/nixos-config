@@ -19,7 +19,7 @@ in {
       direnv-vim
       fzf-vim
       lightline-vim
-      nerdtree
+      nvim-tree-lua
       toggleterm-nvim
       vim-startify
       vim-visual-multi

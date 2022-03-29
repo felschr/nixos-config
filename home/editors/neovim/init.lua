@@ -34,8 +34,8 @@ vim.g.closetag_regions = {
 local map = vim.api.nvim_set_keymap
 
 map("", ";", ":Files<CR>", {})
-map("n", "<C-p>", ":NERDTreeToggle<CR>", {})
--- map("n", "<C-p>" ":Lexplore<CR>", { silent = true })
+require("nvim-tree").setup {}
+map("n", "<C-p>", ":lua require('nvim-tree').toggle()<CR>", { noremap = true })
 
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
