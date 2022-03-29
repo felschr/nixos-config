@@ -5,9 +5,17 @@
     with gnomeExtensions; [
       gnome.dconf-editor
       gnome.gnome-tweaks
-      gnome.gnome-shell-extensions # required for user-theme
+      native-window-placement
       appindicator
-      pop-shell
+      (pop-shell.overrideAttrs (old: rec {
+        version = "unstable-2022-03-25";
+        src = fetchFromGitHub {
+          owner = "pop-os";
+          repo = "shell";
+          rev = "a317816d02dd2cb20d31aeca81bf09eccc63e370";
+          sha256 = "sha256-uxoeCv25ew5+NkTpsKjQqDFrqw6ZA/+iYhyCHoCb6jM=";
+        };
+      }))
     ];
 
   services.xserver.displayManager.gdm.enable = true;

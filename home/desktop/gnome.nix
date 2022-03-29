@@ -10,14 +10,12 @@ in {
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "user-theme@gnome-shell-extensions.gcampax.github.com"
         "pop-shell@system76.com"
         "native-window-placement@gnome-shell-extensions.gcampax.github.com" # works better with pop-shell
         "appindicatorsupport@rgcjonas.gmail.com"
       ];
       favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" ];
     };
-    "org/gnome/shell/extensions/user-theme" = { name = "Adwaita-dark"; };
     "org/gnome/shell/extensions/pop-shell" = {
       tile-by-default = true;
       snap-to-grid = true;
@@ -25,6 +23,7 @@ in {
       show-title = false;
       active-hint = false;
     };
+    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
     "org/gnome/desktop/sound" = { theme-name = "freedesktop"; };
     "org/gnome/desktop/input-sources" = {
       sources = map mkTuple [ [ "xkb" "gb" ] [ "ibus" "mozc-jp" ] ];
