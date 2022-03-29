@@ -24,7 +24,7 @@ in {
       vim-startify
       vim-visual-multi
       vim-surround
-      vim-commentary
+      kommentary
       vim-easymotion
       which-key-nvim
       neogit
