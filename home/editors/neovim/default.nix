@@ -27,7 +27,7 @@ in {
       vim-commentary
       vim-easymotion
       which-key-nvim
-      vim-fugitive
+      neogit
       plenary-nvim
       gitsigns-nvim
       vim-test
