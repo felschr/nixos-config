@@ -9,10 +9,13 @@ in {
     enable = true;
     settings = {
       add_newline = false;
-      status.symbol = "❌ ";
       status.disabled = false;
+      status.symbol = "❌ ";
       aws.disabled = true;
       gcloud.disabled = true;
+
+      # kitty/neovim don't play well with multi-width emojis
+      nix_shell.symbol = " ";
     };
   };
 

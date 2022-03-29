@@ -7,19 +7,19 @@ function LspStatus()
     local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
     if (errors > 0 or warnings > 0 or infos > 0 or hints > 0) then
       if errors > 0 then
-        sl = sl .. "E" .. errors
+        sl = sl .. " " .. errors
       end
       if warnings > 0 then
-        sl = sl .. " W" .. warnings
+        sl = sl .. "  " .. warnings
       end
       if infos > 0 then
-        sl = sl .. " I" .. infos
+        sl = sl .. "  " .. infos
       end
       if hints > 0 then
-        sl = sl .. " H" .. hints
+        sl = sl .. "  " .. hints
       end
     else
-      sl = sl .. "🗸"
+      sl = sl .. ""
     end
   end
   return sl
