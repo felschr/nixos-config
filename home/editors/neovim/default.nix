@@ -33,7 +33,6 @@ in {
       vim-test
       nvim-autopairs
       camelcasemotion
-      wmgraphviz-vim
       nvim-compe
       vim-vsnip
 
