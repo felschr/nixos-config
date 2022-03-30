@@ -5,10 +5,7 @@
 
   home.packages = with pkgs; [ fzf ripgrep ];
 
-  home.sessionVariables = with pkgs; {
-    EDITOR = "nvim";
-    FZF_DEFAULT_COMMAND = "${ripgrep}/bin/rg --files --hidden";
-  };
+  home.sessionVariables.EDITOR = "nvim";
 
   home.file.".editorconfig".text = ''
     [*]

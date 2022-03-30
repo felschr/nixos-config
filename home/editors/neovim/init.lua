@@ -33,7 +33,9 @@ vim.g.closetag_regions = {
 
 local map = vim.api.nvim_set_keymap
 
-map("", ";", ":Files<CR>", {})
+map("n", ";", ":lua require('telescope.builtin').find_files()<CR>", { noremap = true })
+map("n", ",", ":lua require('telescope.builtin').live_grep()<CR>", { noremap = true })
+
 require("nvim-tree").setup {}
 map("n", "<C-p>", ":lua require('nvim-tree').toggle()<CR>", { noremap = true })
 

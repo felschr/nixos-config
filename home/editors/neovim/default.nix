@@ -17,7 +17,7 @@ in {
       nvcode-color-schemes-vim
       editorconfig-nvim
       direnv-vim
-      fzf-vim
+      telescope-nvim
       lualine-nvim
       nvim-tree-lua
       toggleterm-nvim
