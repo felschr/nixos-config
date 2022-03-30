@@ -36,6 +36,7 @@ in {
       luasnip
 
       nvim-cmp
+      cmp-path
       cmp-buffer
       cmp-nvim-lsp
       cmp_luasnip
@@ -67,7 +68,7 @@ in {
         ./which-key.lua
         ./gitsigns.lua
         ./test.lua
-        ./cmp.lua
+        ./completion.lua
         ./lsp/extensions.lua
         ./lsp/lsp.lua
         ./lsp/mappings.lua
