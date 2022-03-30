@@ -52,7 +52,7 @@ in {
       nvim-dap
       nvim-dap-virtual-text
 
-      vim-orgmode
+      orgmode
     ];
     extraConfig = with builtins;
     # readFile ./vim-surround-fix.vim +
@@ -69,6 +69,7 @@ in {
         ./dap/dap.lua
         ./dap/mappings.lua
         ./treesitter.lua
+        ./orgmode.lua
       ]);
     withNodeJs = false;
     withPython3 = false;
