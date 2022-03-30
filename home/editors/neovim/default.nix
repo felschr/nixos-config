@@ -18,7 +18,7 @@ in {
       editorconfig-nvim
       direnv-vim
       fzf-vim
-      lightline-vim
+      lualine-nvim
       nvim-tree-lua
       toggleterm-nvim
       vim-startify
@@ -60,7 +60,7 @@ in {
       vimLua (lib.foldl (r: f: r + "\n" + readFile f) "" [
         ./init.lua
         ./startify.lua
-        ./lightline.lua
+        ./lualine.lua
         ./which-key.lua
         ./gitsigns.lua
         ./test.lua
