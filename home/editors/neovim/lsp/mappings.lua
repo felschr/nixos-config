@@ -1,15 +1,5 @@
 local map = vim.api.nvim_set_keymap
 
-map("i", "<C-Space>", "compe#complete()", { noremap = true, expr = true, silent = true })
-map("i", "<CR>",      "compe#confirm('<CR>')", { noremap = true, expr = true, silent = true })
-map("i", "<C-e>",     "compe#close('<C-e>')", { noremap = true, expr = true, silent = true })
-map("i", "<C-f>",     "compe#scroll({ 'delta': +4 })", { noremap = true, expr = true, silent = true })
-map("i", "<C-d>",     "compe#scroll({ 'delta': -4 })", { noremap = true, expr = true, silent = true })
-
--- Use <Tab> and <S-Tab> to navigate through popup menu
-map("i", "<Tab>",   "pumvisible() ? '<C-n>' : '<Tab>'", { noremap = true, expr = true })
-map("i", "<S-Tab>", "pumvisible() ? '<C-p>' : '<S-Tab>'", { noremap = true, expr = true })
-
 -- maps
 map("n", "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 map("n", "gp",         "<cmd>lua peek_definition()<CR>", { noremap = true, silent = true })

@@ -33,8 +33,12 @@ in {
       vim-test
       nvim-autopairs
       camelcasemotion
-      nvim-compe
-      vim-vsnip
+      luasnip
+
+      nvim-cmp
+      cmp-buffer
+      cmp-nvim-lsp
+      cmp_luasnip
 
       (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       nvim-treesitter-context
@@ -63,6 +67,7 @@ in {
         ./which-key.lua
         ./gitsigns.lua
         ./test.lua
+        ./cmp.lua
         ./lsp/extensions.lua
         ./lsp/lsp.lua
         ./lsp/mappings.lua

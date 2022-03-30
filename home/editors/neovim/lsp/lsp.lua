@@ -1,19 +1,3 @@
--- autocomplete config
-vim.opt.completeopt="menuone,noinsert"
-vim.opt.shortmess:append("c")
-
-require'compe'.setup {
-  enabled = true,
-  preselect = "always",
-  allow_prefix_unmatch = true,
-  source = {
-    path = true,
-    calc = true,
-    nvim_lsp = true,
-    vsnip = true,
-  },
-}
-
 local pid = vim.fn.getpid()
 
 -- lightbulb
@@ -34,10 +18,9 @@ end
 
 require('lspfuzzy').setup {}
 
--- enable lsp snippets for nvim-compe
-
 local config = require'lspconfig'
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities_ = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities_)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 local servers = {
   "bashls",
@@ -238,27 +221,6 @@ config.diagnosticls.setup {
   },
 }
 
--- nvim-autoclose & nvim-compe compatibility
-local map = vim.api.nvim_set_keymap
-local npairs = require('nvim-autopairs')
-
-npairs.setup({
+require("nvim-autopairs").setup({
   check_ts = true,
 })
-
-_G.MUtils= {}
-
-vim.g.completion_confirm_key = ""
-MUtils.completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
-    else
-      return npairs.esc("<cr>")
-    end
-  else
-    return npairs.autopairs_cr()
-  end
-end
-
-map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
