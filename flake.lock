@@ -84,6 +84,22 @@
         "type": "github"
       }
     },
+    "nvim-kitty-navigator": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648739869,
+        "narHash": "sha256-dgu9ug0R9dbu5QyuNXJ6E/Gv2ruoYsefPc23iWI6eVc=",
+        "owner": "hermitmaster",
+        "repo": "nvim-kitty-navigator",
+        "rev": "16574acb6e5d8b47f0da535dc391cac541163e87",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hermitmaster",
+        "repo": "nvim-kitty-navigator",
+        "type": "github"
+      }
+    },
     "nvim-lspfuzzy": {
       "flake": false,
       "locked": {
@@ -130,6 +146,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "nvim-kitty-navigator": "nvim-kitty-navigator",
         "nvim-lspfuzzy": "nvim-lspfuzzy",
         "pre-commit-hooks": "pre-commit-hooks"
       }

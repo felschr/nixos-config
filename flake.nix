@@ -30,8 +30,13 @@
     flake = false;
   };
 
+  inputs.nvim-kitty-navigator = {
+    url = "github:hermitmaster/nvim-kitty-navigator";
+    flake = false;
+  };
+
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , pre-commit-hooks, nvim-lspfuzzy }@inputs:
+    , pre-commit-hooks, nvim-lspfuzzy, nvim-kitty-navigator }@inputs:
     let
       overlays = {
         neovim = self: super:
@@ -46,6 +51,8 @@
           in {
             vimPlugins = super.vimPlugins // {
               nvim-lspfuzzy = buildVimPlugin "nvim-lspfuzzy" nvim-lspfuzzy;
+              nvim-kitty-navigator =
+                buildVimPlugin "nvim-kitty-navigator" nvim-kitty-navigator;
             };
           };
         deconz = self: super: {

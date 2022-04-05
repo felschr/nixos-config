@@ -34,6 +34,7 @@ in {
       nvim-autopairs
       camelcasemotion
       luasnip
+      nvim-kitty-navigator
 
       nvim-cmp
       cmp-path
