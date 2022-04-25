@@ -203,6 +203,9 @@ config.diagnosticls.setup {
       nixfmt = {
         command = "nixfmt",
       },
+      rustfmt = {
+        command = "rustfmt",
+      },
     },
     formatFiletypes = {
       javascript = {"eslint"},
@@ -215,6 +218,7 @@ config.diagnosticls.setup {
       yaml = {"prettier"},
       markdown = {"prettier"},
       nix = {"nixfmt"},
+      rust = {"rustfmt"},
       html = {"prettier"},
       css = {"stylelint"},
     },
