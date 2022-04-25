@@ -1,8 +1,7 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
--- vim.opt.completeopt="menuone,noinsert" -- TODO
-vim.opt.completeopt="menu,menuone,noselect"
+vim.opt.completeopt="menu,menuone,noinsert"
 vim.opt.shortmess:append("c")
 
 local has_words_before = function()
@@ -51,8 +50,6 @@ cmp.setup({
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "path" },
-  }, {
-    { name = "buffer" },
   })
 })
 
