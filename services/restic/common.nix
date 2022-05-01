@@ -8,7 +8,8 @@ with lib;
 with builtins;
 let hasAnyAttr = flip (attrset: any (flip hasAttr attrset));
 in {
-  resticConfig = args@{ name, extraPruneOpts ? [ ], ... }:
+  resticConfig = args@{ name, ripgrep ? false, paths ? [ ], ignorePatterns ? [ ]
+    , extraPruneOpts ? [ ], ... }:
     assert !hasAnyAttr [
       "initialize"
       "repository"
@@ -16,21 +17,39 @@ in {
       "passwordFile"
       "pruneOpts"
     ] args;
-    (removeAttrs args [ "name" "extraPruneOpts" ]) // {
+    assert (args ? paths);
+    assert (ripgrep || (!ripgrep && !(args ? ignorePatterns)));
+    {
       initialize = true;
       repository = "b2:felschr-backups:/${name}";
       environmentFile = "/etc/nixos/secrets/restic/b2";
       passwordFile = "/etc/nixos/secrets/restic/password";
-      timerConfig = if (args ? timerConfig) then
-        args.timerConfig
-      else {
-        OnCalendar = "daily";
-      };
+      timerConfig.OnCalendar = "daily";
+      paths = if ripgrep then null else paths;
+      dynamicFilesFrom = if ripgrep then
+        let
+          files = foldl (a: b: "${a} ${b}") "" paths;
+          ignoreFile = builtins.toFile "ignore"
+            (foldl (a: b: a + "\n" + b) "" ignorePatterns);
+        in ''
+          ${pkgs.ripgrep}/bin/rg \
+            --files ${files} \
+            --ignore-file ${ignoreFile} \
+            | sed "s/\[/\\\[/" | sed "s/\]/\\\]/"
+        ''
+      else
+        null;
       pruneOpts = [
         "--keep-daily 7"
         "--keep-weekly 4"
         "--keep-monthly 3"
         "--keep-yearly 1"
       ] ++ extraPruneOpts;
-    };
+    } // (removeAttrs args [
+      "name"
+      "ripgrep"
+      "paths"
+      "ignorePatterns"
+      "extraPruneOpts"
+    ]);
 }

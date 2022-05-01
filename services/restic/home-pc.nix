@@ -12,27 +12,25 @@ in {
 
   services.restic.backups.full = common.resticConfig {
     name = "home-pc";
-    dynamicFilesFrom = let
-      ignore = builtins.toFile "excludes" ''
-        /var/lib/lxcfs
-        /var/lib/docker
-        /home/*/.local/share/Trash
-        /home/*/.cache
-        /home/*/Downloads
-        /home/*/.npm
-        /home/*/Games
-        /home/*/.steam
-        /home/*/.local/share/Steam
-        /home/*/.local/share/lutris
-        /home/felschr/media
-        /home/felschr/sync
-        /home/felschr/keybase
-      '';
-    in ''
-      ${pkgs.ripgrep}/bin/rg \
-        --files /etc/nixos /var/lib /home \
-        --ignore-file ${ignore}
-    '';
+    ripgrep = true;
+    paths = [ "/etc/nixos" "/var/lib" "/home" ];
+    ignorePatterns = [
+      "/var/lib/systemd"
+      "/var/lib/lxcfs"
+      "/var/lib/docker"
+      "/var/lib/flatpak"
+      "/home/*/.local/share/Trash"
+      "/home/*/.cache"
+      "/home/*/Downloads"
+      "/home/*/.npm"
+      "/home/*/Games"
+      "/home/*/.steam"
+      "/home/*/.local/share/Steam"
+      "/home/*/.local/share/lutris"
+      "/home/felschr/media"
+      "/home/felschr/sync"
+      "/home/felschr/keybase"
+    ];
     timerConfig.OnCalendar = "0/4:00:00";
     extraPruneOpts = [ "--keep-last 6" ];
   };

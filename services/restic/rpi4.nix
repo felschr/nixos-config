@@ -12,17 +12,18 @@ in {
 
   services.restic.backups.full = common.resticConfig {
     name = "rpi4";
+    ripgrep = true;
     paths = [ "/etc/nixos" "/var/lib" "/home" ];
+    ignorePatterns = [
+      "/var/lib/lxcfs"
+      "/var/lib/docker"
+      "/var/lib/flatpak"
+      "/var/lib/systemd"
+      "/home/*/.local/share/Trash"
+      "/home/*/.cache"
+      "/var/lib/jellyfin/transcodes"
+    ];
     timerConfig.OnCalendar = "0/4:00:00";
     extraPruneOpts = [ "--keep-last 6" ];
-    extraOptions = let
-      exclude = ''
-        /var/lib/lxcfs
-        /var/lib/docker
-        /home/*/.local/share/Trash
-        /home/*/.cache
-        /var/lib/jellyfin/transcodes
-      '';
-    in [ "--exclude=/var/lib/jellyfin/transcodes" ];
   };
 }
