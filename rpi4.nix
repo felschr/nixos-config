@@ -16,6 +16,8 @@ in with builtins; {
     ./system/nix.nix
     ./system/i18n.nix
     ./system/networking.nix
+    ./modules/emailNotify.nix
+    ./services/mail.nix
     ./services/restic/rpi4.nix
     ./services/samba/rpi4.nix
     ./services/syncthing/rpi4.nix
@@ -108,6 +110,11 @@ in with builtins; {
   };
 
   virtualisation.oci-containers.backend = "podman";
+
+  systemd.emailNotify.enable = true;
+  systemd.emailNotify.mailTo = "admin@felschr.com";
+  systemd.emailNotify.mailFrom =
+    "${config.networking.hostName} <felschr@web.de>";
 
   # only change this when specified in release notes
   system.stateVersion = "21.11";

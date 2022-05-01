@@ -11,6 +11,8 @@
     ./desktop
     ./virtualisation/libvirt.nix
     ./virtualisation/docker.nix
+    ./modules/emailNotify.nix
+    ./services/mail.nix
     ./services/samba/home-pc.nix
     ./services/syncthing/home-pc.nix
     ./services/restic/home-pc.nix
@@ -42,6 +44,11 @@
     # force IPv4, see: https://github.com/transmission/transmission/issues/407
     "87.98.162.88" = [ "portcheck.transmissionbt.com" ];
   };
+
+  systemd.emailNotify.enable = true;
+  systemd.emailNotify.mailTo = "admin@felschr.com";
+  systemd.emailNotify.mailFrom =
+    "${config.networking.hostName} <felschr@web.de>";
 
   services.printing.drivers = with pkgs; [ epson-escpr ];
 
