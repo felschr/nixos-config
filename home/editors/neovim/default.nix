@@ -83,6 +83,5 @@ in {
     withPython3 = false;
   };
 
-  xdg.configFile."nvim/filetype.vim".source = ./filetype.vim;
-  xdg.configFile."nvim/scripts.vim".source = ./scripts.vim;
+  xdg.configFile."nvim/filetype.lua".source = ./filetype.lua;
 }

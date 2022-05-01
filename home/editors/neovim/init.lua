@@ -19,6 +19,10 @@ vim.g.camelcasemotion_key = "<leader>"
 vim.opt.relativenumber = true
 vim.opt.splitbelow = true
 
+-- opt-in to filetype.lua
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+
 vim.g.nvcode_termcolors = 256
 vim.cmd("syntax on")
 vim.cmd("colorscheme nvcode")
