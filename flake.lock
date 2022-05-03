@@ -100,22 +100,6 @@
         "type": "github"
       }
     },
-    "nvim-lspfuzzy": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1642350986,
-        "narHash": "sha256-qs20m7J8Apq336xTz0M/6eKVeTwkbTKa6mNqng8gZ5I=",
-        "owner": "ojroques",
-        "repo": "nvim-lspfuzzy",
-        "rev": "f41f8b03a8eacee578b2b4f14866163538fcfe37",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ojroques",
-        "repo": "nvim-lspfuzzy",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-utils": [
@@ -147,7 +131,6 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
-        "nvim-lspfuzzy": "nvim-lspfuzzy",
         "pre-commit-hooks": "pre-commit-hooks"
       }
     }
