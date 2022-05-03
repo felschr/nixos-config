@@ -71,6 +71,7 @@ in {
         ./gitsigns.lua
         ./test.lua
         ./completion.lua
+        ./diagnostic.lua
         ./lsp/extensions.lua
         ./lsp/lsp.lua
         ./lsp/mappings.lua
