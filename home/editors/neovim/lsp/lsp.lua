@@ -6,7 +6,7 @@ vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_li
 local on_attach = function(_, bufnr)
   -- codelens
   vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>l", "<Cmd>lua vim.lsp.codelens.run()<CR>", {silent = true;})
+  vim.keymap.set("n", "<leader>l", vim.lsp.codelens.run, { silent = true, buffer = bufnr })
 end
 
 -- format on save

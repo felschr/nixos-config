@@ -35,13 +35,11 @@ vim.g.closetag_regions = {
   ["javascript.jsx"] = "jsxRegion",
 }
 
-local map = vim.api.nvim_set_keymap
-
-map("n", ";", ":lua require('telescope.builtin').find_files()<CR>", { noremap = true })
-map("n", ",", ":lua require('telescope.builtin').live_grep()<CR>", { noremap = true })
+vim.keymap.set("n", ";", require("telescope.builtin").find_files)
+vim.keymap.set("n", ",", require("telescope.builtin").live_grep)
 
 require("nvim-tree").setup {}
-map("n", "<C-p>", ":lua require('nvim-tree').toggle()<CR>", { noremap = true })
+vim.keymap.set("n", "<C-p>", require("nvim-tree").toggle)
 
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3

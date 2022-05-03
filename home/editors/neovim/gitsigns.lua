@@ -1,11 +1,9 @@
--- TODO vim.keymap.set not yet supported on stable neovim
--- see gitsigns repo for sample when migrating to vim.keymap.set
-
 require("gitsigns").setup {
   on_attach = function(bufnr)
-    local function map(mode, lhs, rhs, opts)
-        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
     end
 
     -- Navigation
