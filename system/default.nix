@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
-{
+let flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
+in {
   imports = [
     ./hardened.nix
     ./sound.nix
@@ -35,4 +36,12 @@
 
   services.printing.enable = true;
   services.fwupd.enable = true;
+
+  system.autoUpgrade = {
+    enable = true;
+    dates = "02:00";
+    flake = "/etc/nixos";
+    flags = with lib;
+      flatten (mapAttrsToList (n: _: [ "--update-input" n ]) flakes);
+  };
 }
