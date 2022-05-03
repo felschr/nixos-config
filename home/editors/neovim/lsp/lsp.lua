@@ -1,19 +1,30 @@
 local pid = vim.fn.getpid()
 
 -- lightbulb
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+  pattern = "*",
+  callback = require"nvim-lightbulb".update_lightbulb,
+})
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- codelens
-  vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
-  vim.keymap.set("n", "<leader>l", vim.lsp.codelens.run, { silent = true, buffer = bufnr })
+  if client.resolved_capabilities.code_lens then
+    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI", "InsertLeave"}, {
+      callback = vim.lsp.codelens.refresh,
+      buffer = bufnr,
+    })
+  end
 end
 
 -- format on save
 local diagnosticls_on_attach = function(_, bufnr)
   on_attach(_, bufnr)
-  vim.api.nvim_command(
-    "au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'tsserver', 'diagnosticls' })")
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+      vim.lsp.buf.formatting_seq_sync(nil, nil, { "tsserver", "diagnosticls" })
+    end,
+    buffer = bufnr,
+  })
 end
 
 
