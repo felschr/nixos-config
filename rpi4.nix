@@ -63,7 +63,7 @@ in with builtins; {
     use = "web";
     zone = "felschr.com";
     username = "felschr@pm.me";
-    passwordFile = "/etc/nixos/secrets/cfdyndns-apikey";
+    passwordFile = config.age.secrets.cfdyndns.path;
     domains = [
       "home.felschr.com"
       "cloud.felschr.com"

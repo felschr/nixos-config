@@ -10,7 +10,7 @@ in {
     maxUploadSize = "10G";
     config = {
       adminuser = "admin";
-      adminpassFile = "/etc/nixos/secrets/nextcloud/admin";
+      adminpassFile = config.age.secrets.nextcloud-admin.path;
       dbtype = "pgsql";
       dbhost = "/run/postgresql";
     };

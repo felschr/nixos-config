@@ -14,6 +14,11 @@
 
   inputs.nur.url = "github:nix-community/NUR/master";
 
+  inputs.agenix = {
+    url = "github:ryantm/agenix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   inputs.pre-commit-hooks = {
     url = "github:cachix/pre-commit-hooks.nix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +31,7 @@
   };
 
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , pre-commit-hooks, nvim-kitty-navigator }@inputs:
+    , agenix, pre-commit-hooks, nvim-kitty-navigator, nixpkgs-glslls }@inputs:
     let
       overlays = {
         neovim = self: super:
@@ -58,8 +63,8 @@
       };
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {
-        modules = [ nixosModules.flakeDefaults ];
-        overlays = [ nur.overlay overlays.neovim overlays.deconz glslls ];
+        modules = [ nixosModules.flakeDefaults agenix.nixosModule ];
+        overlays = with overlays; [ nur.overlay neovim deconz glslls ];
       };
       lib = rec {
         createSystem = hostName:
@@ -100,6 +105,16 @@
             modules = [ homeManagerModules.git ];
             config = ./home/felschr.nix;
           })
+          ({ config, pkgs, ... }: {
+            age.secrets = {
+              restic-b2.file = ./secrets/restic/b2.age;
+              restic-password.file = ./secrets/restic/password.age;
+              samba.file = ./secrets/samba.age;
+              smtp.file = ./secrets/smtp.age;
+            };
+            environment.systemPackages = with pkgs;
+              [ agenix.defaultPackage.x86_64-linux ];
+          })
         ];
       };
 
@@ -137,6 +152,29 @@
             };
             modules = [ homeManagerModules.git ];
             config = ./home/felschr-rpi4.nix;
+          })
+          ({ config, pkgs, ... }: {
+            age.secrets = {
+              hostKey.file = ./secrets/home-server/hostKey.age;
+              cfdyndns.file = ./secrets/cfdyndns.age;
+              restic-b2.file = ./secrets/restic/b2.age;
+              restic-password.file = ./secrets/restic/password.age;
+              # samba.file = ./secrets/samba.age;
+              smtp.file = ./secrets/smtp.age;
+              mqtt-felix.file = ./secrets/mqtt/felix.age;
+              mqtt-birgit.file = ./secrets/mqtt/birgit.age;
+              mqtt-hass.file = ./secrets/mqtt/hass.age;
+              mqtt-tasmota.file = ./secrets/mqtt/tasmota.age;
+              mqtt-owntracks.file = ./secrets/mqtt/owntracks.age;
+              mqtt-owntracks-plain.file = ./secrets/mqtt/owntracks-plain.age;
+              owntracks-htpasswd.file = ./secrets/owntracks/htpasswd.age;
+              etebase-server.file = ./secrets/etebase-server.age;
+              miniflux.file = ./secrets/miniflux.age;
+              paperless.file = ./secrets/paperless.age;
+              nextcloud-admin.file = ./secrets/nextcloud/admin.age;
+            };
+            environment.systemPackages = with pkgs;
+              [ agenix.defaultPackage.x86_64-linux ];
           })
         ];
       };

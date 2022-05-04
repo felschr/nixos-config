@@ -22,8 +22,8 @@ in {
     {
       initialize = true;
       repository = "b2:felschr-backups:/${name}";
-      environmentFile = "/etc/nixos/secrets/restic/b2";
-      passwordFile = "/etc/nixos/secrets/restic/password";
+      environmentFile = config.age.secrets.restic-b2.path;
+      passwordFile = config.age.secrets.restic-password.path;
       timerConfig.OnCalendar = "daily";
       paths = if ripgrep then null else paths;
       dynamicFilesFrom = if ripgrep then

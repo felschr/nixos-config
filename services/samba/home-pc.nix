@@ -13,7 +13,7 @@
       "x-systemd.mount-timeout=5s"
 
       "uid=1000"
-      "credentials=/etc/nixos/secrets/samba"
+      "credentials=${config.age.secrets.samba.path}"
     ];
   };
 }

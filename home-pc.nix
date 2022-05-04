@@ -34,6 +34,13 @@
 
   programs.zsh.enable = true;
 
+  services.openssh = {
+    enable = true;
+    kbdInteractiveAuthentication = false;
+    passwordAuthentication = false;
+    permitRootLogin = "no";
+  };
+
   networking.firewall.allowedTCPPorts = [
     58324 # transmission
   ];

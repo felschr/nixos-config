@@ -5,7 +5,7 @@ in {
   services.etebase-server.enable = true;
   services.etebase-server.openFirewall = true;
   services.etebase-server.settings = {
-    global = { secret_file = "/etc/nixos/secrets/etebase-server"; };
+    global = { secret_file = config.age.secrets.etebase-server.path; };
     allowed_hosts = { allowed_host1 = etebaseHost; };
   };
 

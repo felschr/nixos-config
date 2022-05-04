@@ -4,7 +4,7 @@ let port = 8002;
 in {
   services.miniflux = {
     enable = true;
-    adminCredentialsFile = "/etc/nixos/secrets/miniflux";
+    adminCredentialsFile = config.age.secrets.miniflux.path;
     config = { LISTEN_ADDR = "localhost:${toString port}"; };
   };
 

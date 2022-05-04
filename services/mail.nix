@@ -14,7 +14,7 @@
       host = "smtp.web.de";
       port = 587;
       user = "felschr@web.de";
-      passwordeval = "cat /etc/nixos/secrets/smtp";
+      passwordeval = "cat ${config.age.secrets.smtp.path}";
       # from = "%U@server.felschr.com";
       from = user;
     };

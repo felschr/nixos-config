@@ -25,7 +25,7 @@ in {
       ];
       extraOptions = [
         # TODO systemd doesn't substitute variables because it doesn't run in a shell
-        # "-e OTR_PASS=\"$(cat /etc/nixos/secrets/mqtt/owntracks-plain)\""
+        # "-e OTR_PASS=\"$(cat ${config.age.secrets.mqtt-owntracks-plain.path})\""
         "--network=host"
       ];
     };
@@ -49,7 +49,7 @@ in {
         enableACME = true;
         forceSSL = true;
         locations."/".proxyPass = "http://localhost:8085";
-        basicAuthFile = "/etc/nixos/secrets/owntracks/htpasswd";
+        basicAuthFile = config.age.secrets.owntracks-htpasswd.path;
       };
     };
   };

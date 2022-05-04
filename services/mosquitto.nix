@@ -31,15 +31,15 @@ in {
               "readwrite tasmota/#"
               "readwrite owntracks/#"
             ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/hass";
+            hashedPasswordFile = config.age.secrets.mqtt-hass.path;
           };
           "tasmota" = {
             acl = [ "readwrite tasmota/#" "readwrite homeassistant/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/tasmota";
+            hashedPasswordFile = config.age.secrets.mqtt-tasmota.path;
           };
           "owntracks" = {
             acl = [ "readwrite owntracks/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/owntracks";
+            hashedPasswordFile = config.age.secrets.mqtt-owntracks.path;
           };
         };
       }
@@ -49,11 +49,11 @@ in {
         users = {
           "felix" = {
             acl = [ "read owntracks/#" "readwrite owntracks/felix/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/felix";
+            hashedPasswordFile = config.age.secrets.mqtt-felix.path;
           };
           "birgit" = {
             acl = [ "read owntracks/#" "readwrite owntracks/birgit/#" ];
-            hashedPasswordFile = "/etc/nixos/secrets/mqtt/birgit";
+            hashedPasswordFile = config.age.secrets.mqtt-birgit.path;
           };
         };
       }
