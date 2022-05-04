@@ -58,7 +58,10 @@
             # photoprism = photoprism2nix.defaultPackage.${self.system};
           };
       };
-      nixosModules = { flakeDefaults = import ./modules/flakeDefaults.nix; };
+      nixosModules = {
+        flakeDefaults = import ./modules/flakeDefaults.nix;
+        emailNotify = import ./modules/emailNotify.nix;
+      };
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults ];
