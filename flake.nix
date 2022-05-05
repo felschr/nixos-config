@@ -179,7 +179,11 @@
               etebase-server.file = ./secrets/etebase-server.age;
               miniflux.file = ./secrets/miniflux.age;
               paperless.file = ./secrets/paperless.age;
-              nextcloud-admin.file = ./secrets/nextcloud/admin.age;
+              nextcloud-admin = {
+                file = ./secrets/nextcloud/admin.age;
+                owner = "nextcloud";
+                group = "nextcloud";
+              };
             };
             environment.systemPackages = with pkgs;
               [ agenix.defaultPackage.x86_64-linux ];
