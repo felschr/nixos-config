@@ -12,13 +12,6 @@
 
   inputs.nur.url = "github:nix-community/NUR/master";
 
-  # TODO this looks preferable: https://github.com/NixOS/nixpkgs/issues/96043#issuecomment-1030936467
-  # inputs.photoprism2nix = {
-  # url = "github:GTrunSec/photoprism2nix";
-  # inputs.nixpkgs.follows = "nixpkgs";
-  # inputs.flake-utils.follows = "flake-utils";
-  # };
-
   inputs.pre-commit-hooks = {
     url = "github:cachix/pre-commit-hooks.nix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -52,11 +45,6 @@
         deconz = self: super: {
           deconz = self.qt5.callPackage ./pkgs/deconz { };
         };
-        # custom overlay so it's using the flake's nixpkgs
-        photoprism = self: super:
-          {
-            # photoprism = photoprism2nix.defaultPackage.${self.system};
-          };
       };
       nixosModules = {
         flakeDefaults = import ./modules/flakeDefaults.nix;
@@ -65,8 +53,7 @@
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults ];
-        overlays =
-          [ nur.overlay overlays.neovim overlays.deconz overlays.photoprism ];
+        overlays = [ nur.overlay overlays.neovim overlays.deconz ];
       };
       lib = rec {
         createSystem = hostName:
@@ -131,7 +118,6 @@
         modules = [
           nixpkgs.nixosModules.notDetected
           nixos-hardware.nixosModules.raspberry-pi-4
-          # photoprism2nix.nixosModules.photoprism
           (lib.createSystem "felix-rpi4" {
             hardwareConfig = ./hardware/rpi4.nix;
             config = ./rpi4.nix;
