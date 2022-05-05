@@ -5,7 +5,7 @@
     enable = true;
     profiles = {
       private = {
-        name = "Felix Tenley";
+        name = "Felix Schröter";
         email = "dev@felschr.com";
         # use sign subkey's fingerprint: gpg2 -K --with-subkey-fingerprint
         signingKey = "7E08 6842 0934 AA1D 6821  1F2A 671E 39E6 744C 807D";
