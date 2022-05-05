@@ -27,8 +27,20 @@ local diagnosticls_on_attach = function(_, bufnr)
   })
 end
 
+local config = require("lspconfig")
+local configs = require("lspconfig.configs")
 
-local config = require'lspconfig'
+if not configs.glslls then
+  configs.glslls = {
+    default_config = {
+      cmd = { "glslls", "--stdin" };
+      filetypes = { "glsl" };
+      root_dir = config.util.root_pattern("*.conf", ".git");
+      settings = {};
+    };
+  }
+end
+
 local capabilities_ = vim.lsp.protocol.make_client_capabilities()
 local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities_)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -47,6 +59,7 @@ local servers = {
   "hls",
   "rust_analyzer",
   "vimls",
+  "glslls",
 }
 for _, lsp in ipairs(servers) do
   config[lsp].setup {

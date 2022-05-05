@@ -1,6 +1,8 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+  inputs.nixpkgs-glslls.url = "github:felschr/nixpkgs/glsl-language-server";
+
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
@@ -45,6 +47,10 @@
         deconz = self: super: {
           deconz = self.qt5.callPackage ./pkgs/deconz { };
         };
+        glslls = self: super: {
+          glsl-language-server =
+            nixpkgs-glslls.legacyPackages.${self.system}.glsl-language-server;
+        };
       };
       nixosModules = {
         flakeDefaults = import ./modules/flakeDefaults.nix;
@@ -53,7 +59,7 @@
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults ];
-        overlays = [ nur.overlay overlays.neovim overlays.deconz ];
+        overlays = [ nur.overlay overlays.neovim overlays.deconz glslls ];
       };
       lib = rec {
         createSystem = hostName:

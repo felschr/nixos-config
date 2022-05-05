@@ -68,6 +68,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-glslls": {
+      "locked": {
+        "lastModified": 1649333979,
+        "narHash": "sha256-NN4povtqDoa8i6cWgwjOIq7M99d2+gAYzKNNqQP1h1o=",
+        "owner": "felschr",
+        "repo": "nixpkgs",
+        "rev": "e03c66c1ab447e03301a51b1d8b3a543658dacd0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "felschr",
+        "ref": "glsl-language-server",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
         "lastModified": 1651598969,
@@ -129,6 +145,7 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-glslls": "nixpkgs-glslls",
         "nur": "nur",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
         "pre-commit-hooks": "pre-commit-hooks"
