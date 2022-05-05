@@ -7,6 +7,8 @@
     options = "--delete-older-than 30d";
   };
 
+  nix.trustedUsers = [ "@wheel" ];
+
   nix.settings = {
     auto-optimise-store = true;
     substituters = [ "https://hydra.iohk.io" "https://shajra.cachix.org" ];

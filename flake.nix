@@ -19,6 +19,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.deploy-rs = {
+    url = "github:serokell/deploy-rs";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   inputs.pre-commit-hooks = {
     url = "github:cachix/pre-commit-hooks.nix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +36,8 @@
   };
 
   outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , agenix, pre-commit-hooks, nvim-kitty-navigator, nixpkgs-glslls }@inputs:
+    , agenix, deploy-rs, pre-commit-hooks, nvim-kitty-navigator, nixpkgs-glslls
+    }@inputs:
     let
       overlays = {
         neovim = self: super:
@@ -112,8 +118,10 @@
               samba.file = ./secrets/samba.age;
               smtp.file = ./secrets/smtp.age;
             };
-            environment.systemPackages = with pkgs;
-              [ agenix.defaultPackage.x86_64-linux ];
+            environment.systemPackages = with pkgs; [
+              agenix.defaultPackage.x86_64-linux
+              deploy-rs.defaultPackage.x86_64-linux
+            ];
           })
         ];
       };
@@ -178,6 +186,19 @@
           })
         ];
       };
+
+      deploy.nodes.felix-rpi4 = {
+        hostname = "192.168.1.234";
+        profiles.system = {
+          user = "felschr";
+          path = deploy-rs.lib.aarch64-linux.activate.nixos
+            self.nixosConfigurations.felix-rpi4;
+        };
+      };
+
+      # TODO `nix flake check` fails atm which causes this to fail, too
+      checks = builtins.mapAttrs
+        (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
     } // flake-utils.lib.eachDefaultSystem (system:
       let
