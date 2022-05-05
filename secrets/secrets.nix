@@ -8,11 +8,7 @@ let
   home-pc =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
   home-server =
-    # TODO which key is correct?
-    # ssh-keyscan:
-    # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFw/BoHY5LGtQblqwZA65/awp30lB/OQABd9dD7wc18n";
-    # /etc/ssh/ssh_host_ed25519_key.pub:
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFw/BoHY5LGtQblqwZA65/awp30lB/OQABd9dD7wc18n";
   systems = [ home-pc home-server ];
 in {
   "restic/b2.age".publicKeys = [ felschr home-pc home-server ];
