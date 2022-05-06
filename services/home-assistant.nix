@@ -116,4 +116,9 @@ in {
     };
     # configWritable = true; # doesn't work atm
   };
+
+  age.secrets.hass-secrets = {
+    file = ../secrets/hass/secrets.age;
+    path = "/var/lib/hass/secrets.yaml";
+  };
 }

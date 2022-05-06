@@ -28,5 +28,7 @@ in {
   "paperless.age".publicKeys = [ felschr home-pc home-server ];
   "nextcloud/admin.age".publicKeys = [ felschr home-pc home-server ];
 
+  # home-server
   "home-server/hostKey.age".publicKeys = [ felschr home-server ];
+  "hass/secrets.age".publicKeys = [ felschr home-server ];
 }
