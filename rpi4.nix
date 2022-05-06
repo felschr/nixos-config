@@ -32,11 +32,7 @@ in with builtins; {
     ./services/nextcloud.nix
   ];
 
-  age.secrets.cfdyndns = {
-    file = ./secrets/cfdyndns.age;
-    owner = "cfdyndns";
-    group = "cfdyndns";
-  };
+  age.secrets.cloudflare.file = ./secrets/cloudflare.age;
   age.secrets.hostKey.file = ./secrets/home-server/hostKey.age;
 
   nixpkgs.config.allowUnfree = true;
@@ -70,7 +66,7 @@ in with builtins; {
     use = "web";
     zone = "felschr.com";
     username = "felschr@pm.me";
-    passwordFile = config.age.secrets.cfdyndns.path;
+    passwordFile = config.age.secrets.cloudflare.path;
     domains = [
       "home.felschr.com"
       "cloud.felschr.com"

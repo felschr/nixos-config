@@ -9,7 +9,6 @@ let
   mkSecret = file: {
     inherit file;
     owner = "mosquitto";
-    group = "mosquitto";
   };
 in {
   age.secrets = {

@@ -120,5 +120,7 @@ in {
   age.secrets.hass-secrets = {
     file = ../secrets/hass/secrets.age;
     path = "/var/lib/hass/secrets.yaml";
+    owner = "hass";
+    group = "hass";
   };
 }
