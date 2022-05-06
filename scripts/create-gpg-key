@@ -1,0 +1,20 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p bash gnupg
+
+set -euo pipefail
+
+EMAIL=$0
+
+# create master key
+gpg2 --quick-gen-key "Felix Schröter <$EMAIL>" ed25519 sign 1y
+
+# create subkeys
+gpg2 --quick-add-key KEYID cv25519 encr 1y
+gpg2 --quick-add-key KEYID ed25519 auth 1y
+gpg2 --quick-add-key KEYID ed25519 sign 1y
+
+# for signing git commits use the sign subkey
+# and add the public sign subkey to GitHub/GitLab
+
+# show info
+gpg2 --list-keys --with-subkey-fingerprint
