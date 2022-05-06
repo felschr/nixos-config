@@ -32,6 +32,13 @@ in with builtins; {
     ./services/nextcloud.nix
   ];
 
+  age.secrets.cfdyndns = {
+    file = ./secrets/cfdyndns.age;
+    owner = "cfdyndns";
+    group = "cfdyndns";
+  };
+  age.secrets.hostKey.file = ./secrets/home-server/hostKey.age;
+
   nixpkgs.config.allowUnfree = true;
 
   # rpi4 base config

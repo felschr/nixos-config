@@ -6,6 +6,8 @@ let
     window.owntracks.config = {};
   '';
 in {
+  age.secrets.owntracks-htpasswd.file = ../secrets/owntracks/htpasswd.age;
+
   virtualisation.oci-containers.containers = {
     owntracks-recorder = {
       # official image does not support aarch64

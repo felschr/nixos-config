@@ -2,7 +2,13 @@
 
 let port = 28981;
 in {
-  /* services.paperless-ng = {
+  age.secrets.paperless = {
+    file = ../secrets/paperless.age;
+    owner = config.services.paperless.user;
+    group = config.services.paperless.user;
+  };
+
+  /* services.paperless = {
      enable = true;
      inherit port;
      passwordFile = config.age.secrets.paperless.path;

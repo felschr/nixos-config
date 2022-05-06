@@ -88,6 +88,9 @@
                 _module.args = { inherit self inputs; };
               }
             ];
+
+            environment.systemPackages = with pkgs;
+              [ agenix.defaultPackage.x86_64-linux ];
           });
         createUser' = import ./lib/createUser.nix;
         createUser = name: args:
@@ -111,17 +114,9 @@
             modules = [ homeManagerModules.git ];
             config = ./home/felschr.nix;
           })
-          ({ config, pkgs, ... }: {
-            age.secrets = {
-              restic-b2.file = ./secrets/restic/b2.age;
-              restic-password.file = ./secrets/restic/password.age;
-              samba.file = ./secrets/samba.age;
-              smtp.file = ./secrets/smtp.age;
-            };
-            environment.systemPackages = with pkgs; [
-              agenix.defaultPackage.x86_64-linux
-              deploy-rs.defaultPackage.x86_64-linux
-            ];
+          ({ pkgs, ... }: {
+            environment.systemPackages = with pkgs;
+              [ deploy-rs.defaultPackage.x86_64-linux ];
           })
         ];
       };
@@ -160,33 +155,6 @@
             };
             modules = [ homeManagerModules.git ];
             config = ./home/felschr-rpi4.nix;
-          })
-          ({ config, pkgs, ... }: {
-            age.secrets = {
-              hostKey.file = ./secrets/home-server/hostKey.age;
-              cfdyndns.file = ./secrets/cfdyndns.age;
-              restic-b2.file = ./secrets/restic/b2.age;
-              restic-password.file = ./secrets/restic/password.age;
-              # samba.file = ./secrets/samba.age;
-              smtp.file = ./secrets/smtp.age;
-              mqtt-felix.file = ./secrets/mqtt/felix.age;
-              mqtt-birgit.file = ./secrets/mqtt/birgit.age;
-              mqtt-hass.file = ./secrets/mqtt/hass.age;
-              mqtt-tasmota.file = ./secrets/mqtt/tasmota.age;
-              mqtt-owntracks.file = ./secrets/mqtt/owntracks.age;
-              mqtt-owntracks-plain.file = ./secrets/mqtt/owntracks-plain.age;
-              owntracks-htpasswd.file = ./secrets/owntracks/htpasswd.age;
-              etebase-server.file = ./secrets/etebase-server.age;
-              miniflux.file = ./secrets/miniflux.age;
-              paperless.file = ./secrets/paperless.age;
-              nextcloud-admin = {
-                file = ./secrets/nextcloud/admin.age;
-                owner = "nextcloud";
-                group = "nextcloud";
-              };
-            };
-            environment.systemPackages = with pkgs;
-              [ agenix.defaultPackage.x86_64-linux ];
           })
         ];
       };

@@ -2,6 +2,7 @@
 
 {
   # Use `smbpasswd -a <user>` to set passwords
+  # age.secrets.samba.file = ../../secrets/samba.age;
 
   services.samba = {
     enable = true;

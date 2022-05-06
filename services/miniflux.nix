@@ -2,6 +2,8 @@
 
 let port = 8002;
 in {
+  age.secrets.miniflux.file = ../secrets/miniflux.age;
+
   services.miniflux = {
     enable = true;
     adminCredentialsFile = config.age.secrets.miniflux.path;

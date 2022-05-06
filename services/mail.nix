@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  age.secrets.smtp.file = ../secrets/smtp.age;
+
   programs.msmtp = {
     enable = true;
     defaults = {

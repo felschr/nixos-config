@@ -5,7 +5,22 @@ with pkgs;
 let
   port = 1883;
   wsPort = 9001;
+
+  mkSecret = file: {
+    inherit file;
+    owner = "mosquitto";
+    group = "mosquitto";
+  };
 in {
+  age.secrets = {
+    mqtt-felix = mkSecret ../secrets/mqtt/felix.age;
+    mqtt-birgit = mkSecret ../secrets/mqtt/birgit.age;
+    mqtt-hass = mkSecret ../secrets/mqtt/hass.age;
+    mqtt-tasmota = mkSecret ../secrets/mqtt/tasmota.age;
+    mqtt-owntracks = mkSecret ../secrets/mqtt/owntracks.age;
+    mqtt-owntracks-plain = mkSecret ../secrets/mqtt/owntracks-plain.age;
+  };
+
   services.nginx = {
     virtualHosts."mqtt.felschr.com" = {
       enableACME = true;

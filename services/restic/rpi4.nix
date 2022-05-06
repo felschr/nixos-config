@@ -6,12 +6,16 @@
 
 with lib;
 with builtins;
-let common = import ./common.nix { inherit config lib pkgs; };
+let resticLib = import ./lib.nix { inherit config lib pkgs; };
 in {
+  imports = [ ./common.nix ];
+
   environment.systemPackages = with pkgs; [ restic ];
 
-  services.restic.backups.full = common.resticConfig {
+  services.restic.backups.full = resticLib.resticConfig {
     name = "rpi4";
+    # TODO migrate old repository
+    # repository = "b2:felschr-rpi4-backup:/full";
     ripgrep = true;
     paths = [ "/etc/nixos" "/var/lib" "/home" ];
     ignorePatterns = [

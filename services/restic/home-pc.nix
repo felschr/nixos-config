@@ -6,11 +6,13 @@
 
 with lib;
 with builtins;
-let common = import ./common.nix { inherit config lib pkgs; };
+let resticLib = import ./lib.nix { inherit config lib pkgs; };
 in {
+  imports = [ ./common.nix ];
+
   environment.systemPackages = with pkgs; [ restic ];
 
-  services.restic.backups.full = common.resticConfig {
+  services.restic.backups.full = resticLib.resticConfig {
     name = "home-pc";
     ripgrep = true;
     paths = [ "/etc/nixos" "/var/lib" "/home" ];

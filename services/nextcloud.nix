@@ -2,6 +2,12 @@
 
 let host = "cloud.felschr.com";
 in {
+  age.secrets.nextcloud-admin = {
+    file = ../secrets/nextcloud/admin.age;
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
+
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud23;
