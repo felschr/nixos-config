@@ -13,8 +13,11 @@ in {
     virtualHosts."${config.networking.domain}" = {
       enableACME = true;
       forceSSL = true;
+      extraConfig = ''
+        proxy_buffering off;
+      '';
       locations."/" = {
-        proxyPass = "http://localhost:${toString port}";
+        proxyPass = "http://[::1]:${toString port}";
         proxyWebsockets = true;
       };
     };
@@ -43,7 +46,7 @@ in {
       config = { };
       http = {
         use_x_forwarded_for = true;
-        trusted_proxies = [ "127.0.0.1" "::1" ];
+        trusted_proxies = [ "::1" ];
       };
       "automation editor" = "!include automations.yaml";
       "scene editor" = "!include scenes.yaml";
