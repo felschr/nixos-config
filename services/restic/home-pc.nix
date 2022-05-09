@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 # using the restic cli:
-# load credentials into shell via: export $(cat /path/to/credentials/file | xargs)
+# load credentials into shell by adding B2 secrets to .env (see .env.example).
 # useful commands for analysing restic stats [snapshot-id], restic diff [s1] [s2],
 
 with lib;
