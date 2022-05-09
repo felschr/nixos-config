@@ -20,6 +20,9 @@ in {
   config = let profiles = cfg.profiles;
   in {
     programs.git = {
+      # fix/workaround for https://github.com/NixOS/nixpkgs/issues/169193
+      extraConfig.safe.directory = "/etc/nixos";
+
       userName = profiles."${cfg.defaultProfile}".name;
       userEmail = profiles."${cfg.defaultProfile}".email;
       signing = { key = profiles."${cfg.defaultProfile}".signingKey; };
