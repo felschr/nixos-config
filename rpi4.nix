@@ -51,6 +51,10 @@ in with builtins; {
   '';
   boot.kernelParams = [ "console=ttyAMA0,115200" "console=tty1" ];
 
+  # improve memory performance
+  zramSwap.enable = true;
+  zramSwap.algorithm = "zstd";
+
   networking.domain = "home.felschr.com";
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
