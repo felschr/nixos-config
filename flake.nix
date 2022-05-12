@@ -179,6 +179,8 @@
           hooks = { nixfmt.enable = true; };
         };
       in {
+        formatter = nixpkgs.legacyPackages."${system}".nixfmt;
+
         devShells.default =
           pkgs.mkShell { inherit (pre-commit-check) shellHook; };
       });
