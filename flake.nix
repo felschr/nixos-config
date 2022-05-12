@@ -176,7 +176,10 @@
         pkgs = nixpkgs.legacyPackages.${system};
         pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
-          hooks = { nixfmt.enable = true; };
+          hooks = {
+            nixfmt.enable = true;
+            shellcheck.enable = true;
+          };
         };
       in {
         formatter = nixpkgs.legacyPackages."${system}".nixfmt;
