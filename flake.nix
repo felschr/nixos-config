@@ -40,27 +40,27 @@
     }@inputs:
     let
       overlays = {
-        neovim = self: super:
+        neovim = final: prev:
           let
             buildVimPlugin = name: input:
-              super.pkgs.vimUtils.buildVimPluginFrom2Nix {
+              prev.pkgs.vimUtils.buildVimPluginFrom2Nix {
                 pname = name;
                 version = input.rev;
                 versionSuffix = "-git";
                 src = input;
               };
           in {
-            vimPlugins = super.vimPlugins // {
+            vimPlugins = prev.vimPlugins // {
               nvim-kitty-navigator =
                 buildVimPlugin "nvim-kitty-navigator" nvim-kitty-navigator;
             };
           };
-        deconz = self: super: {
-          deconz = self.qt5.callPackage ./pkgs/deconz { };
+        deconz = final: prev: {
+          deconz = final.qt5.callPackage ./pkgs/deconz { };
         };
-        glslls = self: super: {
+        glslls = final: prev: {
           glsl-language-server =
-            nixpkgs-glslls.legacyPackages.${self.system}.glsl-language-server;
+            nixpkgs-glslls.legacyPackages.${final.system}.glsl-language-server;
         };
       };
       nixosModules = {
@@ -168,7 +168,6 @@
         };
       };
 
-      # TODO `nix flake check` fails atm which causes this to fail, too
       checks = builtins.mapAttrs
         (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
