@@ -179,6 +179,7 @@
           hooks = { nixfmt.enable = true; };
         };
       in {
-        devShell = pkgs.mkShell { inherit (pre-commit-check) shellHook; };
+        devShells.default =
+          pkgs.mkShell { inherit (pre-commit-check) shellHook; };
       });
 }
