@@ -65,7 +65,7 @@
     celluloid
     spot
     spotify
-    # audiotube
+    calibre
 
     # learning
     anki
@@ -73,16 +73,13 @@
     # privacy
     onionshare-gui
     transmission-gtk
-
-    # media backups
-    makemkv
-    handbrake
-    # filebot # TODO fails atm
+    fragments
 
     # other
     bitwarden
     ledger-live-desktop
     portfolio
+    bottles
   ];
 
   home.stateVersion = "21.11";
