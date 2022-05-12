@@ -224,7 +224,8 @@ config.diagnosticls.setup {
         rootPatterns = {".prettierrc.json", ".git"},
       },
       nixfmt = {
-        command = "nixfmt",
+        command = "nix",
+        args = {"fmt"}
       },
       rustfmt = {
         command = "rustfmt",
