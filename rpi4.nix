@@ -54,6 +54,7 @@ in with builtins; {
   # improve memory performance
   zramSwap.enable = true;
   zramSwap.algorithm = "zstd";
+  zramSwap.memoryPercent = 150;
 
   networking.domain = "home.felschr.com";
 
