@@ -26,6 +26,7 @@ in {
       "/home/*/.local/share/Trash"
       "/home/*/.cache"
       "/var/lib/jellyfin/transcodes"
+      "**/.git"
     ];
     timerConfig.OnCalendar = "0/4:00:00";
     extraPruneOpts = [ "--keep-last 6" ];

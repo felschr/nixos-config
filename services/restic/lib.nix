@@ -32,10 +32,10 @@ in {
           ignoreFile = builtins.toFile "ignore"
             (foldl (a: b: a + "\n" + b) "" ignorePatterns);
         in ''
-          ${pkgs.ripgrep}/bin/rg \
+          ${pkgs.fd}/bin/fd \
             --hidden \
-            --files ${files} \
             --ignore-file ${ignoreFile} \
+            . ${files} \
             | sed "s/\[/\\\[/" | sed "s/\]/\\\]/"
         ''
       else

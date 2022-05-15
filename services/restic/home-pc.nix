@@ -33,6 +33,7 @@ in {
       "/home/felschr/media"
       "/home/felschr/sync"
       "/home/felschr/keybase"
+      "**/.git"
     ];
     timerConfig.OnCalendar = "0/4:00:00";
     extraPruneOpts = [ "--keep-last 6" ];
