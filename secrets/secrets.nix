@@ -8,7 +8,7 @@ let
   home-pc =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
   home-server =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFw/BoHY5LGtQblqwZA65/awp30lB/OQABd9dD7wc18n";
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILO+OLPr8zdOMYyKtm98AFJai7zbaxw7JhVWgOwu7K3C";
   systems = [ home-pc home-server ];
 in {
   "restic/b2.age".publicKeys = [ felschr home-pc home-server ];
