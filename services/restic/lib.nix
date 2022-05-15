@@ -33,6 +33,7 @@ in {
             (foldl (a: b: a + "\n" + b) "" ignorePatterns);
         in ''
           ${pkgs.ripgrep}/bin/rg \
+            --hidden \
             --files ${files} \
             --ignore-file ${ignoreFile} \
             | sed "s/\[/\\\[/" | sed "s/\]/\\\]/"

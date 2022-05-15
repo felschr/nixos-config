@@ -18,6 +18,7 @@ in {
     paths = [ "/etc/nixos" "/var/lib" "/home" ];
     ignorePatterns = [
       "/var/lib/systemd"
+      "/var/lib/containers"
       "/var/lib/lxcfs"
       "/var/lib/docker"
       "/var/lib/flatpak"
