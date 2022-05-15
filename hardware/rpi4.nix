@@ -1,38 +1,46 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  boot.initrd.availableKernelModules = [ "usbhid" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  boot.initrd.luks.devices."enc-media".device =
-    "/dev/disk/by-uuid/47158a41-995a-45d5-b7e1-1dc6e1868be7";
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXOS_BOOT";
-    fsType = "vfat";
-  };
-
   fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXOS_SD";
-    fsType = "ext4";
-  };
-
-  fileSystems."/media" = {
-    device = "/dev/disk/by-uuid/2441d724-7f8e-4bbb-a50f-9074f3d0d3f1";
+    device = "/dev/disk/by-uuid/7bb1e67d-8c6f-4ace-b8e7-b09cdfd82cab";
     fsType = "btrfs";
     options = [ "subvol=@" "compress-force=zstd" "noatime" ];
   };
 
-  fileSystems."/media/.snapshots" = {
-    device = "/dev/disk/by-uuid/2441d724-7f8e-4bbb-a50f-9074f3d0d3f1";
+  boot.initrd.luks.devices."enc".device =
+    "/dev/disk/by-uuid/d163376b-a038-4196-8ef5-7c7fb5508f0c";
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/7bb1e67d-8c6f-4ace-b8e7-b09cdfd82cab";
+    fsType = "btrfs";
+    options = [ "subvol=@home" "compress-force=zstd" "noatime" ];
+  };
+
+  fileSystems."/.swap" = {
+    device = "/dev/disk/by-uuid/7bb1e67d-8c6f-4ace-b8e7-b09cdfd82cab";
+    fsType = "btrfs";
+    options = [ "subvol=@swap" "nodatacow" "noatime" ];
+    neededForBoot = true;
+  };
+
+  fileSystems."/.snapshots" = {
+    device = "/dev/disk/by-uuid/7bb1e67d-8c6f-4ace-b8e7-b09cdfd82cab";
     fsType = "btrfs";
     options = [ "subvol=@snapshots" "compress-force=zstd" "noatime" ];
   };
 
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/9ECA-C9A7";
+    fsType = "vfat";
+  };
+
   swapDevices = [{
-    device = "/swapfile";
+    device = "/.swap/swapfile";
     size = 4096;
   }];
 

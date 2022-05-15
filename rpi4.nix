@@ -37,19 +37,15 @@ in with builtins; {
 
   nixpkgs.config.allowUnfree = true;
 
-  # rpi4 base config
+  boot.loader.systemd-boot.enable = true;
   boot.loader.generic-extlinux-compatible.enable = false;
-  boot.loader.raspberryPi.enable = true;
-  boot.loader.raspberryPi.version = 4;
-  # boot.loader.raspberryPi.uboot.enable = true;
-  boot.loader.raspberryPi.firmwareConfig = ''
-    gpu_mem=320
-    hdmi_group=1
-    hdmi_mode=97
-    hdmi_enable_4kp60=1
-    disable_overscan=1
-  '';
-  boot.kernelParams = [ "console=ttyAMA0,115200" "console=tty1" ];
+  # boot.loader.efi.canTouchEfiVariables = true;
+  boot.tmpOnTmpfs = true;
+
+  # rpi4 base config
+  boot.kernelPackages = pkgs.linuxPackages_rpi4;
+  boot.kernelParams =
+    [ "8250.nr_uarts=1" "console=ttyAMA0,115200" "console=tty1" "cma=128" ];
 
   # improve memory performance
   zramSwap.enable = true;
@@ -109,9 +105,7 @@ in with builtins; {
     enable = true;
     ssh = {
       enable = true;
-      # requires support for initrd secrets (might work w/ uboot when it's supported)
-      # hostKeys = map (f: f.path) hostKeys;
-      hostKeys = [ ./host_key ];
+      hostKeys = map (f: f.path) hostKeys;
       authorizedKeys = config.users.users.felschr.openssh.authorizedKeys.keys;
     };
   };
