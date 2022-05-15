@@ -13,9 +13,7 @@ in {
   environment.systemPackages = with pkgs; [ restic ];
 
   services.restic.backups.full = resticLib.resticConfig {
-    name = "rpi4";
-    # TODO migrate old repository
-    # repository = "b2:felschr-rpi4-backup:/full";
+    name = "home-server";
     ripgrep = true;
     paths = [ "/etc/nixos" "/var/lib" "/home" ];
     ignorePatterns = [

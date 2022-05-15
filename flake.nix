@@ -137,12 +137,12 @@
         ];
       };
 
-      nixosConfigurations.felix-rpi4 = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.home-server = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
           nixos-hardware.nixosModules.raspberry-pi-4
-          (lib.createSystem "felix-rpi4" {
+          (lib.createSystem "home-server" {
             hardwareConfig = ./hardware/rpi4.nix;
             config = ./rpi4.nix;
           })
@@ -159,12 +159,12 @@
         ];
       };
 
-      deploy.nodes.felix-rpi4 = {
+      deploy.nodes.home-server = {
         hostname = "192.168.1.234";
         profiles.system = {
           user = "felschr";
           path = deploy-rs.lib.aarch64-linux.activate.nixos
-            self.nixosConfigurations.felix-rpi4;
+            self.nixosConfigurations.home-server;
         };
       };
 
