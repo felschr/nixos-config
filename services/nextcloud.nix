@@ -42,8 +42,13 @@ in {
   virtualisation.oci-containers.containers.collabora-office = {
     image = "collabora/code";
     ports = [ "9980:9980" ];
-    environment = {
-      domain = builtins.replaceStrings [ "." ] [ "\\." ] "office.felschr.com";
+    environment = let
+      mkAlias = domain:
+        "https://" + (builtins.replaceStrings [ "." ] [ "\\." ] domain)
+        + ":443";
+    in {
+      aliasgroup1 = mkAlias "office.felschr.com";
+      aliasgroup2 = mkAlias "cloud.felschr.com";
       extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
     };
     extraOptions = [ "--network=host" ];
