@@ -1,9 +1,16 @@
-vim.keymap.set("n", "<leader>dc", require"dap".continue)
-vim.keymap.set("n", "<leader>db", require"dap".toggle_breakpoint)
-vim.keymap.set("n", "<leader>do", require"dap".step_over)
-vim.keymap.set("n", "<leader>di", require"dap".step_into)
-vim.keymap.set("n", "<leader>dO", require"dap".step_out)
-vim.keymap.set("n", "<leader>dh", require"dap".goto_)
-vim.keymap.set("n", "<leader>dk", require"dap.ui.widgets".hover)
-vim.keymap.set("n", "<leader>dr", require"dap".repl.open)
-vim.keymap.set("n", "<leader>dl", require"dap".run_last)
+local wk = require("which-key")
+
+wk.register({
+  d = {
+    name = "Debugging",
+    c = { require"dap".continue, "Continue" },
+    b = { require"dap".toggle_breakpoint, "Toggle breakpoint" },
+    o = { require"dap".step_over, "Step over" },
+    i = { require"dap".step_into, "Step into" },
+    O = { require"dap".step_out, "Step out" },
+    h = { require"dap".goto_, "Go to" },
+    k = { require"dap.ui.widgets".hover, "Show info" },
+    r = { require"dap".repl.open, "Open repl" },
+    l = { require"dap".run_last, "Run last" },
+  },
+}, { mode = "n", prefix = "<leader>" })

@@ -1,32 +1,45 @@
+local wk = require("which-key")
+
 require("gitsigns").setup {
   on_attach = function(bufnr)
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
-
     -- Navigation
-    map("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-    map("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+    wk.register({
+      ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Go to next git sign" },
+      ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Go to previous git sign" },
+    }, { mode = "n", buffer = bufnr })
 
     -- Actions
-    map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>")
-    map("v", "<leader>hs", ":Gitsigns stage_hunk<CR>")
-    map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>")
-    map("v", "<leader>hr", ":Gitsigns reset_hunk<CR>")
-    map("n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>")
-    map("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>")
-    map("n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>")
-    map("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>")
-    map("n", "<leader>hb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>")
-    map("n", "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<CR>")
-    map("n", "<leader>hd", "<cmd>Gitsigns diffthis<CR>")
-    map("n", "<leader>hD", "<cmd>lua require'gitsigns'.diffthis('~')<CR>")
-    map("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>")
+    wk.register({
+      h = {
+        name = "Git signs",
+        s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" },
+        r = { ":Gitsigns reset_hunk<CR>", "Reset hunk" },
+        S = { "<cmd>Gitsigns stage_buffer<CR>", "Stage buffer" },
+        u = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Unstage hunk" },
+        R = { "<cmd>Gitsigns reset_buffer<CR>", "Reset buffer" },
+        p = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
+        b = { require"gitsigns".blame_line({ full = true }), "Blame line" },
+        d = { "<cmd>Gitsigns diffthis<CR>", "Diff" },
+        D = { require"gitsigns".diffthis('~'), "Diff" },
+      },
+      t = {
+        name = "Git sign toggles",
+        b = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line" },
+        d = { "<cmd>Gitsigns toggle_deleted<CR>", "Toggle deleted" },
+      },
+    }, { mode = "n", prefix = "<leader>", buffer = bufnr })
+    wk.register({
+      h = {
+        name = "Git signs",
+        s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" },
+        r = { ":Gitsigns reset_hunk<CR>", "Reset hunk" },
+      },
+    }, { mode = "v", prefix = "<leader>", buffer = bufnr })
 
     -- Text object
-    map("o", "ih", ":<C-U>Gitsigns select_hunk<CR>")
-    map("x", "ih", ":<C-U>Gitsigns select_hunk<CR>")
+    wk.register({
+      ih = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", mode = "o" },
+      oh = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", mode = "x" },
+    }, { buffer = bufnr })
   end
 }

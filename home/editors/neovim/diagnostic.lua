@@ -23,15 +23,29 @@ vim.diagnostic.config {
   float = true,
 }
 
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { silent = true })
-vim.keymap.set("n", "<leader>i", function()
-  vim.diagnostic.open_float({ format = format })
-end, { silent = true })
-vim.keymap.set("n", "[d",        function()
-  vim.diagnostic.goto_prev({ format = format })
-end, { silent = true })
-vim.keymap.set("n", "]d",        function()
-  vim.diagnostic.goto_next({ format = format })
-end, { silent = true })
-vim.keymap.set("n", "[d",        vim.diagnostic.goto_prev, { silent = true })
-vim.keymap.set("n", "]d",        vim.diagnostic.goto_next, { silent = true })
+local wk = require("which-key")
+
+wk.register({
+  q = { vim.diagnostic.setloclist, "Show diagnostics in file" },
+  i = {
+    function()
+      vim.diagnostic.open_float({ format = format })
+    end,
+    "Show diagnostics in line",
+  },
+}, { mode = "n", prefix = "<leader>" })
+
+wk.register({
+  ["[d"] = {
+    function()
+      vim.diagnostic.goto_prev({ format = format })
+    end,
+    "Go to next diagnostic",
+  },
+  ["]d"] = {
+    function()
+      vim.diagnostic.goto_next({ format = format })
+    end,
+    "Go to previous diagnostic",
+  },
+}, { mode = "n" })
