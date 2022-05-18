@@ -58,6 +58,7 @@ in {
       nvim-dap-ui
       nvim-dap-virtual-text
 
+      neorg
       orgmode
     ];
     extraConfig = with builtins;
@@ -77,6 +78,7 @@ in {
         ./dap/dap.lua
         ./dap/mappings.lua
         ./treesitter.lua
+        ./neorg.lua
         ./orgmode.lua
       ]);
     withNodeJs = false;
