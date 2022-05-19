@@ -12,6 +12,5 @@ in {
     extraOptions = "experimental-features = nix-command flakes";
     nixPath = lib.mapAttrsToList (n: v: "${n}=${v}") flakes;
     registry = nixRegistry;
-    package = pkgs.nixUnstable;
   };
 }
