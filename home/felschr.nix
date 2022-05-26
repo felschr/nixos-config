@@ -15,6 +15,7 @@
     ./planck.nix
     ./ausweisapp.nix
     ./gaming
+    ./services/languagetool.nix
   ];
 
   programs.gpg.enable = true;
