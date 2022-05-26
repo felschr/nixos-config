@@ -18,6 +18,7 @@ in {
       editorconfig-nvim
       direnv-vim
       telescope-nvim
+      telescope-fzy-native-nvim
       lualine-nvim
       nvim-tree-lua
       toggleterm-nvim
