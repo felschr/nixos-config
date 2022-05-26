@@ -13,7 +13,7 @@ vim.opt.timeoutlen = 500
 vim.opt.updatetime = 500
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = ","
+vim.g.maplocalleader = "\\"
 vim.g.camelcasemotion_key = "<leader>"
 
 vim.opt.relativenumber = true
