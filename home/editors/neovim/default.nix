@@ -77,6 +77,7 @@ in {
         ./dap/dap.lua
         ./dap/mappings.lua
         ./treesitter.lua
+        ./telescope.lua
         ./neorg.lua
       ]);
     withNodeJs = false;

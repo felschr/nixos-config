@@ -22,7 +22,7 @@ require("gitsigns").setup {
         d = { "<cmd>Gitsigns diffthis<CR>", "Diff" },
         D = { require"gitsigns".diffthis('~'), "Diff" },
       },
-      t = {
+      ht = {
         name = "Git sign toggles",
         b = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line" },
         d = { "<cmd>Gitsigns toggle_deleted<CR>", "Toggle deleted" },
