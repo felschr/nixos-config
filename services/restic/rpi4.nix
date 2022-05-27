@@ -23,6 +23,7 @@ in {
       "/var/lib/docker"
       "/var/lib/flatpak"
       "/var/lib/systemd"
+      "/home/ignore"
       "/home/*/.local/share/Trash"
       "/home/*/.cache"
       "/var/lib/jellyfin/transcodes"
