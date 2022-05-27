@@ -20,6 +20,7 @@ in {
       telescope-nvim
       telescope-fzy-native-nvim
       lualine-nvim
+      nvim-web-devicons
       nvim-tree-lua
       toggleterm-nvim
       vim-startify
