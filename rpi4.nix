@@ -30,6 +30,7 @@ in with builtins; {
     ./services/miniflux.nix
     ./services/paperless.nix
     ./services/nextcloud.nix
+    ./services/calibre-web.nix
   ];
 
   age.secrets.cloudflare.file = ./secrets/cloudflare.age;
@@ -73,6 +74,7 @@ in with builtins; {
       "cloud.felschr.com"
       "office.felschr.com"
       "media.felschr.com"
+      "books.felschr.com"
       "news.felschr.com"
       "mqtt.felschr.com"
       "owntracks.felschr.com"
