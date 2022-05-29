@@ -20,8 +20,8 @@ in {
   "mqtt/hass.age".publicKeys = [ felschr home-pc home-server ];
   "mqtt/tasmota.age".publicKeys = [ felschr home-pc home-server ];
   "mqtt/owntracks.age".publicKeys = [ felschr home-pc home-server ];
-  "mqtt/owntracks-plain.age".publicKeys = [ felschr home-pc home-server ];
   "cloudflare.age".publicKeys = [ felschr home-pc home-server ];
+  "owntracks/recorder.env.age".publicKeys = [ felschr home-pc home-server ];
   "owntracks/htpasswd.age".publicKeys = [ felschr home-pc home-server ];
   "etebase-server.age".publicKeys = [ felschr home-pc home-server ];
   "miniflux.age".publicKeys = [ felschr home-pc home-server ];

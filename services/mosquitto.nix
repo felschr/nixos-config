@@ -17,7 +17,6 @@ in {
     mqtt-hass = mkSecret ../secrets/mqtt/hass.age;
     mqtt-tasmota = mkSecret ../secrets/mqtt/tasmota.age;
     mqtt-owntracks = mkSecret ../secrets/mqtt/owntracks.age;
-    mqtt-owntracks-plain = mkSecret ../secrets/mqtt/owntracks-plain.age;
   };
 
   services.nginx = {

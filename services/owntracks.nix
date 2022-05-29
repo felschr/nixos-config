@@ -6,6 +6,8 @@ let
     window.owntracks.config = {};
   '';
 in {
+  age.secrets.owntracks-recorder-env.file =
+    ../secrets/owntracks/recorder.env.age;
   age.secrets.owntracks-htpasswd.file = ../secrets/owntracks/htpasswd.age;
 
   virtualisation.oci-containers.containers = {
@@ -18,18 +20,15 @@ in {
         OTR_HOST = "localhost";
         OTR_PORT = "1883";
         OTR_USER = "owntracks";
-        OTR_PASS = ""; # TODO
       };
+      # provide OTR_PASS
+      environmentFiles = [ config.age.secrets.owntracks-recorder-env.path ];
       # easypi/ot-recorder-arm uses different store location
       # volumes = [ "/var/lib/owntracks/recorder/store:/store" ];
       volumes = [
         "/var/lib/owntracks/recorder/store:/var/spool/owntracks/recorder/store"
       ];
-      extraOptions = [
-        # TODO systemd doesn't substitute variables because it doesn't run in a shell
-        # "-e OTR_PASS=\"$(cat ${config.age.secrets.mqtt-owntracks-plain.path})\""
-        "--network=host"
-      ];
+      extraOptions = [ "--network=host" ];
     };
 
     owntracks-frontend = {
