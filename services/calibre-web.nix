@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let port = 8083;
+let port = 8088;
 in {
   services.calibre-web = {
     enable = true;
