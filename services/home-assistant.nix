@@ -30,7 +30,7 @@ in {
       # pytestCheckPhase uses too much RAM and pi can't handle it
       doCheck = false;
       doInstallCheck = false;
-    })).override { extraComponents = [ "otp" "roku" "onvif" ]; };
+    })).override { extraComponents = [ "otp" "roku" "sonos" "onvif" ]; };
     config = {
       homeassistant = {
         name = "Home";
