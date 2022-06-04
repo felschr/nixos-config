@@ -63,9 +63,30 @@ in with builtins; {
 
   services.ddclient = {
     enable = true;
+    package = pkgs.ddclient.overrideAttrs (old: rec {
+      version = "develop-2022-06-01";
+      src = pkgs.fetchFromGitHub {
+        owner = "ddclient";
+        repo = "ddclient";
+        rev = "5382a982cbf4ad8e0c7b7ff682d21554a8785285";
+        sha256 = "sha256-LYQ65f1rLa1P/YNhrW7lbyhmViPO7odj7FcDGTS4bOo=";
+      };
+      preConfigure = ''
+        touch Makefile.PL
+      '';
+      installPhase = "";
+      postInstall = old.postInstall or "" + ''
+        mv $out/bin/ddclient $out/bin/.ddclient
+        makeWrapper $out/bin/.ddclient $out/bin/ddclient \
+          --prefix PERL5LIB : $PERL5LIB \
+          --argv0 ddclient
+      '';
+      nativeBuildInputs = with pkgs;
+        old.nativeBuildInputs or [ ] ++ [ autoreconfHook makeWrapper ];
+    });
     protocol = "cloudflare";
     ssl = true;
-    use = "web";
+    use = "disabled";
     zone = "felschr.com";
     username = "felschr@pm.me";
     passwordFile = config.age.secrets.cloudflare.path;
@@ -81,6 +102,15 @@ in with builtins; {
       "etebase.felschr.com"
       "paperless.felschr.com"
     ];
+    extraConfig = with pkgs; ''
+      usev6=cmdv6, cmdv6=${
+        pkgs.writeScript "get-ipv6" ''
+          ${iproute2}/bin/ip --brief addr show eth0 mngtmpaddr \
+            | ${gawk}/bin/awk '{print $(NF)}' \
+            | sed 's/\/.*//'
+        ''
+      }
+    '';
   };
 
   services.nginx = {
