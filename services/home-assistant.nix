@@ -40,7 +40,7 @@ in {
         unit_system = "metric";
         temperature_unit = "C";
         external_url = "https://home.felschr.com";
-        internal_url = "http://192.168.1.234:8123";
+        internal_url = "http://192.168.1.102:8123";
       };
       default_config = { };
       config = { };

@@ -160,7 +160,7 @@
       };
 
       deploy.nodes.home-server = {
-        hostname = "192.168.1.234";
+        hostname = "192.168.1.102";
         profiles.system = {
           user = "felschr";
           path = deploy-rs.lib.aarch64-linux.activate.nixos
