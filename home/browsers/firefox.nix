@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, nixosConfig, pkgs, lib, ... }:
 
 with lib;
 let
@@ -55,6 +55,13 @@ let
     "browser.newtabpage.activity-stream.feeds.snippets" = false;
     "extensions.update.enabled" = false;
     "extensions.update.autoUpdateDefault" = false;
+  } // optionalAttrs nixosConfig.services.mullvad-vpn.enable {
+    # Mullvad SOCKS proxy
+    "network.proxy.type" = 1;
+    "network.proxy.socks" = "10.64.0.1";
+    "network.proxy.socks_port" = 1080;
+    "network.proxy.socks_remote_dns" = true;
+    "network.proxy.no_proxies_on" = "192.168.1.1/24";
   };
 in {
   programs.firefox = {
