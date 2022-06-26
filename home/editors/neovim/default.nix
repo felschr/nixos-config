@@ -18,12 +18,14 @@ in {
       editorconfig-nvim
       direnv-vim
       telescope-nvim
+      telescope-project-nvim
       telescope-fzy-native-nvim
       lualine-nvim
       nvim-web-devicons
       nvim-tree-lua
       toggleterm-nvim
-      vim-startify
+      alpha-nvim
+      auto-session
       vim-visual-multi
       vim-surround
       kommentary
@@ -66,7 +68,8 @@ in {
     # readFile ./vim-surround-fix.vim +
       vimLua (lib.foldl (r: f: r + "\n" + readFile f) "" [
         ./init.lua
-        ./startify.lua
+        ./alpha.lua
+        ./auto-session.lua
         ./lualine.lua
         ./which-key.lua
         ./gitsigns.lua

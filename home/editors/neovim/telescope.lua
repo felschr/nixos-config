@@ -1,5 +1,17 @@
-require("telescope").setup()
+require("telescope").setup {
+  extensions = {
+    project = {
+      base_dirs = {
+        { "/etc/nixos" },
+        { "~/dev", max_depth = 3 },
+        { "~/dev/work", max_depth = 3 },
+      },
+    },
+  },
+}
+
 require("telescope").load_extension("fzy_native")
+require("telescope").load_extension("project")
 
 local wk = require("which-key")
 
@@ -43,7 +55,8 @@ wk.register({
     m = { require("telescope.builtin").marks, "Marks" },
     M = { require("telescope.builtin").man_pages, "Man pages" },
     o = { require("telescope.builtin").oldfiles, "Previously open files" },
-    p = { require("telescope.builtin").pickers, "Pickers" },
+    p = { require("telescope").extensions.project.project, "Pickers" },
+    P = { require("telescope.builtin").pickers, "Pickers" },
     q = { require("telescope.builtin").quickfix, "Quickfix" },
     Q = { require("telescope.builtin").quickfixhistory, "Quickfix history" },
     r = { require("telescope.builtin").resume, "Resume" },
