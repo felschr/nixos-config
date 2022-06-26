@@ -12,10 +12,7 @@ in with builtins; {
   imports = [
     # ./hardware/base.nix
     ./hardware/gpu-rpi4.nix
-    # ./system
-    ./system/nix.nix
-    ./system/i18n.nix
-    ./system/networking.nix
+    ./system/server.nix
     ./modules/emailNotify.nix
     ./services/mail.nix
     ./services/restic/rpi4.nix

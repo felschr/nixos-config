@@ -1,17 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardened.nix
-    ./sound.nix
-    ./i18n.nix
-    ./nix.nix
-    ./networking.nix
-    ./vpn.nix
-  ];
-
-  environment.systemPackages = with pkgs; [ wget curl openssl neovim ];
-
   # TODO once nerdfonts 2.2.0 is released switch to NerdFontsSymbolsOnly
   # Also needs to be added to known fonts in nixpkgs:
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/data/fonts/nerdfonts/shas.nix
@@ -32,7 +21,4 @@
     monospace = [ "Fira Code" "Noto Color Emoji" "FiraCode Nerd Font" ];
     emoji = [ "Noto Color Emoji" "FiraCode Nerd Font" ];
   };
-
-  services.printing.enable = true;
-  services.fwupd.enable = true;
 }

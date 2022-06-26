@@ -6,7 +6,7 @@
     ./hardware/gpu-amd.nix
     ./hardware/steam.nix
     ./hardware/ledger.nix
-    ./system
+    ./system/desktop.nix
     ./system/gaming.nix
     ./desktop
     ./virtualisation/libvirt.nix
