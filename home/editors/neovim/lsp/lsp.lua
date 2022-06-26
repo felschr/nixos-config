@@ -57,7 +57,6 @@ local servers = {
   "pylsp",
   "terraformls",
   "hls",
-  "rust_analyzer",
   "vimls",
   "glslls",
 }
@@ -67,6 +66,11 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+config.rust_analyzer.setup{
+  capabilities = capabilities,
+  root_dir = config.util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
+}
 
 config.omnisharp.setup{
   capabilities = capabilities,
