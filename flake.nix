@@ -144,7 +144,7 @@
           nixos-hardware.nixosModules.raspberry-pi-4
           (lib.createSystem "home-server" {
             hardwareConfig = ./hardware/rpi4.nix;
-            config = ./rpi4.nix;
+            config = ./home-server.nix;
           })
           (lib.createUser "felschr" {
             user = {
@@ -154,7 +154,7 @@
               ];
             };
             modules = [ homeManagerModules.git ];
-            config = ./home/felschr-rpi4.nix;
+            config = ./home/felschr-server.nix;
           })
         ];
       };

@@ -15,9 +15,9 @@ in with builtins; {
     ./system/server.nix
     ./modules/emailNotify.nix
     ./services/mail.nix
-    ./services/restic/rpi4.nix
-    ./services/samba/rpi4.nix
-    ./services/syncthing/rpi4.nix
+    ./services/restic/home-server.nix
+    ./services/samba/home-server.nix
+    ./services/syncthing/home-server.nix
     # ./services/kodi.nix
     ./services/jellyfin.nix
     ./services/etebase.nix
