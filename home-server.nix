@@ -107,6 +107,7 @@ in with builtins; {
             | sed 's/\/.*//'
         ''
       }
+      usev4=disabled
     '';
   };
 
