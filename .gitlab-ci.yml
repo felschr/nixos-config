@@ -1,0 +1,17 @@
+image: nixos/nix:2.9.1
+
+variables:
+  NIX_CONFIG: "experimental-features = nix-command flakes"
+
+build:
+  stage: build
+  allow_failure: true
+  parallel:
+    matrix:
+      - DEVICE: [home-pc, home-server]
+  script:
+    - nix-env -iA cachix -f https://cachix.org/api/v1/install
+    - cachix use felschr
+    - cachix watch-exec felschr nix build .#nixosConfigurations.$DEVICE.config.system.build.toplevel
+  only:
+    - main
