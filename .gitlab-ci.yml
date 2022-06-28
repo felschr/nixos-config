@@ -6,12 +6,11 @@ variables:
 build:
   stage: build
   allow_failure: true
-  parallel:
-    matrix:
-      - DEVICE: [home-pc, home-server]
-  script:
+  before_script:
     - nix-env -iA cachix -f https://cachix.org/api/v1/install
     - cachix use felschr
-    - cachix watch-exec felschr nix build .#nixosConfigurations.$DEVICE.config.system.build.toplevel
+  script:
+    - cachix watch-exec felschr nix build .#nixosConfigurations.home-pc.config.system.build.toplevel
+    - cachix watch-exec felschr nix build .#nixosConfigurations.home-server.config.system.build.toplevel
   only:
     - main
