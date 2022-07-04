@@ -14,7 +14,6 @@ in {
 
   services.restic.backups.full = resticLib.resticConfig {
     name = "home-pc";
-    ripgrep = true;
     paths = [ "/etc/nixos" "/var/lib" "/home" ];
     ignorePatterns = [
       "/var/lib/systemd"
@@ -40,8 +39,23 @@ in {
       "/home/felschr/media"
       "/home/felschr/sync"
       "/home/felschr/keybase"
+      "/home/felschr/dev" # backup ~/dev-backup instead
     ];
     timerConfig.OnCalendar = "0/4:00:00";
     extraPruneOpts = [ "--keep-last 6" ];
+  };
+
+  # extra handling for dev folder to respect .gitignore files:
+  systemd.services."restic-backups-full" = {
+    preStart = ''
+      rm -rf /home/felschr/dev-backup
+      ${pkgs.rsync}/bin/rsync -a \
+        --filter=':- .gitignore' \
+        --exclude 'nixpkgs' \
+        /home/felschr/dev/* /home/felschr/dev-backup
+    '';
+    postStart = ''
+      rm -rf /home/felschr/dev-backup
+    '';
   };
 }
