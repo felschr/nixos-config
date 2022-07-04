@@ -18,22 +18,28 @@ in {
     paths = [ "/etc/nixos" "/var/lib" "/home" ];
     ignorePatterns = [
       "/var/lib/systemd"
+      "/var/lib/libvirt"
       "/var/lib/containers"
       "/var/lib/lxcfs"
       "/var/lib/docker"
       "/var/lib/flatpak"
-      "/home/*/.local/share/Trash"
-      "/home/*/.cache"
       "/home/*/Downloads"
-      "/home/*/.npm"
       "/home/*/Games"
+      "/home/*/.cache"
+      "/home/*/.npm"
+      "/home/*/.nuget"
       "/home/*/.steam"
+      "/home/*/.local/share/Trash"
+      "/home/*/.local/share/libvirt"
+      "/home/*/.local/share/containers"
+      "/home/*/.local/share/bottles"
       "/home/*/.local/share/Steam"
       "/home/*/.local/share/lutris"
+      "/home/*/.local/share/NuGet"
+      "/home/*/.config/libvirt"
       "/home/felschr/media"
       "/home/felschr/sync"
       "/home/felschr/keybase"
-      "**/.git"
     ];
     timerConfig.OnCalendar = "0/4:00:00";
     extraPruneOpts = [ "--keep-last 6" ];

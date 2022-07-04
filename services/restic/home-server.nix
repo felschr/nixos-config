@@ -22,10 +22,10 @@ in {
       "/var/lib/lxcfs"
       "/var/lib/docker"
       "/var/lib/flatpak"
-      "/home/ignore"
+      "/home/*/ignore"
+      "/home/*/.cache"
       "/home/*/.local/share/containers"
       "/home/*/.local/share/Trash"
-      "/home/*/.cache"
       "/var/lib/jellyfin/transcodes"
       "**/.git"
     ];
