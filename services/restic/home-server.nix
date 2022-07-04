@@ -14,7 +14,6 @@ in {
 
   services.restic.backups.full = resticLib.resticConfig {
     name = "home-server";
-    ripgrep = true;
     paths = [ "/etc/nixos" "/var/lib" "/home" ];
     ignorePatterns = [
       "/var/lib/systemd"
