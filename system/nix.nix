@@ -8,9 +8,8 @@ in {
     options = "--delete-older-than 30d";
   };
 
-  nix.trustedUsers = [ "@wheel" ];
-
   nix.settings = {
+    trusted-users = [ "@wheel" ];
     auto-optimise-store = true;
     substituters = [
       "https://hydra.iohk.io"
