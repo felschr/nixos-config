@@ -10,6 +10,7 @@
   inputs.home-manager = {
     url = "github:nix-community/home-manager/master";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.utils.follows = "flake-utils";
   };
 
   inputs.nur.url = "github:nix-community/NUR/master";
@@ -22,6 +23,7 @@
   inputs.deploy-rs = {
     url = "github:serokell/deploy-rs";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.utils.follows = "flake-utils";
   };
 
   inputs.pre-commit-hooks = {
