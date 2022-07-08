@@ -56,7 +56,8 @@ in {
       ${pkgs.rsync}/bin/rsync -a \
         --filter=':- .gitignore' \
         --exclude 'nixpkgs' \
-        /home/felschr/dev/* /home/felschr/dev-backup
+        --link-dest=/home/felschr/dev \
+        /home/felschr/dev/ /home/felschr/dev-backup
     '';
     postStart = ''
       rm -rf /home/felschr/dev-backup
