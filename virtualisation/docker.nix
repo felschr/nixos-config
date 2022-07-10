@@ -2,11 +2,10 @@
 
 {
   virtualisation.docker = {
-    enable = true;
-    extraOptions = "--ip 127.0.0.1";
-    autoPrune = {
+    rootless = {
       enable = true;
-      dates = "10:00";
+      setSocketVariable = true;
+      daemon.settings.ip = "127.0.0.1";
     };
   };
 }
