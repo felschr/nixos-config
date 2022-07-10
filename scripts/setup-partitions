@@ -49,7 +49,7 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then exit 1; fi
 # create partition table
 parted "$drive" -- mklabel gpt
 
-# create boot pabootrtition
+# create boot partition
 parted "$drive" -- mkpart ESP fat32 1MiB 512MiB
 parted "$drive" -- set 1 esp on
 
@@ -73,20 +73,19 @@ umount /mnt
 
 # mount subvolumes
 mount -o subvol=@,compress-force=zstd,noatime /dev/mapper/enc /mnt
-mkdir /mnt/home
+mkdir /mnt/{home,.swap,.snapshots,boot}
 mount -o subvol=@home,compress-force=zstd,noatime /dev/mapper/enc /mnt/home
-mkdir /mnt/.swap
 mount -o subvol=@swap,noatime /dev/mapper/enc /mnt/.swap
-mkdir /mnt/.snapshots
 mount -o subvol=@snapshots,compress-force=zstd,noatime /dev/mapper/enc /mnt/.snapshots
-mkdir /mnt/boot
 mount "$boot" /mnt/boot
 
 # setup swap file
+read -p "enter the size of the swap file in MB (default: 8192): " -r
+swapsize=${REPLY:-8192}
 truncate -s 0 /mnt/.swap/swapfile
 chattr +C /mnt/.swap/swapfile
 btrfs property set /mnt/.swap/swapfile compression none
-dd if=/dev/zero of=/mnt/.swap/swapfile bs=1M count=8192 status=progress
+dd if=/dev/zero of=/mnt/.swap/swapfile bs=1M count="$swapsize" status=progress
 chmod 600 /mnt/.swap/swapfile
 mkswap /mnt/.swap/swapfile
 swapon /mnt/.swap/swapfile
