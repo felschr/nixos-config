@@ -41,7 +41,6 @@ in {
       "/home/*/.local/share/NuGet"
       "/home/*/.config/libvirt"
       "/home/felschr/media"
-      "/home/felschr/sync"
       "/home/felschr/keybase"
       "/home/felschr/dev" # backup ~/dev-backup instead
     ];

@@ -17,7 +17,6 @@ in with builtins; {
     ./services/mail.nix
     ./services/restic/home-server.nix
     ./services/samba/home-server.nix
-    ./services/syncthing/home-server.nix
     # ./services/kodi.nix
     ./services/jellyfin.nix
     ./services/etebase.nix

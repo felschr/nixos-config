@@ -14,7 +14,6 @@
     ./modules/emailNotify.nix
     ./services/mail.nix
     ./services/samba/home-pc.nix
-    ./services/syncthing/home-pc.nix
     ./services/restic/home-pc.nix
     ./services/pcscd.nix
   ];
