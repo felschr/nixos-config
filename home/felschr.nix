@@ -78,12 +78,14 @@
     onionshare-gui
     transmission-gtk
     fragments
+    metadata-cleaner
 
     # other
     bitwarden
     ledger-live-desktop
     portfolio
     bottles
+    breitbandmessung
   ];
 
   home.stateVersion = "21.11";
