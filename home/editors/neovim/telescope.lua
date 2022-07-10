@@ -2,9 +2,9 @@ require("telescope").setup {
   extensions = {
     project = {
       base_dirs = {
-        { "/etc/nixos" },
-        { "~/dev", max_depth = 3 },
-        { "~/dev/work", max_depth = 3 },
+        "/etc/nixos",
+        { "~/dev", max_depth = 2 },
+        { "~/dev/work", max_depth = 4 },
       },
     },
   },
