@@ -184,7 +184,7 @@
           };
         };
       in {
-        formatter = nixpkgs.legacyPackages."${system}".nixfmt;
+        formatter = pkgs.nixfmt;
 
         devShells.default =
           pkgs.mkShell { inherit (pre-commit-check) shellHook; };
