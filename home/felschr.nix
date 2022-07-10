@@ -58,8 +58,12 @@
     # work
     teams
 
-    # development
+    # dev
     postman
+
+    # game dev
+    ldtk
+    pixelorama
 
     # entertainment
     celluloid
