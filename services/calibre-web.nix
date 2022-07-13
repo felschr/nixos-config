@@ -4,6 +4,7 @@ let port = 8088;
 in {
   services.calibre-web = {
     enable = true;
+    group = "media";
     listen.ip = "::1";
     listen.port = port;
     options.enableBookUploading = true;

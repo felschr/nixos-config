@@ -98,6 +98,7 @@
         createUser = name: args:
           ({ pkgs, ... }@args2:
             (createUser' name args) ({ inherit home-manager; } // args2));
+        createMediaGroup = { ... }: { users.groups.media = { gid = 600; }; };
       };
     in rec {
 
@@ -111,8 +112,9 @@
             hardwareConfig = ./hardware/home-pc.nix;
             config = ./home-pc.nix;
           })
+          lib.createMediaGroup
           (lib.createUser "felschr" {
-            user.extraGroups = [ "wheel" "audio" "docker" "disk" ];
+            user.extraGroups = [ "wheel" "audio" "disk" "media" ];
             modules = [ homeManagerModules.git ];
             config = ./home/felschr.nix;
           })
@@ -132,7 +134,7 @@
             config = ./work-pc.nix;
           })
           (lib.createUser "felschr" {
-            user.extraGroups = [ "wheel" "audio" "docker" "disk" ];
+            user.extraGroups = [ "wheel" "audio" "disk" ];
             modules = [ homeManagerModules.git ];
             config = ./home/felschr-work.nix;
           })
@@ -148,6 +150,7 @@
             hardwareConfig = ./hardware/rpi4.nix;
             config = ./home-server.nix;
           })
+          lib.createMediaGroup
           (lib.createUser "felschr" {
             user = {
               extraGroups = [ "wheel" "audio" "disk" "media" ];
