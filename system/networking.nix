@@ -5,7 +5,6 @@
 
   networking = {
     nameservers = [ "127.0.0.1" "::1" ];
-    resolvconf.enable = lib.mkForce false;
     # If using dhcpcd:
     dhcpcd.extraConfig = "nohook resolv.conf";
     # If using NetworkManager:
