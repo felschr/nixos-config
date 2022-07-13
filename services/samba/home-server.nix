@@ -4,6 +4,11 @@
   # Use `smbpasswd -a <user>` to set passwords
   # age.secrets.samba.file = ../../secrets/samba.age;
 
+  users.users.samba = {
+    isSystemUser = true;
+    group = "media";
+  };
+
   services.samba = {
     enable = true;
     openFirewall = true;
@@ -19,9 +24,10 @@
         public = "no";
         browseable = "yes";
         writeable = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "felschr";
+        "valid users" = "felschr";
+        "create mask" = "0664";
+        "directory mask" = "0775";
+        "force user" = "samba";
         "force group" = "media";
       };
     };
