@@ -74,7 +74,7 @@ config.rust_analyzer.setup{
 
 config.omnisharp.setup{
   capabilities = capabilities,
-  cmd = {"omnisharp", "--languageserver", "--hostPID", tostring(pid)},
+  cmd = {"OmniSharp", "--languageserver", "--hostPID", tostring(pid)},
 }
 
 local runtime_path = vim.split(package.path, ';')

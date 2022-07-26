@@ -37,13 +37,19 @@
     text = ''
       {
         "msbuild": {
-          "enablePackageAutoRestore": true
+          "enablePackageAutoRestore": true,
+          "loadProjectsOnDemand": true
         },
         "formattingOptions": {
-          "enableEditorConfigSupport": true
+          "enableEditorConfigSupport": true,
+          "organizeImports": true
         },
         "roslynExtensionsOptions": {
-          "enableAnalyzersSupport": true
+          "enableDecompilationSupport": true,
+          "enableImportCompletion": true,
+          "enableAsyncCompletion": true,
+          "enableAnalyzersSupport": true,
+          "analyzeOpenDocumentsOnly": true
         }
       }
     '';
