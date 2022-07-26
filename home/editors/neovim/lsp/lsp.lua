@@ -70,6 +70,11 @@ end
 config.rust_analyzer.setup{
   capabilities = capabilities,
   root_dir = config.util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
+  settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = { command = "clippy" },
+    },
+  },
 }
 
 config.omnisharp.setup{
