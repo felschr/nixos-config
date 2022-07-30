@@ -17,8 +17,8 @@ local on_attach = function(client, bufnr)
 end
 
 -- format on save
-local diagnosticls_on_attach = function(_, bufnr)
-  on_attach(_, bufnr)
+local diagnosticls_on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
   vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function()
       vim.lsp.buf.formatting_seq_sync(nil, nil, { "tsserver", "diagnosticls" })
@@ -68,6 +68,7 @@ for _, lsp in ipairs(servers) do
 end
 
 config.rust_analyzer.setup{
+  on_attach = on_attach,
   capabilities = capabilities,
   root_dir = config.util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
   settings = {
@@ -78,6 +79,7 @@ config.rust_analyzer.setup{
 }
 
 config.omnisharp.setup{
+  on_attach = on_attach,
   capabilities = capabilities,
   cmd = {"OmniSharp", "--languageserver", "--hostPID", tostring(pid)},
 }
@@ -87,6 +89,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 config.sumneko_lua.setup {
+  on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -109,6 +112,7 @@ config.sumneko_lua.setup {
 
 config.diagnosticls.setup {
   on_attach = diagnosticls_on_attach,
+  capabilities = capabilities,
   filetypes = {
     "javascript",
     "javascript.jsx",
