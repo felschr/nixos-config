@@ -32,7 +32,8 @@
     nodePackages.prettier
   ];
 
-  # UseLegacySdkResolver: true is currently required
+  # enableAnalyzersSupport loads very slowly
+  # and keeps other features from working until loaded
   home.file.".omnisharp/omnisharp.json" = {
     text = ''
       {
@@ -48,8 +49,7 @@
           "enableDecompilationSupport": true,
           "enableImportCompletion": true,
           "enableAsyncCompletion": true,
-          "enableAnalyzersSupport": true,
-          "analyzeOpenDocumentsOnly": true
+          "enableAnalyzersSupport": true
         }
       }
     '';
