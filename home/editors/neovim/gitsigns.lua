@@ -18,9 +18,9 @@ require("gitsigns").setup {
         u = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Unstage hunk" },
         R = { "<cmd>Gitsigns reset_buffer<CR>", "Reset buffer" },
         p = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
-        b = { require"gitsigns".blame_line({ full = true }), "Blame line" },
+        b = { function() require"gitsigns".blame_line({ full = true }) end, "Blame line" },
         d = { "<cmd>Gitsigns diffthis<CR>", "Diff" },
-        D = { require"gitsigns".diffthis('~'), "Diff" },
+        D = { function() require"gitsigns".diffthis('~') end, "Diff" },
       },
       ht = {
         name = "Git sign toggles",
