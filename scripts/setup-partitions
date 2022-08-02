@@ -52,6 +52,7 @@ parted "$drive" -- mklabel gpt
 # create boot partition
 parted "$drive" -- mkpart ESP fat32 1MiB 512MiB
 parted "$drive" -- set 1 esp on
+mkfs.fat -F 32 -n boot "$boot"
 
 # create system partition
 parted "$drive" -- mkpart primary 512MiB 100%
