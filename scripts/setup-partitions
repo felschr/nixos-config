@@ -73,11 +73,13 @@ btrfs subvolume create /mnt/@snapshots
 umount /mnt
 
 # mount subvolumes
-mount -o subvol=@,compress-force=zstd,noatime /dev/mapper/enc /mnt
+read -p "enter zstd compression level (default: 1): " -r
+compression_level=${REPLY:-1}
+mount -o subvol=@,compress-force=zstd:"$compression_level",noatime /dev/mapper/enc /mnt
 mkdir /mnt/{home,.swap,.snapshots,boot}
-mount -o subvol=@home,compress-force=zstd,noatime /dev/mapper/enc /mnt/home
+mount -o subvol=@home,compress-force=zstd:"$compression_level",noatime /dev/mapper/enc /mnt/home
 mount -o subvol=@swap,noatime /dev/mapper/enc /mnt/.swap
-mount -o subvol=@snapshots,compress-force=zstd,noatime /dev/mapper/enc /mnt/.snapshots
+mount -o subvol=@snapshots,compress-force=zstd:"$compression_level",noatime /dev/mapper/enc /mnt/.snapshots
 mount "$boot" /mnt/boot
 
 # setup swap file
