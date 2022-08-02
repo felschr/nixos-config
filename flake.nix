@@ -186,8 +186,12 @@
             shellcheck.enable = true;
           };
         };
-      in {
+      in rec {
         formatter = pkgs.nixfmt;
+
+        packages = { deconz = pkgs.qt5.callPackage ./pkgs/deconz { }; };
+
+        apps = { deconz = flake-utils.lib.mkApp { drv = packages.deconz; }; };
 
         devShells.default =
           pkgs.mkShell { inherit (pre-commit-check) shellHook; };

@@ -1,15 +1,27 @@
-{ lib, fetchurl, mkDerivation, dpkg, autoPatchelfHook, qtserialport
+{ lib, stdenv, fetchurl, mkDerivation, dpkg, autoPatchelfHook, qtserialport
 , qtwebsockets, libredirect, makeWrapper, gzip, gnutar }:
 
-mkDerivation rec {
-  name = "deconz-${version}";
-  version = "2.09.03";
+let
+  version = "2.17.01";
+  srcs = {
+    x86_64-linux = fetchurl {
+      url =
+        "https://deconz.dresden-elektronik.de/ubuntu/beta/deconz-${version}-qt5.deb";
+      sha256 = "sha256-c2G3oOnSXlivO9KXRBZIe2DEuq7vPVlNDKF6T/pZLps=";
+    };
 
-  src = fetchurl {
-    url =
-      "https://deconz.dresden-elektronik.de/debian/stable/deconz_${version}-debian-stretch-stable_arm64.deb";
-    sha256 = "6EXYoXOg+6dTR9/hRHmNafZuBeNnAAS4z8ia15s1+9U=";
+    aarch64-linux = fetchurl {
+      url =
+        "https://deconz.dresden-elektronik.de/debian/stable/deconz_${version}-debian-buster-stable_arm64.deb";
+      sha256 = "sha256-zuy4e9bzcRqDeXP6mfzZLCDK/3we25LH6xktnO6HXps=";
+    };
   };
+
+in mkDerivation rec {
+  pname = "deCONZ";
+  inherit version;
+
+  src = srcs.${stdenv.hostPlatform.system};
 
   nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
 
@@ -37,7 +49,7 @@ mkDerivation rec {
     homepage =
       "https://www.dresden-elektronik.de/funktechnik/products/software/pc-software/deconz/?L=1";
     license = licenses.unfree;
-    platforms = with platforms; linux;
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     maintainers = with maintainers; [ felschr ];
   };
 }
