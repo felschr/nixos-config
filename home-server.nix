@@ -10,8 +10,8 @@ let
   }];
 in with builtins; {
   imports = [
-    # ./hardware/base.nix
-    ./hardware/gpu-rpi4.nix
+    ./hardware/base.nix
+    ./hardware/gpu-intel.nix
     ./system/server.nix
     ./modules/emailNotify.nix
     ./services/mail.nix
@@ -33,16 +33,6 @@ in with builtins; {
   age.secrets.hostKey.file = ./secrets/home-server/hostKey.age;
 
   nixpkgs.config.allowUnfree = true;
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.generic-extlinux-compatible.enable = false;
-  # boot.loader.efi.canTouchEfiVariables = true;
-  boot.tmpOnTmpfs = true;
-
-  # rpi4 base config
-  boot.kernelPackages = pkgs.linuxPackages_rpi4;
-  boot.kernelParams =
-    [ "8250.nr_uarts=1" "console=ttyAMA0,115200" "console=tty1" "cma=128" ];
 
   # improve memory performance
   zramSwap.enable = true;
@@ -101,7 +91,7 @@ in with builtins; {
     extraConfig = with pkgs; ''
       usev6=cmdv6, cmdv6=${
         pkgs.writeScript "get-ipv6" ''
-          ${iproute2}/bin/ip --brief addr show eth0 mngtmpaddr \
+          ${iproute2}/bin/ip --brief addr show enp2s0 mngtmpaddr \
             | ${gawk}/bin/awk '{print $(NF)}' \
             | sed 's/\/.*//'
         ''

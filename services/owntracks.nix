@@ -12,9 +12,7 @@ in {
 
   virtualisation.oci-containers.containers = {
     owntracks-recorder = {
-      # official image does not support aarch64
-      # image = "owntracks/recorder";
-      image = "easypi/ot-recorder-arm";
+      image = "owntracks/recorder";
       ports = [ "8083:8083" ];
       environment = {
         OTR_HOST = "localhost";
@@ -23,11 +21,7 @@ in {
       };
       # provide OTR_PASS
       environmentFiles = [ config.age.secrets.owntracks-recorder-env.path ];
-      # easypi/ot-recorder-arm uses different store location
-      # volumes = [ "/var/lib/owntracks/recorder/store:/store" ];
-      volumes = [
-        "/var/lib/owntracks/recorder/store:/var/spool/owntracks/recorder/store"
-      ];
+      volumes = [ "/var/lib/owntracks/recorder/store:/store" ];
       extraOptions = [ "--network=host" ];
     };
 

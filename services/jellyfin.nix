@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   services.jellyfin.enable = true;
@@ -6,7 +6,12 @@
   services.jellyfin.openFirewall = true;
 
   # for hardware acceleration
-  users.users.jellyfin.extraGroups = [ "video" "render" ];
+  users.users.${config.services.jellyfin.user}.extraGroups =
+    [ "video" "render" ];
+  systemd.services.jellyfin.serviceConfig = {
+    PrivateDevices = lib.mkForce false;
+    DeviceAllow = lib.mkForce [ "/dev/dri/renderD128" ];
+  };
 
   services.nginx = {
     virtualHosts."media.felschr.com" = {

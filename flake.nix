@@ -142,12 +142,11 @@
       };
 
       nixosConfigurations.home-server = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
+        system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
-          nixos-hardware.nixosModules.raspberry-pi-4
           (lib.createSystem "home-server" {
-            hardwareConfig = ./hardware/rpi4.nix;
+            hardwareConfig = ./hardware/lattepanda.nix;
             config = ./home-server.nix;
           })
           lib.createMediaGroup
@@ -168,7 +167,7 @@
         hostname = "192.168.1.102";
         profiles.system = {
           user = "felschr";
-          path = deploy-rs.lib.aarch64-linux.activate.nixos
+          path = deploy-rs.lib.x86_64-linux.activate.nixos
             self.nixosConfigurations.home-server;
         };
       };
