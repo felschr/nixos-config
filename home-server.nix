@@ -120,6 +120,7 @@ in with builtins; {
   };
 
   # ssh root@hostname "echo "$(read -s pass; echo \'"$pass"\')" > /crypt-ramfs/passphrase"
+  boot.initrd.availableKernelModules = [ "igb" ];
   boot.initrd.network = {
     enable = true;
     ssh = {
