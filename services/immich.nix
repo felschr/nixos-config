@@ -1,15 +1,16 @@
 { config, lib, pkgs, ... }:
 
 let
-  uploadDir = "/var/lib/immich/upload";
+  dataDir = "/var/lib/immich";
+  uploadDir = "${dataDir}/upload";
   dbuser = "immich";
   dbname = "immich";
+  dbPasswordFile = config.age.secrets.immich-db-password.path;
   ociBackend = config.virtualisation.oci-containers.backend;
-  containersHost = if ociBackend == "podman" then
-    "host.containers.internal"
-  else
-    "host.docker.internal";
+  containersHost = "localhost";
   domain = "photos.felschr.com";
+
+  pgSuperUser = config.services.postgresql.superUser;
 
   immichEnv = {
     environment = {
@@ -21,18 +22,17 @@ let
       REDIS_HOSTNAME = containersHost;
       REDIS_PORT = toString config.services.redis.servers.immich.port;
       VITE_SERVER_ENDPOINT = "https://${domain}/api";
-
-      # immich requires this value, even though we don't have password auth
-      DB_PASSWORD = "x";
     };
-    # only secrets need to be included, e.g. JWT_SECRET, MAPBOX_KEY
+    # only secrets need to be included, e.g. DB_PASSWORD, JWT_SECRET, MAPBOX_KEY
     environmentFiles = [ config.age.secrets.immich-env.path ];
   };
 in {
   age.secrets.immich-env.file = ../secrets/immich/.env.age;
+  age.secrets.immich-db-password.file = ../secrets/immich/db-password.age;
 
   services.postgresql = {
     enable = true;
+    enableTCPIP = true;
     ensureDatabases = [ dbname ];
     ensureUsers = [{
       name = dbuser;
@@ -40,14 +40,16 @@ in {
     }];
   };
 
-  services.redis.servers.immich.enable = true;
-
-  systemd.services.prepare-immich = {
+  services.redis.servers.immich = {
     enable = true;
-    wantedBy = [ "multi-user.target" ];
-    script = ''
-      mkdir -p ${uploadDir}
-    '';
+    port = 31640;
+  };
+
+  systemd.services.immich-init = {
+    enable = true;
+    description = "Set up paths & database access";
+    requires = [ "postgresql.service" ];
+    after = [ "postgresql.service" ];
     before = [
       "${ociBackend}-immich-server.service"
       "${ociBackend}-immich-microservices.service"
@@ -55,14 +57,28 @@ in {
       "${ociBackend}-immich-web.service"
       "${ociBackend}-immich-proxy.service"
     ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      LoadCredential = [ "db_password:${dbPasswordFile}" ];
+    };
+    script = ''
+      mkdir -p ${dataDir} ${uploadDir}
+      echo "Set immich postgres user password"
+      db_password="$(<"$CREDENTIALS_DIRECTORY/db_password")"
+      ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} ${pkgs.postgresql}/bin/psql postgres \
+        -c "alter user ${dbuser} with password '$db_password'"
+    '';
   };
 
   virtualisation.oci-containers.containers = {
     immich-server = immichEnv // {
       image = "altran1502/immich-server:release";
+      ports = [ "3001:3001" ];
       entrypoint = "/bin/sh";
       cmd = [ "./start-server.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
+      extraOptions = [ "--network=host" ];
     };
 
     immich-microservices = immichEnv // {
@@ -70,6 +86,7 @@ in {
       entrypoint = "/bin/sh";
       cmd = [ "./start-microservices.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
+      extraOptions = [ "--network=host" ];
     };
 
     immich-machine-learning = immichEnv // {
@@ -77,12 +94,15 @@ in {
       entrypoint = "/bin/sh";
       cmd = [ "./entrypoint.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
+      extraOptions = [ "--network=host" ];
     };
 
     immich-web = immichEnv // {
       image = "altran1502/immich-web:release";
+      ports = [ "3000:3000" ];
       entrypoint = "/bin/sh";
       cmd = [ "./entrypoint.sh" ];
+      extraOptions = [ "--network=host" ];
     };
   };
 
