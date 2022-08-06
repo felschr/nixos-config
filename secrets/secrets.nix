@@ -4,7 +4,7 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbQpMo1JOGk59Rzl6pVoOcMHOoqezph+aIlEXZP4rBu";
   users = [ felschr ];
 
-  # `ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key`
+  # `ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key`
   home-pc =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
   home-server =
@@ -27,6 +27,7 @@ in {
   "miniflux.age".publicKeys = [ felschr home-pc home-server ];
   "paperless.age".publicKeys = [ felschr home-pc home-server ];
   "nextcloud/admin.age".publicKeys = [ felschr home-pc home-server ];
+  "immich/.env.age".publicKeys = [ felschr home-pc home-server ];
 
   # home-server
   "home-server/hostKey.age".publicKeys = [ felschr home-server ];

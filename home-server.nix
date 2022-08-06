@@ -24,6 +24,7 @@ in with builtins; {
     ./services/mosquitto.nix
     ./services/home-assistant.nix
     ./services/owntracks.nix
+    ./services/immich.nix
     ./services/miniflux.nix
     ./services/paperless.nix
     ./services/nextcloud.nix
@@ -82,6 +83,7 @@ in with builtins; {
       "cloud.felschr.com"
       "office.felschr.com"
       "media.felschr.com"
+      "photos.felschr.com"
       "books.felschr.com"
       "news.felschr.com"
       "mqtt.felschr.com"
