@@ -12,6 +12,7 @@ in with builtins; {
   imports = [
     ./hardware/base.nix
     ./hardware/gpu-intel.nix
+    ./desktop/x11.nix
     ./system/server.nix
     ./modules/emailNotify.nix
     ./services/mail.nix

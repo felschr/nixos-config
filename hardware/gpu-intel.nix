@@ -3,9 +3,8 @@
 {
   boot.initrd.kernelModules = [ "i915" ];
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
+  # kaby lake
+  boot.kernelParams = [ "i915.enable_guc=3" ];
 
   environment.variables = {
     VDPAU_DRIVER =
@@ -14,7 +13,6 @@
 
   hardware.opengl.extraPackages = with pkgs; [
     vaapiIntel
-    vaapiVdpau
     libvdpau-va-gl
     intel-media-driver
     intel-compute-runtime

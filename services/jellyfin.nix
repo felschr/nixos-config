@@ -9,7 +9,6 @@
   users.users.${config.services.jellyfin.user}.extraGroups =
     [ "video" "render" ];
   systemd.services.jellyfin.serviceConfig = {
-    PrivateDevices = lib.mkForce false;
     DeviceAllow = lib.mkForce [ "/dev/dri/renderD128" ];
   };
 
