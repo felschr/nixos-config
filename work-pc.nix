@@ -5,7 +5,7 @@
     ./hardware/base.nix
     ./hardware/gpu-intel.nix
     ./hardware/bluetooth.nix
-    ./system
+    ./system/desktop.nix
     ./desktop
     ./virtualisation/docker.nix
   ];
