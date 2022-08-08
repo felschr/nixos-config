@@ -1,2 +1,6 @@
 .env
 .pre-commit-config.yaml
+
+# nix
+result
+*.qcow2
