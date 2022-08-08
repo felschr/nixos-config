@@ -11,7 +11,7 @@
     ./system/gaming.nix
     ./desktop
     ./virtualisation/libvirt.nix
-    ./virtualisation/docker.nix
+    ./virtualisation/podman.nix
     ./modules/emailNotify.nix
     ./services/mail.nix
     ./services/samba/home-pc.nix

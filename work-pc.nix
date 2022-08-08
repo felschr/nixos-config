@@ -7,7 +7,7 @@
     ./hardware/bluetooth.nix
     ./system/desktop.nix
     ./desktop
-    ./virtualisation/docker.nix
+    ./virtualisation/podman.nix
   ];
 
   # replace with regenerated hardware-configuration.nix
