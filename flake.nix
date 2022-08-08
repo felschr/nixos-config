@@ -182,21 +182,11 @@
         };
       };
 
-      checks = builtins.mapAttrs
-        (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-        };
-        pre-commit-check = pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            nixfmt.enable = true;
-            shellcheck.enable = true;
-          };
         };
       in rec {
         formatter = pkgs.nixfmt;
@@ -206,6 +196,16 @@
         apps = { deconz = flake-utils.lib.mkApp { drv = packages.deconz; }; };
 
         devShells.default =
-          pkgs.mkShell { inherit (pre-commit-check) shellHook; };
+          pkgs.mkShell { inherit (checks.pre-commit) shellHook; };
+
+        checks = deploy-rs.lib.${system}.deployChecks self.deploy // {
+          pre-commit = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt.enable = true;
+              shellcheck.enable = true;
+            };
+          };
+        };
       });
 }
