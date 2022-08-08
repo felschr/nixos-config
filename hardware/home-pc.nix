@@ -13,7 +13,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/5830e9b3-260b-451c-bfee-2028c64c6199";
     fsType = "btrfs";
-    options = [ "subvol=@" "compress-force=zstd" "noatime" ];
+    options = [ "subvol=@" "compress-force=zstd:1" "noatime" ];
   };
 
   boot.initrd.luks.devices."enc".device =
@@ -22,7 +22,7 @@
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/5830e9b3-260b-451c-bfee-2028c64c6199";
     fsType = "btrfs";
-    options = [ "subvol=@home" "compress-force=zstd" "noatime" ];
+    options = [ "subvol=@home" "compress-force=zstd:1" "noatime" ];
   };
 
   fileSystems."/.swap" = {
@@ -35,7 +35,7 @@
   fileSystems."/.snapshots" = {
     device = "/dev/disk/by-uuid/5830e9b3-260b-451c-bfee-2028c64c6199";
     fsType = "btrfs";
-    options = [ "subvol=@snapshots" "compress-force=zstd" "noatime" ];
+    options = [ "subvol=@snapshots" "compress-force=zstd:1" "noatime" ];
   };
 
   fileSystems."/boot" = {
