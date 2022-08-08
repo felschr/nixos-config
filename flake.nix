@@ -108,6 +108,10 @@
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
+          nixos-hardware.nixosModules.common-pc
+          nixos-hardware.nixosModules.common-pc-ssd
+          nixos-hardware.nixosModules.common-cpu-amd
+          nixos-hardware.nixosModules.common-gpu-amd
           (lib.createSystem "home-pc" {
             hardwareConfig = ./hardware/home-pc.nix;
             config = ./home-pc.nix;
@@ -129,6 +133,9 @@
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
+          nixos-hardware.nixosModules.common-pc
+          nixos-hardware.nixosModules.common-pc-ssd
+          nixos-hardware.nixosModules.common-cpu-intel
           (lib.createSystem "pilot1" {
             hardwareConfig = ./hardware/pilot1.nix;
             config = ./work-pc.nix;
@@ -145,6 +152,9 @@
         system = "x86_64-linux";
         modules = [
           nixpkgs.nixosModules.notDetected
+          nixos-hardware.nixosModules.common-pc
+          nixos-hardware.nixosModules.common-pc-ssd
+          nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
           (lib.createSystem "home-server" {
             hardwareConfig = ./hardware/lattepanda.nix;
             config = ./home-server.nix;
