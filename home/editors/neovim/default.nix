@@ -7,7 +7,7 @@ let
     EOF
   '';
 in {
-  home.packages = with pkgs; [ graphviz ];
+  home.packages = with pkgs; [ neovide graphviz ];
 
   programs.neovim = {
     enable = true;
