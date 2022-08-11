@@ -34,6 +34,9 @@ in {
         "--keep-weekly 4"
         "--keep-monthly 3"
         "--keep-yearly 1"
+        # reduce download bandwidth
+        "--max-unused 10%"
+        "--repack-cacheable-only"
       ] ++ extraPruneOpts;
     } // (removeAttrs args [
       "name"
