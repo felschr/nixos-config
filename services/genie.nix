@@ -1,9 +1,14 @@
 { config, lib, pkgs, ... }:
 
+with lib;
 let
   dataDir = "/var/lib/genie-server";
   port = 3232;
   ociBackend = config.virtualisation.oci-containers.backend;
+
+  # enables embedded genie client which uses
+  # pulseaudio for speech recognition & replies
+  enableClient = false;
 in {
   systemd.services.genie-init = {
     enable = true;
@@ -19,19 +24,17 @@ in {
     image = "stanfordoval/almond-server";
     ports = [ "${toString port}:3000" ];
     environment = {
-      PULSE_SERVER = "unix:/run/pulse/native";
       THINGENGINE_HOST_BASED_AUTHENTICATION = "insecure";
+    } // optionalAttrs enableClient {
+      PULSE_SERVER = "unix:/run/pulse/native";
     };
-    volumes = [
-      "/dev/shm:/dev/shm"
-      "/run/user/1000/pulse:/run/pulse"
-      "${dataDir}:/var/lib/genie-server"
-    ];
+    volumes = [ "/dev/shm:/dev/shm" "${dataDir}:/var/lib/genie-server" ]
+      ++ optionals enableClient [ "/run/user/1000/pulse:/run/pulse" ];
   };
 
   systemd.services."${ociBackend}-genie" = {
-    requires = [ "sound.target" ];
-    after = [ "sound.target" ];
+    requires = optionals enableClient [ "sound.target" ];
+    after = optionals enableClient [ "sound.target" ];
     before = [ "home-assistant.service" ];
   };
 }
