@@ -5,6 +5,7 @@ with pkgs;
 let
   port = config.services.home-assistant.config.http.server_port;
   mqttPort = 1883;
+  geniePort = 3232;
 in {
   # just installed for ConBee firmware updates
   environment.systemPackages = with pkgs; [ deconz ];
@@ -116,6 +117,10 @@ in {
           delay_time = 0;
         };
       }];
+      almond = {
+        type = "local";
+        host = "http://localhost:${toString geniePort}";
+      };
     };
     # configWritable = true; # doesn't work atm
   };
