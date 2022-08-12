@@ -18,6 +18,7 @@ in {
     ignorePatterns = [
       "/var/lib/systemd"
       "/var/lib/containers"
+      "/var/lib/nixos-containers"
       "/var/lib/lxcfs"
       "/var/lib/docker"
       "/var/lib/flatpak"

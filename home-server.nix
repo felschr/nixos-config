@@ -133,7 +133,8 @@ in with builtins; {
     };
   };
 
-  virtualisation.oci-containers.backend = "podman";
+  # TODO see NixOS manual for upgrading
+  services.postgresql.package = pkgs.postgresql_13;
 
   systemd.emailNotify.enable = true;
   systemd.emailNotify.mailTo = "admin@felschr.com";
@@ -141,5 +142,5 @@ in with builtins; {
     "${config.networking.hostName} <felschr@web.de>";
 
   # only change this when specified in release notes
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.05";
 }
