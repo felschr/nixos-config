@@ -37,4 +37,6 @@ in {
     after = optionals enableClient [ "sound.target" ];
     before = [ "home-assistant.service" ];
   };
+
+  networking.firewall.allowedTCPPorts = [ port ];
 }
