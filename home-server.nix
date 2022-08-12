@@ -133,9 +133,6 @@ in with builtins; {
     };
   };
 
-  # TODO see NixOS manual for upgrading
-  services.postgresql.package = pkgs.postgresql_13;
-
   systemd.emailNotify.enable = true;
   systemd.emailNotify.mailTo = "admin@felschr.com";
   systemd.emailNotify.mailFrom =
