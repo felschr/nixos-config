@@ -19,6 +19,7 @@ in {
     genie = {
       image = "stanfordoval/almond-server";
       ports = [ "${toString port}:3000" ];
+      environment.THINGENGINE_HOST_BASED_AUTHENTICATION = "insecure";
       volumes = [ "/dev/shm:/dev/shm" "${dataDir}:/var/lib/genie-server" ];
     };
   };
