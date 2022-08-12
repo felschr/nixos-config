@@ -32,5 +32,6 @@ in {
   systemd.services."${ociBackend}-genie" = {
     requires = [ "sound.target" ];
     after = [ "sound.target" ];
+    before = [ "home-assistant.service" ];
   };
 }
