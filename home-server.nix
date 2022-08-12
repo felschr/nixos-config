@@ -22,6 +22,7 @@ in with builtins; {
     ./services/jellyfin.nix
     ./services/etebase.nix
     ./services/mosquitto.nix
+    ./services/genie.nix
     ./services/home-assistant.nix
     ./services/owntracks.nix
     ./services/immich.nix
