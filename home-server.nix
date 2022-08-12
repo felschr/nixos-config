@@ -14,6 +14,7 @@ in with builtins; {
     ./hardware/gpu-intel.nix
     ./desktop/x11.nix
     ./system/server.nix
+    ./system/sound.nix
     ./modules/emailNotify.nix
     ./services/mail.nix
     ./services/restic/home-server.nix
