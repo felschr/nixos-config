@@ -17,19 +17,20 @@
       listen_addresses = [ "127.0.0.1:53" "[::1]:53" ];
 
       ipv6_servers = true;
+      require_nolog = true;
       require_dnssec = true;
 
-      sources.public-resolvers = {
-        urls = [
-          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
-          "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
-        ];
-        cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
-        minisign_key =
-          "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+      static = {
+        mullvad-adblock-doh.stamp =
+          "sdns://AgMAAAAAAAAAACD5_zfwLmMstzhwJcB-V5CKPTcbfJXYzdA5DeIx7ZQ6EhdhZGJsb2NrLmRvaC5tdWxsdmFkLm5ldAovZG5zLXF1ZXJ5";
+        blahdns-de-doh.stamp =
+          "sdns://AgMAAAAAAAAADTc4LjQ2LjI0NC4xNDMAEmRvaC1kZS5ibGFoZG5zLmNvbQovZG5zLXF1ZXJ5";
+        blahdns-de-doh-v6.stamp =
+          "sdns://AgMAAAAAAAAAFlsyYTAxOjRmODpjMTc6ZWM2Nzo6MV0AEmRvaC1kZS5ibGFoZG5zLmNvbQovZG5zLXF1ZXJ5";
       };
 
-      server_names = [ "mullvad-adblock-doh" ];
+      server_names =
+        [ "mullvad-adblock-doh" "blahdns-de-doh" "blahdns-de-doh-v6" ];
     };
   };
 
