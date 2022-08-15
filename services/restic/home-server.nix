@@ -27,6 +27,17 @@ in {
       "/home/*/.local/share/containers"
       "/home/*/.local/share/Trash"
       "/var/lib/jellyfin/transcodes"
+
+      # general
+      ".cache"
+      "cache"
+      ".tmp"
+      ".temp"
+      "tmp"
+      "temp"
+      ".log"
+      "log"
+      ".Trash"
     ];
     timerConfig.OnCalendar = "0/4:00:00";
     extraPruneOpts = [ "--keep-last 6" ];
