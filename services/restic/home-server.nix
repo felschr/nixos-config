@@ -39,7 +39,7 @@ in {
       "log"
       ".Trash"
     ];
-    timerConfig.OnCalendar = "0/4:00:00";
-    extraPruneOpts = [ "--keep-last 6" ];
+    timerConfig.OnCalendar = "0/6:00:00";
+    extraPruneOpts = [ "--keep-last 4" ];
   };
 }

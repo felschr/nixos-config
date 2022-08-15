@@ -89,8 +89,8 @@ in {
       "/home/*/.var/app/**/Code Cache"
       "/home/*/.var/app/**/GPUCache"
     ];
-    timerConfig.OnCalendar = "0/4:00:00";
-    extraPruneOpts = [ "--keep-last 6" ];
+    timerConfig.OnCalendar = "0/6:00:00";
+    extraPruneOpts = [ "--keep-last 4" ];
   };
 
   # extra handling for dev folder to respect .gitignore files:
