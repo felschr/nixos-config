@@ -3,5 +3,5 @@
 {
   imports = [ ./steam.nix ./lutris.nix ];
 
-  home.packages = with pkgs; [ mangohud ];
+  home.packages = with pkgs; [ gamescope mangohud ];
 }
