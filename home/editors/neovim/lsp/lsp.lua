@@ -1,9 +1,9 @@
 local pid = vim.fn.getpid()
 
--- lightbulb
-vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-  pattern = "*",
-  callback = require"nvim-lightbulb".update_lightbulb,
+require("nvim-lightbulb").setup({
+  autocmd = {
+    enabled = true,
+  }
 })
 
 local on_attach = function(client, bufnr)
