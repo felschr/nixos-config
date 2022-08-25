@@ -93,12 +93,14 @@ in {
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
     };
 
-    immich-machine-learning = immichBase // {
-      image = "altran1502/immich-machine-learning:release";
-      entrypoint = "/bin/sh";
-      cmd = [ "./entrypoint.sh" ];
-      volumes = [ "${uploadDir}:/usr/src/app/upload" ];
-    };
+    # TODO not working atm
+    /* immich-machine-learning = immichBase // {
+         image = "altran1502/immich-machine-learning:release";
+         entrypoint = "/bin/sh";
+         cmd = [ "./entrypoint.sh" ];
+         volumes = [ "${uploadDir}:/usr/src/app/upload" ];
+       };
+    */
 
     immich-web = immichBase // {
       image = "altran1502/immich-web:release";
