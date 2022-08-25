@@ -15,6 +15,7 @@
     ./ausweisapp.nix
     ./gaming
     ./services/languagetool.nix
+    ./services/easyeffects.nix
   ];
 
   programs.gpg.enable = true;
