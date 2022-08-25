@@ -7,6 +7,9 @@
   programs.steam.remotePlay.openFirewall = true;
   programs.steam.dedicatedServer.openFirewall = true;
 
+  hardware.xone.enable = true;
+  hardware.xpadneo.enable = true;
+
   # fix for Star Citizen
   boot.kernel.sysctl."vm.max_map_count" = 16777216;
 }
