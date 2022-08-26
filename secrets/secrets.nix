@@ -11,6 +11,7 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILO+OLPr8zdOMYyKtm98AFJai7zbaxw7JhVWgOwu7K3C";
   systems = [ home-pc home-server ];
 in {
+  "mullvad.age".publicKeys = [ felschr home-pc home-server ];
   "restic/b2.age".publicKeys = [ felschr home-pc home-server ];
   "restic/password.age".publicKeys = [ felschr home-pc home-server ];
   "smtp.age".publicKeys = [ felschr home-pc home-server ];
