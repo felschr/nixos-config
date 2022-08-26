@@ -93,18 +93,19 @@ in {
     extraPruneOpts = [ "--keep-last 4" ];
   };
 
-  # extra handling for dev folder to respect .gitignore files:
+  # Extra handling for dev folder to respect .gitignore files.
+  # Do not delete `~/dev-backup` since this leads to changing ctimes
+  # which would cause otherwise unchanged files to be backed up again.
+  # Since `--link-dest` is used, file contents won't be duplicated on disk.
   systemd.services."restic-backups-full" = {
     preStart = ''
       rm -rf /home/felschr/dev-backup
-      ${pkgs.rsync}/bin/rsync -a \
+      ${pkgs.rsync}/bin/rsync \
+        -a --delete \
         --filter=':- .gitignore' \
         --exclude 'nixpkgs' \
         --link-dest=/home/felschr/dev \
         /home/felschr/dev/ /home/felschr/dev-backup
-    '';
-    postStart = ''
-      rm -rf /home/felschr/dev-backup
     '';
   };
 }
