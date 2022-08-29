@@ -42,31 +42,49 @@ if not configs.glslls then
   }
 end
 
-local capabilities_ = vim.lsp.protocol.make_client_capabilities()
-local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities_)
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-local servers = {
-  "bashls",
-  "jsonls",
-  "yamlls",
-  "html",
-  "cssls",
-  "dockerls",
-  "rnix",
-  "tsserver",
-  "graphql",
-  "pylsp",
-  "terraformls",
-  "hls",
-  "vimls",
-  "glslls",
-}
-for _, lsp in ipairs(servers) do
-  config[lsp].setup {
+local default_capabilities = function()
+  local capabilities_ = vim.lsp.protocol.make_client_capabilities()
+  local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities_)
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return capabilities
+end
+
+local capabilities = default_capabilities()
+local capabilities_no_formatting = default_capabilities()
+capabilities_no_formatting.textDocument.formatting = false
+capabilities_no_formatting.textDocument.rangeFormatting = false
+capabilities_no_formatting.textDocument.range_formatting = false
+
+-- lsp configs
+local c = {
+  default = {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-end
+  },
+  no_formatting = {
+    on_attach = function(client, bufnr)
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+      on_attach(client, bufnr)
+    end,
+    capabilities = capabilities_no_formatting,
+  },
+}
+
+config.bashls.setup(c.default)
+config.jsonls.setup(c.default)
+config.yamlls.setup(c.default)
+config.html.setup(c.default)
+config.cssls.setup(c.default)
+config.dockerls.setup(c.default)
+config.rnix.setup(c.no_formatting)
+config.tsserver.setup(c.default)
+config.graphql.setup(c.default)
+config.pylsp.setup(c.default)
+config.terraformls.setup(c.default)
+config.hls.setup(c.default)
+config.vimls.setup(c.default)
+config.glslls.setup(c.default)
 
 config.rust_analyzer.setup {
   on_attach = on_attach,
@@ -115,8 +133,6 @@ local null_ls = require("null-ls")
 local null_ls_custom = {
   diagnostics = {},
   formatting = {
-    -- TODO this doesn't use the correct formatter for some reason
-    -- likely some kind of directory or direnv issue
     nix_fmt = {
       name = "nix fmt",
       meta = {
@@ -127,8 +143,9 @@ local null_ls_custom = {
       filetypes = { "nix" },
       generator = require("null-ls.helpers").formatter_factory({
         command = "nix",
-        args = { "fmt" },
-        -- to_stdin = true,
+        args = { "fmt", "$FILENAME" },
+        to_stdin = false,
+        to_temp_file = true,
       }),
     },
   },
@@ -155,9 +172,7 @@ null_ls.setup({
         "handlebars",
       },
     },
-    -- TODO not properly working yet
-    -- null_ls_custom.formatting.nix_fmt,
-    null_ls.builtins.formatting.nixfmt,
+    null_ls_custom.formatting.nix_fmt,
     null_ls.builtins.formatting.rustfmt,
     null_ls.builtins.formatting.terraform_fmt,
   },
