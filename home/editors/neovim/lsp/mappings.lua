@@ -3,12 +3,12 @@ local wk = require("which-key")
 wk.register({
   g = {
     name = "Go to",
-    d = { vim.lsp.buf.definition, "Go to definition" },
-    p = { vim.lsp.buf.peek_definition, "Show definition" },
-    y = { vim.lsp.buf.type_definition, "Go to type definition" },
+    d = { require("telescope.builtin").lsp_definitions, "Go to definition" },
+    p = { vim.lsp.buf.peek_definition, "Peek definition" },
+    y = { require("telescope.builtin").lsp_type_definitions, "Go to type definition" },
 
-    i = { vim.lsp.buf.implementation, "Go to implementation" },
-    r = { vim.lsp.buf.references, "Show references" },
+    i = { require("telescope.builtin").lsp_implementations, "Go to implementation" },
+    r = { require("telescope.builtin").lsp_references, "Show references" },
     D = { vim.lsp.buf.declaration, "Show declarations" },
   },
   K = { vim.lsp.buf.hover, "Show info" },
@@ -18,8 +18,8 @@ wk.register({
 wk.register({
   s = {
     name = "Symbols",
-    d = { vim.lsp.buf.document_symbol, "Document symbol" },
-    w = { vim.lsp.buf.workspace_symbol, "Workspace symbol" },
+    d = { require("telescope.builtin").lsp_document_symbols, "Document symbol" },
+    w = { require("telescope.builtin").lsp_workspace_symbols, "Workspace symbol" },
   },
   f = {
     function()
