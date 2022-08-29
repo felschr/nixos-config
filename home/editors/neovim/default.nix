@@ -55,6 +55,7 @@ in {
 
       # lsp
       nvim-lspconfig
+      null-ls-nvim
       nvim-lightbulb
 
       # dap

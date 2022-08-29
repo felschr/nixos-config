@@ -12,24 +12,24 @@
     nodePackages.yaml-language-server
     nodePackages.vscode-langservers-extracted
     nodePackages.typescript-language-server
+    # not working like variant from node_modules
+    # nodePackages.graphql-language-service-cli
     nodePackages.dockerfile-language-server-nodejs
-    nodePackages.diagnostic-languageserver
     haskellPackages.haskell-language-server
     rust-analyzer
     sumneko-lua-language-server
     glsl-language-server
 
     # linters & formatters
+    shellcheck
+    shfmt
     nodePackages.eslint
-    # TODO uses custom script until json support is fixed
-    (pkgs.writeScriptBin "nix-linter" ''
-      echo '['
-      ${nix-linter}/bin/nix-linter --json-stream "$1" | sed '$!s/$/,/'
-      echo ']'
-    '')
+    nodePackages.eslint_d
+    statix
     nixfmt
-    # nodePackages.stylelint
+    nodePackages.stylelint
     nodePackages.prettier
+    nodePackages.prettier_d_slim
   ];
 
   # enableAnalyzersSupport loads very slowly

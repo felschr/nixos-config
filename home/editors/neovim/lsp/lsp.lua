@@ -6,25 +6,26 @@ require("nvim-lightbulb").setup({
   }
 })
 
+local format_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local on_attach = function(client, bufnr)
   -- codelens
   if client.resolved_capabilities.code_lens then
-    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI", "InsertLeave"}, {
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "InsertLeave" }, {
       callback = vim.lsp.codelens.refresh,
       buffer = bufnr,
     })
   end
-end
-
--- format on save
-local diagnosticls_on_attach = function(client, bufnr)
-  on_attach(client, bufnr)
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    callback = function()
-      vim.lsp.buf.formatting_seq_sync(nil, nil, { "tsserver", "diagnosticls" })
-    end,
-    buffer = bufnr,
-  })
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = format_augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = format_augroup,
+      buffer = bufnr,
+      callback = function()
+        -- TODO switch to `vim.lsp.buf.format` after updating to nvim 0.8
+        vim.lsp.buf.formatting_seq_sync(nil, nil, { "tsserver", "null-ls" })
+      end,
+    })
+  end
 end
 
 local config = require("lspconfig")
@@ -67,7 +68,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-config.rust_analyzer.setup{
+config.rust_analyzer.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = config.util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
@@ -78,10 +79,10 @@ config.rust_analyzer.setup{
   },
 }
 
-config.omnisharp.setup{
+config.omnisharp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = {"OmniSharp", "--languageserver", "--hostPID", tostring(pid)},
+  cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
 }
 
 local runtime_path = vim.split(package.path, ';')
@@ -98,7 +99,7 @@ config.sumneko_lua.setup {
         path = runtime_path,
       },
       diagnostics = {
-        globals = {"vim"},
+        globals = { "vim" },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
@@ -110,157 +111,58 @@ config.sumneko_lua.setup {
   },
 }
 
-config.diagnosticls.setup {
-  on_attach = diagnosticls_on_attach,
-  capabilities = capabilities,
-  filetypes = {
-    "javascript",
-    "javascript.jsx",
-    "javascriptreact",
-    "typescript",
-    "typescript.jsx",
-    "typescriptreact",
-    "json",
-    "yaml",
-    "markdown",
-    "nix",
-    "html",
-    "css"
-  },
-  init_options = {
-    linters = {
-      eslint = {
-        command = "eslint_d",
-        args = {
-          "--cache",
-          "--stdin",
-          "--stdin-filename",
-          "%filepath",
-          "--format",
-          "json"
-        },
-        rootPatterns = {".eslintrc.js", ".eslintrc.json", ".git"},
-        debounce = 50,
-        sourceName = "eslint",
-        parseJson = {
-          errorsRoot = "[0].messages",
-          line = "line",
-          column = "column",
-          endLine = "endLine",
-          endColumn = "endColumn",
-          message = "${message} [${ruleId}]",
-          security = "severity"
-        },
-        securities = {
-          ["2"] = "error",
-          ["1"] = "warning"
-        },
+local null_ls = require("null-ls")
+local null_ls_custom = {
+  diagnostics = {},
+  formatting = {
+    -- TODO this doesn't use the correct formatter for some reason
+    -- likely some kind of directory or direnv issue
+    nix_fmt = {
+      name = "nix fmt",
+      meta = {
+        url = "https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-fmt.html",
+        description = "reformat your code in the standard style",
       },
-      stylelint = {
-        command = "stylelint",
-        args = {
-          "--stdin",
-          "--formatter",
-          "json",
-          "--file",
-          "%filepath"
-        },
-        rootPatterns = {".git"},
-        debounce = 50,
-        sourceName = "stylelint",
-        parseJson = {
-          errorsRoot = "[0].warnings",
-          line = "line",
-          column = "column",
-          message = "${text}",
-          security = "severity",
-        },
-        securities = {
-          error = "error",
-          warning = "warning",
-        },
-      },
-      ["nix-linter"] = {
-        -- TODO uses custom script until json support is fixed
-        command = "nix-linter",
-        sourceName = "nix-linter",
-        debounce = 50,
-        parseJson = {
-          line = "pos.spanBegin.sourceLine",
-          column = "pos.spanBegin.sourceColumn",
-          endLine = "pos.spanEnd.sourceLine",
-          endColumn = "pos.spanEnd.sourceColumn",
-          message = "${description}",
-        },
-      },
-    },
-    filetypes = {
-      javascript = {"eslint"},
-      ["javascript.jsx"] = {"eslint"},
-      javascriptreact = {"eslint"},
-      typescript = {"eslint"},
-      ["typescript.jsx"] = {"eslint"},
-      typescriptreact = {"eslint"},
-      css = {"stylelint"},
-      nix = {"nix-linter"},
-    },
-    formatters = {
-      eslint = {
-        command = "eslint_d",
-        args = {
-          "--cache",
-          "--fix-to-stdout",
-          "--stdin",
-          "--stdin-filename",
-          "%filepath"
-        },
-        debounce = 50,
-        rootPatterns = {".eslintrc.js", ".eslintrc.json", ".git"},
-      },
-      stylelint = {
-        command = "stylelint",
-        args = {
-          "--stdin",
-          "--fix",
-          "--file",
-          "%filepath"
-        },
-        rootPatterns = {".stylelintrc.json", ".git"},
-      },
-      prettier = {
-        command = "prettier",
-        args = {
-          "--stdin",
-          "--stdin-filepath",
-          "%filepath"
-        },
-        rootPatterns = {".prettierrc.json", ".git"},
-      },
-      nixfmt = {
+      method = null_ls.methods.FORMATTING,
+      filetypes = { "nix" },
+      generator = require("null-ls.helpers").formatter_factory({
         command = "nix",
-        args = {"fmt"}
-      },
-      rustfmt = {
-        command = "rustfmt",
-      },
-    },
-    formatFiletypes = {
-      javascript = {"eslint"},
-      ["javascript.jsx"] = {"eslint"},
-      javascriptreact = {"eslint"},
-      typescript = {"eslint"},
-      ["typescript.jsx"] = {"eslint"},
-      typescriptreact = {"eslint"},
-      json = {"prettier"},
-      yaml = {"prettier"},
-      markdown = {"prettier"},
-      nix = {"nixfmt"},
-      rust = {"rustfmt"},
-      html = {"prettier"},
-      css = {"stylelint"},
+        args = { "fmt" },
+        -- to_stdin = true,
+      }),
     },
   },
 }
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.statix, -- nix linter
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.diagnostics.stylelint,
+    null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.prettier_d_slim.with {
+      filetypes = {
+        "css",
+        "scss",
+        "less",
+        "html",
+        "json",
+        "jsonc",
+        "yaml",
+        "markdown",
+        "graphql",
+        "handlebars",
+      },
+    },
+    -- TODO not properly working yet
+    -- null_ls_custom.formatting.nix_fmt,
+    null_ls.builtins.formatting.nixfmt,
+    null_ls.builtins.formatting.rustfmt,
+    null_ls.builtins.formatting.terraform_fmt,
+  },
+  on_attach = on_attach,
+})
 
 require("nvim-autopairs").setup({
   check_ts = true,

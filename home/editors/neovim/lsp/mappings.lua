@@ -23,7 +23,8 @@ wk.register({
   },
   f = {
     function()
-      vim.lsp.buf.formatting_seq_sync(nil, nil, { "tsserver", "diagnosticls" })
+      -- TODO switch to `vim.lsp.buf.format` after updating to nvim 0.8
+      vim.lsp.buf.formatting_seq_sync(nil, nil, { "tsserver", "null-ls" })
     end,
     "Format file",
   },
