@@ -8,7 +8,10 @@ let
 in {
   age.secrets.owntracks-recorder-env.file =
     ../secrets/owntracks/recorder.env.age;
-  age.secrets.owntracks-htpasswd.file = ../secrets/owntracks/htpasswd.age;
+  age.secrets.owntracks-htpasswd = {
+    file = ../secrets/owntracks/htpasswd.age;
+    owner = config.services.nginx.user;
+  };
 
   virtualisation.oci-containers.containers = {
     owntracks-recorder = {
