@@ -54,6 +54,7 @@ in {
       "/home/*/.local/share/lutris"
       "/home/*/.local/share/NuGet"
       "/home/*/.local/share/tor-browser"
+      "/home/*/.local/share/com.github.johnfactotum.Foliate/books"
       "/home/*/.local/share/Trash"
       "/home/*/.config/BraveSoftware"
       "/home/*/.config/chromium"

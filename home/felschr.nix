@@ -71,6 +71,7 @@
     spot
     spotify
     calibre
+    foliate
 
     # learning
     anki
