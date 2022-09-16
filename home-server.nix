@@ -24,6 +24,7 @@ in with builtins; {
     ./services/mosquitto.nix
     ./services/genie.nix
     ./services/home-assistant.nix
+    ./services/watchtower.nix
     ./services/owntracks.nix
     ./services/immich.nix
     ./services/miniflux.nix
