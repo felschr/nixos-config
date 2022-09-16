@@ -11,7 +11,7 @@
       ];
       environment = {
         WATCHTOWER_CLEANUP = "true";
-        WATCHTOWER_INCLUDE_RESTARTING = "true";
+        WATCHTOWER_INCLUDE_STOPPED = "true";
       };
     };
   };
