@@ -13,16 +13,14 @@ in {
   home.packages = [ steam steam.run pkgs.protontricks ];
 
   home.file = {
-    proton-ge = let
-      version = "GE-Proton7-29";
+    proton-ge = let version = "GE-Proton7-35";
+    in rec {
+      recursive = true;
       source = builtins.fetchTarball {
         url =
           "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
-        sha256 = "1j4i7frfvahxjkjxcsvmfsz5hkd58hg1h8j9k9gzpq4xlnwhf4di";
+        sha256 = "12n7w49ml79id1yg4rbbh48v021p3waspq5aqvkxxy8n1gp8dssv";
       };
-    in rec {
-      recursive = true;
-      inherit source;
       target = ".local/share/Steam/compatibilitytools.d/Proton-${version}/";
     };
   };
