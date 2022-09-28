@@ -66,7 +66,6 @@ in {
       neorg
     ];
     extraConfig = with builtins;
-    # readFile ./vim-surround-fix.vim +
       vimLua (lib.foldl (r: f: r + "\n" + readFile f) "" [
         ./init.lua
         ./alpha.lua
