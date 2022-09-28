@@ -59,6 +59,7 @@ in {
       "/home/*/.config/BraveSoftware"
       "/home/*/.config/chromium"
       "/home/*/.config/gatsby"
+      "/home/*/.config/heroic"
       "/home/*/.config/libvirt"
       "/home/*/.config/spotify/Users"
       "/home/felschr/media"
