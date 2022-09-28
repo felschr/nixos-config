@@ -85,7 +85,7 @@ in {
       darkreader
       languagetool
       metamask
-      privacy-redirect
+      libredirect
       to-deepl
       # not available yet:
       # google-lighthouse
