@@ -63,7 +63,8 @@ in {
       nvim-dap-ui
       nvim-dap-virtual-text
 
-      neorg
+      # TODO neorg requires nvim >= 0.8
+      # neorg
     ];
     extraConfig = with builtins;
       vimLua (lib.foldl (r: f: r + "\n" + readFile f) "" [
@@ -83,7 +84,7 @@ in {
         ./dap/mappings.lua
         ./treesitter.lua
         ./telescope.lua
-        ./neorg.lua
+        # ./neorg.lua
       ]);
     withNodeJs = false;
     withPython3 = false;
