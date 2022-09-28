@@ -9,11 +9,13 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
   home-server =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILO+OLPr8zdOMYyKtm98AFJai7zbaxw7JhVWgOwu7K3C";
-  systems = [ home-pc home-server ];
+  pilot1 =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHEucfNzPbDRdDjTaLG3PzN4lAzDAq3QUkaLvaRjjsCY";
+  systems = [ home-pc home-server pilot1 ];
 in {
-  "mullvad.age".publicKeys = [ felschr home-pc home-server ];
-  "restic/b2.age".publicKeys = [ felschr home-pc home-server ];
-  "restic/password.age".publicKeys = [ felschr home-pc home-server ];
+  "mullvad.age".publicKeys = [ felschr home-pc home-server pilot1 ];
+  "restic/b2.age".publicKeys = [ felschr home-pc home-server pilot1 ];
+  "restic/password.age".publicKeys = [ felschr home-pc home-server pilot1 ];
   "smtp.age".publicKeys = [ felschr home-pc home-server ];
   "samba.age".publicKeys = [ felschr home-pc home-server ];
   "mqtt/felix.age".publicKeys = [ felschr home-pc home-server ];
