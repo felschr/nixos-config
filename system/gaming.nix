@@ -1,7 +1,17 @@
 { config, pkgs, ... }:
 
 {
-  programs.gamemode.enable = true;
+  environment.systemPackages = with pkgs; [ gamemode ];
+
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      custom = {
+        start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+        end = "${pkgs.libnotify}/bin/notify-send 'GameMode stopped'";
+      };
+    };
+  };
 
   programs.steam.enable = true;
   programs.steam.remotePlay.openFirewall = true;
