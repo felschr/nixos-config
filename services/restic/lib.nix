@@ -24,7 +24,7 @@ in {
       environmentFile = config.age.secrets.restic-b2.path;
       passwordFile = config.age.secrets.restic-password.path;
       timerConfig.OnCalendar = "daily";
-      paths = paths;
+      inherit paths;
       extraBackupArgs = let
         ignoreFile = builtins.toFile "ignore"
           (foldl (a: b: a + "\n" + b) "" ignorePatterns);

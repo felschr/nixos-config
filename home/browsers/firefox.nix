@@ -2,7 +2,7 @@
 
 with lib;
 let
-  firefox-addons = pkgs.nur.repos.rycee.firefox-addons;
+  inherit (pkgs.nur.repos.rycee) firefox-addons;
 
   prefer-dark-theme =
     config.gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme;

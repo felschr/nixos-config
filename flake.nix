@@ -61,8 +61,8 @@
           deconz = final.qt5.callPackage ./pkgs/deconz { };
         };
         glslls = final: prev: {
-          glsl-language-server =
-            nixpkgs-glslls.legacyPackages.${final.system}.glsl-language-server;
+          inherit (nixpkgs-glslls.legacyPackages.${final.system})
+            glsl-language-server;
         };
       };
       nixosModules = {
