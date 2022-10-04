@@ -16,6 +16,20 @@ Copy the configuration from `/etc/nixos` to `/mnt/etc/nixos`.
 
 Reference this hardware config in a `nixosConfigurations.<config>` section in `flake.nix`.
 
+Now set up a device key that will be used by agenix.
+Create a new key and re-encrypt the secrets on an existing device & pull the changes.  
+To create a new key run:
+```sh
+mkdir -p /mnt/etc/secrets/initrd
+ssh-keygen -t ed25519 -N "" -f /mnt/etc/secrets/initrd/ssh_host_ed25519_key
+```
+
+You will likely need to temporarily set `age.identityPaths` for the installation to succeed:
+
+```sh
+age.identityPaths = "/etc/secrets/initrd/ssh_host_ed25519_key";
+```
+
 To install run the following command where `<config>` matches `outputs.nixosConfigurations.<config>` in `flake.nix`:
 
 ```sh
