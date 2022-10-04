@@ -21,13 +21,7 @@ wk.register({
     d = { require("telescope.builtin").lsp_document_symbols, "Document symbol" },
     w = { require("telescope.builtin").lsp_workspace_symbols, "Workspace symbol" },
   },
-  f = {
-    function()
-      -- TODO switch to `vim.lsp.buf.format` after updating to nvim 0.8
-      vim.lsp.buf.formatting_seq_sync(nil, nil, { "tsserver", "null-ls" })
-    end,
-    "Format file",
-  },
+  f = { LspFormat, "Format file" },
   a = { vim.lsp.buf.code_action, "Code actions" },
   r = { vim.lsp.buf.rename, "Rename" },
   l = { vim.lsp.codelens.run, "Run codelens" },
