@@ -1,7 +1,3 @@
--- opt-in to filetype.lua
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
-
 vim.filetype.add({
   extension = {
     vert = "glsl",
@@ -22,7 +18,7 @@ vim.filetype.add({
     [".env.*"] = "direnv",
     [".*"] = function(path, bufnr)
       local first_line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, true)[1]
-      if first_line:match("^#!.*nix%-shell") ~= nil then
+      if first_line ~= nil and first_line:match("^#!.*nix%-shell") ~= nil then
         local second_line = vim.api.nvim_buf_get_lines(bufnr, 1, 2, true)[1]
         local command = second_line:match("^#!.*nix%-shell .*%-i ([%a%d]*)")
         if command == nil then
