@@ -5,6 +5,7 @@
     # language servers
     omnisharp-roslyn
     rnix-lsp
+    buf-language-server
     terraform-ls
     python3Packages.python-lsp-server
     nodePackages.bash-language-server
@@ -27,6 +28,7 @@
     nodePackages.eslint_d
     statix
     nixfmt
+    buf
     nodePackages.stylelint
     nodePackages.prettier
     nodePackages.prettier_d_slim

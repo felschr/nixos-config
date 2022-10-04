@@ -83,6 +83,7 @@ config.graphql.setup(c.default)
 config.pylsp.setup(c.default)
 config.terraformls.setup(c.default)
 config.hls.setup(c.default)
+config.bufls.setup(c.default)
 config.vimls.setup(c.default)
 config.glslls.setup(c.default)
 
@@ -155,6 +156,7 @@ null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.statix, -- nix linter
+    null_ls.builtins.diagnostics.buf,
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.diagnostics.stylelint,
     null_ls.builtins.formatting.shfmt,
@@ -173,6 +175,7 @@ null_ls.setup({
       },
     },
     null_ls_custom.formatting.nix_fmt,
+    null_ls.builtins.formatting.buf,
     null_ls.builtins.formatting.rustfmt,
     null_ls.builtins.formatting.terraform_fmt,
   },
