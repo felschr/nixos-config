@@ -8,13 +8,19 @@
       native-window-placement
       appindicator
       (pop-shell.overrideAttrs (old: rec {
-        version = "unstable-2022-03-25";
+        version = "unstable-2022-10-11";
         src = fetchFromGitHub {
           owner = "pop-os";
           repo = "shell";
-          rev = "a317816d02dd2cb20d31aeca81bf09eccc63e370";
-          sha256 = "sha256-uxoeCv25ew5+NkTpsKjQqDFrqw6ZA/+iYhyCHoCb6jM=";
+          rev = "886a069c0582b371e90ac3602b1747ea5fba616c";
+          sha256 = "DwJ3IFhYuEW0LQrmN/mOspEiudj4X5BCLhdOyP74EVs=";
         };
+        patches = [ ];
+        postPatch = ''
+          for file in */main.js; do
+            substituteInPlace $file --replace "gjs" "${pkgs.gjs}/bin/gjs"
+          done
+        '';
       }))
     ];
 
