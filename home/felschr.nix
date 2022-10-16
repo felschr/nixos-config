@@ -77,6 +77,8 @@
     anki
 
     # privacy
+    magic-wormhole-rs
+    warp
     onionshare-gui
     transmission-gtk
     fragments
