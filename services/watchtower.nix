@@ -10,6 +10,8 @@
         "/etc/localtime:/etc/localtime:ro"
       ];
       environment = {
+        # some containers take really long to shut down
+        WATCHTOWER_TIMEOUT = "120s";
         WATCHTOWER_CLEANUP = "true";
         WATCHTOWER_INCLUDE_STOPPED = "true";
       };
