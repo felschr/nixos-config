@@ -67,10 +67,6 @@ in {
         discovery_prefix = "homeassistant";
       };
       owntracks = { mqtt_topic = "owntracks/#"; };
-      netatmo = {
-        client_id = "!secret netatmo_client_id";
-        client_secret = "!secret netatmo_client_secret";
-      };
       sensor = [{
         platform = "template";
         sensors = {
