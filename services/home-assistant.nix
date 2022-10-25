@@ -67,35 +67,6 @@ in {
         discovery_prefix = "homeassistant";
       };
       owntracks = { mqtt_topic = "owntracks/#"; };
-      sensor = [{
-        platform = "template";
-        sensors = {
-          energy_total_usage = {
-            friendly_name = "Total Energy Usage";
-            unit_of_measurement = "kWh";
-            value_template = ''
-              {% computer = states('sensor.outlet_computer_energy_total') | float %}
-              {% tv = states('sensor.outlet_tv_energy_total') | float %}
-
-              {{ computer + tv }}
-            '';
-          };
-        };
-      }];
-      utility_meter = {
-        energy_total_usage_daily = {
-          source = "sensor.energy_total_usage";
-          cycle = "daily";
-        };
-        energy_total_usage_monthly = {
-          source = "sensor.energy_total_usage";
-          cycle = "monthly";
-        };
-        energy_total_usage_yearly = {
-          source = "sensor.energy_total_usage";
-          cycle = "yearly";
-        };
-      };
       alarm_control_panel = [{
         platform = "manual";
         code = "!secret alarm_code";
