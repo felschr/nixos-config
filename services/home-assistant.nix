@@ -27,11 +27,7 @@ in {
   services.home-assistant = {
     enable = true;
     openFirewall = true;
-    package = (pkgs.home-assistant.overrideAttrs (oldAttrs: rec {
-      # pytestCheckPhase uses too much RAM and pi can't handle it
-      doCheck = false;
-      doInstallCheck = false;
-    })).override { extraComponents = [ "otp" "roku" "sonos" "onvif" ]; };
+    extraComponents = [ "otp" "roku" "sonos" "onvif" "homekit_controller" ];
     config = {
       homeassistant = {
         name = "Home";
@@ -55,7 +51,6 @@ in {
       automation = { };
       frontend = { };
       mobile_app = { };
-      discovery = { };
       zeroconf = { };
       ssdp = { };
       shopping_list = { };
@@ -124,6 +119,13 @@ in {
     };
     # configWritable = true; # doesn't work atm
   };
+
+  networking.firewall.allowedTCPPorts = [
+    1400 # Sonos discovery
+  ];
+  networking.firewall.allowedUDPPorts = [
+    5353 # HomeKit
+  ];
 
   age.secrets.hass-secrets = {
     file = ../secrets/hass/secrets.age;
