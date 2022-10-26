@@ -47,6 +47,7 @@
     gnome.gnome-software
     gnome.totem
     gnome.epiphany
+    gnome.evince
   ];
   programs.gnome-terminal.enable = false;
   programs.geary.enable = false;

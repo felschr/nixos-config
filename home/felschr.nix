@@ -53,7 +53,6 @@
     # productivity
     discord
     libreoffice-fresh
-    xournalpp
     tabbed
 
     # work

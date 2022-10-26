@@ -12,7 +12,7 @@ let
     calendar = [ "firefox.desktop" ];
     browser = [ "firefox.desktop" ];
     office = [ "libreoffice.desktop" ];
-    pdf = [ "org.gnome.Evince.desktop" ];
+    pdf = [ "firefox.desktop" ];
     magnet = [ "transmission-gtk.desktop" ];
     signal = [ "signal-desktop.desktop" ];
   };
