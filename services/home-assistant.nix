@@ -71,7 +71,7 @@ in {
         platform = "manual";
         code = "!secret alarm_code";
         arming_time = 30;
-        delay_time = 20;
+        delay_time = 30;
         trigger_time = 120;
         disarmed = { trigger_time = 0; };
         armed_home = {
