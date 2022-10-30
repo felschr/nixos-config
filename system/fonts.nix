@@ -1,24 +1,18 @@
 { config, pkgs, ... }:
 
 {
-  # TODO once nerdfonts 2.2.0 is released switch to NerdFontsSymbolsOnly
-  # Also needs to be added to known fonts in nixpkgs:
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/data/fonts/nerdfonts/shas.nix
   fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-extra
     noto-fonts-cjk
     noto-fonts-emoji
-    # (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     fira-code
   ];
   fonts.fontconfig.defaultFonts = {
-    serif = [ "Noto Serif" "Noto Color Emoji" ];
-    sansSerif = [ "Noto Sans" "Noto Color Emoji" ];
-    # monospace = [ "Fira Code" "Noto Color Emoji" "Symbols-1000-em Nerd Font" ];
-    # emoji = [ "Noto Color Emoji" "Symbols-1000-em Nerd Font" ];
-    monospace = [ "Fira Code" "Noto Color Emoji" "FiraCode Nerd Font" ];
-    emoji = [ "Noto Color Emoji" "FiraCode Nerd Font" ];
+    serif = [ "Noto Serif" "emoji" ];
+    sansSerif = [ "Noto Sans" "emoji" ];
+    monospace = [ "Fira Code" "emoji" ];
+    emoji = [ "Noto Color Emoji" "Symbols Nerd Font Mono" ];
   };
 }
