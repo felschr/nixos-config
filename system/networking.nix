@@ -30,8 +30,14 @@
           "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
       };
 
-      server_names =
-        [ "mullvad-adblock-doh" "doh-de-blahdns" "doh-de-blahdns-v6" ];
+      server_names = [
+        "mullvad-adblock-doh"
+        "dnscrypt-de-blahdns-ipv4"
+        "dnscrypt-de-blahdns-ipv6"
+        "adfree.usableprivacy.net"
+        "adfree.usableprivacy.net-ipv6"
+        "controld-block-malware-ad"
+      ];
     };
   };
 
