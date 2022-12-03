@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
 
   inputs.nixpkgs-glslls.url = "github:felschr/nixpkgs/glsl-language-server";
 
@@ -8,7 +8,7 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   inputs.home-manager = {
-    url = "github:nix-community/home-manager/master";
+    url = "github:nix-community/home-manager/release-22.11";
     inputs.nixpkgs.follows = "nixpkgs";
     inputs.utils.follows = "flake-utils";
   };
