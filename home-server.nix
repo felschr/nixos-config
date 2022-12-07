@@ -141,5 +141,5 @@ in with builtins; {
     "${config.networking.hostName} <felschr@web.de>";
 
   # only change this when specified in release notes
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 }
