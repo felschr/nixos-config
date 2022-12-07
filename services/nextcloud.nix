@@ -47,6 +47,7 @@ in {
         "https://" + (builtins.replaceStrings [ "." ] [ "\\." ] domain)
         + ":443";
     in {
+      server_name = "office.felschr.com";
       aliasgroup1 = mkAlias "office.felschr.com";
       aliasgroup2 = mkAlias "cloud.felschr.com";
       extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
