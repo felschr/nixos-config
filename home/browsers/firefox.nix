@@ -21,6 +21,45 @@ let
     # "privacy.resistFingerprinting" = true;
     # "webgl.disabled" = true;
 
+    # Disable Telemetry
+    "browser.newtabpage.activity-stream.feeds.telemetry" = false;
+    "browser.newtabpage.activity-stream.telemetry" = false;
+    "browser.ping-centre.telemetry" = false;
+    "toolkit.telemetry.archive.enabled" = false;
+    "toolkit.telemetry.bhrPing.enabled" = false;
+    "toolkit.telemetry.enabled" = false;
+    "toolkit.telemetry.firstShutdownPing.enabled" = false;
+    "toolkit.telemetry.hybridContent.enabled" = false;
+    "toolkit.telemetry.newProfilePing.enabled" = false;
+    "toolkit.telemetry.reportingpolicy.firstRun" = false;
+    "toolkit.telemetry.shutdownPingSender.enabled" = false;
+    "toolkit.telemetry.unified" = false;
+    "toolkit.telemetry.updatePing.enabled" = false;
+    "datareporting.healthreport.uploadEnabled" = false;
+    "datareporting.healthreport.service.enabled" = false;
+    "datareporting.policy.dataSubmissionEnabled" = false;
+
+    # Disable Personalisation & Sponsored Content
+    "browser.discovery.enabled" = false;
+    "browser.newtabpage.activity-stream.showSponsored" = false;
+    "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
+      false;
+    "browser.newtabpage.activity-stream.feeds.snippets" = false;
+
+    # Disable Experiments & Studies
+    "experiments.activeExperiment" = false;
+    "experiments.enabled" = false;
+    "experiments.supported" = false;
+    "network.allow-experiments" = false;
+    "app.normandy.enabled" = false;
+    "app.shield.optoutstudies.enabled" = false;
+
+    # Search
+    "browser.search.defaultenginename" = "DuckDuckGo";
+    "browser.search.selectedEngine" = "DuckDuckGo";
+
     # Disable DNS over HTTPS (done system-wide)
     "network.trr.mode" = 5;
 
@@ -43,18 +82,17 @@ let
     "devtools.inspector.showAllAnonymousContent" = true;
 
     # Other
+    "browser.uitour.enabled" = false;
     "browser.startup.page" = 3;
     "browser.toolbars.bookmarks.visibility" = "newtab";
     "browser.tabs.drawInTitlebar" = true;
     "browser.aboutConfig.showWarning" = false;
     "signon.rememberSignons" = false;
     "services.sync.engine.passwords" = false;
-    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
-    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
-      false;
-    "browser.newtabpage.activity-stream.feeds.snippets" = false;
     "extensions.update.enabled" = false;
     "extensions.update.autoUpdateDefault" = false;
+    "extensions.pocket.enabled" = false;
+    "general.autoScroll" = true;
   } // optionalAttrs nixosConfig.services.mullvad-vpn.enable {
     # Mullvad SOCKS proxy
     "network.proxy.type" = 1;
