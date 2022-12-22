@@ -58,14 +58,7 @@ in {
         database_path = "/var/lib/hass/zigbee.db";
         zigpy_config = { ota = { ikea_provider = true; }; };
       };
-      mqtt = {
-        broker = "localhost";
-        port = mqttPort;
-        username = "hass";
-        password = "!secret mqtt_password";
-        discovery = true;
-        discovery_prefix = "homeassistant";
-      };
+      mqtt = { };
       owntracks = { mqtt_topic = "owntracks/#"; };
       alarm_control_panel = [{
         platform = "manual";
