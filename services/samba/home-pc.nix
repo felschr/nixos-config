@@ -3,7 +3,7 @@
 {
   age.secrets.samba.file = ../../secrets/samba.age;
 
-  fileSystems."/home/felschr/media" = {
+  fileSystems."/mnt/media" = {
     device = "//192.168.1.102/media";
     fsType = "cifs";
     options = [
