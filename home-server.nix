@@ -21,7 +21,6 @@ in with builtins; {
     # ./services/kodi.nix
     ./services/jellyfin.nix
     ./services/etebase.nix
-    ./services/mosquitto.nix
     ./services/genie.nix
     ./services/home-assistant
     ./services/esphome.nix
@@ -89,7 +88,6 @@ in with builtins; {
       "photos.felschr.com"
       "books.felschr.com"
       "news.felschr.com"
-      "mqtt.felschr.com"
       "etebase.felschr.com"
       "paperless.felschr.com"
     ];

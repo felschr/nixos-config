@@ -4,7 +4,6 @@ with pkgs;
 
 let
   port = config.services.home-assistant.config.http.server_port;
-  mqttPort = 1883;
   geniePort = 3232;
 in {
   # just installed for ConBee firmware updates
@@ -30,7 +29,6 @@ in {
     extraComponents = [
       "default_config"
       "otp"
-      "mqtt"
       "esphome"
       "homekit_controller"
       "fritz"
