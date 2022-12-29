@@ -11,7 +11,7 @@ in {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
-        proxyPass = "http://[::1]:${toString port}";
+        proxyPass = "http://localhost:${toString port}";
         proxyWebsockets = true;
       };
     };
