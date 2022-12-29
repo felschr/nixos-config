@@ -31,6 +31,7 @@ in {
       "default_config"
       "otp"
       "mqtt"
+      "esphome"
       "homekit_controller"
       "roku"
       "sonos"
