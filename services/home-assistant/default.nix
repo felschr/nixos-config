@@ -33,6 +33,7 @@ in {
       "mqtt"
       "esphome"
       "homekit_controller"
+      "fritz"
       "roku"
       "sonos"
       "onvif"
