@@ -7,7 +7,7 @@ let
   inherit (config.services.home-assistant) configDir;
   passwordFile = config.age.secrets.esphome-password.path;
 in {
-  age.secrets.esphome-password.file = ../secrets/esphome/password.age;
+  age.secrets.esphome-password.file = ../../secrets/esphome/password.age;
 
   services.nginx = {
     virtualHosts."esphome.felschr.com" = {

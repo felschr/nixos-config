@@ -6,6 +6,8 @@ let
   port = config.services.home-assistant.config.http.server_port;
   geniePort = 3232;
 in {
+  imports = [ ./esphome.nix ];
+
   # just installed for ConBee firmware updates
   environment.systemPackages = with pkgs; [ deconz ];
 

@@ -23,7 +23,6 @@ in with builtins; {
     ./services/etebase.nix
     ./services/genie.nix
     ./services/home-assistant
-    ./services/esphome.nix
     ./services/watchtower.nix
     ./services/immich.nix
     ./services/miniflux.nix
