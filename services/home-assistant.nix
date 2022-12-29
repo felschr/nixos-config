@@ -27,7 +27,16 @@ in {
   services.home-assistant = {
     enable = true;
     openFirewall = true;
-    extraComponents = [ "otp" "roku" "sonos" "onvif" "homekit_controller" ];
+    extraComponents = [
+      "default_config"
+      "otp"
+      "mqtt"
+      "homekit_controller"
+      "roku"
+      "sonos"
+      "onvif"
+      "shopping_list"
+    ];
     config = {
       homeassistant = {
         name = "Home";
@@ -39,8 +48,6 @@ in {
         external_url = "https://home.felschr.com";
         internal_url = "http://192.168.1.102:8123";
       };
-      default_config = { };
-      config = { };
       http = {
         use_x_forwarded_for = true;
         trusted_proxies = [ "::1" ];
@@ -48,17 +55,10 @@ in {
       "automation editor" = "!include automations.yaml";
       "scene editor" = "!include scenes.yaml";
       "script editor" = "!include scripts.yaml";
-      automation = { };
-      frontend = { };
-      mobile_app = { };
-      zeroconf = { };
-      ssdp = { };
-      shopping_list = { };
       zha = {
         database_path = "/var/lib/hass/zigbee.db";
         zigpy_config = { ota = { ikea_provider = true; }; };
       };
-      mqtt = { };
       owntracks = { mqtt_topic = "owntracks/#"; };
       alarm_control_panel = [{
         platform = "manual";
