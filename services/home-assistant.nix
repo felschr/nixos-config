@@ -76,7 +76,7 @@ in {
       }];
       almond = {
         type = "local";
-        host = "http://localhost:${toString geniePort}";
+        host = "http://localhost:${toString geniePort}/me";
       };
     };
     # configWritable = true; # doesn't work atm
