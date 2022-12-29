@@ -16,7 +16,6 @@ in {
     mqtt-birgit = mkSecret ../secrets/mqtt/birgit.age;
     mqtt-hass = mkSecret ../secrets/mqtt/hass.age;
     mqtt-tasmota = mkSecret ../secrets/mqtt/tasmota.age;
-    mqtt-owntracks = mkSecret ../secrets/mqtt/owntracks.age;
   };
 
   services.nginx = {
@@ -34,42 +33,18 @@ in {
 
   services.mosquitto = {
     enable = true;
-    listeners = [
-      {
-        port = port;
-        users = {
-          "hass" = {
-            acl = [
-              "readwrite homeassistant/#"
-              "readwrite tasmota/#"
-              "readwrite owntracks/#"
-            ];
-            hashedPasswordFile = config.age.secrets.mqtt-hass.path;
-          };
-          "tasmota" = {
-            acl = [ "readwrite tasmota/#" "readwrite homeassistant/#" ];
-            hashedPasswordFile = config.age.secrets.mqtt-tasmota.path;
-          };
-          "owntracks" = {
-            acl = [ "readwrite owntracks/#" ];
-            hashedPasswordFile = config.age.secrets.mqtt-owntracks.path;
-          };
+    listeners = [{
+      port = port;
+      users = {
+        "hass" = {
+          acl = [ "readwrite homeassistant/#" "readwrite tasmota/#" ];
+          hashedPasswordFile = config.age.secrets.mqtt-hass.path;
         };
-      }
-      {
-        port = wsPort;
-        settings.protocol = "websockets";
-        users = {
-          "felix" = {
-            acl = [ "read owntracks/#" "readwrite owntracks/felix/#" ];
-            hashedPasswordFile = config.age.secrets.mqtt-felix.path;
-          };
-          "birgit" = {
-            acl = [ "read owntracks/#" "readwrite owntracks/birgit/#" ];
-            hashedPasswordFile = config.age.secrets.mqtt-birgit.path;
-          };
+        "tasmota" = {
+          acl = [ "readwrite tasmota/#" "readwrite homeassistant/#" ];
+          hashedPasswordFile = config.age.secrets.mqtt-tasmota.path;
         };
-      }
-    ];
+      };
+    }];
   };
 }

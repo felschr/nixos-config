@@ -62,7 +62,6 @@ in {
         database_path = "/var/lib/hass/zigbee.db";
         zigpy_config = { ota = { ikea_provider = true; }; };
       };
-      owntracks = { mqtt_topic = "owntracks/#"; };
       alarm_control_panel = [{
         platform = "manual";
         code = "!secret alarm_code";

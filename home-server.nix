@@ -26,7 +26,6 @@ in with builtins; {
     ./services/home-assistant
     ./services/esphome.nix
     ./services/watchtower.nix
-    ./services/owntracks.nix
     ./services/immich.nix
     ./services/miniflux.nix
     ./services/paperless.nix
@@ -91,7 +90,6 @@ in with builtins; {
       "books.felschr.com"
       "news.felschr.com"
       "mqtt.felschr.com"
-      "owntracks.felschr.com"
       "etebase.felschr.com"
       "paperless.felschr.com"
     ];
