@@ -24,6 +24,7 @@ in with builtins; {
     ./services/mosquitto.nix
     ./services/genie.nix
     ./services/home-assistant.nix
+    ./services/esphome.nix
     ./services/watchtower.nix
     ./services/owntracks.nix
     ./services/immich.nix
@@ -82,6 +83,7 @@ in with builtins; {
     passwordFile = config.age.secrets.cloudflare.path;
     domains = [
       "home.felschr.com"
+      "esphome.felschr.com"
       "cloud.felschr.com"
       "office.felschr.com"
       "media.felschr.com"
