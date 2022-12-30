@@ -31,4 +31,6 @@ in {
   "home-server/hostKey.age".publicKeys = [ felschr home-server ];
   "hass/secrets.age".publicKeys = [ felschr home-server ];
   "esphome/password.age".publicKeys = [ felschr home-server ];
+  "focalboard/.env.age".publicKeys = [ felschr home-server ];
+  "focalboard/db-password.age".publicKeys = [ felschr home-server ];
 }

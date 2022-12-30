@@ -29,6 +29,7 @@ in with builtins; {
     ./services/paperless.nix
     ./services/nextcloud.nix
     ./services/calibre-web.nix
+    ./services/focalboard.nix
   ];
 
   age.secrets.cloudflare.file = ./secrets/cloudflare.age;
@@ -89,6 +90,7 @@ in with builtins; {
       "news.felschr.com"
       "etebase.felschr.com"
       "paperless.felschr.com"
+      "boards.felschr.com"
     ];
     extraConfig = with pkgs; ''
       usev6=cmdv6, cmdv6=${
