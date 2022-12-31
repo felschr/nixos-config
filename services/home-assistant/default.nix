@@ -49,6 +49,7 @@ in {
         temperature_unit = "C";
         external_url = "https://home.felschr.com";
         internal_url = "http://192.168.1.102:8123";
+        media_dirs.media = "/media";
       };
       default_config = { };
       http = {
