@@ -34,10 +34,11 @@
       };
     };
     aliases = {
+      # usage: git mr <source> <MR number> (git mr origin 1010)
       mr =
         "!sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -";
-      pr =
-        "!sh -c 'git fetch $1 refs/pull/$2/head:pr/$1 && git checkout pr/$2'";
+      # usage: git pr <source> <PR number> (git pr origin 1010)
+      pr = "!sh -c 'git fetch $1 pull/$2/head:pr/$2 && git checkout pr/$2' -";
     };
   };
 }
