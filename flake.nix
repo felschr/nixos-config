@@ -68,7 +68,7 @@
       };
       nixosModules = {
         flakeDefaults = import ./modules/flakeDefaults.nix;
-        emailNotify = import ./modules/emailNotify.nix;
+        systemdNotify = import ./modules/systemdNotify.nix;
       };
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {

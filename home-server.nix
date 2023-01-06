@@ -14,7 +14,7 @@ in with builtins; {
     ./hardware/gpu-intel.nix
     ./desktop/x11.nix
     ./system/server.nix
-    ./modules/emailNotify.nix
+    ./modules/systemdNotify.nix
     ./services/mail.nix
     ./services/restic/home-server.nix
     ./services/samba/home-server.nix
@@ -134,10 +134,12 @@ in with builtins; {
     };
   };
 
-  systemd.emailNotify.enable = true;
-  systemd.emailNotify.mailTo = "admin@felschr.com";
-  systemd.emailNotify.mailFrom =
-    "${config.networking.hostName} <felschr@web.de>";
+  systemd.notify = {
+    enable = true;
+    method = "email";
+    email.mailTo = "admin@felschr.com";
+    email.mailFrom = "${config.networking.hostName} <felschr@web.de>";
+  };
 
   # only change this when specified in release notes
   system.stateVersion = "22.11";

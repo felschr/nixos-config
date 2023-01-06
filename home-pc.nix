@@ -12,8 +12,7 @@
     ./desktop
     ./virtualisation/libvirt.nix
     ./virtualisation/podman.nix
-    ./modules/emailNotify.nix
-    ./services/mail.nix
+    ./modules/systemdNotify.nix
     ./services/samba/home-pc.nix
     ./services/restic/home-pc.nix
     ./services/pcscd.nix
@@ -52,10 +51,9 @@
     "87.98.162.88" = [ "portcheck.transmissionbt.com" ];
   };
 
-  systemd.emailNotify.enable = true;
-  systemd.emailNotify.mailTo = "admin@felschr.com";
-  systemd.emailNotify.mailFrom =
-    "${config.networking.hostName} <felschr@web.de>";
+  systemd.notify.enable = true;
+  systemd.notify.method = "libnotify";
+  systemd.notify.libnotify.user = "felschr";
 
   services.printing.drivers = with pkgs; [ epson-escpr ];
 
