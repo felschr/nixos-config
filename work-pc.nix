@@ -29,6 +29,13 @@
 
   programs.zsh.enable = true;
 
+  services.openssh = {
+    enable = true;
+    kbdInteractiveAuthentication = false;
+    passwordAuthentication = false;
+    permitRootLogin = "no";
+  };
+
   services.printing.drivers = with pkgs; [ epson-escpr ];
 
   # only change this when specified in release notes
