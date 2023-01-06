@@ -88,7 +88,6 @@
     ledger-live-desktop
     portfolio
     bottles
-    breitbandmessung
   ];
 
   home.stateVersion = "22.11";
