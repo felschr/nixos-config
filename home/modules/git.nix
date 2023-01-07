@@ -17,7 +17,7 @@ in {
     defaultProfile = mkOption { type = types.str; };
   };
 
-  config = let profiles = cfg.profiles;
+  config = let inherit (cfg) profiles;
   in {
     programs.git = {
       # fix/workaround for https://github.com/NixOS/nixpkgs/issues/169193
@@ -29,13 +29,7 @@ in {
       includes = flatten (mapAttrsToList (name: profile:
         map (dir: {
           condition = "gitdir:${dir}";
-          contents = {
-            user = {
-              name = profile.name;
-              email = profile.email;
-              signingKey = profile.signingKey;
-            };
-          };
+          contents.user = { inherit (profile) name email signingKey; };
         }) profile.dirs) profiles);
     };
   };
