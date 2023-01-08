@@ -35,10 +35,10 @@ in {
       media_api.max_file_size_bytes = 2097152;
 
       mscs.mscs = [
-        # threading
-        "msc2946"
         # spaces
         "msc2836"
+        # threads
+        "msc2946"
       ];
 
       federation_api.key_perspectives = [{
