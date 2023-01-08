@@ -1,0 +1,124 @@
+{ config, pkgs, ... }:
+
+let
+  inherit (config.services) dendrite;
+  server_name = "felschr.com";
+  domain = "matrix.${server_name}";
+  connectionString = "postgresql:///dendrite?host=/run/postgresql";
+in {
+  age.secrets.dendrite-private-key = {
+    file = ../../secrets/dendrite/privateKey.age;
+    mode = "755";
+  };
+  age.secrets.dendrite-env = {
+    file = ../../secrets/dendrite/.env.age;
+    mode = "755";
+  };
+
+  services.dendrite = {
+    enable = true;
+    environmentFile = config.age.secrets.dendrite-env.path;
+    settings = {
+      app_service_api.database.connection_string = connectionString;
+      federation_api.database.connection_string = connectionString;
+      key_server.database.connection_string = connectionString;
+      media_api.database.connection_string = connectionString;
+      mscs.database.connection_string = connectionString;
+      room_server.database.connection_string = connectionString;
+      sync_api.database.connection_string = connectionString;
+      user_api.account_database.connection_string = connectionString;
+      user_api.device_database.connection_string = connectionString;
+
+      client_api.registration_shared_secret = "$REGISTRATION_SHARED_SECRET";
+
+      # 2 megabytes in bytes
+      media_api.max_file_size_bytes = 2097152;
+
+      mscs.mscs = [
+        # threading
+        "msc2946"
+        # spaces
+        "msc2836"
+      ];
+
+      federation_api.key_perspectives = [{
+        server_name = "matrix.org";
+        keys = [
+          {
+            key_id = "ed25519:auto";
+            public_key = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+          }
+          {
+            key_id = "ed25519:a_RXGa";
+            public_key = "l8Hft5qXKn1vfHrg3p4+W8gELQVo8N13JkluMfmn2sQ";
+          }
+        ];
+      }];
+
+      global = {
+        inherit server_name;
+        private_key = config.age.secrets.dendrite-private-key.path;
+        jetstream.storage_path = "/var/lib/dendrite/jetstream";
+        dns_cache = {
+          enabled = true;
+          cache_size = 4096;
+          cache_lifetime = "600s";
+        };
+      };
+    };
+  };
+
+  services.postgresql = {
+    ensureUsers = [{
+      name = "dendrite";
+      ensurePermissions = { "DATABASE dendrite" = "ALL PRIVILEGES"; };
+    }];
+    ensureDatabases = [ "dendrite" ];
+  };
+
+  systemd.services.dendrite.after = [ "postgresql.service" ];
+
+  services.nginx.virtualHosts = {
+    ${server_name} = {
+      enableACME = true;
+      forceSSL = true;
+      locations = let
+        server = { "m.server" = "${domain}:443"; };
+        client = {
+          "m.homeserver"."base_url" = "https://${domain}";
+          "m.identity_server"."base_url" = "https://vector.im";
+        };
+      in {
+        "= /.well-known/matrix/server".extraConfig = ''
+          add_header Content-Type application/json;
+          return 200 '${builtins.toJSON server}';
+        '';
+        "= /.well-known/matrix/client".extraConfig = ''
+          add_header Content-Type application/json;
+          add_header Access-Control-Allow-Origin *;
+          return 200 '${builtins.toJSON client}';
+        '';
+      };
+    };
+    "${domain}" = {
+      enableACME = true;
+      forceSSL = true;
+      locations = {
+        "/".extraConfig = ''
+          return 404;
+        '';
+        "/_matrix".proxyPass =
+          "http://127.0.0.1:${toString config.services.dendrite.httpPort}";
+      };
+    };
+  };
+
+  environment.systemPackages = [
+    # run like: dendrite-create-account --username --admin
+    (pkgs.writeShellScriptBin "dendrite-create-account" ''
+      ${pkgs.dendrite}/bin/create-account \
+        --config /run/dendrite/dendrite.yaml \
+        "$@"
+    '')
+  ];
+}

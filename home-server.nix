@@ -24,6 +24,7 @@ in with builtins; {
     ./services/genie.nix
     ./services/website.nix
     ./services/home-assistant
+    ./services/matrix
     ./services/watchtower.nix
     ./services/immich.nix
     ./services/miniflux.nix
@@ -84,6 +85,8 @@ in with builtins; {
       "felschr.com"
       "home.felschr.com"
       "esphome.felschr.com"
+      "matrix.felschr.com"
+      "element.felschr.com"
       "cloud.felschr.com"
       "office.felschr.com"
       "media.felschr.com"
