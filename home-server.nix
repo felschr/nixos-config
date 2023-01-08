@@ -22,6 +22,7 @@ in with builtins; {
     ./services/jellyfin.nix
     ./services/etebase.nix
     ./services/genie.nix
+    ./services/website.nix
     ./services/home-assistant
     ./services/watchtower.nix
     ./services/immich.nix
@@ -80,6 +81,7 @@ in with builtins; {
     username = "felschr@pm.me";
     passwordFile = config.age.secrets.cloudflare.path;
     domains = [
+      "felschr.com"
       "home.felschr.com"
       "esphome.felschr.com"
       "cloud.felschr.com"
