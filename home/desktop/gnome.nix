@@ -13,6 +13,7 @@ in {
         "pop-shell@system76.com"
         "native-window-placement@gnome-shell-extensions.gcampax.github.com" # works better with pop-shell
         "appindicatorsupport@rgcjonas.gmail.com"
+        "gnomebedtime@ionutbortis.gmail.com"
       ];
       favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" ];
     };
@@ -94,6 +95,12 @@ in {
       www = [ "<Super>b" ];
       terminal = [ "<Super>t" ];
       rotate-video-lock-static = [ ];
+    };
+    "org/gnome/shell/extensions/bedtime-mode" = {
+      ondemand-button-location = "menu";
+      automatic-schedule = true;
+      schedule-start-hours = 22;
+      schedule-end-hours = 6;
     };
   };
 }
