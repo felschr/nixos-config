@@ -89,6 +89,11 @@ config.rust_analyzer.setup {
 config.omnisharp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+  root_dir = function(f)
+    local git_root = config.util.root_pattern(".git")(f)
+    local git_root_sln = config.util.root_pattern("*.sln")(git_root)
+    return git_root_sln or config.util.root_pattern("*.sln", "*.csproj")(f)
+  end,
   cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
 }
 
