@@ -40,6 +40,22 @@ end
 local config = require("lspconfig")
 local configs = require("lspconfig.configs")
 
+function table.merge(t1, t2)
+  local t = {}
+  for k, v in ipairs(t1) do table.insert(t, v) end
+  for k, v in ipairs(t2) do table.insert(t, v) end
+  return t
+end
+
+-- first search git root for global config (monorepo)
+-- and fall back to normal search order otherwise
+local monorepo_pattern = function(main_patterns, other_patterns, f)
+  local all_patterns = table.merge(main_patterns, other_patterns)
+  local git_root = config.util.root_pattern(".git")(f)
+  local git_root_sln = config.util.root_pattern(unpack(main_patterns))(git_root)
+  return git_root_sln or config.util.root_pattern(unpack(all_patterns))(f)
+end
+
 if not configs.glslls then
   configs.glslls = {
     default_config = {
@@ -78,10 +94,14 @@ config.glslls.setup(default_config)
 config.rust_analyzer.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  root_dir = config.util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
+  root_dir = function(f)
+    return monorepo_pattern({ "Cargo.toml", "rust-project.json" }, { ".git" }, f)
+  end,
   settings = {
     ["rust-analyzer"] = {
+      cargo = { buildScripts = { enable = true } },
       checkOnSave = { command = "clippy" },
+      procMacro = { enable = true },
     },
   },
 }
@@ -90,9 +110,7 @@ config.omnisharp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = function(f)
-    local git_root = config.util.root_pattern(".git")(f)
-    local git_root_sln = config.util.root_pattern("*.sln")(git_root)
-    return git_root_sln or config.util.root_pattern("*.sln", "*.csproj")(f)
+    return monorepo_pattern({ "*.sln" }, { "*.csproj" }, f)
   end,
   cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
 }
