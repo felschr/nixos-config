@@ -72,7 +72,7 @@
       };
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {
-        modules = [ nixosModules.flakeDefaults agenix.nixosModule ];
+        modules = [ nixosModules.flakeDefaults agenix.nixosModules.default ];
         overlays = with overlays; [ nur.overlay neovim deconz glslls ];
       };
       lib = rec {
@@ -93,7 +93,7 @@
             ];
 
             environment.systemPackages = with pkgs;
-              [ agenix.defaultPackage.x86_64-linux ];
+              [ agenix.packages.x86_64-linux.default ];
           });
         createUser' = import ./lib/createUser.nix;
         createUser = name: args:
