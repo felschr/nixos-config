@@ -4,7 +4,12 @@ let
   inherit (config.services) dendrite;
   server_name = "felschr.com";
   domain = "matrix.${server_name}";
-  connectionString = "postgresql:///dendrite?host=/run/postgresql";
+  database = {
+    connection_string = "postgresql:///dendrite?host=/run/postgresql";
+    max_open_conns = 10;
+    max_idle_conns = 2;
+    conn_max_lifetime = -1;
+  };
 in {
   age.secrets.dendrite-private-key = {
     file = ../../secrets/dendrite/privateKey.age;
@@ -19,26 +24,22 @@ in {
     enable = true;
     environmentFile = config.age.secrets.dendrite-env.path;
     settings = {
-      app_service_api.database.connection_string = connectionString;
-      federation_api.database.connection_string = connectionString;
-      key_server.database.connection_string = connectionString;
-      media_api.database.connection_string = connectionString;
-      mscs.database.connection_string = connectionString;
-      room_server.database.connection_string = connectionString;
-      sync_api.database.connection_string = connectionString;
-      user_api.account_database.connection_string = connectionString;
-      user_api.device_database.connection_string = connectionString;
+      app_service_api.database = database;
+      federation_api.database = database;
+      key_server.database = database;
+      media_api.database = database;
+      mscs.database = database;
+      room_server.database = database;
+      sync_api.database = database;
+      user_api.account_database = database;
 
       client_api.registration_shared_secret = "$REGISTRATION_SHARED_SECRET";
 
-      # 2 megabytes in bytes
-      media_api.max_file_size_bytes = 2097152;
+      media_api.max_file_size_bytes = 10485760; # 10 MB
 
       mscs.mscs = [
-        # spaces
-        "msc2836"
-        # threads
-        "msc2946"
+        "msc2836" # threads
+        "msc2946" # space summaries
       ];
 
       federation_api.key_perspectives = [{
