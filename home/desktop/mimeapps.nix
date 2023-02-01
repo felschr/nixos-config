@@ -13,6 +13,7 @@ let
     browser = [ "firefox.desktop" ];
     office = [ "libreoffice.desktop" ];
     pdf = [ "firefox.desktop" ];
+    ebook = [ "com.github.johnfactotum.Foliate.desktop" ];
     magnet = [ "transmission-gtk.desktop" ];
     signal = [ "signal-desktop.desktop" ];
   };
@@ -69,16 +70,37 @@ let
       "application/msword"
       "application/vnd.ms-excel"
       "application/vnd.ms-powerpoint"
+      "application/rtf"
     ];
     pdf = [ "application/pdf" ];
+    ebook = [ "application/epub+zip" ];
     magnet = [ "x-scheme-handler/magnet" ];
     signal = [ "signal-desktop.desktop" ];
   };
+
+  associations = with lists;
+    listToAttrs (flatten (mapAttrsToList
+      (key: map (type: attrsets.nameValuePair type defaultApps."${key}"))
+      mimeMap));
+
+  noCalibre = let
+    mimeTypes = [
+      "application/pdf"
+      "application/vnd.oasis.opendocument.text"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "text/html"
+      "text/x-markdown"
+    ];
+    desktopFiles = [
+      "calibre-ebook-edit.desktop"
+      "calibre-ebook-viewer.desktop"
+      "calibre-gui.desktop"
+    ];
+  in lib.zipAttrs (map (d: lib.genAttrs mimeTypes (_: d)) desktopFiles);
 in {
   xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps.enable = true;
-  xdg.mimeApps.defaultApplications = with lists;
-    listToAttrs (flatten (mapAttrsToList (key: types:
-      map (type: attrsets.nameValuePair (type) (defaultApps."${key}")) types)
-      mimeMap));
+  xdg.mimeApps.associations.added = associations;
+  xdg.mimeApps.associations.removed = noCalibre;
+  xdg.mimeApps.defaultApplications = associations;
 }
