@@ -55,8 +55,6 @@
   systemd.notify.method = "libnotify";
   systemd.notify.libnotify.user = "felschr";
 
-  services.printing.drivers = with pkgs; [ epson-escpr ];
-
   # only change this when specified in release notes
   system.stateVersion = "22.11";
 }
