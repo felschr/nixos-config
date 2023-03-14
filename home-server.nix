@@ -100,9 +100,9 @@ in with builtins; {
     extraConfig = with pkgs; ''
       usev6=cmdv6, cmdv6=${
         pkgs.writeScript "get-ipv6" ''
-          ${iproute2}/bin/ip --brief addr show enp2s0 mngtmpaddr \
-            | ${gawk}/bin/awk '{print $(NF)}' \
-            | sed 's/\/.*//'
+          ${iproute2}/bin/ip -6 --brief addr show enp2s0 mngtmpaddr \
+            | ${gawk}/bin/awk '{print $3}' \
+            | cut -f1 -d'/'
         ''
       }
       usev4=disabled
