@@ -112,6 +112,7 @@ in {
       vimium
       ipfs-companion
       bitwarden
+      simplelogin
       darkreader
       languagetool
       metamask
