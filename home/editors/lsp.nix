@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     # language servers
     omnisharp-roslyn
-    rnix-lsp
+    nil
     buf-language-server
     terraform-ls
     python3Packages.python-lsp-server
