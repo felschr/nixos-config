@@ -2,7 +2,7 @@
 
 with pkgs;
 with lib; {
-  # kitty
+  # kitty terminal
   programs.kitty = {
     enable = true;
     keybindings = let
