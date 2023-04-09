@@ -88,6 +88,7 @@
     ledger-live-desktop
     portfolio
     bottles
+    zotero
   ];
 
   home.stateVersion = "22.11";
