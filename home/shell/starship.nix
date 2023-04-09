@@ -14,5 +14,7 @@
       # kitty/neovim don't play well with multi-width emojis
       nix_shell.symbol = " ";
     };
+    # @TODO broken in nixos-22.11
+    enableNushellIntegration = false;
   };
 }
