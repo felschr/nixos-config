@@ -75,7 +75,6 @@ local default_config = {
   capabilities = capabilities,
 }
 
-config.bashls.setup(default_config)
 config.jsonls.setup(default_config)
 config.yamlls.setup(default_config)
 config.html.setup(default_config)
@@ -90,6 +89,23 @@ config.hls.setup(default_config)
 config.bufls.setup(default_config)
 config.vimls.setup(default_config)
 config.glslls.setup(default_config)
+
+config.bashls.setup {
+  on_attach = function(client, bufnr)
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    -- disable bashls for .env files
+    if client.name == "bashls"
+        and bufname:match "%.env" ~= nil
+        and bufname:match "%.env.*" ~= nil
+    then
+      vim.lsp.stop_client(client.id)
+      return
+    end
+
+    return on_attach()
+  end,
+  capabilities = capabilities,
+}
 
 config.rust_analyzer.setup {
   on_attach = on_attach,
@@ -165,7 +181,6 @@ local null_ls_custom = {
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.statix, -- nix linter
     null_ls.builtins.diagnostics.buf,
     null_ls.builtins.diagnostics.eslint_d,
