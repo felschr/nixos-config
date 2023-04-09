@@ -1,6 +1,8 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
 
+  inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
   inputs.nixpkgs-glslls.url = "github:felschr/nixpkgs/glsl-language-server";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -38,11 +40,18 @@
     flake = false;
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur
-    , agenix, deploy-rs, pre-commit-hooks, nvim-kitty-navigator, nixpkgs-glslls
-    }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, flake-utils
+    , home-manager, nur, agenix, deploy-rs, pre-commit-hooks
+    , nvim-kitty-navigator, nixpkgs-glslls }@inputs:
     let
+      nixpkgsConfig.allowUnfree = true;
       overlays = {
+        unstable = final: prev: {
+          unstable = import nixpkgs-unstable {
+            inherit (prev) system;
+            config = nixpkgsConfig;
+          };
+        };
         neovim = final: prev:
           let
             buildVimPlugin = name: input:
@@ -73,7 +82,7 @@
       homeManagerModules = { git = import ./home/modules/git.nix; };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults agenix.nixosModules.default ];
-        overlays = with overlays; [ nur.overlay neovim deconz glslls ];
+        overlays = with overlays; [ unstable nur.overlay neovim deconz glslls ];
       };
       lib = rec {
         createSystem = hostName:
@@ -187,7 +196,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
+          config = nixpkgsConfig;
         };
       in rec {
         formatter = pkgs.nixfmt;
