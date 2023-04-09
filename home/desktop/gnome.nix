@@ -99,7 +99,7 @@ in {
     "org/gnome/shell/extensions/bedtime-mode" = {
       ondemand-button-location = "menu";
       automatic-schedule = true;
-      schedule-start-hours = 22;
+      schedule-start-hours = 23;
       schedule-end-hours = 6;
     };
   };
