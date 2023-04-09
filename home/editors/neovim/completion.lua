@@ -1,7 +1,7 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
-vim.opt.completeopt="menu,menuone,noinsert"
+vim.opt.completeopt = "menu,menuone,noinsert"
 vim.opt.shortmess:append("c")
 
 local has_words_before = function()
@@ -20,7 +20,7 @@ cmp.setup({
     ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({ reason = "manual" }), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable,
     ["<C-e>"] = cmp.mapping({
       i = cmp.mapping.abort(),
@@ -57,4 +57,4 @@ cmp.setup({
 })
 
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({  map_char = { tex = "" } }))
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
