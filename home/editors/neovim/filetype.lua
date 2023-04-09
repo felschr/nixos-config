@@ -15,7 +15,7 @@ vim.filetype.add({
     rcall = "glsl",
   },
   pattern = {
-    [".env.*"] = "direnv",
+    [".env.*"] = "sh",
     [".*"] = function(path, bufnr)
       local first_line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, true)[1]
       if first_line ~= nil and first_line:match("^#!.*nix%-shell") ~= nil then
