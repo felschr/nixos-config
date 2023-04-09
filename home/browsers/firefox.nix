@@ -108,12 +108,8 @@ in {
     };
     extensions = with firefox-addons; [
       ublock-origin
-      terms-of-service-didnt-read
-      vimium
-      ipfs-companion
       bitwarden
-      simplelogin
-      darkreader
+      vimium
       languagetool
       metamask
       libredirect
