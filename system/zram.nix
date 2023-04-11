@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-{
-  zramSwap.enable = true;
-  zramSwap.memoryPercent = 100;
-  zramSwap.memoryMax = 16 * 1024 * 1024 * 1024;
-  boot.kernel.sysctl."vm.swappiness" = 100;
+with lib; {
+  zramSwap.enable = mkDefault true;
+  zramSwap.memoryPercent = mkDefault 100;
+  zramSwap.memoryMax = mkDefault (16 * 1024 * 1024 * 1024);
+  boot.kernel.sysctl."vm.swappiness" = mkDefault 100;
 }
