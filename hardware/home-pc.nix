@@ -25,13 +25,6 @@
     options = [ "subvol=@home" "compress-force=zstd:1" "noatime" ];
   };
 
-  fileSystems."/.swap" = {
-    device = "/dev/disk/by-uuid/5830e9b3-260b-451c-bfee-2028c64c6199";
-    fsType = "btrfs";
-    options = [ "subvol=@swap" "nodatacow" "noatime" ];
-    neededForBoot = true;
-  };
-
   fileSystems."/.snapshots" = {
     device = "/dev/disk/by-uuid/5830e9b3-260b-451c-bfee-2028c64c6199";
     fsType = "btrfs";
@@ -42,11 +35,6 @@
     device = "/dev/disk/by-uuid/17B2-42C2";
     fsType = "vfat";
   };
-
-  swapDevices = [{
-    device = "/.swap/swapfile";
-    size = 8192;
-  }];
 
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
