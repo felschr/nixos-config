@@ -30,13 +30,9 @@ $drive
            |       |
            |       ├── /boot (mounted boot partition)
            |       |
-           |       ├── /.swap (mounted @swap subvolume)
-           |       |
            |       └── /.snapshots (mounted @snapshots subvolume)
            |
            ├── @home (mounted as /home)
-           |
-           ├── @swap (mounted as /.swap, contains swap file)
            |
            └── @snapshots (mounted as /.snapshots)
 "
@@ -68,7 +64,6 @@ mkfs.btrfs /dev/mapper/enc
 mount -t btrfs /dev/mapper/enc /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@swap
 btrfs subvolume create /mnt/@snapshots
 umount /mnt
 
@@ -76,22 +71,10 @@ umount /mnt
 read -p "enter zstd compression level (default: 1): " -r
 compression_level=${REPLY:-1}
 mount -o subvol=@,compress-force=zstd:"$compression_level",noatime /dev/mapper/enc /mnt
-mkdir /mnt/{home,.swap,.snapshots,boot}
+mkdir /mnt/{home,.snapshots,boot}
 mount -o subvol=@home,compress-force=zstd:"$compression_level",noatime /dev/mapper/enc /mnt/home
-mount -o subvol=@swap,noatime /dev/mapper/enc /mnt/.swap
 mount -o subvol=@snapshots,compress-force=zstd:"$compression_level",noatime /dev/mapper/enc /mnt/.snapshots
 mount "$boot" /mnt/boot
-
-# setup swap file
-read -p "enter the size of the swap file in MB (default: 8192): " -r
-swapsize=${REPLY:-8192}
-truncate -s 0 /mnt/.swap/swapfile
-chattr +C /mnt/.swap/swapfile
-btrfs property set /mnt/.swap/swapfile compression none
-dd if=/dev/zero of=/mnt/.swap/swapfile bs=1M count="$swapsize" status=progress
-chmod 600 /mnt/.swap/swapfile
-mkswap /mnt/.swap/swapfile
-swapon /mnt/.swap/swapfile
 
 # generate hardware-configuration.nix
 nixos-generate-config --root /mnt
@@ -100,6 +83,3 @@ echo
 echo "Partitions have been created and hardware-configuration.nix has been generated."
 echo "WARNING: Some hardware-configuration.nix options might need to be set manually:"
 echo "- add compress-force & noatime options"
-echo "- add nodatacow option to /.swap"
-echo '- add "neededForBoot = true;" to /.swap'
-
