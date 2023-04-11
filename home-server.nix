@@ -39,11 +39,6 @@ in with builtins; {
 
   nixpkgs.config.allowUnfree = true;
 
-  # improve memory performance
-  zramSwap.enable = true;
-  zramSwap.algorithm = "zstd";
-  zramSwap.memoryPercent = 150;
-
   networking.domain = "home.felschr.com";
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
