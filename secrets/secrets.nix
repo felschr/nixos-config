@@ -26,6 +26,7 @@ in {
   "nextcloud/admin.age".publicKeys = [ felschr home-pc home-server ];
   "immich/.env.age".publicKeys = [ felschr home-pc home-server ];
   "immich/db-password.age".publicKeys = [ felschr home-pc home-server ];
+  "immich/typesense/.env.age".publicKeys = [ felschr home-pc home-server ];
 
   # home-server
   "home-server/hostKey.age".publicKeys = [ felschr home-server ];
