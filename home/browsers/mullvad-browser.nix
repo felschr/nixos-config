@@ -12,9 +12,6 @@ let
     # Enable persistence of site permissions
     "permissions.memory_only" = false;
 
-    # Hide titlebar
-    "browser.tabs.inTitlebar" = 1;
-
     # Don't delete cookies & site data on restart
     "network.cookie.lifetimePolicy" = 0;
 
