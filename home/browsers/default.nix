@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./firefox.nix ./tor-browser.nix ];
+  imports = [ ./mullvad-browser.nix ./tor-browser.nix ./firefox.nix ];
 
-  home.sessionVariables.BROWSER = "firefox";
+  home.sessionVariables.BROWSER = "mullvad-browser";
 }

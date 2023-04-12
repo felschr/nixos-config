@@ -5,6 +5,8 @@
 
   inputs.nixpkgs-glslls.url = "github:felschr/nixpkgs/glsl-language-server";
 
+  inputs.nixpkgs-mullvad-browser.url = "github:felschr/nixpkgs/mullvad-browser";
+
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
@@ -42,7 +44,7 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, flake-utils
     , home-manager, nur, agenix, deploy-rs, pre-commit-hooks
-    , nvim-kitty-navigator, nixpkgs-glslls }@inputs:
+    , nvim-kitty-navigator, nixpkgs-glslls, nixpkgs-mullvad-browser }@inputs:
     let
       nixpkgsConfig.allowUnfree = true;
       overlays = {
@@ -74,15 +76,29 @@
           inherit (nixpkgs-glslls.legacyPackages.${final.system})
             glsl-language-server;
         };
+        mullvad-browser = final: prev: {
+          inherit (nixpkgs-mullvad-browser.legacyPackages.${final.system})
+            mullvad-browser;
+        };
       };
       nixosModules = {
         flakeDefaults = import ./modules/flakeDefaults.nix;
         systemdNotify = import ./modules/systemdNotify.nix;
       };
-      homeManagerModules = { git = import ./home/modules/git.nix; };
+      homeManagerModules = {
+        git = import ./home/modules/git.nix;
+        mullvad-browser = import ./home/modules/mullvad-browser.nix;
+      };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults agenix.nixosModules.default ];
-        overlays = with overlays; [ unstable nur.overlay neovim deconz glslls ];
+        overlays = with overlays; [
+          unstable
+          nur.overlay
+          neovim
+          deconz
+          glslls
+          mullvad-browser
+        ];
       };
       lib = rec {
         createSystem = hostName:

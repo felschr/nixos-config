@@ -15,7 +15,7 @@ in {
         "appindicatorsupport@rgcjonas.gmail.com"
         "gnomebedtime@ionutbortis.gmail.com"
       ];
-      favorite-apps = [ "org.gnome.Nautilus.desktop" "firefox.desktop" ];
+      favorite-apps = [ "org.gnome.Nautilus.desktop" "mullvadbrowser.desktop" ];
     };
     "org/gnome/shell/extensions/pop-shell" = {
       tile-by-default = true;

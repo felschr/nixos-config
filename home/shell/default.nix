@@ -13,6 +13,6 @@
   programs.fzf = { enable = true; };
 
   home.file."dev/work/.env".text = ''
-    BROWSER=firefox-work
+    BROWSER=mullvad-browser-work
   '';
 }
