@@ -85,7 +85,7 @@ let
     "browser.uitour.enabled" = false;
     "browser.startup.page" = 3;
     "browser.toolbars.bookmarks.visibility" = "newtab";
-    "browser.tabs.drawInTitlebar" = true;
+    "browser.tabs.inTitlebar" = 1;
     "browser.aboutConfig.showWarning" = false;
     "signon.rememberSignons" = false;
     "services.sync.engine.passwords" = false;
@@ -108,6 +108,16 @@ let
       platforms = platforms.all;
     };
   };
+
+  commonExtensions = with firefox-addons; [
+    ublock-origin
+    bitwarden
+    vimium
+    languagetool
+    libredirect
+    to-deepl
+    zotero-connector
+  ];
 in {
   programs.firefox = {
     enable = true;
@@ -115,24 +125,16 @@ in {
       private = {
         id = 0;
         settings = sharedSettings;
+        # extensions = commonExtensions ++ (with firefox-addons; [ metamask ]);
       };
       work = {
         id = 1;
         settings = sharedSettings;
+        # extensions = commonExtensions
+        #   ++ (with firefox-addons; [ react-devtools reduxdevtools ]);
       };
     };
-    extensions = with firefox-addons; [
-      ublock-origin
-      bitwarden
-      vimium
-      languagetool
-      metamask
-      libredirect
-      to-deepl
-      zotero-connector
-      # not available yet:
-      # google-lighthouse
-    ];
+    extensions = commonExtensions ++ (with firefox-addons; [ metamask ]);
   };
 
   home.packages = let
