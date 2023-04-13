@@ -54,7 +54,7 @@ let
     let
       name = "mullvad-browser-${profile}";
       scriptBin = pkgs.writeScriptBin name ''
-        mullvad-browser -P "${profile}" --class="${name}" $@
+        mullvad-browser -P "${profile}" --name="${name}" $@
       '';
       desktopFile = pkgs.makeDesktopItem {
         inherit name;
