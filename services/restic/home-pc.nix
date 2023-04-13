@@ -37,6 +37,7 @@ in {
       "/home/*/.dotnet"
       "/home/*/.gradle"
       "/home/*/.mozilla"
+      "/home/*/.mullvad"
       "/home/*/.npm"
       "/home/*/.nuget"
       "/home/*/.rustup"
