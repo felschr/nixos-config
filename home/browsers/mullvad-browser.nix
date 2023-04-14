@@ -27,7 +27,7 @@ let
     zotero-connector
   ];
 in {
-  imports = [ ../modules/mullvad-browser.nix ];
+  imports = [ ../modules/firefox/mullvad-browser.nix ];
 
   programs.mullvad-browser = {
     enable = true;

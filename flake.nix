@@ -87,7 +87,9 @@
       };
       homeManagerModules = {
         git = import ./home/modules/git.nix;
-        mullvad-browser = import ./home/modules/mullvad-browser.nix;
+        firefox = import ./home/modules/firefox/firefox.nix;
+        mullvad-browser = import ./home/modules/firefox/mullvad-browser.nix;
+        tor-browser = import ./home/modules/firefox/tor-browser.nix;
       };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults agenix.nixosModules.default ];
