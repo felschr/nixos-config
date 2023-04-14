@@ -17,7 +17,7 @@ in {
   home.packages = [ element-desktop ];
 
   xdg.configFile."autostart/element-desktop.desktop".text =
-    builtins.replaceStrings [ "bin/element-desktop" ]
-    [ "bin/element-desktop --hidden" ] (builtins.readFile
+    builtins.replaceStrings [ "Exec=element-desktop" ]
+    [ "Exec=element-desktop --hidden" ] (builtins.readFile
       "${element-desktop}/share/applications/element-desktop.desktop");
 }
