@@ -4,7 +4,7 @@
   imports = [ ./planck.nix ];
 
   boot.supportedFilesystems = lib.mkDefault [ "btrfs" ];
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
