@@ -8,6 +8,7 @@ with pkgs; {
     ./vpn.nix
     ./git.nix
     ./keybase.nix
+    ./element.nix
     ./signal.nix
     ./browsers
     ./planck.nix
