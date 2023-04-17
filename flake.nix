@@ -126,7 +126,7 @@
         createUser = name: args:
           ({ pkgs, ... }@args2:
             (createUser' name args) ({ inherit home-manager; } // args2));
-        createMediaGroup = { ... }: { users.groups.media = { gid = 600; }; };
+        createMediaGroup = _: { users.groups.media.gid = 600; };
       };
     in rec {
 
