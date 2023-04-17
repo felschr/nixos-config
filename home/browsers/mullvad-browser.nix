@@ -5,7 +5,13 @@ let
     // (import ./firefoxAddons.nix { inherit pkgs lib; });
 
   commonSettings = {
-    # Disable private browsing mode and restoring sessions
+    # Disable DNS over HTTPS (done system-wide)
+    # "network.trr.mode" = 5;
+
+    # Set Security Level Safest
+    # "browser.security_level.security_slider" = 1;
+
+    # Disable private browsing mode and enable restoring sessions
     "browser.privatebrowsing.autostart" = false;
     "browser.startup.page" = 3;
 
@@ -13,11 +19,7 @@ let
     "permissions.memory_only" = false;
 
     # Don't delete cookies & site data on restart
-    "network.cookie.lifetimePolicy" = 0;
-
-    # Allow push notifications
-    "dom.push.enabled" = true;
-    "dom.push.serverURL" = "wss://push.services.mozilla.com/";
+    # "network.cookie.lifetimePolicy" = 0;
   };
 
   commonExtensions = with firefox-addons; [
