@@ -24,7 +24,6 @@ let
 
   commonExtensions = with firefox-addons; [
     bitwarden
-    vimium
     libredirect
     zotero-connector
   ];
