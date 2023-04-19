@@ -3,8 +3,6 @@
 
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  inputs.nixpkgs-glslls.url = "github:felschr/nixpkgs/glsl-language-server";
-
   inputs.nixpkgs-mullvad-browser.url = "github:felschr/nixpkgs/mullvad-browser";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -44,7 +42,7 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, flake-utils
     , home-manager, nur, agenix, deploy-rs, pre-commit-hooks
-    , nvim-kitty-navigator, nixpkgs-glslls, nixpkgs-mullvad-browser }@inputs:
+    , nvim-kitty-navigator, nixpkgs-mullvad-browser }@inputs:
     let
       nixpkgsConfig.allowUnfree = true;
       overlays = {
@@ -72,10 +70,6 @@
         deconz = final: prev: {
           deconz = final.qt5.callPackage ./pkgs/deconz { };
         };
-        glslls = final: prev: {
-          inherit (nixpkgs-glslls.legacyPackages.${final.system})
-            glsl-language-server;
-        };
         mullvad-browser = final: prev: {
           inherit (nixpkgs-mullvad-browser.legacyPackages.${final.system})
             mullvad-browser;
@@ -98,7 +92,6 @@
           nur.overlay
           neovim
           deconz
-          glslls
           mullvad-browser
         ];
       };

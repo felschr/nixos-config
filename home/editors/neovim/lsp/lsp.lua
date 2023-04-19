@@ -56,17 +56,6 @@ local monorepo_pattern = function(main_patterns, other_patterns, f)
   return git_root_sln or config.util.root_pattern(unpack(all_patterns))(f)
 end
 
-if not configs.glslls then
-  configs.glslls = {
-    default_config = {
-      cmd = { "glslls", "--stdin" };
-      filetypes = { "glsl" };
-      root_dir = config.util.root_pattern("*.conf", ".git");
-      settings = {};
-    };
-  }
-end
-
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -88,7 +77,6 @@ config.terraformls.setup(default_config)
 config.hls.setup(default_config)
 config.bufls.setup(default_config)
 config.vimls.setup(default_config)
-config.glslls.setup(default_config)
 
 config.bashls.setup {
   on_attach = function(client, bufnr)

@@ -19,7 +19,6 @@
     haskellPackages.haskell-language-server
     rust-analyzer
     sumneko-lua-language-server
-    glsl-language-server
 
     # linters & formatters
     shellcheck
