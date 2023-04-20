@@ -3,8 +3,6 @@
 
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  inputs.nixpkgs-mullvad-browser.url = "github:felschr/nixpkgs/mullvad-browser";
-
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
@@ -42,7 +40,7 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, flake-utils
     , home-manager, nur, agenix, deploy-rs, pre-commit-hooks
-    , nvim-kitty-navigator, nixpkgs-mullvad-browser }@inputs:
+    , nvim-kitty-navigator }@inputs:
     let
       nixpkgsConfig.allowUnfree = true;
       overlays = {
@@ -70,10 +68,6 @@
         deconz = final: prev: {
           deconz = final.qt5.callPackage ./pkgs/deconz { };
         };
-        mullvad-browser = final: prev: {
-          inherit (nixpkgs-mullvad-browser.legacyPackages.${final.system})
-            mullvad-browser;
-        };
       };
       nixosModules = {
         flakeDefaults = import ./modules/flakeDefaults.nix;
@@ -82,18 +76,11 @@
       homeManagerModules = {
         git = import ./home/modules/git.nix;
         firefox = import ./home/modules/firefox/firefox.nix;
-        mullvad-browser = import ./home/modules/firefox/mullvad-browser.nix;
         tor-browser = import ./home/modules/firefox/tor-browser.nix;
       };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults agenix.nixosModules.default ];
-        overlays = with overlays; [
-          unstable
-          nur.overlay
-          neovim
-          deconz
-          mullvad-browser
-        ];
+        overlays = with overlays; [ unstable nur.overlay neovim deconz ];
       };
       lib = rec {
         createSystem = hostName:

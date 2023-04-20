@@ -194,22 +194,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-mullvad-browser": {
-      "locked": {
-        "lastModified": 1681399935,
-        "narHash": "sha256-v1rYzquyeLEwetn7RsxKw2eQSCxHm3QjAr4lB2D6JJA=",
-        "owner": "felschr",
-        "repo": "nixpkgs",
-        "rev": "b44a299381f3ce9faeb9f6cc41cda454d02335ed",
-        "type": "github"
-      },
-      "original": {
-        "owner": "felschr",
-        "ref": "mullvad-browser",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1681828457,
@@ -294,7 +278,6 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-mullvad-browser": "nixpkgs-mullvad-browser",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
