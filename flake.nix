@@ -68,6 +68,11 @@
         deconz = final: prev: {
           deconz = final.qt5.callPackage ./pkgs/deconz { };
         };
+        wrappers = final: prev: {
+          genericBinWrapper = final.callPackage ./pkgs/generic-bin-wrapper { };
+          mullvadExcludeWrapper =
+            final.callPackage ./pkgs/mullvad-exclude-wrapper { };
+        };
       };
       nixosModules = {
         flakeDefaults = import ./modules/flakeDefaults.nix;
@@ -80,7 +85,13 @@
       };
       systemDefaults = {
         modules = [ nixosModules.flakeDefaults agenix.nixosModules.default ];
-        overlays = with overlays; [ unstable nur.overlay neovim deconz ];
+        overlays = with overlays; [
+          unstable
+          nur.overlay
+          neovim
+          deconz
+          wrappers
+        ];
       };
       lib = rec {
         createSystem = hostName:
