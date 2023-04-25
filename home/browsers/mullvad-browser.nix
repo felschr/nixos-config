@@ -32,7 +32,6 @@ in {
 
   programs.mullvad-browser = {
     enable = true;
-    package = pkgs.unstable.mullvad-browser;
     createProfileBins = true;
     profiles = {
       private = {
