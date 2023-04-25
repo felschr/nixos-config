@@ -20,6 +20,5 @@
   hardware.xone.enable = true;
   hardware.xpadneo.enable = true;
 
-  # fix for Star Citizen
-  boot.kernel.sysctl."vm.max_map_count" = 16777216;
+  boot.kernel.sysctl."vm.max_map_count" = 2147483642;
 }
