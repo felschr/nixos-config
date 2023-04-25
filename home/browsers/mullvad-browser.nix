@@ -5,8 +5,8 @@ let
     // (import ./firefoxAddons.nix { inherit pkgs lib; });
 
   commonSettings = {
-    # Disable DNS over HTTPS (done system-wide)
-    # "network.trr.mode" = 5;
+    # Disable DNS over HTTPS (use system DNS, i.e. VPN's DNS)
+    "network.trr.mode" = 5;
 
     # Set Security Level Safest
     # "browser.security_level.security_slider" = 1;
