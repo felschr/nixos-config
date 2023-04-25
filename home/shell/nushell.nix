@@ -8,8 +8,8 @@ let
   nu_scripts = pkgs.fetchFromGitHub {
     owner = "nushell";
     repo = "nu_scripts";
-    rev = "ebdab3dea34f7776c937497a67357f913b0c1c54";
-    hash = "sha256-Vh3WU0oNlo6HZWwhlVt5sQJa5214rVClh9gTLR3rFDg=";
+    rev = "e8cda90b52e567ef0d85742ab44fc1cfe09a9917";
+    hash = "sha256-eGuROnSgjSWRve2krb+Nz/53Svi4lKrcDB4tdWAOG9M=";
   };
 in {
   programs.nushell = {
@@ -29,7 +29,7 @@ in {
       use ${nu_scripts}/custom-completions/git/git-completions.nu *
       use ${nu_scripts}/custom-completions/nix/nix-completions.nu *
       use ${nu_scripts}/custom-completions/cargo/cargo-completions.nu *
-      # use ${nu_scripts}/custom-completions/npm/npm-completions.nu * # TODO incomplete
+      use ${nu_scripts}/custom-completions/npm/npm-completions.nu *
       use ${nu_scripts}/custom-completions/auto-generate/completions/wget.nu *
       # use ${nu_scripts}/custom-completions/auto-generate/completions/tar.nu * # TODO broken
       use ${nu_scripts}/custom-completions/auto-generate/completions/zstd.nu *
