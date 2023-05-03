@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./planck.nix ];
+  imports = [ ./firmware.nix ./planck.nix ];
 
   boot.supportedFilesystems = lib.mkDefault [ "btrfs" ];
   boot.kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_latest;

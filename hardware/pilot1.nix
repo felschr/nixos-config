@@ -20,7 +20,8 @@
   swapDevices =
     [{ device = "/dev/disk/by-uuid/397a1a92-596f-421b-99e1-c9b2cb821309"; }];
 
-  # TODO keep this disabled?
-  # nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

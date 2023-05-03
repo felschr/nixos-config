@@ -20,8 +20,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  hardware.enableAllFirmware = true;
-  hardware.cpu.intel.updateMicrocode = true;
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
 

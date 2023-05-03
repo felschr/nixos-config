@@ -25,10 +25,6 @@
   # cross-compilation support
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  hardware.enableAllFirmware = true;
-  hardware.cpu.amd.updateMicrocode = true;
-  services.fwupd.enable = true;
-
   programs.adb.enable = true;
 
   programs.zsh.enable = true;
