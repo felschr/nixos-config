@@ -15,7 +15,6 @@
     ./planck.nix
     ./ausweisapp.nix
     ./gaming
-    ./services/languagetool.nix
     ./services/easyeffects.nix
   ];
 
