@@ -12,4 +12,6 @@
   hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
 
   hardware.steam-hardware.enable = true;
+
+  programs.steam.gamescopeSession.enable = true;
 }
