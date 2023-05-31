@@ -8,8 +8,7 @@ let
   inherit (import ../modules/firefox/common.nix { inherit config lib pkgs; })
     mkConfig;
 
-  arkenfoxConfig =
-    builtins.readFile "${pkgs.nur.repos.slaier.arkenfox-userjs}/user.js";
+  arkenfoxConfig = builtins.readFile pkgs.nur.repos.slaier.arkenfox-userjs;
 
   # Relax some arkenfox settings, to get a less strict
   # alternative to Mullvad Browser to fallback on.
@@ -25,6 +24,12 @@ let
 
     # Disable Pocket
     "extensions.pocket.enabled" = false;
+
+    # Enable search in location bar
+    "keyword.enabled" = false;
+
+    # Enable IPv6 again
+    "network.dns.disableIPv6" = false;
   };
 
   # use extraConfig to load arkenfox user.js before settings
@@ -35,12 +40,10 @@ let
   '';
 
   commonExtensions = with firefox-addons; [
+    german-dictionary
     ublock-origin
     bitwarden
-    vimium
-    languagetool
     libredirect
-    to-deepl
     zotero-connector
   ];
 in {

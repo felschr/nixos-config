@@ -8,8 +8,8 @@ let
     # Disable DNS over HTTPS (use system DNS, i.e. VPN's DNS)
     "network.trr.mode" = 5;
 
-    # Set Security Level Safest
-    # "browser.security_level.security_slider" = 1;
+    # Set Security Level Safer
+    # "browser.security_level.security_slider" = 2;
 
     # Disable private browsing mode and enable restoring sessions
     "browser.privatebrowsing.autostart" = false;
@@ -23,6 +23,7 @@ let
   };
 
   commonExtensions = with firefox-addons; [
+    german-dictionary
     bitwarden
     libredirect
     zotero-connector
