@@ -1,5 +1,7 @@
 vim.filetype.add({
   extension = {
+    ncl = "nickel",
+    nickel = "nickel",
     vert = "glsl",
     tesc = "glsl",
     tese = "glsl",
@@ -25,14 +27,6 @@ vim.filetype.add({
           return nil
         elseif command == "sh" or command == "bash" then
           return "bash"
-        elseif command == "ksh" then
-          return "ksh"
-        elseif command == "zsh" then
-          return "zsh"
-        elseif command == "make" then
-          return "make"
-        elseif command == "python" then
-          return "python"
         elseif command == "node" then
           return "javascript"
         elseif command == "runhaskell" then
@@ -41,7 +35,7 @@ vim.filetype.add({
           return "haskell"
         end
 
-        return nil
+        return command
       end
 
       return nil
