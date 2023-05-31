@@ -21,7 +21,6 @@ in with builtins; {
     # ./services/kodi.nix
     ./services/jellyfin.nix
     ./services/etebase.nix
-    ./services/genie.nix
     ./services/website.nix
     ./services/home-assistant
     ./services/matrix

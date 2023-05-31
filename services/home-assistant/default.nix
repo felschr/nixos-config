@@ -2,9 +2,7 @@
 
 with pkgs;
 
-let
-  port = config.services.home-assistant.config.http.server_port;
-  geniePort = 3232;
+let port = config.services.home-assistant.config.http.server_port;
 in {
   imports = [ ./esphome.nix ];
 
@@ -76,10 +74,6 @@ in {
           delay_time = 0;
         };
       }];
-      almond = {
-        type = "local";
-        host = "http://localhost:${toString geniePort}/me";
-      };
     };
     # configWritable = true; # doesn't work atm
   };
