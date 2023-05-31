@@ -9,7 +9,7 @@ require("nvim-lightbulb").setup({
 LspFormat = function(bufnr)
   vim.lsp.buf.format({
     filter = function(client)
-      return not vim.tbl_contains({ "tsserver", "jsonls", "rnix" }, client.name)
+      return not vim.tbl_contains({ "tsserver", "jsonls" }, client.name)
     end,
     bufnr,
     timeout_ms = 5000,
@@ -123,7 +123,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-config.sumneko_lua.setup {
+config.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {

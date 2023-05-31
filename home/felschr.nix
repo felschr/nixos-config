@@ -56,7 +56,7 @@
     tabbed
 
     # work
-    teams
+    teams-for-linux
 
     # dev
     postman

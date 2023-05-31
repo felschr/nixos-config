@@ -5,7 +5,7 @@
   programs.helix = {
     enable = true;
     package = pkgs.unstable.helix;
-    languages = [
+    languages.language = [
       {
         name = "rust";
         config.rust-analyzer = {

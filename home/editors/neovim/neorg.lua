@@ -1,13 +1,13 @@
 require("neorg").setup {
   load = {
     ["core.defaults"] = {},
-    ["core.norg.concealer"] = {},
-    ["core.norg.completion"] = {
+    ["core.concealer"] = {},
+    ["core.completion"] = {
       config = {
         engine = "nvim-cmp",
       },
     },
-    ["core.norg.dirman"] = {
+    ["core.dirman"] = {
       config = {
         workspaces = {
           work = "~/notes/work",
@@ -15,12 +15,7 @@ require("neorg").setup {
         },
       },
     },
-    ["core.norg.qol.toc"] = {},
-    ["core.gtd.base"] = {
-      config = {
-        workspace = "home",
-      },
-    },
+    ["core.qol.toc"] = {},
   },
 }
 

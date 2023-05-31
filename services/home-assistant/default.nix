@@ -9,7 +9,8 @@ in {
   imports = [ ./esphome.nix ];
 
   # just installed for ConBee firmware updates
-  environment.systemPackages = with pkgs; [ deconz ];
+  # TODO deconz package is currently broken
+  # environment.systemPackages = with pkgs; [ deconz ];
 
   services.nginx = {
     virtualHosts."${config.networking.domain}" = {

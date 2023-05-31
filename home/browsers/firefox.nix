@@ -53,16 +53,15 @@ in {
       private = {
         id = 0;
         extraConfig = sharedExtraConfig;
-        # extensions = commonExtensions ++ (with firefox-addons; [ metamask ]);
+        extensions = commonExtensions ++ (with firefox-addons; [ metamask ]);
       };
       work = {
         id = 1;
         extraConfig = sharedExtraConfig;
-        # extensions = commonExtensions
-        #   ++ (with firefox-addons; [ react-devtools reduxdevtools ]);
+        extensions = commonExtensions
+          ++ (with firefox-addons; [ react-devtools reduxdevtools ]);
       };
     };
-    extensions = commonExtensions ++ (with firefox-addons; [ metamask ]);
   };
 
   home.packages = let

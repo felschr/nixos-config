@@ -15,7 +15,7 @@
     postStart = ''
       while ! ${pkgs.mullvad}/bin/mullvad status >/dev/null; do sleep 1; done
 
-      ${pkgs.mullvad}/bin/mullvad always-require-vpn set on
+      ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
       ${pkgs.mullvad}/bin/mullvad auto-connect set on
       ${pkgs.mullvad}/bin/mullvad dns set default \
         --block-ads --block-trackers --block-malware
