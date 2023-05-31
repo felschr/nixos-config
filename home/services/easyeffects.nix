@@ -80,12 +80,12 @@
         stereo-link = 100.0;
         threshold = 0.0;
       };
-      plugins_order = [ "gate" "compressor" "rnnoise" "limiter" ];
-      rnnoise = {
+      plugins_order = [ "gate" "compressor" "speex" "limiter" ];
+      speex = {
         bypass = false;
         input-gain = 0.0;
-        model-path = "";
         output-gain = 0.0;
+        noise-suppression = -15.0;
       };
     };
   };
