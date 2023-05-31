@@ -70,6 +70,7 @@ config.html.setup(default_config)
 config.cssls.setup(default_config)
 config.dockerls.setup(default_config)
 config.nil_ls.setup(default_config)
+config.nickel_ls.setup(default_config)
 config.tsserver.setup(default_config)
 config.graphql.setup(default_config)
 config.pylsp.setup(default_config)
@@ -173,6 +174,9 @@ null_ls.setup({
     null_ls.builtins.diagnostics.buf,
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.diagnostics.stylelint,
+    null_ls.builtins.formatting.topiary.with {
+      filetypes = { "ncl", "nickel" },
+    },
     null_ls.builtins.formatting.shfmt,
     null_ls.builtins.formatting.eslint,
     -- TODO prettier_d_slim isn't working

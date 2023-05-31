@@ -5,6 +5,7 @@
     # language servers
     omnisharp-roslyn
     nil
+    nls
     buf-language-server
     terraform-ls
     python3Packages.python-lsp-server
@@ -21,6 +22,7 @@
     sumneko-lua-language-server
 
     # linters & formatters
+    topiary
     shellcheck
     shfmt
     nodePackages.eslint
