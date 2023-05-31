@@ -39,6 +39,10 @@
         "!sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -";
       # usage: git pr <source> <PR number> (git pr origin 1010)
       pr = "!sh -c 'git fetch $1 pull/$2/head:pr/$2 && git checkout pr/$2' -";
+      # delete branches locally that have already been merged
+      # usage: git clean-branches <branch> (branch to check against, defaults to main)
+      clean-branches = ''
+        !sh -c 'git branch --merged "''${1:-main}" | egrep -v "(^\*|master|main|staging|production)" | xargs git branch -d' -'';
     };
   };
 }
