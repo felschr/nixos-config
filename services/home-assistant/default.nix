@@ -45,6 +45,7 @@ in {
         longitude = "!secret longitude";
         elevation = 42;
         unit_system = "metric";
+        country = "DE";
         temperature_unit = "C";
         external_url = "https://home.felschr.com";
         internal_url = "http://192.168.1.102:8123";
