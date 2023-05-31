@@ -143,5 +143,5 @@ in with builtins; {
   };
 
   # only change this when specified in release notes
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 }
