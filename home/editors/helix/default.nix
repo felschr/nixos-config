@@ -1,12 +1,53 @@
 { config, lib, pkgs, ... }:
 
 {
-  # TODO use tree-sitter grammars from nixpkgs
+  # @TODO for direnv to work needs to be started from project folder
   programs.helix = {
     enable = true;
     package = pkgs.unstable.helix;
+    languages = [
+      {
+        name = "rust";
+        config.rust-analyzer = {
+          cargo.buildScripts.enable = true;
+          checkOnSave.command = "clippy";
+          procMacro.enable = true;
+        };
+      }
+      {
+        name = "nix";
+        formatter.command = "nixfmt";
+      }
+      {
+        name = "nickel";
+        formatter.command = "topiary";
+      }
+    ];
     settings = {
-      theme = "dark_plus";
+      theme = "github_dark";
+      editor = {
+        color-modes = true;
+        cursor-shape.insert = "bar";
+        completion-trigger-len = 1;
+        statusline = {
+          left = [
+            "mode"
+            "version-control"
+            "spinner"
+            "file-name"
+            "file-modification-indicator"
+          ];
+          right = [
+            "diagnostics"
+            "file-encoding"
+            "file-line-ending"
+            "file-type"
+            "selections"
+            "position"
+          ];
+        };
+      };
+      # @TODO try helix-vim
       keys = {
         normal = {
           "H" = "goto_line_start";
