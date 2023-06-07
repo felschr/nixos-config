@@ -6,6 +6,7 @@
     ./hardware/gpu-intel.nix
     ./hardware/bluetooth.nix
     ./system/desktop.nix
+    ./system/printing/home.nix
     ./desktop
     ./virtualisation/podman.nix
   ];

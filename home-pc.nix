@@ -8,6 +8,7 @@
     ./hardware/steam.nix
     ./hardware/ledger.nix
     ./system/desktop.nix
+    ./system/printing/home.nix
     ./system/gaming.nix
     ./desktop
     ./virtualisation/libvirt.nix
