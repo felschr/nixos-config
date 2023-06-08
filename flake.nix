@@ -10,7 +10,6 @@
   inputs.home-manager = {
     url = "github:nix-community/home-manager/release-23.05";
     inputs.nixpkgs.follows = "nixpkgs";
-    inputs.utils.follows = "flake-utils";
   };
 
   inputs.nur.url = "github:nix-community/NUR/master";
