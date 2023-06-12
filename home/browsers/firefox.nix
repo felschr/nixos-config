@@ -26,7 +26,7 @@ let
     "extensions.pocket.enabled" = false;
 
     # Enable search in location bar
-    "keyword.enabled" = false;
+    "keyword.enabled" = true;
 
     # Enable IPv6 again
     "network.dns.disableIPv6" = false;
