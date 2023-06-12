@@ -39,9 +39,6 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [
-    58324 # transmission
-  ];
   networking.firewall.allowedUDPPorts = [
     24727 # AusweisApp2
   ];

@@ -22,7 +22,7 @@
       ${pkgs.mullvad}/bin/mullvad lan set allow
       ${pkgs.mullvad}/bin/mullvad tunnel ipv6 set on
       ${pkgs.mullvad}/bin/mullvad relay set tunnel-protocol wireguard
-      ${pkgs.mullvad}/bin/mullvad relay set location de dus
+      ${pkgs.mullvad}/bin/mullvad relay set location de ber
 
       account="$(<"$CREDENTIALS_DIRECTORY/account")"
       current_account="$(${pkgs.mullvad}/bin/mullvad account get | grep "account:" | sed 's/.* //')"
