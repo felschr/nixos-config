@@ -57,19 +57,12 @@ in {
   services.nginx.virtualHosts."office.felschr.com" = {
     forceSSL = true;
     enableACME = true;
-    locations = {
-      "^~ /browser".proxyPass = "http://127.0.0.1:9980";
-      "^~ /hosting/discovery".proxyPass = "http://127.0.0.1:9980";
-      "^~ /hosting/capabilities".proxyPass = "http://127.0.0.1:9980";
-      "~ ^/cool/(.*)/ws$" = {
-        proxyPass = "http://127.0.0.1:9980";
-        proxyWebsockets = true;
-      };
-      "~ ^/(c|l)ool".proxyPass = "http://127.0.0.1:9980";
-      "^~ /cool/adminws" = {
-        proxyPass = "http://127.0.0.1:9980";
-        proxyWebsockets = true;
-      };
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:9980";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_read_timeout 36000s;
+      '';
     };
   };
 
