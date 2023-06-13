@@ -22,6 +22,7 @@ in with builtins; {
     ./services/jellyfin.nix
     ./services/etebase.nix
     ./services/website.nix
+    ./services/wkd.nix
     ./services/home-assistant
     ./services/matrix
     ./services/watchtower.nix
@@ -77,6 +78,7 @@ in with builtins; {
     passwordFile = config.age.secrets.cloudflare.path;
     domains = [
       "felschr.com"
+      "openpgpkey.felschr.com"
       "home.felschr.com"
       "esphome.felschr.com"
       "matrix.felschr.com"
