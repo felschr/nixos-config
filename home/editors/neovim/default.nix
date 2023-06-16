@@ -46,7 +46,7 @@ in {
       cmp-nvim-lsp
       cmp_luasnip
 
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      nvim-treesitter.withAllGrammars
       nvim-treesitter-context
       nvim-treesitter-refactor
       nvim-treesitter-textobjects
