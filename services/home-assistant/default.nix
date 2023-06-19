@@ -38,6 +38,7 @@ in {
       "onvif"
       "shopping_list"
     ];
+    extraPackages = ps: with ps; [ pyqrcode ];
     config = {
       homeassistant = {
         name = "Home";
