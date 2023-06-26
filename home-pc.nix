@@ -23,8 +23,8 @@
 
   boot.loader.systemd-boot.memtest86.enable = true;
 
-  # cross-compilation support
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  # running binaries for other architectures
+  # boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" "wasm64-wasi" "wasm32-wasi" ];
 
   programs.adb.enable = true;
 
