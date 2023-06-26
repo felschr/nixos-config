@@ -30,6 +30,10 @@ let
 
     # Enable IPv6 again
     "network.dns.disableIPv6" = false;
+
+    # Disable extension auto updates
+    "extensions.update.enabled" = false;
+    "extensions.update.autoUpdateDefault" = false;
   };
 
   # use extraConfig to load arkenfox user.js before settings

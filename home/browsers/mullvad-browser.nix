@@ -20,6 +20,10 @@ let
 
     # Don't delete cookies & site data on restart
     # "network.cookie.lifetimePolicy" = 0;
+
+    # Disable extension auto updates
+    "extensions.update.enabled" = false;
+    "extensions.update.autoUpdateDefault" = false;
   };
 
   commonExtensions = with firefox-addons; [
