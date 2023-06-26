@@ -35,6 +35,18 @@ local on_attach = function(client, bufnr)
       end,
     })
   end
+
+  -- workaround for https://github.com/OmniSharp/omnisharp-roslyn/issues/2483
+  if client.name == "omnisharp" then
+    local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+    for i, v in ipairs(tokenModifiers) do
+      tokenModifiers[i] = string.gsub(v, "%s*[- ]%s*", "_")
+    end
+    local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+    for i, v in ipairs(tokenTypes) do
+      tokenTypes[i] = string.gsub(v, "%s*[- ]%s*", "_")
+    end
+  end
 end
 
 local config = require("lspconfig")
