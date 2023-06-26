@@ -52,7 +52,8 @@ end
 local config = require("lspconfig")
 local configs = require("lspconfig.configs")
 
-function table.merge(t1, t2)
+-- functional variant of table.merge
+local function tableMerge(t1, t2)
   local t = {}
   for k, v in ipairs(t1) do table.insert(t, v) end
   for k, v in ipairs(t2) do table.insert(t, v) end
@@ -62,7 +63,7 @@ end
 -- first search git root for global config (monorepo)
 -- and fall back to normal search order otherwise
 local monorepo_pattern = function(main_patterns, other_patterns, f)
-  local all_patterns = table.merge(main_patterns, other_patterns)
+  local all_patterns = tableMerge(main_patterns, other_patterns)
   local git_root = config.util.root_pattern(".git")(f)
   local git_root_sln = config.util.root_pattern(unpack(main_patterns))(git_root)
   return git_root_sln or config.util.root_pattern(unpack(all_patterns))(f)
