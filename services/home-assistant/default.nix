@@ -60,6 +60,7 @@ in {
       "automation editor" = "!include automations.yaml";
       "scene editor" = "!include scenes.yaml";
       "script editor" = "!include scripts.yaml";
+      recorder.purge_keep_days = 60;
       zha = {
         database_path = "/var/lib/hass/zigbee.db";
         zigpy_config = { ota = { ikea_provider = true; }; };
