@@ -1,4 +1,4 @@
-{ pkgs, lib, self, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
 
 let
   flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
@@ -6,7 +6,7 @@ let
 in {
   # Let 'nixos-version --json' know about the Git revision
   # of this flake.
-  system.configurationRevision = lib.mkIf (self ? rev) self.rev;
+  system.configurationRevision = lib.mkIf (inputs.self ? rev) inputs.self.rev;
 
   nix = {
     extraOptions = "experimental-features = nix-command flakes";

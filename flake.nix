@@ -100,14 +100,7 @@
 
             nixpkgs.overlays = systemDefaults.overlays;
 
-            imports = systemDefaults.modules ++ [
-              hardwareConfig
-              config
-              {
-                # make arguments available to modules
-                _module.args = { inherit self inputs; };
-              }
-            ];
+            imports = systemDefaults.modules ++ [ hardwareConfig config ];
 
             environment.systemPackages = with pkgs;
               [ agenix.packages.x86_64-linux.default ];
@@ -118,6 +111,7 @@
             (createUser' name args) ({ inherit home-manager; } // args2));
         createMediaGroup = _: { users.groups.media.gid = 600; };
       };
+      specialArgs = { inherit inputs; };
     in rec {
 
       inherit lib overlays nixosModules homeManagerModules;
@@ -145,6 +139,7 @@
               [ deploy-rs.defaultPackage.x86_64-linux ];
           })
         ];
+        inherit specialArgs;
       };
 
       nixosConfigurations.pilot1 = nixpkgs.lib.nixosSystem {
@@ -164,6 +159,7 @@
             config = ./home/felschr-work.nix;
           })
         ];
+        inherit specialArgs;
       };
 
       nixosConfigurations.home-server = nixpkgs.lib.nixosSystem {
@@ -189,6 +185,7 @@
             config = ./home/felschr-server.nix;
           })
         ];
+        inherit specialArgs;
       };
 
       deploy.nodes.home-server = {
