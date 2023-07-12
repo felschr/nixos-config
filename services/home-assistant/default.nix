@@ -1,10 +1,14 @@
-{ config, pkgs, ... }:
-
-with pkgs;
+{ config, pkgs, inputs, ... }:
 
 let port = config.services.home-assistant.config.http.server_port;
 in {
-  imports = [ ./esphome.nix ];
+  disabledModules = [ "services/home-automation/home-assistant.nix" ];
+
+  imports = [
+    "${inputs.nixpkgs-unstable}/nixos/modules/services/home-automation/home-assistant.nix"
+    ./wyoming.nix
+    ./esphome.nix
+  ];
 
   # just installed for ConBee firmware updates
   # TODO deconz package is currently broken
@@ -26,10 +30,13 @@ in {
 
   services.home-assistant = {
     enable = true;
+    package = pkgs.unstable.home-assistant;
     openFirewall = true;
     extraComponents = [
       "default_config"
       "otp"
+      "assist_pipeline"
+      "wyoming"
       "esphome"
       "homekit_controller"
       "fritz"
@@ -65,6 +72,7 @@ in {
         database_path = "/var/lib/hass/zigbee.db";
         zigpy_config = { ota = { ikea_provider = true; }; };
       };
+      conversation = { intents = { }; };
       alarm_control_panel = [{
         platform = "manual";
         code = "!secret alarm_code";
