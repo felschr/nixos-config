@@ -94,14 +94,15 @@ in {
     ];
     timerConfig.OnCalendar = "0/6:00:00";
     extraPruneOpts = [ "--keep-last 4" ];
-  };
 
-  # Extra handling for dev folder to respect .gitignore files.
-  # Do not delete `~/dev-backup` since this leads to changing ctimes
-  # which would cause otherwise unchanged files to be backed up again.
-  # Since `--link-dest` is used, file contents won't be duplicated on disk.
-  systemd.services."restic-backups-full" = {
-    preStart = ''
+    # Extra handling for dev folder to respect .gitignore files.
+    # Do not delete `~/dev-backup` since this leads to changing ctimes
+    # which would cause otherwise unchanged files to be backed up again.
+    # Since `--link-dest` is used, file contents won't be duplicated on disk.
+    backupPrepareCommand = ''
+      # remove stale locks
+      ${pkgs.restic}/bin/restic unlock || true
+
       rm -rf /home/felschr/dev-backup
       ${pkgs.rsync}/bin/rsync \
         -a --delete \

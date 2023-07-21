@@ -41,5 +41,9 @@ in {
     ];
     timerConfig.OnCalendar = "0/6:00:00";
     extraPruneOpts = [ "--keep-last 4" ];
+    backupPrepareCommand = ''
+      # remove stale locks
+      ${pkgs.restic}/bin/restic unlock || true
+    '';
   };
 }
