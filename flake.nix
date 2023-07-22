@@ -51,59 +51,20 @@
       systems = [ "x86_64-linux" "aarch64-linux" ];
       imports = [ ];
       flake = rec {
-        overlays = {
-          unstable = final: prev: {
-            unstable = import nixpkgs-unstable {
-              inherit (prev) system;
-              config.allowUnfree = true;
-            };
-          };
-          neovim = final: prev:
-            let
-              buildVimPlugin = name: input:
-                prev.pkgs.vimUtils.buildVimPluginFrom2Nix {
-                  pname = name;
-                  version = input.rev;
-                  versionSuffix = "-git";
-                  src = input;
-                };
-            in {
-              vimPlugins = prev.vimPlugins // {
-                nvim-kitty-navigator =
-                  buildVimPlugin "nvim-kitty-navigator" nvim-kitty-navigator;
-              };
-            };
-          deconz = final: prev: {
-            deconz = final.qt5.callPackage ./pkgs/deconz { };
-          };
-          wrappers = final: prev: {
-            genericBinWrapper =
-              final.callPackage ./pkgs/generic-bin-wrapper { };
-            mullvadExcludeWrapper =
-              final.callPackage ./pkgs/mullvad-exclude-wrapper { };
-          };
-        };
-
         lib = rec {
-          systemDefaults = {
-            modules =
-              [ nixosModules.flakeDefaults agenix.nixosModules.default ];
-            overlays = with overlays; [
-              unstable
-              nur.overlay
-              neovim
-              deconz
-              wrappers
-            ];
-          };
           createSystem = hostName:
             { hardwareConfig, config }:
             ({ pkgs, lib, ... }: {
               networking.hostName = hostName;
 
-              nixpkgs.overlays = systemDefaults.overlays;
+              nixpkgs.overlays = [ nur.overlay self.overlays.default ];
 
-              imports = systemDefaults.modules ++ [ hardwareConfig config ];
+              imports = [
+                nixosModules.flakeDefaults
+                agenix.nixosModules.default
+                hardwareConfig
+                config
+              ];
 
               environment.systemPackages =
                 [ agenix.packages.x86_64-linux.default ];
@@ -113,6 +74,16 @@
             ({ pkgs, ... }@args2:
               (createUser' name args) ({ inherit home-manager; } // args2));
           createMediaGroup = _: { users.groups.media.gid = 600; };
+        };
+
+        overlays.default = final: prev: {
+          unstable = import nixpkgs-unstable {
+            inherit (prev) system;
+            config.allowUnfree = true;
+          };
+          inherit (self.packages.${prev.system}) deconz;
+          vimPlugins = prev.vimPlugins
+            // final.callPackage ./pkgs/vim-plugins { inherit inputs; };
         };
 
         nixosModules = {
@@ -207,13 +178,20 @@
           };
         };
       };
-      perSystem = { system, config, pkgs, ... }: rec {
-        packages = { deconz = pkgs.qt5.callPackage ./pkgs/deconz { }; };
+      perSystem = { system, config, pkgs, ... }: {
+        _module.args.pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
-        apps = { deconz = flake-utils.lib.mkApp { drv = packages.deconz; }; };
+        packages = pkgs.callPackage ./pkgs { };
+
+        apps = {
+          deconz = flake-utils.lib.mkApp { drv = config.packages.deconz; };
+        };
 
         devShells.default =
-          pkgs.mkShell { inherit (checks.pre-commit) shellHook; };
+          pkgs.mkShell { inherit (config.checks.pre-commit) shellHook; };
 
         checks = deploy-rs.lib.${system}.deployChecks self.deploy // {
           pre-commit = pre-commit-hooks.lib.${system}.run {
