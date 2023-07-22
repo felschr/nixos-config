@@ -1,17 +1,6 @@
-{ config, pkgs, nixosConfig, ... }:
+{ pkgs, ... }:
 
-let
-  steam = pkgs.steam.override {
-    extraLibraries = pkgs:
-      with nixosConfig.hardware.opengl;
-      if pkgs.hostPlatform.is64bit then
-        [ package ] ++ extraPackages
-      else
-        [ package32 ] ++ extraPackages32;
-  };
-in {
-  home.packages = [ steam steam.run pkgs.protontricks ];
-
+{
   home.file = {
     proton-ge = let version = "GE-Proton7-54";
     in {

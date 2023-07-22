@@ -5,6 +5,7 @@
     ./hardware/base.nix
     ./hardware/gpu-amd.nix
     ./hardware/bluetooth.nix
+    ./hardware/xbox.nix
     ./hardware/steam.nix
     ./hardware/ledger.nix
     ./system/desktop.nix
