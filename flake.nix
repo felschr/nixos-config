@@ -172,9 +172,12 @@
         deploy.nodes.home-server = {
           hostname = "192.168.1.102";
           profiles.system = {
-            user = "felschr";
+            sshUser = "felschr";
+            sshOpts = [ "-t" ];
+            user = "root";
             path = deploy-rs.lib.x86_64-linux.activate.nixos
               self.nixosConfigurations.home-server;
+            magicRollback = false; # otherwise password prompt won't work
           };
         };
       };
