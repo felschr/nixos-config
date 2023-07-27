@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -36,4 +36,8 @@
       };
     };
   };
+
+  # needs access to /proc/cpuinfo
+  systemd.services."wyoming-faster-whisper-en".serviceConfig.ProcSubset =
+    lib.mkForce "all";
 }
