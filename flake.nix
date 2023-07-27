@@ -184,7 +184,7 @@
           config.allowUnfree = true;
         };
 
-        packages = pkgs.callPackage ./pkgs { };
+        packages = import ./pkgs { inherit pkgs; };
 
         apps = {
           deconz = flake-utils.lib.mkApp { drv = config.packages.deconz; };
