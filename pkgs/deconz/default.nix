@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, mkDerivation, dpkg, autoPatchelfHook, qtserialport
-, qtwebsockets, libredirect, makeWrapper, gzip, gnutar }:
+{ lib, stdenv, fetchurl, mkDerivation, dpkg, autoPatchelfHook, libxcrypt-legacy
+, qtserialport, qtwebsockets, libredirect, makeWrapper, gzip, gnutar }:
 
 let
   version = "2.17.01";
@@ -17,7 +17,7 @@ let
     };
   };
 
-in mkDerivation rec {
+in mkDerivation {
   pname = "deCONZ";
   inherit version;
 
@@ -25,7 +25,7 @@ in mkDerivation rec {
 
   nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
 
-  buildInputs = [ qtserialport qtwebsockets ];
+  buildInputs = [ libxcrypt-legacy qtserialport qtwebsockets ];
 
   unpackPhase = "dpkg-deb -x $src .";
 

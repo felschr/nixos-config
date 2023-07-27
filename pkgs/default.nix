@@ -1,5 +1,5 @@
 { pkgs, ... }:
 
 {
-  deconz = pkgs.callPackage ./deconz { };
+  deconz = pkgs.qt5.callPackage ./deconz { };
 }
