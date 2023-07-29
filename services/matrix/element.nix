@@ -16,13 +16,20 @@ in {
         disable_guests = true;
         features = {
           feature_pinning = true;
-          feature_thread = true;
           feature_video_rooms = true;
           feature_group_calls = true;
+          feature_element_call_video_rooms = true;
+          feature_exploring_public_spaces = true;
         };
         show_labs_settings = true;
-        roomDirectory.servers =
-          [ server_name "matrix.org" "gitter.im" "libera.chat" ];
+        roomDirectory.servers = [
+          server_name
+          "matrix.org"
+          "gitter.im"
+          "libera.chat"
+          "mozilla.org"
+          "nixos.org"
+        ];
         enable_presence_by_hs_url = {
           "https://${matrix_host}" = false;
           "https://matrix.org" = false;
