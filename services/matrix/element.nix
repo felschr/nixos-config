@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  inherit (config.services.dendrite.settings.global) server_name;
+  inherit (config.services.matrix-conduit.settings.global) server_name;
   matrix_host = "matrix.${server_name}";
 in {
   services.nginx.virtualHosts."element.felschr.com" = {

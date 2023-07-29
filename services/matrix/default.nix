@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./dendrite.nix ./element.nix ];
+  imports = [ ./conduit.nix ./element.nix ];
 }

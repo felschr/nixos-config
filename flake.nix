@@ -38,6 +38,12 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    conduit = {
+      url = "gitlab:famedly/conduit";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     nvim-kitty-navigator = {
       url = "github:hermitmaster/nvim-kitty-navigator";
       flake = false;
@@ -46,7 +52,7 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, flake-parts
     , flake-utils, home-manager, nur, agenix, deploy-rs, pre-commit-hooks
-    , nvim-kitty-navigator }@inputs:
+    , nvim-kitty-navigator, ... }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" ];
       imports = [ ];
