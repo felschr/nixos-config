@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./conduit.nix ./element.nix ];
+  imports = [ ./conduit.nix ./element.nix ./appservices.nix ];
 }

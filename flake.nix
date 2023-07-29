@@ -44,6 +44,11 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    matrix-appservices = {
+      url = "gitlab:coffeetables/nix-matrix-appservices";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvim-kitty-navigator = {
       url = "github:hermitmaster/nvim-kitty-navigator";
       flake = false;
@@ -68,6 +73,7 @@
               imports = [
                 nixosModules.flakeDefaults
                 agenix.nixosModules.default
+                inputs.matrix-appservices.nixosModule
                 hardwareConfig
                 config
               ];

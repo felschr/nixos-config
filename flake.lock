@@ -120,6 +120,21 @@
         "type": "github"
       }
     },
+    "devshell": {
+      "locked": {
+        "lastModified": 1642188268,
+        "narHash": "sha256-DNz4xScpXIn7rSDohdayBpPR9H9OWCMDOgTYegX081k=",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "696acc29668b644df1740b69e1601119bf6da83b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "devshell",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -175,6 +190,22 @@
       }
     },
     "flake-compat_3": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1641205782,
+        "narHash": "sha256-4jY7RCWUoZ9cKD8co0/4tFARpWB+57+r1bLLvXNJliY=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b7547d3eed6f32d06102ead8991ec52ab0a4f1a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_4": {
       "flake": false,
       "locked": {
         "lastModified": 1673956053,
@@ -291,6 +322,44 @@
         "type": "github"
       }
     },
+    "matrix-appservices": {
+      "inputs": {
+        "devshell": "devshell",
+        "flake-compat": "flake-compat_3",
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1683490239,
+        "narHash": "sha256-QKzpvl2XrqbobWq/I/smDa9hEniwctjJybXPVILHP0w=",
+        "owner": "coffeetables",
+        "repo": "nix-matrix-appservices",
+        "rev": "e795d2fbc61da45d49802bb3e8f8d0c70ddc1e68",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "coffeetables",
+        "repo": "nix-matrix-appservices",
+        "type": "gitlab"
+      }
+    },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1643502816,
+        "narHash": "sha256-Wrbt6Gs+hjXD3HUICPBJHKnHEUqiyx8rzHCgvqC1Bok=",
+        "owner": "divnix",
+        "repo": "nixpkgs.lib",
+        "rev": "ebed7ec5bcb5d01e298535989c6c321df18b631a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1690200740,
@@ -373,7 +442,7 @@
     },
     "pre-commit-hooks": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_4",
         "flake-utils": [
           "flake-utils"
         ],
@@ -407,6 +476,7 @@
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
+        "matrix-appservices": "matrix-appservices",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
