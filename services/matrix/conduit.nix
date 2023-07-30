@@ -35,6 +35,7 @@ in {
       server = { "m.server" = "${domain}:443"; };
       client = {
         "m.homeserver"."base_url" = "https://${domain}";
+        "org.matrix.msc3575.proxy"."url" = "https://${domain}";
         "m.identity_server"."base_url" = "https://vector.im";
       };
     in {
