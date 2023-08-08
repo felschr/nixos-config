@@ -7,21 +7,7 @@
       gnome.gnome-tweaks
       native-window-placement
       appindicator
-      (pop-shell.overrideAttrs (old: rec {
-        version = "unstable-2023-04-27";
-        src = fetchFromGitHub {
-          owner = "pop-os";
-          repo = "shell";
-          rev = "b5acccefcaa653791d25f70a22c0e04f1858d96e";
-          sha256 = "w6EBHKWJ4L3ZRVmFqZhCqHGumbElQXk9udYSnwjIl6c=";
-        };
-        patches = [ ];
-        postPatch = ''
-          for file in */main.js; do
-            substituteInPlace $file --replace "gjs" "${pkgs.gjs}/bin/gjs"
-          done
-        '';
-      }))
+      pop-shell
       gnome-bedtime
     ];
 
