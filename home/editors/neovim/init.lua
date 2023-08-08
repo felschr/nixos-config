@@ -35,7 +35,7 @@ local wk = require("which-key")
 
 require("nvim-tree").setup {}
 wk.register({
-  ["<C-p>"] = { require("nvim-tree").toggle, "Toggle NVimTree" },
+  ["<C-p>"] = { require("nvim-tree.api").tree.toggle, "Toggle NVimTree" },
 }, { mode = "n" })
 
 require("toggleterm").setup {
