@@ -25,7 +25,6 @@ in with builtins; {
     ./services/wkd.nix
     ./services/home-assistant
     ./services/matrix
-    ./services/watchtower.nix
     ./services/immich.nix
     ./services/miniflux.nix
     ./services/paperless.nix
