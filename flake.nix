@@ -94,7 +94,7 @@
             inherit (prev) system;
             config.allowUnfree = true;
           };
-          inherit (self.packages.${prev.system}) deconz;
+          inherit (self.packages.${prev.system}) deconz brlaser;
           vimPlugins = prev.vimPlugins
             // final.callPackage ./pkgs/vim-plugins { inherit inputs; };
         };
