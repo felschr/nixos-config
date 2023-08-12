@@ -23,7 +23,7 @@ in {
 
   system.autoUpgrade = {
     enable = true;
-    dates = "02:00";
+    dates = "03:00";
     flake = "/etc/nixos";
     flags = with lib;
       flatten (mapAttrsToList (n: _: [ "--update-input" n ]) flakes);
