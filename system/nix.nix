@@ -11,9 +11,14 @@ in {
   nix.settings = {
     trusted-users = [ "@wheel" ];
     auto-optimise-store = true;
-    substituters = [ "https://felschr.cachix.org" ];
-    trusted-public-keys =
-      [ "felschr.cachix.org-1:raomy5XA2tsVkBoG6wo70ARIn+V24IXhWaSe3QZo12A=" ];
+    substituters = [
+      "https://felschr.cachix.org"
+      "https://wurzelpfropf.cachix.org" # ragenix
+    ];
+    trusted-public-keys = [
+      "felschr.cachix.org-1:raomy5XA2tsVkBoG6wo70ARIn+V24IXhWaSe3QZo12A="
+      "wurzelpfropf.cachix.org-1:ilZwK5a6wJqVr7Fyrzp4blIEkGK+LJT0QrpWr1qBNq0="
+    ];
   };
 
   system.autoUpgrade = {
