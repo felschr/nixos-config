@@ -1,23 +1,23 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
-    ./hardware/base.nix
-    ./hardware/gpu-amd.nix
-    ./hardware/bluetooth.nix
-    ./hardware/xbox.nix
-    ./hardware/steam.nix
-    ./hardware/ledger.nix
-    ./system/desktop.nix
-    ./system/printing/home.nix
-    ./system/gaming.nix
-    ./desktop
-    ./virtualisation/libvirt.nix
-    ./virtualisation/podman.nix
-    ./modules/systemdNotify.nix
-    ./services/samba/home-pc.nix
-    ./services/restic/home-pc.nix
-    ./services/pcscd.nix
+    ../hardware/base.nix
+    ../hardware/gpu-amd.nix
+    ../hardware/bluetooth.nix
+    ../hardware/xbox.nix
+    ../hardware/steam.nix
+    ../hardware/ledger.nix
+    ../system/desktop.nix
+    ../system/printing/home.nix
+    ../system/gaming.nix
+    ../desktop
+    ../virtualisation/libvirt.nix
+    ../virtualisation/podman.nix
+    ../modules/systemdNotify.nix
+    ../services/samba/home-pc.nix
+    ../services/restic/home-pc.nix
+    ../services/pcscd.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

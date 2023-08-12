@@ -1,14 +1,14 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
-    ./hardware/base.nix
-    ./hardware/gpu-intel.nix
-    ./hardware/bluetooth.nix
-    ./system/desktop.nix
-    ./system/printing/home.nix
-    ./desktop
-    ./virtualisation/podman.nix
+    ../hardware/base.nix
+    ../hardware/gpu-intel.nix
+    ../hardware/bluetooth.nix
+    ../system/desktop.nix
+    ../system/printing/home.nix
+    ../desktop
+    ../virtualisation/podman.nix
   ];
 
   # replace with regenerated hardware-configuration.nix

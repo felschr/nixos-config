@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   # mkdir /etc/secrets/initrd -p
@@ -10,31 +10,31 @@ let
   }];
 in with builtins; {
   imports = [
-    ./hardware/base.nix
-    ./hardware/gpu-intel.nix
-    ./desktop/x11.nix
-    ./system/server.nix
-    ./modules/systemdNotify.nix
-    ./services/mail.nix
-    ./services/restic/home-server.nix
-    ./services/samba/home-server.nix
-    # ./services/kodi.nix
-    ./services/jellyfin.nix
-    ./services/etebase.nix
-    ./services/website.nix
-    ./services/wkd.nix
-    ./services/home-assistant
-    ./services/matrix
-    ./services/immich.nix
-    ./services/miniflux.nix
-    ./services/paperless.nix
-    ./services/nextcloud.nix
-    ./services/calibre-web.nix
-    ./services/focalboard.nix
+    ../hardware/base.nix
+    ../hardware/gpu-intel.nix
+    ../desktop/x11.nix
+    ../system/server.nix
+    ../modules/systemdNotify.nix
+    ../services/mail.nix
+    ../services/restic/home-server.nix
+    ../services/samba/home-server.nix
+    # ../services/kodi.nix
+    ../services/jellyfin.nix
+    ../services/etebase.nix
+    ../services/website.nix
+    ../services/wkd.nix
+    ../services/home-assistant
+    ../services/matrix
+    ../services/immich.nix
+    ../services/miniflux.nix
+    ../services/paperless.nix
+    ../services/nextcloud.nix
+    ../services/calibre-web.nix
+    ../services/focalboard.nix
   ];
 
-  age.secrets.cloudflare.file = ./secrets/cloudflare.age;
-  age.secrets.hostKey.file = ./secrets/home-server/hostKey.age;
+  age.secrets.cloudflare.file = ../secrets/cloudflare.age;
+  age.secrets.hostKey.file = ../secrets/home-server/hostKey.age;
 
   nixpkgs.config.allowUnfree = true;
 

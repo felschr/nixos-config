@@ -121,7 +121,7 @@
               nixos-hardware.nixosModules.common-gpu-amd
               (lib.createSystem "home-pc" {
                 hardwareConfig = ./hardware/home-pc.nix;
-                config = ./home-pc.nix;
+                config = ./hosts/home-pc.nix;
               })
               lib.createMediaGroup
               (lib.createUser "felschr" {
@@ -145,7 +145,7 @@
               nixos-hardware.nixosModules.common-cpu-intel
               (lib.createSystem "pilot1" {
                 hardwareConfig = ./hardware/pilot1.nix;
-                config = ./work-pc.nix;
+                config = ./hosts/work-pc.nix;
               })
               (lib.createUser "felschr" {
                 user.extraGroups = [ "wheel" "audio" "disk" ];
@@ -164,7 +164,7 @@
               nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
               (lib.createSystem "home-server" {
                 hardwareConfig = ./hardware/lattepanda.nix;
-                config = ./home-server.nix;
+                config = ./hosts/home-server.nix;
               })
               lib.createMediaGroup
               (lib.createUser "felschr" {
