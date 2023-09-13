@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   server_name = "felschr.com";
@@ -6,7 +6,7 @@ let
 in {
   services.matrix-conduit = {
     enable = true;
-    package = inputs.conduit.packages.${pkgs.system}.default;
+    package = pkgs.unstable.matrix-conduit;
     settings.global = {
       inherit server_name;
       database_backend = "rocksdb";

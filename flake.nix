@@ -45,12 +45,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    conduit = {
-      url = "gitlab:famedly/conduit";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     matrix-appservices = {
       url = "gitlab:coffeetables/nix-matrix-appservices";
       inputs.nixpkgs.follows = "nixpkgs";
