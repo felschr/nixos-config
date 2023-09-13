@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ lib, inputs, nixConfig, ... }:
 
 let flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
 in {
@@ -11,14 +11,8 @@ in {
   nix.settings = {
     trusted-users = [ "@wheel" ];
     auto-optimise-store = true;
-    substituters = [
-      "https://felschr.cachix.org"
-      "https://wurzelpfropf.cachix.org" # ragenix
-    ];
-    trusted-public-keys = [
-      "felschr.cachix.org-1:raomy5XA2tsVkBoG6wo70ARIn+V24IXhWaSe3QZo12A="
-      "wurzelpfropf.cachix.org-1:ilZwK5a6wJqVr7Fyrzp4blIEkGK+LJT0QrpWr1qBNq0="
-    ];
+    substituters = nixConfig.extra-substituters;
+    trusted-public-keys = nixConfig.extra-trusted-public-keys;
   };
 
   system.autoUpgrade = {

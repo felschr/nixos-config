@@ -1,4 +1,19 @@
-{
+rec {
+  description = "felschr's NixOS configuration";
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://wurzelpfropf.cachix.org" # ragenix
+      "https://felschr.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "wurzelpfropf.cachix.org-1:ilZwK5a6wJqVr7Fyrzp4blIEkGK+LJT0QrpWr1qBNq0="
+      "felschr.cachix.org-1:raomy5XA2tsVkBoG6wo70ARIn+V24IXhWaSe3QZo12A="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2305.tar.gz";
 
@@ -136,7 +151,7 @@
                   [ deploy-rs.defaultPackage.x86_64-linux ];
               })
             ];
-            specialArgs = { inherit inputs; };
+            specialArgs = { inherit inputs nixConfig; };
           };
           pilot1 = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
@@ -155,7 +170,7 @@
                 config = ./home/felschr-work.nix;
               })
             ];
-            specialArgs = { inherit inputs; };
+            specialArgs = { inherit inputs nixConfig; };
           };
           home-server = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
@@ -180,7 +195,7 @@
                 config = ./home/felschr-server.nix;
               })
             ];
-            specialArgs = { inherit inputs; };
+            specialArgs = { inherit inputs nixConfig; };
           };
         };
 
