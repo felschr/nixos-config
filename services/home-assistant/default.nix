@@ -34,17 +34,26 @@ in {
     extraComponents = [
       "default_config"
       "otp"
-      "assist_pipeline"
-      "wyoming"
+      "upnp"
+      "zha"
+      "thread"
       "esphome"
       "homekit_controller"
       "fritz"
       "roku"
       "sonos"
       "onvif"
+      "assist_pipeline"
+      "wyoming"
       "shopping_list"
     ];
-    extraPackages = ps: with ps; [ pyqrcode ];
+    extraPackages = ps:
+      with ps; [
+        pyqrcode
+
+        # HACS
+        aiogithubapi
+      ];
     config = {
       homeassistant = {
         name = "Home";
