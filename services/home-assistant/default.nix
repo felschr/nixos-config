@@ -78,6 +78,9 @@ in {
       recorder.purge_keep_days = 60;
       zha = {
         database_path = "/var/lib/hass/zigbee.db";
+        enable_quirks = true;
+        custom_quirks_path =
+          "${config.services.home-assistant.configDir}/zha_quirks/";
         zigpy_config = { ota = { ikea_provider = true; }; };
       };
       conversation = { intents = { }; };
