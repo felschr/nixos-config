@@ -1,3 +1,6 @@
+#!/usr/bin/env zsh
+# shellcheck disable=all
+
 first-tab-completion() {
   if [[ $#BUFFER == 0 ]]; then
     BUFFER="cd "
