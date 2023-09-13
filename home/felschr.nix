@@ -46,6 +46,8 @@
   '';
 
   home.packages = with pkgs; [
+    fh
+
     # system
     gparted
     gnome-firmware-updater

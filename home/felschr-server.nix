@@ -7,7 +7,7 @@
     ./git.nix
   ];
 
-  home.packages = with pkgs; [ ncurses ];
+  home.packages = with pkgs; [ fh ncurses ];
 
   programs.gpg.enable = true;
   services.gpg-agent = {

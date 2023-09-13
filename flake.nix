@@ -7,6 +7,11 @@
     nixos-hardware.url =
       "https://flakehub.com/f/NixOS/nixos-hardware/0.1.tar.gz";
 
+    fh = {
+      url = "https://flakehub.com/f/DeterminateSystems/fh/0.1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -57,7 +62,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, flake-parts
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, fh, flake-parts
     , flake-utils, home-manager, nur, agenix, deploy-rs, pre-commit-hooks
     , nvim-kitty-navigator, ... }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
@@ -95,6 +100,7 @@
             inherit (prev) system;
             config.allowUnfree = true;
           };
+          inherit (fh.packages.${prev.system}) fh;
           inherit (self.packages.${prev.system}) deconz brlaser;
           vimPlugins = prev.vimPlugins
             // final.callPackage ./pkgs/vim-plugins { inherit inputs; };
