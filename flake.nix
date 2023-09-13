@@ -115,6 +115,7 @@
           git = import ./home/modules/git.nix;
           firefox = import ./home/modules/firefox/firefox.nix;
           tor-browser = import ./home/modules/firefox/tor-browser.nix;
+          mullvad-browser = import ./home/modules/firefox/mullvad-browser.nix;
         };
 
         nixosConfigurations = {
