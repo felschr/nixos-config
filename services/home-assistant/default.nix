@@ -36,7 +36,7 @@ in {
       "otp"
       "upnp"
       "zha"
-      "thread"
+      "matter"
       "esphome"
       "homekit_controller"
       "fritz"
