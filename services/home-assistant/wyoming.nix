@@ -8,7 +8,18 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      inherit (pkgs.unstable) wyoming-piper wyoming-faster-whisper piper-tts;
+      # inherit (pkgs.unstable) wyoming-piper wyoming-faster-whisper piper-tts;
+      inherit (pkgs.unstable) wyoming-piper piper-tts;
+      # TODO tensorflow is currently broken, use tensorflow-bin instead
+      wyoming-faster-whisper = pkgs.unstable.wyoming-faster-whisper.override {
+        python3 = pkgs.unstable.python3 // {
+          pkgs = pkgs.unstable.python3.pkgs // {
+            ctranslate2 = pkgs.unstable.python3.pkgs.ctranslate2.override {
+              tensorflow = pkgs.unstable.python310Packages.tensorflow-bin;
+            };
+          };
+        };
+      };
     })
   ];
 
