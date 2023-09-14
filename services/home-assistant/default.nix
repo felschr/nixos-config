@@ -67,6 +67,7 @@ in {
         external_url = "https://home.felschr.com";
         internal_url = "http://192.168.1.102:8123";
         media_dirs.media = "/media";
+        allowlist_external_dirs = [ "/tmp" "/config/www/tmp" ];
       };
       default_config = { };
       http = {
