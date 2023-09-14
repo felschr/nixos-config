@@ -43,6 +43,7 @@ in {
       "roku"
       "sonos"
       "onvif"
+      "alarm_control_panel"
       "assist_pipeline"
       "wyoming"
       "shopping_list"
@@ -83,19 +84,8 @@ in {
           "${config.services.home-assistant.configDir}/zha_quirks/";
         zigpy_config = { ota = { ikea_provider = true; }; };
       };
+      zha_toolkit = { };
       conversation = { intents = { }; };
-      alarm_control_panel = [{
-        platform = "manual";
-        code = "!secret alarm_code";
-        arming_time = 30;
-        delay_time = 30;
-        trigger_time = 120;
-        disarmed = { trigger_time = 0; };
-        armed_home = {
-          arming_time = 0;
-          delay_time = 0;
-        };
-      }];
     };
     # configWritable = true; # doesn't work atm
   };
