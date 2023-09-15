@@ -43,6 +43,7 @@ in {
       "roku"
       "sonos"
       "onvif"
+      "reolink"
       "media_source"
       "alarm_control_panel"
       "assist_pipeline"
