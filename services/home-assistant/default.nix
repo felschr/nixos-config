@@ -43,6 +43,7 @@ in {
       "roku"
       "sonos"
       "onvif"
+      "media_source"
       "alarm_control_panel"
       "assist_pipeline"
       "wyoming"
@@ -67,7 +68,7 @@ in {
         external_url = "https://home.felschr.com";
         internal_url = "http://192.168.1.102:8123";
         media_dirs.media = "/media";
-        allowlist_external_dirs = [ "/tmp" "/config/www/tmp" ];
+        allowlist_external_dirs = [ "/tmp" "/media" ];
       };
       default_config = { };
       http = {
