@@ -8,6 +8,7 @@
     ../system/desktop.nix
     ../system/printing/home.nix
     ../desktop
+    ../virtualisation/containers.nix
     ../virtualisation/podman.nix
   ];
 

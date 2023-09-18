@@ -12,8 +12,9 @@
     ../system/printing/home.nix
     ../system/gaming.nix
     ../desktop
-    ../virtualisation/libvirt.nix
+    ../virtualisation/containers.nix
     ../virtualisation/podman.nix
+    ../virtualisation/libvirt.nix
     ../modules/systemdNotify.nix
     ../services/samba/home-pc.nix
     ../services/restic/home-pc.nix
