@@ -145,6 +145,7 @@ rec {
                 user.extraGroups = [ "wheel" "audio" "disk" "media" ];
                 modules = [ homeManagerModules.git ];
                 config = ./home/felschr.nix;
+                usesContainers = true;
               })
               ({ pkgs, ... }: {
                 environment.systemPackages =
@@ -168,6 +169,7 @@ rec {
                 user.extraGroups = [ "wheel" "audio" "disk" ];
                 modules = [ homeManagerModules.git ];
                 config = ./home/felschr-work.nix;
+                usesContainers = true;
               })
             ];
             specialArgs = { inherit inputs nixConfig; };
