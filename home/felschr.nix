@@ -53,7 +53,7 @@
     gnome-firmware-updater
 
     # productivity
-    discord
+    logseq
     libreoffice-fresh
     tabbed
 

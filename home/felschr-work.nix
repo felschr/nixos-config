@@ -47,11 +47,8 @@ with pkgs; {
     gnome-firmware-updater
 
     # productivity
-    discord
+    logseq
     libreoffice-fresh
-    skypeforlinux
-    pinta
-    inkscape
 
     # entertainment
     celluloid
