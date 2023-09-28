@@ -58,7 +58,8 @@ in {
     };
     # only secrets need to be included, e.g. FOCALBOARD_DBCONFIG
     environmentFiles = [ config.age.secrets.focalboard-env.path ];
-    extraOptions = [ "--network=host" ];
+    extraOptions =
+      [ "--network=host" "--label=io.containers.autoupdate=registry" ];
   };
 
   systemd.services."${ociBackend}-focalboard" = {

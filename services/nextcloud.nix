@@ -52,7 +52,11 @@ in {
       aliasgroup2 = mkAlias "cloud.felschr.com";
       extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
     };
-    extraOptions = [ "--network=host" "--cap-add=MKNOD" ];
+    extraOptions = [
+      "--network=host"
+      "--cap-add=MKNOD"
+      "--label=io.containers.autoupdate=registry"
+    ];
   };
   services.nginx.virtualHosts."office.felschr.com" = {
     forceSSL = true;

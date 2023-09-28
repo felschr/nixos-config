@@ -35,6 +35,7 @@ let
       "--add-host=immich-machine-learning:127.0.0.1"
       "--add-host=immich-web:127.0.0.1"
       "--add-host=typesense:127.0.0.1"
+      "--label=io.containers.autoupdate=registry"
     ];
   };
 in {
@@ -118,7 +119,8 @@ in {
       environment.TYPESENSE_DATA_DIR = "/data";
       environmentFiles = [ config.age.secrets.immich-typesense-env.path ];
       volumes = [ "${typesenseDataDir}:/data" ];
-      extraOptions = [ "--network=host" ];
+      extraOptions =
+        [ "--network=host" "--label=io.containers.autoupdate=registry" ];
     };
   };
 
