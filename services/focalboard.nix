@@ -49,7 +49,7 @@ in {
   };
 
   virtualisation.oci-containers.containers.focalboard = {
-    image = "mattermost/focalboard";
+    image = "docker.io/mattermost/focalboard";
     ports = [ "${toString port}:${toString port}" ];
     volumes = [ "${dataDir}:/var/lib/focalboard" ];
     environment = {

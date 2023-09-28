@@ -114,7 +114,7 @@ in {
     };
 
     typesense = {
-      image = "typesense/typesense:0.24.0";
+      image = "docker.io/typesense/typesense:0.24.0";
       environment.TYPESENSE_DATA_DIR = "/data";
       environmentFiles = [ config.age.secrets.immich-typesense-env.path ];
       volumes = [ "${typesenseDataDir}:/data" ];

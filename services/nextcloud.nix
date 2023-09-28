@@ -40,7 +40,7 @@ in {
   # Office
   # TODO move to own config
   virtualisation.oci-containers.containers.collabora-office = {
-    image = "collabora/code";
+    image = "docker.io/collabora/code";
     ports = [ "9980:9980" ];
     environment = let
       mkAlias = domain:
