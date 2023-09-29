@@ -142,7 +142,8 @@ rec {
               })
               lib.createMediaGroup
               (lib.createUser "felschr" {
-                user.extraGroups = [ "wheel" "audio" "disk" "media" ];
+                user.extraGroups =
+                  [ "wheel" "audio" "disk" "libvirtd" "qemu-libvirtd" "media" ];
                 modules = [ homeManagerModules.git ];
                 config = ./home/felschr.nix;
                 usesContainers = true;
