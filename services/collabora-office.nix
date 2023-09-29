@@ -1,6 +1,9 @@
-_:
+{ config, ... }:
 
-{
+let
+  inherit (config.users.users.collabora-office) uid;
+  inherit (config.users.groups.collabora-office) gid;
+in {
   virtualisation.oci-containers.containers.collabora-office = {
     image = "docker.io/collabora/code";
     ports = [ "9980:9980" ];
@@ -15,6 +18,10 @@ _:
       extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
     };
     extraOptions = [
+      "--uidmap=0:65534:1"
+      "--gidmap=0:65534:1"
+      "--uidmap=100:${toString uid}:1"
+      "--gidmap=101:${toString gid}:1"
       "--network=host"
       "--cap-add=MKNOD"
       "--label=io.containers.autoupdate=registry"
@@ -32,4 +39,12 @@ _:
       '';
     };
   };
+
+  users.users.collabora-office = {
+    isSystemUser = true;
+    group = "collabora-office";
+    uid = 982;
+  };
+
+  users.groups.collabora-office = { gid = 982; };
 }

@@ -12,6 +12,9 @@ let
   dbName = "focalboard";
   dbPasswordFile = config.age.secrets.focalboard-db-password.path;
 
+  inherit (config.users.users.focalboard) uid;
+  inherit (config.users.groups.focalboard) gid;
+
   pgSuperUser = config.services.postgresql.superUser;
 in {
   age.secrets.focalboard-env.file = ../secrets/focalboard/.env.age;
@@ -58,8 +61,14 @@ in {
     };
     # only secrets need to be included, e.g. FOCALBOARD_DBCONFIG
     environmentFiles = [ config.age.secrets.focalboard-env.path ];
-    extraOptions =
-      [ "--network=host" "--label=io.containers.autoupdate=registry" ];
+    extraOptions = [
+      "--uidmap=0:65534:1"
+      "--gidmap=0:65534:1"
+      "--uidmap=65534:${toString uid}:1"
+      "--gidmap=65534:${toString gid}:1"
+      "--network=host"
+      "--label=io.containers.autoupdate=registry"
+    ];
   };
 
   systemd.services."${ociBackend}-focalboard" = {
@@ -75,4 +84,12 @@ in {
       proxyWebsockets = true;
     };
   };
+
+  users.users.focalboard = {
+    isSystemUser = true;
+    group = "focalboard";
+    uid = 981;
+  };
+
+  users.groups.focalboard = { gid = 978; };
 }

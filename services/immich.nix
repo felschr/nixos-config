@@ -11,10 +11,16 @@ let
   containersHost = "localhost";
   domain = "photos.felschr.com";
 
+  inherit (config.users.users.immich) uid;
+  inherit (config.users.groups.immich) gid;
+
   pgSuperUser = config.services.postgresql.superUser;
 
   immichBase = {
+    user = "${toString uid}:${toString gid}";
     environment = {
+      PUID = toString uid;
+      PGID = toString gid;
       NODE_ENV = "production";
       DB_HOSTNAME = containersHost;
       DB_PORT = toString config.services.postgresql.port;
@@ -29,6 +35,10 @@ let
       config.age.secrets.immich-typesense-env.path
     ];
     extraOptions = [
+      "--uidmap=0:65534:1"
+      "--gidmap=0:65534:1"
+      "--uidmap=${toString uid}:${toString uid}:1"
+      "--gidmap=${toString gid}:${toString gid}:1"
       "--network=host"
       "--add-host=immich-server:127.0.0.1"
       "--add-host=immich-microservices:127.0.0.1"
@@ -114,13 +124,17 @@ in {
       cmd = [ "./entrypoint.sh" ];
     };
 
-    typesense = {
+    immich-typesense = {
       image = "docker.io/typesense/typesense:0.24.0";
       environment.TYPESENSE_DATA_DIR = "/data";
       environmentFiles = [ config.age.secrets.immich-typesense-env.path ];
       volumes = [ "${typesenseDataDir}:/data" ];
-      extraOptions =
-        [ "--network=host" "--label=io.containers.autoupdate=registry" ];
+      extraOptions = [
+        "--uidmap=0:${toString uid}:1"
+        "--gidmap=0:${toString gid}:1"
+        "--network=host"
+        "--label=io.containers.autoupdate=registry"
+      ];
     };
   };
 
@@ -158,4 +172,12 @@ in {
       '';
     };
   };
+
+  users.users.immich = {
+    isSystemUser = true;
+    group = "immich";
+    uid = 980;
+  };
+
+  users.groups.immich = { gid = 977; };
 }
