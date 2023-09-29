@@ -31,6 +31,7 @@ in with builtins; {
     ../services/miniflux.nix
     ../services/paperless.nix
     ../services/nextcloud.nix
+    ../services/collabora-office.nix
     ../services/calibre-web.nix
     ../services/focalboard.nix
   ];
