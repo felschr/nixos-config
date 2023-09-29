@@ -2,7 +2,7 @@
 
 let
   dataDir = "/var/lib/immich";
-  typesenseDataDir = "/var/lib/typesense/data";
+  typesenseDataDir = "/var/lib/immich/typesense/data";
   uploadDir = "${dataDir}/upload";
   dbuser = "immich";
   dbname = "immich";
@@ -44,7 +44,7 @@ let
       "--add-host=immich-microservices:127.0.0.1"
       "--add-host=immich-machine-learning:127.0.0.1"
       "--add-host=immich-web:127.0.0.1"
-      "--add-host=typesense:127.0.0.1"
+      "--add-host=immich-typesense:127.0.0.1"
       "--label=io.containers.autoupdate=registry"
     ];
   };
@@ -78,7 +78,7 @@ in {
       "${ociBackend}-immich-microservices.service"
       "${ociBackend}-immich-machine-learning.service"
       "${ociBackend}-immich-web.service"
-      "${ociBackend}-typesense.service"
+      "${ociBackend}-immich-typesense.service"
     ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
@@ -101,7 +101,7 @@ in {
       entrypoint = "/bin/sh";
       cmd = [ "./start-server.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
-      dependsOn = [ "typesense" ];
+      dependsOn = [ "immich-typesense" ];
     };
 
     immich-microservices = immichBase // {
@@ -109,7 +109,7 @@ in {
       entrypoint = "/bin/sh";
       cmd = [ "./start-microservices.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
-      dependsOn = [ "typesense" ];
+      dependsOn = [ "immich-typesense" ];
     };
 
     immich-machine-learning = immichBase // {
