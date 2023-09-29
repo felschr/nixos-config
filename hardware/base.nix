@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  imports = [ ./firmware.nix ./planck.nix ];
+  imports = [ ./firmware.nix ./zsa.nix ];
 
   boot.supportedFilesystems = lib.mkDefault [ "btrfs" ];
   boot.kernelPackages = lib.mkOverride 800 pkgs.linuxPackages_latest;
