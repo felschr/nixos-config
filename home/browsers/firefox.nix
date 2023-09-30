@@ -1,14 +1,14 @@
-{ config, nixosConfig, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 with lib;
 let
-  firefox-addons = pkgs.nur.repos.rycee.firefox-addons
-    // (import ./firefoxAddons.nix { inherit pkgs lib; });
+  firefox-addons = inputs.firefox-addons.packages.${pkgs.system}
+    // (import ./firefoxAddons.nix { inherit inputs pkgs lib; });
 
   inherit (import ../modules/firefox/common.nix { inherit config lib pkgs; })
     mkConfig;
 
-  arkenfoxConfig = builtins.readFile pkgs.nur.repos.slaier.arkenfox-userjs;
+  arkenfoxConfig = builtins.readFile "${inputs.arkenfox-userjs}/user.js";
 
   # Relax some arkenfox settings, to get a less strict
   # alternative to Mullvad Browser to fallback on.

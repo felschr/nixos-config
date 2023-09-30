@@ -1,8 +1,8 @@
-{ config, nixosConfig, pkgs, lib, ... }:
+{ inputs, pkgs, lib, ... }:
 
 let
-  firefox-addons = pkgs.nur.repos.rycee.firefox-addons
-    // (import ./firefoxAddons.nix { inherit pkgs lib; });
+  firefox-addons = inputs.firefox-addons.packages.${pkgs.system}
+    // (import ./firefoxAddons.nix { inherit inputs pkgs lib; });
 
   commonSettings = {
     # Disable DNS over HTTPS (use system DNS, i.e. VPN's DNS)

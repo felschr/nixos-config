@@ -39,7 +39,15 @@ rec {
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR/master";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    arkenfox-userjs = {
+      url = "github:arkenfox/user.js";
+      flake = false;
+    };
 
     agenix = {
       url = "github:yaxitech/ragenix";
@@ -72,7 +80,7 @@ rec {
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, fh, flake-parts
-    , flake-utils, home-manager, nur, agenix, deploy-rs, pre-commit-hooks
+    , flake-utils, home-manager, agenix, deploy-rs, pre-commit-hooks
     , nvim-kitty-navigator, ... }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" ];
@@ -84,7 +92,7 @@ rec {
             ({ pkgs, lib, ... }: {
               networking.hostName = hostName;
 
-              nixpkgs.overlays = [ nur.overlay self.overlays.default ];
+              nixpkgs.overlays = [ self.overlays.default ];
 
               imports = [
                 nixosModules.flakeDefaults

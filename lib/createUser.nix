@@ -1,7 +1,7 @@
 name:
 { user ? { }, hm ? { }, modules ? [ ], config, usesContainers ? false, ... }:
 
-{ pkgs, lib, home-manager, ... }: {
+{ inputs, nixConfig, pkgs, lib, home-manager, ... }: {
   imports = [ home-manager.nixosModules.home-manager ];
 
   users.users."${name}" = {
@@ -24,5 +24,6 @@ name:
     useGlobalPkgs = true;
     backupFileExtension = "backup";
     users."${name}" = lib.mkMerge [ { imports = modules; } (import config) ];
+    extraSpecialArgs = { inherit inputs nixConfig; };
   } // hm;
 }

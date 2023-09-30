@@ -425,7 +425,7 @@ in {
                   type = types.listOf types.package;
                   default = [ ];
                   example = literalExpression ''
-                    with pkgs.nur.repos.rycee.firefox-addons; [
+                    with firefox-addons; [
                       privacy-badger
                     ]
                   '';
@@ -436,7 +436,7 @@ in {
                     Once you have NUR installed run
 
                     <screen language="console">
-                      <prompt>$</prompt> <userinput>nix-env -f '&lt;nixpkgs&gt;' -qaP -A nur.repos.rycee.firefox-addons</userinput>
+                      <prompt>$</prompt> <userinput>nix-env -f '&lt;nixpkgs&gt;' -qaP -A firefox-addons</userinput>
                     </screen>
 
                     to list the available Firefox add-ons.

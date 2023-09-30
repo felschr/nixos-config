@@ -1,8 +1,8 @@
-{ pkgs, lib, ... }:
+{ inputs, pkgs, lib, ... }:
 
-let inherit (pkgs.nur.repos.rycee) firefox-addons;
+let inherit (inputs.firefox-addons.lib.${pkgs.system}) buildFirefoxXpiAddon;
 in {
-  german-dictionary = firefox-addons.buildFirefoxXpiAddon rec {
+  german-dictionary = buildFirefoxXpiAddon rec {
     pname = "german-dictionary";
     version = "2.1";
     addonId = "de-DE@dictionaries.addons.mozilla.org";
@@ -16,7 +16,7 @@ in {
       platforms = platforms.all;
     };
   };
-  zotero-connector = firefox-addons.buildFirefoxXpiAddon rec {
+  zotero-connector = buildFirefoxXpiAddon rec {
     pname = "zotero-connector";
     version = "5.0.108";
     addonId = "zotero@chnm.gmu.edu";
@@ -30,7 +30,7 @@ in {
       platforms = platforms.all;
     };
   };
-  ddg-bangs-but-faster = firefox-addons.buildFirefoxXpiAddon rec {
+  ddg-bangs-but-faster = buildFirefoxXpiAddon rec {
     pname = "ddg-bangs-but-faster";
     version = "0.2.2";
     addonId = "{55bf0dfc-ebd5-4705-a68d-61c6ac6ecad0}";

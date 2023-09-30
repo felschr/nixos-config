@@ -48,6 +48,22 @@
         "type": "github"
       }
     },
+    "arkenfox-userjs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695984775,
+        "narHash": "sha256-wvzeT9ZReHW+Snf23vhDRcMCwU0nYFFMa8w6AcvFCis=",
+        "owner": "arkenfox",
+        "repo": "user.js",
+        "rev": "6e79d1bba6a932480a938bec5c2cee0388e586b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arkenfox",
+        "repo": "user.js",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -181,6 +197,29 @@
         "url": "https://flakehub.com/f/DeterminateSystems/fh/0.1.tar.gz"
       }
     },
+    "firefox-addons": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1695985347,
+        "narHash": "sha256-ot8XvQD31vEca9u8vxTSqu6tzbc5TU/AjJqnSGsJWos=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "5b7127d2f4228c56b387c69fc83dc497526b752f",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -282,6 +321,21 @@
       }
     },
     "flake-utils": {
+      "locked": {
+        "lastModified": 1629284811,
+        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c5d161cc0af116a2e17f54316f0bf43f0819785c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
       "inputs": {
         "systems": "systems"
       },
@@ -437,22 +491,6 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1.tar.gz"
       }
     },
-    "nur": {
-      "locked": {
-        "lastModified": 1696023918,
-        "narHash": "sha256-nE9Zv3POG3oqZPtAmojBC3Ji+0fzZ8AR7MVHSYJFMxk=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "f0fb9ad92aa3d00c59423e82681c9ffa5734abd9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "NUR",
-        "type": "github"
-      }
-    },
     "nvim-kitty-navigator": {
       "flake": false,
       "locked": {
@@ -500,16 +538,17 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "arkenfox-userjs": "arkenfox-userjs",
         "deploy-rs": "deploy-rs",
         "fh": "fh",
+        "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "matrix-appservices": "matrix-appservices",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nur": "nur",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
         "pre-commit-hooks": "pre-commit-hooks"
       }
