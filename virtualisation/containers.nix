@@ -20,7 +20,9 @@ _:
   };
 
   # Increase sub{u,g}id range
-  users.users."root" = {
+  users.users."containers" = {
+    isSystemUser = true;
+    group = "containers";
     subUidRanges = [{
       startUid = 60100000;
       count = 60000000;
@@ -30,4 +32,6 @@ _:
       count = 60000000;
     }];
   };
+
+  users.groups.containers = { };
 }
