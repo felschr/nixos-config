@@ -1,4 +1,4 @@
-{ config, pkgs, nixosConfig, ... }:
+{ pkgs, ... }:
 
 {
   imports = [ ./steam.nix ./lutris.nix ];

@@ -3,11 +3,8 @@
 let
   dataDir = "/var/lib/focalboard";
   ociBackend = config.virtualisation.oci-containers.backend;
-  containersHost = "localhost";
   port = 8003;
   domain = "boards.felschr.com";
-  dbHost = containersHost;
-  dbPort = toString config.services.postgresql.port;
   dbUser = "focalboard";
   dbName = "focalboard";
   dbPasswordFile = config.age.secrets.focalboard-db-password.path;
