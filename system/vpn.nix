@@ -21,6 +21,7 @@
         --block-ads --block-trackers --block-malware
       ${pkgs.mullvad}/bin/mullvad lan set allow
       ${pkgs.mullvad}/bin/mullvad tunnel ipv6 set on
+      ${pkgs.mullvad}/bin/mullvad tunnel wireguard quantum-resistant-tunnel set on
       ${pkgs.mullvad}/bin/mullvad relay set tunnel-protocol wireguard
       ${pkgs.mullvad}/bin/mullvad relay set location de ber
 
