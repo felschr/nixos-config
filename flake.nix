@@ -79,49 +79,12 @@ rec {
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, fh, flake-parts
-    , flake-utils, home-manager, agenix, deploy-rs, pre-commit-hooks
-    , nvim-kitty-navigator, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" ];
-      imports = [ ];
-      flake = rec {
-        lib = rec {
-          createSystem = hostName:
-            { hardwareConfig, config }:
-            ({ pkgs, lib, ... }: {
-              networking.hostName = hostName;
-
-              nixpkgs.overlays = [ self.overlays.default ];
-
-              imports = [
-                nixosModules.flakeDefaults
-                agenix.nixosModules.default
-                inputs.matrix-appservices.nixosModule
-                hardwareConfig
-                config
-              ];
-
-              environment.systemPackages =
-                [ agenix.packages.x86_64-linux.default ];
-            });
-          createUser' = import ./lib/createUser.nix;
-          createUser = name: args:
-            ({ pkgs, ... }@args2:
-              (createUser' name args) ({ inherit home-manager; } // args2));
-          createMediaGroup = _: { users.groups.media.gid = 600; };
-        };
-
-        overlays.default = final: prev: {
-          unstable = import nixpkgs-unstable {
-            inherit (prev) system;
-            config.allowUnfree = true;
-          };
-          inherit (fh.packages.${prev.system}) fh;
-          inherit (self.packages.${prev.system}) deconz brlaser;
-          vimPlugins = prev.vimPlugins
-            // final.callPackage ./pkgs/vim-plugins { inherit inputs; };
-        };
+      imports = [ ./lib ./overlays.nix ];
+      flake = {
+        inherit nixConfig;
 
         nixosModules = {
           flakeDefaults = import ./modules/flakeDefaults.nix;
@@ -140,73 +103,74 @@ rec {
             system = "x86_64-linux";
             modules = [
               nixpkgs.nixosModules.notDetected
-              nixos-hardware.nixosModules.common-pc
-              nixos-hardware.nixosModules.common-pc-ssd
-              nixos-hardware.nixosModules.common-cpu-amd-pstate
-              nixos-hardware.nixosModules.common-gpu-amd
-              (lib.createSystem "home-pc" {
+              inputs.nixos-hardware.nixosModules.common-pc
+              inputs.nixos-hardware.nixosModules.common-pc-ssd
+              inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+              inputs.nixos-hardware.nixosModules.common-gpu-amd
+              (self.lib.createSystem "home-pc" {
                 hardwareConfig = ./hardware/home-pc.nix;
                 config = ./hosts/home-pc.nix;
               })
-              lib.createMediaGroup
-              (lib.createUser "felschr" {
+              self.lib.createMediaGroup
+              (self.lib.createUser "felschr" {
                 user.extraGroups =
                   [ "wheel" "audio" "disk" "libvirtd" "qemu-libvirtd" "media" ];
-                modules = [ homeManagerModules.git ];
+                modules = [ self.homeManagerModules.git ];
                 config = ./home/felschr.nix;
                 usesContainers = true;
               })
               ({ pkgs, ... }: {
                 environment.systemPackages =
-                  [ deploy-rs.defaultPackage.x86_64-linux ];
+                  [ inputs.deploy-rs.defaultPackage.x86_64-linux ];
               })
             ];
-            specialArgs = { inherit inputs nixConfig; };
+            specialArgs = { inherit inputs; };
           };
           pilot1 = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               nixpkgs.nixosModules.notDetected
-              nixos-hardware.nixosModules.common-pc
-              nixos-hardware.nixosModules.common-pc-ssd
-              nixos-hardware.nixosModules.common-cpu-intel
-              (lib.createSystem "pilot1" {
+              inputs.nixos-hardware.nixosModules.common-pc
+              inputs.nixos-hardware.nixosModules.common-pc-ssd
+              inputs.nixos-hardware.nixosModules.common-cpu-intel
+              (self.lib.createSystem "pilot1" {
                 hardwareConfig = ./hardware/pilot1.nix;
                 config = ./hosts/work-pc.nix;
               })
-              (lib.createUser "felschr" {
+              (self.lib.createUser "felschr" {
                 user.extraGroups = [ "wheel" "audio" "disk" ];
-                modules = [ homeManagerModules.git ];
+                modules = [ self.homeManagerModules.git ];
                 config = ./home/felschr-work.nix;
                 usesContainers = true;
               })
             ];
-            specialArgs = { inherit inputs nixConfig; };
+            specialArgs = { inherit inputs; };
           };
           home-server = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               nixpkgs.nixosModules.notDetected
-              nixos-hardware.nixosModules.common-pc
-              nixos-hardware.nixosModules.common-pc-ssd
-              nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-              (lib.createSystem "home-server" {
+              inputs.nixos-hardware.nixosModules.common-pc
+              inputs.nixos-hardware.nixosModules.common-pc-ssd
+              inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+              inputs.matrix-appservices.nixosModule
+              (self.lib.createSystem "home-server" {
                 hardwareConfig = ./hardware/lattepanda.nix;
                 config = ./hosts/home-server.nix;
               })
-              lib.createMediaGroup
-              (lib.createUser "felschr" {
+              self.lib.createMediaGroup
+              (self.lib.createUser "felschr" {
                 user = {
                   extraGroups = [ "wheel" "audio" "disk" "media" ];
                   openssh.authorizedKeys.keys = [
                     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP751vlJUnB7Pfe1KNr6weWkx/rkP4J3lTYpAekHdOgV"
                   ];
                 };
-                modules = [ homeManagerModules.git ];
+                modules = [ self.homeManagerModules.git ];
                 config = ./home/felschr-server.nix;
               })
             ];
-            specialArgs = { inherit inputs nixConfig; };
+            specialArgs = { inherit inputs; };
           };
         };
 
@@ -216,7 +180,7 @@ rec {
             sshUser = "felschr";
             sshOpts = [ "-t" ];
             user = "root";
-            path = deploy-rs.lib.x86_64-linux.activate.nixos
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos
               self.nixosConfigurations.home-server;
             magicRollback = false; # otherwise password prompt won't work
           };
@@ -231,14 +195,15 @@ rec {
         packages = import ./pkgs { inherit pkgs; };
 
         apps = {
-          deconz = flake-utils.lib.mkApp { drv = config.packages.deconz; };
+          deconz =
+            inputs.flake-utils.lib.mkApp { drv = config.packages.deconz; };
         };
 
         devShells.default =
           pkgs.mkShell { inherit (config.checks.pre-commit) shellHook; };
 
-        checks = deploy-rs.lib.${system}.deployChecks self.deploy // {
-          pre-commit = pre-commit-hooks.lib.${system}.run {
+        checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy // {
+          pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
               nixfmt.enable = true;

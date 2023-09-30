@@ -1,6 +1,8 @@
-{ lib, inputs, nixConfig, ... }:
+{ inputs, lib, ... }:
 
-let flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
+let
+  flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
+  inherit (inputs.self.outputs) nixConfig;
 in {
   nix.gc = {
     automatic = true;
