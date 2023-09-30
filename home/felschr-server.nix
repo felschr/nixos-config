@@ -23,6 +23,8 @@
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
   '';
 
+  programs.ssh.enable = true;
+
   programs.git.defaultProfile = "private";
 
   home.sessionVariables.EDITOR = "nvim";

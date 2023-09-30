@@ -117,6 +117,8 @@ in with builtins; {
 
   programs.zsh.enable = true;
 
+  programs.ssh.enableAskPassword = false;
+
   services.openssh = {
     enable = true;
     settings = {
