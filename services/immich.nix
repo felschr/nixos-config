@@ -28,6 +28,7 @@ let
       DB_DATABASE_NAME = dbname;
       REDIS_HOSTNAME = containersHost;
       REDIS_PORT = toString config.services.redis.servers.immich.port;
+      TYPESENSE_HOST = "immich-typesense";
     };
     # only secrets need to be included, e.g. DB_PASSWORD, JWT_SECRET, MAPBOX_KEY
     environmentFiles = [
