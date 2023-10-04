@@ -89,6 +89,7 @@ rec {
         nixosModules = {
           flakeDefaults = import ./modules/flakeDefaults.nix;
           systemdNotify = import ./modules/systemdNotify.nix;
+          inadyn = import ./modules/inadyn.nix;
         };
 
         homeManagerModules = {
