@@ -16,6 +16,7 @@ in with builtins; {
     ../system/server.nix
     ../virtualisation/containers.nix
     ../virtualisation/podman.nix
+    ../modules/inadyn.nix
     ../modules/systemdNotify.nix
     ../services/mail.nix
     ../services/restic/home-server.nix
@@ -49,63 +50,41 @@ in with builtins; {
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "dev@felschr.com";
 
-  services.ddclient = {
-    enable = true;
-    package = pkgs.ddclient.overrideAttrs (old: rec {
-      version = "develop-2022-06-01";
-      src = pkgs.fetchFromGitHub {
-        owner = "ddclient";
-        repo = "ddclient";
-        rev = "5382a982cbf4ad8e0c7b7ff682d21554a8785285";
-        sha256 = "sha256-LYQ65f1rLa1P/YNhrW7lbyhmViPO7odj7FcDGTS4bOo=";
-      };
-      preConfigure = ''
-        touch Makefile.PL
-      '';
-      installPhase = "";
-      postInstall = old.postInstall or "" + ''
-        mv $out/bin/ddclient $out/bin/.ddclient
-        makeWrapper $out/bin/.ddclient $out/bin/ddclient \
-          --prefix PERL5LIB : $PERL5LIB \
-          --argv0 ddclient
-      '';
-      nativeBuildInputs = with pkgs;
-        old.nativeBuildInputs or [ ] ++ [ autoreconfHook makeWrapper ];
-    });
-    protocol = "cloudflare";
-    ssl = true;
-    use = "disabled";
-    zone = "felschr.com";
-    username = "felschr@pm.me";
-    passwordFile = config.age.secrets.cloudflare.path;
-    domains = [
-      "felschr.com"
-      "openpgpkey.felschr.com"
-      "home.felschr.com"
-      "esphome.felschr.com"
-      "matrix.felschr.com"
-      "element.felschr.com"
-      "cloud.felschr.com"
-      "office.felschr.com"
-      "media.felschr.com"
-      "photos.felschr.com"
-      "books.felschr.com"
-      "news.felschr.com"
-      "etebase.felschr.com"
-      "paperless.felschr.com"
-      "boards.felschr.com"
-    ];
-    extraConfig = with pkgs; ''
-      usev6=cmdv6, cmdv6=${
-        pkgs.writeScript "get-ipv6" ''
-          ${iproute2}/bin/ip -6 --brief addr show enp2s0 mngtmpaddr \
-            | ${gawk}/bin/awk '{print $3}' \
-            | cut -f1 -d'/'
-        ''
-      }
-      usev4=disabled
-    '';
-  };
+  services.inadyn.enable = true;
+  services.inadyn.provider = "cloudflare.com";
+  services.inadyn.username = "felschr.com";
+  services.inadyn.passwordFile = config.age.secrets.cloudflare.path;
+  services.inadyn.extraConfig = ''
+    proxied = false
+  '';
+  services.inadyn.ipv4.enable = true;
+  services.inadyn.ipv4.command = "${pkgs.writeScript "get-ipv4" ''
+    /run/wrappers/bin/mullvad-exclude \
+      ${pkgs.curl}/bin/curl -4 -s --retry 10 ifconfig.co
+  ''}";
+  services.inadyn.ipv6.enable = true;
+  services.inadyn.ipv6.command = "${pkgs.writeScript "get-ipv6" ''
+    ${pkgs.iproute2}/bin/ip -6 --brief addr show enp2s0 mngtmpaddr \
+      | ${pkgs.gawk}/bin/awk '{print $3}' \
+      | cut -f1 -d'/'
+  ''}";
+  services.inadyn.domains = [
+    "felschr.com"
+    "openpgpkey.felschr.com"
+    "home.felschr.com"
+    "esphome.felschr.com"
+    "matrix.felschr.com"
+    "element.felschr.com"
+    "cloud.felschr.com"
+    "office.felschr.com"
+    "media.felschr.com"
+    "photos.felschr.com"
+    "books.felschr.com"
+    "news.felschr.com"
+    "etebase.felschr.com"
+    "paperless.felschr.com"
+    "boards.felschr.com"
+  ];
 
   services.nginx = {
     enable = true;
