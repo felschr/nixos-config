@@ -20,11 +20,7 @@ let
 in {
   options = {
     services.inadyn = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable inadyn DDNS client.";
-      };
+      enable = mkEnableOption (lib.mdDoc "inadyn DDNS client");
 
       package = lib.mkPackageOption pkgs "inadyn" { };
 
@@ -67,8 +63,7 @@ in {
         description = "List of domain names to update records for.";
       };
 
-      ipv4.enable =
-        mkEnableOption (lib.mdDoc "Whether to update IPv4 records.");
+      ipv4.enable = mkEnableOption (lib.mdDoc "updating IPv4 records");
 
       ipv4.server = mkOption {
         type = types.nullOr types.str;
@@ -91,8 +86,7 @@ in {
         description = "Extra configuration add to each IPv4 domain config.";
       };
 
-      ipv6.enable =
-        mkEnableOption (lib.mdDoc "Whether to update IPv6 records.");
+      ipv6.enable = mkEnableOption (lib.mdDoc "updating IPv6 records");
 
       ipv6.server = mkOption {
         type = types.nullOr types.str;
