@@ -26,6 +26,8 @@ in {
         description = "Enable inadyn DDNS client.";
       };
 
+      package = lib.mkPackageOption pkgs "inadyn" { };
+
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/inadyn";
@@ -161,7 +163,7 @@ in {
               }
             '')) cfg.domains}
           EOF
-          exec ${pkgs.inadyn}/bin/inadyn -n ${cfg.cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
+          exec ${cfg.package}/bin/inadyn -n ${cfg.cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
         '';
         RuntimeDirectory = StateDirectory;
         StateDirectory = builtins.baseNameOf cfg.dataDir;
