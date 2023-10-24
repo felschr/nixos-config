@@ -37,7 +37,7 @@ in {
       "otp"
       "upnp"
       "zha"
-      "matter"
+      # "matter" # TODO uses insecure version of openssl
       "esphome"
       "homekit_controller"
       "fritz"
