@@ -12,6 +12,11 @@
           cargo.buildScripts.enable = true;
           checkOnSave.command = "clippy";
           procMacro.enable = true;
+          procMacro.ignored = {
+            # cfg_eval can cause types to be unavailable
+            core = [ "cfg_eval" ];
+            cfg_eval = [ "cfg_eval" ];
+          };
         };
       }
       {

@@ -9,7 +9,7 @@ in {
     enable = true;
     package = pkgs.unstable.nushell;
     configFile.text = ''
-      let-env config = {
+      $env.config = {
         edit_mode: "vi"
         show_banner: false
       }

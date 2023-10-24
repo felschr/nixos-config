@@ -14,6 +14,6 @@
       # kitty/neovim don't play well with multi-width emojis
       nix_shell.symbol = " ";
     };
-    enableNushellIntegration = true;
+    # enableNushellIntegration = true;
   };
 }
