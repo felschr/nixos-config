@@ -15,11 +15,19 @@ let
     "browser.privatebrowsing.autostart" = false;
     "browser.startup.page" = 3;
 
-    # Enable persistence of site permissions
+    # Enable persistence of site data
     "permissions.memory_only" = false;
 
-    # Don't delete cookies & site data on restart
-    # "network.cookie.lifetimePolicy" = 0;
+    # Customise clear on shutdown
+    "privacy.clearOnShutdown.cache" = true;
+    "privacy.clearOnShutdown.cookies" = true;
+    "privacy.clearOnShutdown.sessions" = true;
+    "privacy.clearOnShutdown.offlineApps" = true;
+    "privacy.clearOnShutdown.openWindows" = false;
+    "privacy.clearOnShutdown.siteSettings" = false;
+    "privacy.clearOnShutdown.downloads" = false;
+    "privacy.clearOnShutdown.formdata" = false;
+    "privacy.clearOnShutdown.history" = false;
 
     # Disable extension auto updates
     "extensions.update.enabled" = false;
