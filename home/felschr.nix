@@ -71,7 +71,7 @@
     celluloid
     spot
     spotify
-    calibre
+    unstable.calibre
     foliate
 
     # learning
