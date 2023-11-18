@@ -14,7 +14,7 @@ stages:
 check:
   stage: test
   script:
-    - cachix watch-exec felschr nix flake check
+    - cachix watch-exec felschr nix flake check --no-build
 
 build:
   stage: build
