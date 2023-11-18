@@ -661,6 +661,10 @@ in {
               in "${extensionsEnvPkg}/share/mozilla/${extensionPath}";
               recursive = true;
               force = true;
+              onChange = ''
+                # Includes references to old versions that are shown in UI.
+                rm -f "${profilesPath}/${profile.path}/extensions.json"
+              '';
             };
         }));
       };
