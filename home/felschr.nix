@@ -77,7 +77,11 @@
     # learning
     anki
 
-    # privacy
+    # security & privacy
+    bitwarden
+    yubikey-manager
+    yubikey-manager-qt
+    yubioath-flutter
     magic-wormhole-rs
     warp
     onionshare-gui
@@ -86,7 +90,6 @@
     metadata-cleaner
 
     # other
-    bitwarden
     ledger-live-desktop
     portfolio
     bottles
