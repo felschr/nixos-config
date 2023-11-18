@@ -1,14 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 
 {
-  services.resolved.enable = false;
+  networking.nameservers = [ "127.0.0.1" "::1" ];
 
-  networking = {
-    nameservers = [ "127.0.0.1" "::1" ];
-    # If using dhcpcd:
-    dhcpcd.extraConfig = "nohook resolv.conf";
-    # If using NetworkManager:
-    networkmanager.dns = "none";
+  services.resolved = {
+    enable = true;
+    # don't use fallback resolvers
+    fallbackDns = [ "127.0.0.1" "::1" ];
   };
 
   services.dnscrypt-proxy2 = {
@@ -19,6 +17,7 @@
       ipv6_servers = true;
       require_nolog = true;
       require_dnssec = true;
+      http3 = true;
 
       sources.public-resolvers = {
         urls = [
