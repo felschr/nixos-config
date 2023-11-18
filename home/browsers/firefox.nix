@@ -57,7 +57,7 @@ in {
       private = {
         id = 0;
         extraConfig = sharedExtraConfig;
-        extensions = commonExtensions ++ (with firefox-addons; [ metamask ]);
+        extensions = commonExtensions;
       };
       work = {
         id = 1;
