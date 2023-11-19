@@ -6,6 +6,12 @@ let
     "@felschr:${server_name}" = "admin";
     "@felschr:matrix.org" = "admin";
   };
+  bridge_encryption = {
+    allow = true;
+    default = true;
+    key_sharing.allow = true;
+    delete_keys.delete_outdated_inbound = false;
+  };
 in {
   # Mautrix-signal settings
   services.signald.enable = true;
@@ -35,18 +41,14 @@ in {
           outgoing_attachment_dir = "/var/lib/signald/tmp";
         };
         settings.bridge.permissions = bridge_permissions;
-        settings.bridge.encryption = {
-          allow = true;
-          default = true;
-          key_sharing.allow = true;
-          delete_keys.delete_outdated_inbound = false;
-        };
+        settings.bridge.encryption = bridge_encryption;
       };
       whatsapp = {
         port = 29183;
         format = "mautrix-go";
         package = pkgs.unstable.mautrix-whatsapp;
         settings.bridge.permissions = bridge_permissions;
+        settings.bridge.encryption = bridge_encryption;
       };
     };
   };
