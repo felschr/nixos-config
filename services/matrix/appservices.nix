@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
-let inherit (config.services.matrix-conduit.settings.global) server_name;
+let
+  inherit (config.services.matrix-conduit.settings.global) server_name;
+  bridge_permissions = {
+    "@felschr:${server_name}" = "admin";
+    "@felschr:matrix.org" = "admin";
+  };
 in {
   # Mautrix-signal settings
   services.signald.enable = true;
@@ -29,16 +34,19 @@ in {
           socket_path = config.services.signald.socketPath;
           outgoing_attachment_dir = "/var/lib/signald/tmp";
         };
-        settings.bridge.permissions = {
-          "@felschr:${server_name}" = "admin";
-          "@felschr:matrix.org" = "admin";
-        };
+        settings.bridge.permissions = bridge_permissions;
         settings.bridge.encryption = {
           allow = true;
           default = true;
           key_sharing.allow = true;
           delete_keys.delete_outdated_inbound = false;
         };
+      };
+      whatsapp = {
+        port = 29183;
+        format = "mautrix-go";
+        package = pkgs.unstable.mautrix-whatsapp;
+        settings.bridge.permissions = bridge_permissions;
       };
     };
   };
