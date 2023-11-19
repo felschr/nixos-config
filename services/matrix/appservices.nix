@@ -9,10 +9,9 @@ let
   bridge_encryption = {
     allow = true;
     default = true;
-    require = true;
+    # require = true; # TODO encryption doesn't work yet
     appservice = true;
     allow_key_sharing = true;
-    key_sharing.allow = true;
     delete_keys.delete_outdated_inbound = false;
   };
 in {
