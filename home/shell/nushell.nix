@@ -18,6 +18,7 @@ in {
 
       use ${pkgs.unstable.nu_scripts}/share/nu_scripts/modules/network/ssh.nu *
       use ${pkgs.unstable.nu_scripts}/share/nu_scripts/modules/git/git.nu *
+      use ${pkgs.unstable.nu_scripts}/share/nu_scripts/modules/nix/nix.nu *
       use ${pkgs.unstable.nu_scripts}/share/nu_scripts/modules/docker/docker.nu *
       use ${pkgs.unstable.nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu *
       use ${pkgs.unstable.nu_scripts}/share/nu_scripts/custom-completions/nix/nix-completions.nu *
