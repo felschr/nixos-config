@@ -17,8 +17,7 @@
 
       ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
       ${pkgs.mullvad}/bin/mullvad auto-connect set on
-      ${pkgs.mullvad}/bin/mullvad dns set default \
-        --block-ads --block-trackers --block-malware
+      ${pkgs.mullvad}/bin/mullvad dns set default
       ${pkgs.mullvad}/bin/mullvad lan set allow
       ${pkgs.mullvad}/bin/mullvad tunnel ipv6 set on
       ${pkgs.mullvad}/bin/mullvad tunnel wireguard quantum-resistant-tunnel set on
