@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # @TODO for direnv to work needs to be started from project folder
@@ -6,19 +6,7 @@
     enable = true;
     package = pkgs.unstable.helix;
     languages.language = [
-      {
-        name = "rust";
-        config.rust-analyzer = {
-          cargo.buildScripts.enable = true;
-          checkOnSave.command = "clippy";
-          procMacro.enable = true;
-          procMacro.ignored = {
-            # cfg_eval can cause types to be unavailable
-            core = [ "cfg_eval" ];
-            cfg_eval = [ "cfg_eval" ];
-          };
-        };
-      }
+      { name = "rust"; }
       {
         name = "nix";
         formatter.command = "nixfmt";
@@ -28,6 +16,20 @@
         formatter.command = "topiary";
       }
     ];
+    languages.language_server = {
+      rust-analyzer = {
+        config.rust-analyzer = {
+          cargo.buildScripts.enable = true;
+          checkOnSave.command = "clippy";
+          procMacro.enable = true;
+          procMacro.ignored = {
+            # See https://github.com/rust-lang/rust-analyzer/issues/15800
+            # core = [ "cfg_eval" ];
+            # cfg_eval = [ "cfg_eval" ];
+          };
+        };
+      };
+    };
     settings = {
       theme = "github_dark";
       editor = {
