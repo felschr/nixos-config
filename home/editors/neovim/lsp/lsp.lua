@@ -122,9 +122,9 @@ config.rust_analyzer.setup {
       procMacro = {
         enable = true,
         ignored = {
-          -- cfg_eval can cause types to be unavailable
-          core = { "cfg_eval" },
-          cfg_eval = { "cfg_eval" },
+          -- See https://github.com/rust-lang/rust-analyzer/issues/15800
+          -- core = { "cfg_eval" },
+          -- cfg_eval = { "cfg_eval" },
         },
       },
     },
