@@ -8,7 +8,7 @@ let
     path = "/etc/secrets/initrd/ssh_host_ed25519_key";
     type = "ed25519";
   }];
-in with builtins; {
+in {
   imports = [
     ../hardware/base.nix
     ../hardware/gpu-intel.nix
