@@ -60,9 +60,6 @@
     # work
     teams-for-linux
 
-    # dev
-    postman
-
     # game dev
     ldtk
     pixelorama

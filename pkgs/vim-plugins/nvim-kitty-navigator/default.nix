@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 
-pkgs.vimUtils.buildVimPluginFrom2Nix {
+pkgs.vimUtils.buildVimPlugin {
   pname = "nvim-kitty-navigator";
   version = inputs.nvim-kitty-navigator.rev;
   versionSuffix = "-git";

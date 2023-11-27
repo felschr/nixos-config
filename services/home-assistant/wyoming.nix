@@ -1,17 +1,6 @@
-{ pkgs, lib, inputs, ... }:
+{ lib, ... }:
 
 {
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/wyoming/piper.nix"
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/wyoming/faster-whisper.nix"
-  ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      inherit (pkgs.unstable) wyoming-piper wyoming-faster-whisper piper-tts;
-    })
-  ];
-
   services.wyoming.piper = {
     servers = {
       "en" = {

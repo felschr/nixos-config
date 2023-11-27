@@ -378,18 +378,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1700392168,
-        "narHash": "sha256-v5LprEFx3u4+1vmds9K0/i7sHjT0IYGs7u9v54iz/OA=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "28535c3a34d79071f2ccb68671971ce0c0984d7e",
-        "type": "github"
+        "lastModified": 1700814205,
+        "narHash": "sha256-lWqDPKHRbQfi+zNIivf031BUeyciVOtwCwTjyrhDB5g=",
+        "rev": "aeb2232d7a32530d3448318790534d196bf9427a",
+        "revCount": 3137,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.2311.3137+rev-aeb2232d7a32530d3448318790534d196bf9427a/018c0081-bcd9-7796-8a7f-2e553d22218f/source.tar.gz"
       },
       "original": {
-        "owner": "nix-community",
-        "ref": "release-23.05",
-        "repo": "home-manager",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/nix-community/home-manager/0.2311.tar.gz"
       }
     },
     "matrix-appservices": {
@@ -465,16 +463,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1700989516,
-        "narHash": "sha256-oKbmPa2wpTHh9XB3+zIx97uMZGNnp97GPliKKG2/plo=",
-        "rev": "d2e4de209881b38392933fabf303cde3454b0b4c",
-        "revCount": 492338,
+        "lastModified": 1701058557,
+        "narHash": "sha256-fux7HlrnoNs93MN0kET4AfiYwg/expoasndRCFeDRyk=",
+        "rev": "070b5cf9f70bc7ef2dfd739a1f7d6c563fe64bd1",
+        "revCount": 552032,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2305.492338+rev-d2e4de209881b38392933fabf303cde3454b0b4c/018c0eb5-77e1-70b1-a6aa-d06693084d57/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2311.552032+rev-070b5cf9f70bc7ef2dfd739a1f7d6c563fe64bd1/018c11de-19c2-7d91-9286-6403488ba221/source.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://flakehub.com/f/NixOS/nixpkgs/0.2305.tar.gz"
+        "url": "https://flakehub.com/f/NixOS/nixpkgs/0.2311.tar.gz"
       }
     },
     "nixpkgs-unstable": {

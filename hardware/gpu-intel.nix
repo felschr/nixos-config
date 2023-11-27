@@ -11,10 +11,17 @@
       lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
   };
 
-  hardware.opengl.extraPackages = with pkgs; [
-    vaapiIntel
-    libvdpau-va-gl
-    intel-media-driver
-    intel-compute-runtime
-  ];
+  hardware.opengl = {
+    extraPackages = with pkgs; [
+      intel-vaapi-driver
+      intel-media-driver
+      intel-compute-runtime
+      libvdpau-va-gl
+    ];
+    extraPackages32 = with pkgs.driversi686Linux; [
+      intel-vaapi-driver
+      intel-media-driver
+      libvdpau-va-gl
+    ];
+  };
 }
