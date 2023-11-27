@@ -3,7 +3,6 @@
 {
   imports = [
     ../hardware/base.nix
-    ../hardware/gpu-intel.nix
     ../hardware/bluetooth.nix
     ../system/desktop.nix
     ../system/printing/home.nix

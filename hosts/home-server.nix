@@ -11,7 +11,6 @@ let
 in {
   imports = [
     ../hardware/base.nix
-    ../hardware/gpu-intel.nix
     ../desktop/x11.nix
     ../system/server.nix
     ../virtualisation/containers.nix

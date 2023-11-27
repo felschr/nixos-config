@@ -134,6 +134,7 @@ rec {
               inputs.nixos-hardware.nixosModules.common-pc
               inputs.nixos-hardware.nixosModules.common-pc-ssd
               inputs.nixos-hardware.nixosModules.common-cpu-intel
+              inputs.nixos-hardware.nixosModules.common-gpu-intel
               (self.lib.createSystem "pilot1" {
                 hardwareConfig = ./hardware/pilot1.nix;
                 config = ./hosts/work-pc.nix;
@@ -154,6 +155,7 @@ rec {
               inputs.nixos-hardware.nixosModules.common-pc
               inputs.nixos-hardware.nixosModules.common-pc-ssd
               inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+              inputs.nixos-hardware.nixosModules.common-gpu-intel
               inputs.matrix-appservices.nixosModule
               (self.lib.createSystem "home-server" {
                 hardwareConfig = ./hardware/lattepanda.nix;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, ... }:
 
 {
   boot.initrd.availableKernelModules = [
@@ -13,6 +13,7 @@
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [ "i915.enable_guc=3" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
