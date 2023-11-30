@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   vimLua = lua: ''
@@ -28,7 +28,7 @@ in {
       auto-session
       vim-visual-multi
       vim-surround
-      kommentary
+      comment-nvim
       lightspeed-nvim
       which-key-nvim
       neogit

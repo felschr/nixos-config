@@ -1,16 +1,13 @@
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup {
   highlight = {
     enable = true,
-    disable = {"org"},
-    additional_vim_regex_highlighting = {"org"},
+    disable = { "org" },
+    additional_vim_regex_highlighting = { "org" },
   },
   indent = {
     enable = true,
   },
   autotag = {
-    enable = true,
-  },
-  context_commentstring = {
     enable = true,
   },
   refactor = {
@@ -83,4 +80,10 @@ require'nvim-treesitter.configs'.setup {
       },
     },
   },
+}
+
+vim.g.skip_ts_context_commentstring_module = true
+
+require("ts_context_commentstring").setup {
+  enable_autocmd = false,
 }

@@ -31,6 +31,8 @@ vim.g.closetag_regions = {
   ["javascript.jsx"] = "jsxRegion",
 }
 
+require("Comment").setup {}
+
 local wk = require("which-key")
 
 require("nvim-tree").setup {}
