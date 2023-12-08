@@ -18,6 +18,7 @@ in {
     ../modules/inadyn.nix
     ../modules/systemdNotify.nix
     ../services/mail.nix
+    ../services/lldap.nix
     ../services/restic/home-server.nix
     ../services/samba/home-server.nix
     # ../services/kodi.nix
@@ -70,6 +71,7 @@ in {
   services.inadyn.domains = [
     "felschr.com"
     "openpgpkey.felschr.com"
+    "ldap.felschr.com"
     "home.felschr.com"
     "esphome.felschr.com"
     "matrix.felschr.com"

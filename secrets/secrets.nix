@@ -30,6 +30,9 @@ in {
 
   # home-server
   "home-server/hostKey.age".publicKeys = [ felschr home-server ];
+  "lldap/key-seed.age".publicKeys = [ felschr home-server ];
+  "lldap/jwt.age".publicKeys = [ felschr home-server ];
+  "lldap/password.age".publicKeys = [ felschr home-server ];
   "hass/secrets.age".publicKeys = [ felschr home-server ];
   "esphome/password.age".publicKeys = [ felschr home-server ];
   "focalboard/.env.age".publicKeys = [ felschr home-server ];
