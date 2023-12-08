@@ -7,7 +7,11 @@ let
 in {
   age.secrets.lldap-key-seed.file = ../secrets/lldap/key-seed.age;
   age.secrets.lldap-jwt.file = ../secrets/lldap/jwt.age;
-  age.secrets.lldap-password.file = ../secrets/lldap/password.age;
+  age.secrets.lldap-password = {
+    file = ../secrets/lldap/password.age;
+    group = "ldap";
+    mode = "440";
+  };
 
   services.lldap = {
     enable = true;
@@ -37,4 +41,6 @@ in {
       locations."/".proxyPass = "http://[::1]:${toString port}";
     };
   };
+
+  users.groups.ldap = { gid = 979; };
 }

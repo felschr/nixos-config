@@ -33,6 +33,9 @@ in {
   "lldap/key-seed.age".publicKeys = [ felschr home-server ];
   "lldap/jwt.age".publicKeys = [ felschr home-server ];
   "lldap/password.age".publicKeys = [ felschr home-server ];
+  "authelia/jwt.age".publicKeys = [ felschr home-server ];
+  "authelia/session.age".publicKeys = [ felschr home-server ];
+  "authelia/storage.age".publicKeys = [ felschr home-server ];
   "hass/secrets.age".publicKeys = [ felschr home-server ];
   "esphome/password.age".publicKeys = [ felschr home-server ];
   "focalboard/.env.age".publicKeys = [ felschr home-server ];

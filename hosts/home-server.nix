@@ -19,6 +19,7 @@ in {
     ../modules/systemdNotify.nix
     ../services/mail.nix
     ../services/lldap.nix
+    ../services/authelia.nix
     ../services/restic/home-server.nix
     ../services/samba/home-server.nix
     # ../services/kodi.nix
@@ -72,6 +73,7 @@ in {
     "felschr.com"
     "openpgpkey.felschr.com"
     "ldap.felschr.com"
+    "auth.felschr.com"
     "home.felschr.com"
     "esphome.felschr.com"
     "matrix.felschr.com"

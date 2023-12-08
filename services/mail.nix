@@ -1,7 +1,11 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
-  age.secrets.smtp.file = ../secrets/smtp.age;
+  age.secrets.smtp = {
+    file = ../secrets/smtp.age;
+    group = "smtp";
+    mode = "440";
+  };
 
   programs.msmtp = {
     enable = true;
@@ -21,4 +25,6 @@
       from = user;
     };
   };
+
+  users.groups.smtp = { gid = 983; };
 }
