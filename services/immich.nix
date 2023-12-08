@@ -44,7 +44,6 @@ let
       "--add-host=immich-server:127.0.0.1"
       "--add-host=immich-microservices:127.0.0.1"
       "--add-host=immich-machine-learning:127.0.0.1"
-      "--add-host=immich-web:127.0.0.1"
       "--add-host=immich-typesense:127.0.0.1"
       "--label=io.containers.autoupdate=registry"
     ];
@@ -78,7 +77,6 @@ in {
       "${ociBackend}-immich-server.service"
       "${ociBackend}-immich-microservices.service"
       "${ociBackend}-immich-machine-learning.service"
-      "${ociBackend}-immich-web.service"
       "${ociBackend}-immich-typesense.service"
     ];
     wantedBy = [ "multi-user.target" ];
@@ -98,7 +96,7 @@ in {
   virtualisation.oci-containers.containers = {
     immich-server = immichBase // {
       image = "ghcr.io/immich-app/immich-server:release";
-      ports = [ "3001:3001" ];
+      ports = [ "2283:3001" ];
       entrypoint = "/bin/sh";
       cmd = [ "./start-server.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
@@ -116,13 +114,6 @@ in {
     immich-machine-learning = immichBase // {
       image = "ghcr.io/immich-app/immich-machine-learning:release";
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
-    };
-
-    immich-web = immichBase // {
-      image = "ghcr.io/immich-app/immich-web:release";
-      ports = [ "3000:3000" ];
-      entrypoint = "/bin/sh";
-      cmd = [ "./entrypoint.sh" ];
     };
 
     immich-typesense = {
@@ -160,7 +151,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/api" = {
-      proxyPass = "http://localhost:3001";
+      proxyPass = "http://localhost:2283";
       extraConfig = ''
         rewrite /api/(.*) /$1 break;
         client_max_body_size 50000M;
