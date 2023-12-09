@@ -25,6 +25,11 @@ in {
     owner = cfg.user;
   };
 
+  age.secrets.authelia-oidc-miniflux = {
+    file = ../secrets/authelia/oidc-miniflux.age;
+    owner = cfg.user;
+  };
+
   services.authelia.instances.main = {
     enable = true;
     secrets = {
@@ -103,6 +108,14 @@ in {
       #   host = "smtp.web.de";
       #   port = 587;
       # };
+      identity_providers.oidc.clients = [{
+        id = "miniflux";
+        secret =
+          "$pbkdf2-sha512$310000$1iBgcyIDTDzELv49KWtcHQ$WaRknbgeOHPWIc1BdQsUJaftwISJlY5S1Nyw6Z5omPvnZINhPyn7WVMgogVv1Dekmici7Oz7opb8S7uQAc8hzw";
+        redirect_uris = [ "https://news.felschr.com/oauth2/oidc/callback" ];
+        authorization_policy = "one_factor";
+        scopes = [ "openid" "email" "profile" ];
+      }];
     };
   };
 
