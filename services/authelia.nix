@@ -20,8 +20,12 @@ in {
     file = ../secrets/authelia/storage.age;
     owner = cfg.user;
   };
-  age.secrets.authelia-oidc = {
-    file = ../secrets/authelia/oidc.age;
+  age.secrets.authelia-oidc-hmac = {
+    file = ../secrets/authelia/oidc-hmac.age;
+    owner = cfg.user;
+  };
+  age.secrets.authelia-oidc-issuer = {
+    file = ../secrets/authelia/oidc-issuer.age;
     owner = cfg.user;
   };
 
@@ -36,7 +40,8 @@ in {
       jwtSecretFile = config.age.secrets.authelia-jwt.path;
       storageEncryptionKeyFile = config.age.secrets.authelia-storage.path;
       sessionSecretFile = config.age.secrets.authelia-session.path;
-      oidcIssuerPrivateKeyFile = config.age.secrets.authelia-oidc.path;
+      oidcHmacSecretFile = config.age.secrets.authelia-oidc-hmac.path;
+      oidcIssuerPrivateKeyFile = config.age.secrets.authelia-oidc-issuer.path;
     };
     environmentVariables = {
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =

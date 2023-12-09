@@ -36,7 +36,8 @@ in {
   "authelia/jwt.age".publicKeys = [ felschr home-server ];
   "authelia/session.age".publicKeys = [ felschr home-server ];
   "authelia/storage.age".publicKeys = [ felschr home-server ];
-  "authelia/oidc.age".publicKeys = [ felschr home-server ];
+  "authelia/oidc-hmac.age".publicKeys = [ felschr home-server ];
+  "authelia/oidc-issuer.age".publicKeys = [ felschr home-server ];
   "authelia/oidc-miniflux.age".publicKeys = [ felschr home-server ];
   "hass/secrets.age".publicKeys = [ felschr home-server ];
   "esphome/password.age".publicKeys = [ felschr home-server ];
