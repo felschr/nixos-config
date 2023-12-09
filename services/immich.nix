@@ -1,6 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
+  tag = "v1.90.2";
   dataDir = "/var/lib/immich";
   typesenseDataDir = "/var/lib/immich/typesense/data";
   uploadDir = "${dataDir}/upload";
@@ -95,7 +96,7 @@ in {
 
   virtualisation.oci-containers.containers = {
     immich-server = immichBase // {
-      image = "ghcr.io/immich-app/immich-server:release";
+      image = "ghcr.io/immich-app/immich-server:${tag}";
       ports = [ "2283:3001" ];
       entrypoint = "/bin/sh";
       cmd = [ "./start-server.sh" ];
@@ -104,7 +105,7 @@ in {
     };
 
     immich-microservices = immichBase // {
-      image = "ghcr.io/immich-app/immich-server:release";
+      image = "ghcr.io/immich-app/immich-server:${tag}";
       entrypoint = "/bin/sh";
       cmd = [ "./start-microservices.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
@@ -112,7 +113,7 @@ in {
     };
 
     immich-machine-learning = immichBase // {
-      image = "ghcr.io/immich-app/immich-machine-learning:release";
+      image = "ghcr.io/immich-app/immich-machine-learning:${tag}";
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
     };
 
