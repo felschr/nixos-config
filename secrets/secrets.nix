@@ -22,6 +22,7 @@ in {
   "etebase-server.age".publicKeys = [ felschr home-pc home-server ];
   "calibre-web/htpasswd.age".publicKeys = [ felschr home-pc home-server ];
   "miniflux.age".publicKeys = [ felschr home-pc home-server ];
+  "miniflux-oidc.age".publicKeys = [ felschr home-pc home-server ];
   "paperless.age".publicKeys = [ felschr home-pc home-server ];
   "nextcloud/admin.age".publicKeys = [ felschr home-pc home-server ];
   "immich/.env.age".publicKeys = [ felschr home-pc home-server ];
@@ -38,7 +39,6 @@ in {
   "authelia/storage.age".publicKeys = [ felschr home-server ];
   "authelia/oidc-hmac.age".publicKeys = [ felschr home-server ];
   "authelia/oidc-issuer.age".publicKeys = [ felschr home-server ];
-  "authelia/oidc-miniflux.age".publicKeys = [ felschr home-server ];
   "hass/secrets.age".publicKeys = [ felschr home-server ];
   "esphome/password.age".publicKeys = [ felschr home-server ];
   "focalboard/.env.age".publicKeys = [ felschr home-server ];

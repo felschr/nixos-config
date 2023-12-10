@@ -29,11 +29,6 @@ in {
     owner = cfg.user;
   };
 
-  age.secrets.authelia-oidc-miniflux = {
-    file = ../secrets/authelia/oidc-miniflux.age;
-    owner = cfg.user;
-  };
-
   services.authelia.instances.main = {
     enable = true;
     secrets = {
