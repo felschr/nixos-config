@@ -97,7 +97,7 @@ in {
   virtualisation.oci-containers.containers = {
     immich-server = immichBase // {
       image = "ghcr.io/immich-app/immich-server:${tag}";
-      ports = [ "2283:3001" ];
+      ports = [ "3001:3001" ];
       entrypoint = "/bin/sh";
       cmd = [ "./start-server.sh" ];
       volumes = [ "${uploadDir}:/usr/src/app/upload" ];
@@ -151,15 +151,8 @@ in {
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
-    locations."/api" = {
-      proxyPass = "http://localhost:2283";
-      extraConfig = ''
-        rewrite /api/(.*) /$1 break;
-        client_max_body_size 50000M;
-      '';
-    };
     locations."/" = {
-      proxyPass = "http://localhost:3000";
+      proxyPass = "http://localhost:3001";
       extraConfig = ''
         client_max_body_size 50000M;
       '';
