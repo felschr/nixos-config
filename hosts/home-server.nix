@@ -93,8 +93,10 @@ in {
     enable = true;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
-    recommendedGzipSettings = true;
     recommendedProxySettings = true;
+    recommendedZstdSettings = true;
+    recommendedGzipSettings = true;
+    recommendedBrotliSettings = true;
   };
 
   programs.zsh.enable = true;
