@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 
 let
   left = "h";
@@ -14,6 +14,7 @@ in {
         "native-window-placement@gnome-shell-extensions.gcampax.github.com" # works better with pop-shell
         "appindicatorsupport@rgcjonas.gmail.com"
         "gnomebedtime@ionutbortis.gmail.com"
+        "tailscale-status@maxgallup.github.com"
       ];
       favorite-apps = [ "org.gnome.Nautilus.desktop" "mullvadbrowser.desktop" ];
     };

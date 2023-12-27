@@ -1,14 +1,16 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs;
     with gnomeExtensions; [
       gnome.dconf-editor
       gnome.gnome-tweaks
+      gnome.zenity
       native-window-placement
       appindicator
       pop-shell
       gnome-bedtime
+      tailscale-status
     ];
 
   services.xserver.displayManager.gdm.enable = true;
