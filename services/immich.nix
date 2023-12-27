@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  tag = "v1.90.2";
+  tag = "v1.88.2";
   dataDir = "/var/lib/immich";
   typesenseDataDir = "/var/lib/immich/typesense/data";
   uploadDir = "${dataDir}/upload";
