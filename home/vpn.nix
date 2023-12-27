@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 with pkgs; {
   home.packages = with pkgs; [ mullvad-vpn ];

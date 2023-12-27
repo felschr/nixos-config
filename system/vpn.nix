@@ -5,7 +5,10 @@
 
   networking.wireguard.enable = true;
 
+  services.tailscale.enable = true;
   services.mullvad-vpn.enable = true;
+
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   # set some options after every daemon start
   # to avoid accidentally leaving unsafe settings
