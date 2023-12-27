@@ -113,6 +113,12 @@ in {
     inherit hostKeys;
   };
 
+  services.tailscale.extraUpFlags = [
+    "--advertise-routes=192.168.1.0/24"
+    "--advertise-tags=tag:felschr-com"
+    "--advertise-connector"
+  ];
+
   # ssh root@hostname "echo "$(read -s pass; echo \'"$pass"\')" > /crypt-ramfs/passphrase"
   boot.initrd.availableKernelModules = [ "igb" ];
   boot.initrd.network = {

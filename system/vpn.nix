@@ -1,14 +1,20 @@
 { config, pkgs, ... }:
 
-{
+let tailscaleInterface = config.services.tailscale.interfaceName;
+in {
   age.secrets.mullvad.file = ../secrets/mullvad.age;
 
   networking.wireguard.enable = true;
+  networking.firewall.trustedInterfaces = [ tailscaleInterface ];
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    # authKeyFile = ; # TODO add this to create auto-connect systemd job
+    openFirewall = true;
+    useRoutingFeatures = "both";
+  };
+
   services.mullvad-vpn.enable = true;
-
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   # set some options after every daemon start
   # to avoid accidentally leaving unsafe settings
@@ -52,7 +58,7 @@
           }
           chain allow-incoming {
             type filter hook input priority -100; policy accept;
-            iifname "tailscale0" ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+            iifname "${tailscaleInterface}" ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
           }
         }
       ''
