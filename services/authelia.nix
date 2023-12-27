@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   domain = "auth.felschr.com";
@@ -7,6 +7,19 @@ let
   ldapPort = config.services.lldap.settings.ldap_port;
   redis = config.services.redis.servers.authelia;
   cfg = config.services.authelia.instances.main;
+
+  mkWebfinger = v:
+    pkgs.writeTextDir (lib.escapeURL v.subject) (lib.generators.toJSON { } v);
+  webfingerRoot = pkgs.symlinkJoin {
+    name = "felschr.com-webfinger";
+    paths = builtins.map mkWebfinger [{
+      subject = "acct:me@felschr.com";
+      links = [{
+        rel = "http://openid.net/specs/connect/1.0/issuer";
+        href = "https://auth.felschr.com";
+      }];
+    }];
+  };
 in {
   age.secrets.authelia-jwt = {
     file = ../secrets/authelia/jwt.age;
@@ -108,14 +121,25 @@ in {
       #   host = "smtp.web.de";
       #   port = 587;
       # };
-      identity_providers.oidc.clients = [{
-        id = "miniflux";
-        secret =
-          "$pbkdf2-sha512$310000$1iBgcyIDTDzELv49KWtcHQ$WaRknbgeOHPWIc1BdQsUJaftwISJlY5S1Nyw6Z5omPvnZINhPyn7WVMgogVv1Dekmici7Oz7opb8S7uQAc8hzw";
-        redirect_uris = [ "https://news.felschr.com/oauth2/oidc/callback" ];
-        authorization_policy = "one_factor";
-        scopes = [ "openid" "email" "profile" ];
-      }];
+      identity_providers.oidc.clients = [
+        {
+          id = "miniflux";
+          secret =
+            "$pbkdf2-sha512$310000$1iBgcyIDTDzELv49KWtcHQ$WaRknbgeOHPWIc1BdQsUJaftwISJlY5S1Nyw6Z5omPvnZINhPyn7WVMgogVv1Dekmici7Oz7opb8S7uQAc8hzw";
+          redirect_uris = [ "https://news.felschr.com/oauth2/oidc/callback" ];
+          authorization_policy = "one_factor";
+          scopes = [ "openid" "email" "profile" ];
+        }
+        {
+          id = "tailscale";
+          # The digest of "insecure_secret"
+          secret =
+            "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
+          redirect_uris = [ "https://login.tailscale.com/a/oauth_response" ];
+          authorization_policy = "one_factor";
+          scopes = [ "openid" "email" "profile" ];
+        }
+      ];
     };
   };
 
@@ -141,6 +165,23 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://[::1]:${toString port}";
+  };
+
+  services.nginx.virtualHosts."felschr.com" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/.well-known/webfinger" = {
+      root = webfingerRoot;
+      extraConfig = ''
+        add_header Access-Control-Allow-Origin "*";
+        default_type "application/jrd+json";
+        types { application/jrd+json json; }
+        if ($arg_resource) {
+          rewrite ^(.*)$ /$arg_resource break;
+        }
+        return 400;
+      '';
+    };
   };
 
   users.users.${cfg.user}.extraGroups = [ "smtp" "ldap" ];
