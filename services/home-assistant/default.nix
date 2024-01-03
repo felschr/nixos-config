@@ -49,6 +49,8 @@ in {
       "alarm_control_panel"
       "assist_pipeline"
       "wyoming"
+      "todo"
+      "local_todo"
       "shopping_list"
     ];
     extraPackages = ps:
