@@ -16,7 +16,6 @@ in {
       "--reset"
       "--accept-routes"
       "--exit-node=de-ber-wg-004.mullvad.ts.net"
-      "--exit-node-allow-lan-access"
     ];
   };
 
