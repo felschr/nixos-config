@@ -5,7 +5,6 @@ with pkgs; {
     ./shell
     ./editors
     ./desktop
-    ./vpn.nix
     ./git.nix
     ./keybase.nix
     ./element.nix

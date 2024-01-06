@@ -103,5 +103,10 @@ in {
       schedule-start-hours = 23;
       schedule-end-hours = 6;
     };
+    "org/gnome/shell/extensions/tailscale-status" = {
+      # TODO 0 should disable refresh, but it doesn't work in this version
+      # refresh-interval = 0;
+      refresh-interval = 120;
+    };
   };
 }
