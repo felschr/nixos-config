@@ -15,9 +15,13 @@ in {
     extraUpFlags = [
       "--reset"
       "--accept-routes"
+      "--exit-node-allow-lan-access"
       "--exit-node=de-ber-wg-004.mullvad.ts.net"
     ];
   };
+
+  systemd.services.tailscaled.serviceConfig.Environment =
+    [ "TS_DEBUG_FIREWALL_MODE=auto" ];
 
   # call taiscale up without --auth-key
   systemd.services.tailscaled-autoconnect.script = ''
