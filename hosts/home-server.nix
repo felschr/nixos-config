@@ -50,12 +50,6 @@ in {
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "dev@felschr.com";
-  # TODO this doesn't work
-  # security.acme.certs = builtins.foldl' (r: domain:
-  #   r // {
-  #     ${domain}.extraDomainNames =
-  #       [ "${config.networking.hostName}.tail05275.ts.net" ];
-  #   }) { } config.services.inadyn.domains;
 
   services.inadyn.enable = true;
   services.inadyn.provider = "cloudflare.com";
