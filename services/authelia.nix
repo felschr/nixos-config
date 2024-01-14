@@ -21,7 +21,7 @@ let
     }];
   };
 
-  smtpAccount = config.msmtp.accounts.default;
+  smtpAccount = config.programs.msmtp.accounts.default;
 in {
   age.secrets.authelia-jwt = {
     file = ../secrets/authelia/jwt.age;

@@ -135,7 +135,7 @@ in {
     method = "email";
     email.mailTo = "admin@felschr.com";
     email.mailFrom =
-      "${config.networking.hostName} <${config.msmtp.accounts.default.from}>";
+      "${config.networking.hostName} <${config.programs.msmtp.accounts.default.from}>";
   };
 
   # only change this when specified in release notes
