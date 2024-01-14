@@ -20,6 +20,8 @@ let
       }];
     }];
   };
+
+  smtpAccount = config.msmtp.accounts.default;
 in {
   age.secrets.authelia-jwt = {
     file = ../secrets/authelia/jwt.age;
@@ -54,7 +56,7 @@ in {
     environmentVariables = {
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
         config.age.secrets.lldap-password.path;
-      # AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.age.secrets.smtp.path;
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.age.secrets.smtp.path;
     };
     settings = {
       theme = "dark";
@@ -113,14 +115,12 @@ in {
         # password not used since it uses peer auth
         password = "dummy";
       };
-      # TODO set up notifier
-      notifier.filesystem.filename = "/var/lib/authelia-main/notifications.log";
-      # notifier.smtp = rec {
-      #   username = "felschr@web.de";
-      #   sender = username;
-      #   host = "smtp.web.de";
-      #   port = 587;
-      # };
+      # notifier.filesystem.filename = "/var/lib/authelia-main/notifications.log";
+      notifier.smtp = {
+        inherit (smtpAccount) host port;
+        username = smtpAccount.user;
+        sender = smtpAccount.from;
+      };
       identity_providers.oidc.clients = [
         {
           id = "miniflux";
