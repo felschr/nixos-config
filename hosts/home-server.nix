@@ -140,7 +140,8 @@ in {
     enable = true;
     method = "email";
     email.mailTo = "admin@felschr.com";
-    email.mailFrom = "${config.networking.hostName} <felschr@web.de>";
+    email.mailFrom =
+      "${config.networking.hostName} <${config.msmtp.accounts.default.from}>";
   };
 
   # only change this when specified in release notes

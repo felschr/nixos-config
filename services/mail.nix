@@ -14,15 +14,14 @@
       tls_starttls = true;
       auth = true;
     };
-    accounts.default = rec {
+    accounts.default = {
       tls = true;
       tls_starttls = true;
-      host = "smtp.web.de";
+      host = "in-v3.mailjet.com";
       port = 587;
-      user = "felschr@web.de";
+      user = "8f445e9664e3668e7c859bfcf189e71e";
       passwordeval = "cat ${config.age.secrets.smtp.path}";
-      # from = "%U@server.felschr.com";
-      from = user;
+      from = "admin@felschr.com";
     };
   };
 
