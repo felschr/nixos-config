@@ -16,7 +16,11 @@ in {
         "gnomebedtime@ionutbortis.gmail.com"
         "tailscale-status@maxgallup.github.com"
       ];
-      favorite-apps = [ "org.gnome.Nautilus.desktop" "mullvadbrowser.desktop" ];
+      favorite-apps = [
+        "org.gnome.Nautilus.desktop"
+        "mullvadbrowser.desktop"
+        "anytype.desktop"
+      ];
     };
     "org/gnome/shell/extensions/pop-shell" = {
       tile-by-default = true;

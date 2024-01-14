@@ -52,7 +52,7 @@
     gnome-firmware-updater
 
     # productivity
-    logseq
+    anytype
     libreoffice-fresh
     tabbed
 
