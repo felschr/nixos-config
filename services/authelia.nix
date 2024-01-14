@@ -92,7 +92,7 @@ in {
         default_policy = "deny";
         rules = [{
           domain = [ "*.felschr.com" ];
-          policy = "one_factor";
+          policy = "two_factor";
         }];
       };
       session = {
