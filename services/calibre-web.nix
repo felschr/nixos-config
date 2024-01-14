@@ -14,6 +14,7 @@ in {
     listen.port = port;
     options.enableBookUploading = true;
     options.enableBookConversion = true;
+    options.enableKepubify = true;
     options.calibreLibrary = "/media/Books";
   };
 
@@ -26,6 +27,9 @@ in {
           proxyPass = "http://[::1]:${toString port}";
           extraConfig = ''
             client_max_body_size 500M;
+            proxy_busy_buffers_size 1024k;
+            proxy_buffers 4 512k;
+            proxy_buffer_size 1024k;
           '';
         };
         "/opds" = {
