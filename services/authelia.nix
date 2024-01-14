@@ -125,7 +125,7 @@ in {
         {
           id = "miniflux";
           secret =
-            "$pbkdf2-sha512$310000$1iBgcyIDTDzELv49KWtcHQ$WaRknbgeOHPWIc1BdQsUJaftwISJlY5S1Nyw6Z5omPvnZINhPyn7WVMgogVv1Dekmici7Oz7opb8S7uQAc8hzw";
+            "$pbkdf2-sha512$310000$uDoutefLT0wyfye.kBEyZw$tX7nwcRVo0LpPPS63Oh9MIeOLkdPRnXX/0JBwMd.aitFIxKDxU.rlywn/WqLVgpIllyFttMl5OnZzjMTbGKZ0A";
           redirect_uris = [ "https://news.felschr.com/oauth2/oidc/callback" ];
           authorization_policy = "one_factor";
           scopes = [ "openid" "email" "profile" ];

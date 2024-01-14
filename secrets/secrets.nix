@@ -20,8 +20,8 @@ in {
   "cloudflare.age".publicKeys = [ felschr home-pc home-server ];
   "etebase-server.age".publicKeys = [ felschr home-pc home-server ];
   "calibre-web/htpasswd.age".publicKeys = [ felschr home-pc home-server ];
-  "miniflux.age".publicKeys = [ felschr home-pc home-server ];
-  "miniflux-oidc.age".publicKeys = [ felschr home-pc home-server ];
+  "miniflux/admin.age".publicKeys = [ felschr home-pc home-server ];
+  "miniflux/oidc.age".publicKeys = [ felschr home-pc home-server ];
   "paperless.age".publicKeys = [ felschr home-pc home-server ];
   "nextcloud/admin.age".publicKeys = [ felschr home-pc home-server ];
   "immich/.env.age".publicKeys = [ felschr home-pc home-server ];
