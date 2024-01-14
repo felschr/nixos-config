@@ -139,6 +139,16 @@ in {
           authorization_policy = "one_factor";
           scopes = [ "openid" "email" "profile" ];
         }
+        {
+          id = "jellyfin";
+          description = "Jellyfin";
+          secret = ''
+            $pbkdf2-sha512$310000$X7amOzLsURvZSwdLmSstlQ$/WK4lZ9KvEEuotOxUJkeTo0ZAa.rD7VVdkAPFcUQmr2WzkCXmXXJbYYy7vx0hc4nqLgBVeo8q/71R3rvfl9BF
+            Q'';
+          redirect_uris =
+            [ "https://media.felschr.com/sso/OID/redirect/Authelia" ];
+          scopes = [ "openid" "email" "profile" ];
+        }
       ];
     };
   };
