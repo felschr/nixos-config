@@ -124,27 +124,26 @@ in {
       identity_providers.oidc.clients = [
         {
           id = "miniflux";
+          description = "Miniflux RSS";
           secret =
             "$pbkdf2-sha512$310000$uDoutefLT0wyfye.kBEyZw$tX7nwcRVo0LpPPS63Oh9MIeOLkdPRnXX/0JBwMd.aitFIxKDxU.rlywn/WqLVgpIllyFttMl5OnZzjMTbGKZ0A";
           redirect_uris = [ "https://news.felschr.com/oauth2/oidc/callback" ];
-          authorization_policy = "one_factor";
           scopes = [ "openid" "email" "profile" ];
         }
         {
           id = "tailscale";
+          description = "Tailscale";
           # The digest of "insecure_secret"
           secret =
             "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
           redirect_uris = [ "https://login.tailscale.com/a/oauth_response" ];
-          authorization_policy = "one_factor";
           scopes = [ "openid" "email" "profile" ];
         }
         {
           id = "jellyfin";
           description = "Jellyfin";
-          secret = ''
-            $pbkdf2-sha512$310000$X7amOzLsURvZSwdLmSstlQ$/WK4lZ9KvEEuotOxUJkeTo0ZAa.rD7VVdkAPFcUQmr2WzkCXmXXJbYYy7vx0hc4nqLgBVeo8q/71R3rvfl9BF
-            Q'';
+          secret =
+            "$pbkdf2-sha512$310000$X7amOzLsURvZSwdLmSstlQ$/WK4lZ9KvEEuotOxUJkeTo0ZAa.rD7VVdkAPFcUQmr2WzkCXmXXJbYYy7vx0hc4nqLgBVeo8q/71R3rvfl9BFQ";
           redirect_uris =
             [ "https://media.felschr.com/sso/OID/redirect/Authelia" ];
           scopes = [ "openid" "email" "profile" ];
