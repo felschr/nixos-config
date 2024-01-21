@@ -3,6 +3,8 @@
 let
   cfg = config.services.tailscale;
   tailscaleInterface = cfg.interfaceName;
+  inherit (config.networking) hostName;
+  tailnetHost = "${hostName}.tail05275.ts.net";
 in {
   networking.wireguard.enable = true;
   networking.firewall.trustedInterfaces = [ tailscaleInterface ];
@@ -27,7 +29,10 @@ in {
   systemd.services.tailscaled-autoconnect.script = ''
     status=$(${config.systemd.package}/bin/systemctl show -P StatusText tailscaled.service)
     if [[ $status != Connected* ]]; then
-      ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
+      ${cfg.package}/bin/tailscale up
     fi
+
+    # some options cannot be set immediately
+    ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
   '';
 }
