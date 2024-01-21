@@ -34,5 +34,12 @@ in {
 
     # some options cannot be set immediately
     ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
+
+    ${cfg.package}/bin/tailscale cert ${tailnetHost}
   '';
+
+  services.nginx.virtualHosts.${tailnetHost} = {
+    sslCertificate = "/var/lib/tailscale/certs/${tailnetHost}.key";
+    sslCertificateKey = "/var/lib/tailscale/certs/${tailnetHost}.crt";
+  };
 }
