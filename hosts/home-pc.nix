@@ -40,7 +40,8 @@
     };
   };
 
-  services.tailscale.extraUpFlags = [ "--advertise-routes=192.168.1.0/24" ];
+  services.tailscale.extraUpFlags =
+    [ "--operator=felschr" "--advertise-routes=192.168.1.0/24" ];
 
   networking.firewall.allowedUDPPorts = [
     24727 # AusweisApp2
