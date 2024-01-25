@@ -36,10 +36,11 @@ in {
     ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
 
     ${cfg.package}/bin/tailscale cert ${tailnetHost}
+    chown nginx:nginx /var/lib/tailscale/certs/${tailnetHost}.{key,crt}
   '';
 
   services.nginx.virtualHosts.${tailnetHost} = {
-    sslCertificate = "/var/lib/tailscale/certs/${tailnetHost}.key";
-    sslCertificateKey = "/var/lib/tailscale/certs/${tailnetHost}.crt";
+    sslCertificate = "/var/lib/tailscale/certs/${tailnetHost}.crt";
+    sslCertificateKey = "/var/lib/tailscale/certs/${tailnetHost}.key";
   };
 }
