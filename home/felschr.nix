@@ -82,6 +82,7 @@
     warp
     onionshare-gui
     transmission_4-gtk
+    qbittorrent
     fragments
     metadata-cleaner
 
