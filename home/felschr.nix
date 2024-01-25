@@ -81,7 +81,7 @@
     magic-wormhole-rs
     warp
     onionshare-gui
-    transmission-gtk
+    transmission_4-gtk
     fragments
     metadata-cleaner
 
