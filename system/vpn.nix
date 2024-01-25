@@ -11,7 +11,6 @@ in {
 
   services.tailscale = {
     enable = true;
-    authKeyFile = "/dummy";
     openFirewall = true;
     useRoutingFeatures = "both";
     extraUpFlags = [
@@ -26,18 +25,25 @@ in {
     [ "TS_DEBUG_FIREWALL_MODE=auto" ];
 
   # call taiscale up without --auth-key
-  systemd.services.tailscaled-autoconnect.script = ''
-    status=$(${config.systemd.package}/bin/systemctl show -P StatusText tailscaled.service)
-    if [[ $status != Connected* ]]; then
-      ${cfg.package}/bin/tailscale up
-    fi
+  systemd.services.tailscaled-autoconnect = lib.mkIf (cfg.authKeyFile == null) {
+    after = [ "tailscaled.service" ];
+    wants = [ "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      status=$(${config.systemd.package}/bin/systemctl show -P StatusText tailscaled.service)
+      if [[ $status != Connected* ]]; then
+        ${cfg.package}/bin/tailscale up
+      fi
 
-    # some options cannot be set immediately
-    ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
+      # some options cannot be set immediately
+      ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
 
-    ${cfg.package}/bin/tailscale cert ${tailnetHost}
-    chown nginx:nginx /var/lib/tailscale/certs/${tailnetHost}.{key,crt}
-  '';
+      # TODO nginx.service currently fails because it supposedly doesn't have permissions for this file
+      ${cfg.package}/bin/tailscale cert ${tailnetHost}
+      chown nginx:nginx /var/lib/tailscale/certs/${tailnetHost}.{key,crt}
+    '';
+  };
 
   services.nginx.virtualHosts.${tailnetHost} = {
     sslCertificate = "/var/lib/tailscale/certs/${tailnetHost}.crt";
