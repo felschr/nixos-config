@@ -46,7 +46,6 @@ with pkgs; {
     gnome-firmware-updater
 
     # productivity
-    logseq
     libreoffice-fresh
 
     # entertainment
