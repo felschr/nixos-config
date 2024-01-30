@@ -82,7 +82,7 @@ rec {
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" ];
-      imports = [ ./lib ./overlays.nix ];
+      imports = [ ./pkgs/flake-module.nix ./lib ./overlays.nix ];
       flake = {
         inherit nixConfig;
 
@@ -193,13 +193,6 @@ rec {
         _module.args.pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-        };
-
-        packages = import ./pkgs { inherit pkgs; };
-
-        apps = {
-          deconz =
-            inputs.flake-utils.lib.mkApp { drv = config.packages.deconz; };
         };
 
         devShells.default =
