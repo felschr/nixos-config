@@ -77,6 +77,11 @@ rec {
       url = "github:hermitmaster/nvim-kitty-navigator";
       flake = false;
     };
+
+    openwrt-imagebuilder = {
+      url = "github:astro/nix-openwrt-imagebuilder";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:

@@ -505,6 +505,26 @@
         "type": "github"
       }
     },
+    "openwrt-imagebuilder": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1706611863,
+        "narHash": "sha256-BGAeiyC3KCBGG1pEUzoNnmYmEblEGbOulOwcOdCYR7k=",
+        "owner": "astro",
+        "repo": "nix-openwrt-imagebuilder",
+        "rev": "887cd2b6f7c44a7ed52642e0632ac2ddc4fe1461",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astro",
+        "repo": "nix-openwrt-imagebuilder",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_5",
@@ -548,6 +568,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
+        "openwrt-imagebuilder": "openwrt-imagebuilder",
         "pre-commit-hooks": "pre-commit-hooks"
       }
     },

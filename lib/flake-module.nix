@@ -1,8 +1,10 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 
 let createUser' = import ./createUser.nix;
 in {
-  flake.lib = {
+  imports = [ ./openwrt.nix ];
+  options.flake.lib = lib.mkOption { type = with lib.types; lazyAttrsOf raw; };
+  config.flake.lib = {
     createSystem = hostName:
       { hardwareConfig, config }:
       ({ pkgs, lib, ... }: {
