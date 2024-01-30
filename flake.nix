@@ -82,7 +82,8 @@ rec {
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" ];
-      imports = [ ./pkgs/flake-module.nix ./lib ./overlays.nix ];
+      imports =
+        [ ./pkgs/flake-module.nix ./lib/flake-module.nix ./overlays.nix ];
       flake = {
         inherit nixConfig;
 
