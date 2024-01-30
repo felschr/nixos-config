@@ -3,6 +3,7 @@
 {
   imports = [
     ./shell
+    ./tailscale.nix
     ./editors
     ./desktop
     ./desktop/monitors.nix
