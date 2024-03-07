@@ -18,14 +18,16 @@ in {
       extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
     };
     extraOptions = [
-      "--runtime-flag=directfs=false"
-      "--runtime-flag=network=host"
+      "--runtime=crun"
       "--uidmap=0:65534:1"
       "--gidmap=0:65534:1"
       "--uidmap=100:${toString uid}:1"
       "--gidmap=101:${toString gid}:1"
       "--network=host"
       "--cap-add=MKNOD"
+      "--cap-add=CHOWN"
+      "--cap-add=FOWNER"
+      "--cap-add=SYS_CHROOT"
       "--label=io.containers.autoupdate=registry"
     ];
   };

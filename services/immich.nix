@@ -37,7 +37,6 @@ let
       config.age.secrets.immich-typesense-env.path
     ];
     extraOptions = [
-      "--runtime-flag=directfs=false"
       "--runtime-flag=network=host"
       "--uidmap=0:65534:1"
       "--gidmap=0:65534:1"
