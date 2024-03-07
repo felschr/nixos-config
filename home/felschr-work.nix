@@ -50,13 +50,17 @@ with pkgs; {
     # productivity
     libreoffice-fresh
 
+    # dev & admin
+    pods
+
+    # security & privacy
+    bitwarden
+    authenticator
+    metadata-cleaner
+    raider
+
     # entertainment
     celluloid
-
-    # development
-    unzip
-    jq
-    dos2unix
   ];
 
   home.stateVersion = "23.05";

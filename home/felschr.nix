@@ -61,6 +61,9 @@
     # work
     teams-for-linux
 
+    # dev & admin
+    pods
+
     # game dev
     ldtk
     pixelorama
@@ -78,22 +81,25 @@
 
     # security & privacy
     bitwarden
+    authenticator
+    metadata-cleaner
+    raider
     yubikey-manager
     yubikey-manager-qt
-    yubioath-flutter
+    # yubioath-flutter # TODO conflicts with fluffychat
     magic-wormhole-rs
     warp
     onionshare-gui
     transmission_4-gtk
     qbittorrent
     fragments
-    metadata-cleaner
 
     # other
     ledger-live-desktop
     portfolio
     bottles
     zotero
+    newsflash
   ];
 
   home.stateVersion = "23.05";
