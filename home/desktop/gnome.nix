@@ -18,7 +18,7 @@ in {
       ];
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
-        "mullvadbrowser.desktop"
+        "mullvad-browser.desktop"
         "anytype.desktop"
       ];
     };

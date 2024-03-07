@@ -8,11 +8,11 @@ let
     audio = [ "io.github.celluloid_player.Celluloid.desktop" ];
     video = [ "io.github.celluloid_player.Celluloid.desktop" ];
     directory = [ "nautilus.desktop" "org.gnome.Nautilus.desktop" ];
-    mail = [ "mullvadbrowser.desktop" ];
-    calendar = [ "mullvadbrowser.desktop" ];
-    browser = [ "mullvadbrowser.desktop" ];
+    mail = [ "mullvad-browser.desktop" ];
+    calendar = [ "mullvad-browser.desktop" ];
+    browser = [ "mullvad-browser.desktop" ];
     office = [ "libreoffice.desktop" ];
-    pdf = [ "mullvadbrowser.desktop" ];
+    pdf = [ "mullvad-browser.desktop" ];
     ebook = [ "com.github.johnfactotum.Foliate.desktop" ];
     magnet = [ "transmission-gtk.desktop" ];
     signal = [ "signal-desktop.desktop" ];
