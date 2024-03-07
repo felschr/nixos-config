@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.services.tailscale;
@@ -11,6 +11,7 @@ in {
 
   services.tailscale = {
     enable = true;
+    package = pkgs.unstable.tailscale;
     openFirewall = true;
     useRoutingFeatures = "both";
     extraUpFlags = [
