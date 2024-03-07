@@ -14,7 +14,7 @@ in {
         "native-window-placement@gnome-shell-extensions.gcampax.github.com" # works better with pop-shell
         "appindicatorsupport@rgcjonas.gmail.com"
         "gnomebedtime@ionutbortis.gmail.com"
-        "tailscale-status@maxgallup.github.com"
+        "tailscale@joaophi.github.com"
       ];
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
@@ -106,11 +106,6 @@ in {
       automatic-schedule = true;
       schedule-start-hours = 23;
       schedule-end-hours = 6;
-    };
-    "org/gnome/shell/extensions/tailscale-status" = {
-      # TODO 0 should disable refresh, but it doesn't work in this version
-      # refresh-interval = 0;
-      refresh-interval = 120;
     };
   };
 }

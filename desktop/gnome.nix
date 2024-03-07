@@ -10,7 +10,7 @@
       appindicator
       pop-shell
       gnome-bedtime
-      tailscale-status
+      tailscale-qs
     ];
 
   services.xserver.displayManager.gdm.enable = true;
