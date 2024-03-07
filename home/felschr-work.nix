@@ -45,6 +45,7 @@ with pkgs; {
     # system
     gparted
     gnome-firmware-updater
+    mission-center
 
     # productivity
     libreoffice-fresh

@@ -51,6 +51,7 @@
     # system
     gparted
     gnome-firmware-updater
+    mission-center
 
     # productivity
     anytype

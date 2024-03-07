@@ -29,6 +29,7 @@
 
   # exclude some default applications
   environment.gnome.excludePackages = with pkgs; [
+    gnome.gnome-system-monitor
     gnome.gnome-weather
     gnome.gnome-calendar
     gnome.gnome-maps
