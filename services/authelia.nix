@@ -8,17 +8,44 @@ let
   redis = config.services.redis.servers.authelia;
   cfg = config.services.authelia.instances.main;
 
-  mkWebfinger = v:
-    pkgs.writeTextDir (lib.escapeURL v.subject) (lib.generators.toJSON { } v);
+  mkWebfinger = config: file:
+    pkgs.writeTextDir file (lib.generators.toJSON { } config);
+  mkWebfingers = { subject, ... }@config:
+    map (mkWebfinger config) [ subject (lib.escapeURL subject) ];
   webfingerRoot = pkgs.symlinkJoin {
     name = "felschr.com-webfinger";
-    paths = builtins.map mkWebfinger [{
-      subject = "acct:me@felschr.com";
-      links = [{
-        rel = "http://openid.net/specs/connect/1.0/issuer";
-        href = "https://auth.felschr.com";
-      }];
-    }];
+    paths = lib.flatten (builtins.map mkWebfingers [
+      {
+        subject = "acct:me@felschr.com";
+        links = [{
+          rel = "http://openid.net/specs/connect/1.0/issuer";
+          href = "https://auth.felschr.com";
+        }];
+      }
+      {
+        subject = "acct:felschr@fosstodon.org";
+        aliases = [
+          "https://fosstodon.org/@felschr"
+          "https://fosstodon.org/users/felschr"
+        ];
+        links = [
+          {
+            rel = "http://webfinger.net/rel/profile-page";
+            type = "text/html";
+            href = "https://fosstodon.org/@felschr";
+          }
+          {
+            rel = "self";
+            type = "application/activity+json";
+            href = "https://fosstodon.org/users/felschr";
+          }
+          {
+            rel = "http://ostatus.org/schema/1.0/subscribe";
+            template = "https://fosstodon.org/authorize_interaction?uri={uri}";
+          }
+        ];
+      }
+    ]);
   };
 
   smtpAccount = config.programs.msmtp.accounts.default;
@@ -188,7 +215,7 @@ in {
         if ($arg_resource) {
           rewrite ^(.*)$ /$arg_resource break;
         }
-        return 400;
+        rewrite ^(.*)$ /acct:felschr@fosstodon.org break;
       '';
     };
   };
