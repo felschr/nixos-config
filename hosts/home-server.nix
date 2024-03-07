@@ -60,8 +60,9 @@ in {
   '';
   services.inadyn.ipv4.enable = true;
   services.inadyn.ipv4.command = "${pkgs.writeScript "get-ipv4" ''
-    /run/wrappers/bin/mullvad-exclude \
-      ${pkgs.curl}/bin/curl -4 -s --retry 10 ifconfig.co
+    ${pkgs.tailscale}/bin/tailscale status --json \
+      | ${pkgs.jq}/bin/jq -r '.Self.Addrs[0]' \
+      | cut -f1 -d":"
   ''}";
   services.inadyn.ipv6.enable = true;
   services.inadyn.ipv6.command = "${pkgs.writeScript "get-ipv6" ''
