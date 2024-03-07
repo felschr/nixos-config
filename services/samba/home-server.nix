@@ -14,6 +14,7 @@
     openFirewall = true;
     securityType = "user";
     extraConfig = ''
+      passdb backend = tdbsam
       guest account = nobody
       map to guest = bad user
       use sendfile = true
