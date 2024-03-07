@@ -84,7 +84,6 @@ config.cssls.setup(default_config)
 config.dockerls.setup(default_config)
 config.nil_ls.setup(default_config)
 config.nickel_ls.setup(default_config)
-config.tsserver.setup(default_config)
 config.graphql.setup(default_config)
 config.pylsp.setup(default_config)
 config.terraformls.setup(default_config)
@@ -107,6 +106,14 @@ config.bashls.setup {
     return on_attach()
   end,
   capabilities = capabilities,
+}
+
+config.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = function(f)
+    return monorepo_pattern({ "tsconfig.json", "jsconfig.json" }, { "package.json", ".git" }, f)
+  end,
 }
 
 config.rust_analyzer.setup {
