@@ -14,18 +14,22 @@
       plugins_order = [ "rnnoise#0" "speex#0" ];
       "rnnoise#0" = {
         bypass = false;
+        enable-vad = false;
         input-gain = 0.0;
         model-path = "";
         output-gain = 0.0;
+        release = 20.0;
+        vad-thres = 50.0;
+        wet = 0.0;
       };
       "speex#0" = {
         bypass = false;
-        input-gain = 0.0;
-        output-gain = 0.0;
-        noise-suppression = -70;
         enable-agc = true;
         enable-denoise = true;
         enable-dereverb = true;
+        input-gain = 0.0;
+        noise-suppression = -70;
+        output-gain = 0.0;
         vad = {
           enable = true;
           probability-continue = 90;
