@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{ self, ... }: {
   perSystem = { self', pkgs, lib, ... }: {
     packages.penguin = self.lib.mkOpenwrtImage {
       inherit pkgs;

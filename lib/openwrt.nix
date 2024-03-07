@@ -6,19 +6,21 @@ let
       release = "snapshot";
     };
 in {
-  flake.lib.mkOpenwrtImage = { pkgs, hostname, timezone, ipaddr }:
+  flake.lib.mkOpenwrtImage =
+    { pkgs, hostname, timezone, ipaddr, packages ? [ ], uci ? "" }:
     inputs.openwrt-imagebuilder.lib.build
     ((getProfiles pkgs).identifyProfile "glinet_gl-mt6000" // {
       packages = [
         # TODO does this include everything that the web firmware builder includes?
         "auc"
-        "bridger"
         "dawn"
         "luci-app-attendedsysupgrade"
         "luci-app-dawn"
+        "luci-app-nextdns"
         "luci-ssl"
+        "nextdns"
         "tailscale"
-      ];
+      ] ++ packages;
 
       files = pkgs.runCommand "image-files" { } ''
         mkdir -p $out/etc/uci-defaults
@@ -32,6 +34,7 @@ in {
         uci set system.@system[0].timezone="$timezone"
         uci set network.lan.ipaddr="$ipaddr"
         uci set uhttpd.main.redirect_https='1'
+        ${uci}
         uci commit
         /etc/init.d/system reload
 
