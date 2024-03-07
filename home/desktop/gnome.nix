@@ -20,6 +20,7 @@ in {
         "org.gnome.Nautilus.desktop"
         "mullvad-browser.desktop"
         "anytype.desktop"
+        "pocket-casts.desktop"
       ];
     };
     "org/gnome/shell/extensions/pop-shell" = {

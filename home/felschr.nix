@@ -69,6 +69,7 @@
     celluloid
     spot
     spotify
+    pocket-casts
     unstable.calibre
     foliate
 
