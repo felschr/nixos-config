@@ -18,6 +18,8 @@ in {
       extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
     };
     extraOptions = [
+      "--runtime-flag=directfs=false"
+      "--runtime-flag=network=host"
       "--uidmap=0:65534:1"
       "--gidmap=0:65534:1"
       "--uidmap=100:${toString uid}:1"

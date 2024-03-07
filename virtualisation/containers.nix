@@ -1,4 +1,4 @@
-_:
+{ pkgs, lib, ... }:
 
 {
   # Enable /etc/containers configuration (used by podman, cri-o, etc.)
@@ -6,6 +6,11 @@ _:
   virtualisation.containers.containersConf.settings = {
     # Create unique User Namespace for the container
     containers.userns = "auto";
+    engine = {
+      conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.gvisor ]}" ];
+      runtimes.runsc = [ "${pkgs.gvisor}/bin/runsc" ];
+      runtime = "runsc";
+    };
   };
   virtualisation.containers.storage.settings = {
     # defaults

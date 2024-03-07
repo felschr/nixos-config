@@ -59,6 +59,8 @@ in {
     # only secrets need to be included, e.g. FOCALBOARD_DBCONFIG
     environmentFiles = [ config.age.secrets.focalboard-env.path ];
     extraOptions = [
+      "--runtime-flag=directfs=false"
+      "--runtime-flag=network=host"
       "--uidmap=0:65534:1"
       "--gidmap=0:65534:1"
       "--uidmap=65534:${toString uid}:1"
