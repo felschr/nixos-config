@@ -35,7 +35,6 @@ in {
     ../services/nextcloud.nix
     ../services/collabora-office.nix
     ../services/calibre-web.nix
-    ../services/focalboard.nix
   ];
 
   age.secrets.cloudflare.file = ../secrets/cloudflare.age;
