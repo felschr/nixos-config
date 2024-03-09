@@ -52,6 +52,7 @@ with pkgs; {
 
     # dev & admin
     pods
+    gaphor
 
     # security & privacy
     bitwarden

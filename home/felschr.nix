@@ -63,6 +63,7 @@
 
     # dev & admin
     pods
+    gaphor
 
     # game dev
     ldtk
