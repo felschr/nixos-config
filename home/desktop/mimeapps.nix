@@ -1,18 +1,26 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 with lib;
 let
+  browsers = [
+    "mullvad-browser.desktop"
+    "mullvad-browser-work.desktop"
+    "firefox.desktop"
+    "firefox-work.desktop"
+    "tor-browser.desktop"
+  ];
+
   defaultApps = {
     text = [ "org.gnome.gedit.desktop" ];
-    image = [ "org.gnome.eog.desktop" ];
+    image = [ "org.gnome.Loupe.desktop" ];
     audio = [ "io.github.celluloid_player.Celluloid.desktop" ];
     video = [ "io.github.celluloid_player.Celluloid.desktop" ];
     directory = [ "nautilus.desktop" "org.gnome.Nautilus.desktop" ];
-    mail = [ "mullvad-browser.desktop" ];
-    calendar = [ "mullvad-browser.desktop" ];
-    browser = [ "mullvad-browser.desktop" ];
+    mail = [ "re.sonny.Junction.desktop" ] ++ browsers;
+    calendar = [ "re.sonny.Junction.desktop" ] ++ browsers;
+    browser = [ "re.sonny.Junction.desktop" ] ++ browsers;
     office = [ "libreoffice.desktop" ];
-    pdf = [ "mullvad-browser.desktop" ];
+    pdf = [ "re.sonny.Junction.desktop" ] ++ browsers;
     ebook = [ "com.github.johnfactotum.Foliate.desktop" ];
     magnet = [ "transmission-gtk.desktop" ];
     signal = [ "signal-desktop.desktop" ];
