@@ -77,9 +77,6 @@
     unstable.calibre
     foliate
 
-    # learning
-    anki
-
     # security & privacy
     bitwarden
     authenticator
