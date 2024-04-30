@@ -1,11 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./shell
-    # ./editors
-    ./git.nix
-  ];
+  imports = [ ./shell ./editors/lsp.nix ./editors/helix.nix ./git.nix ];
 
   home.packages = with pkgs; [ fh ncurses ];
 
@@ -26,11 +22,6 @@
   programs.ssh.enable = true;
 
   programs.git.defaultProfile = "private";
-
-  home.sessionVariables.EDITOR = "nvim";
-  programs.neovim.enable = true;
-  programs.neovim.viAlias = true;
-  programs.neovim.vimAlias = true;
 
   xdg.configFile."nixpkgs/config.nix".text = ''
     {
