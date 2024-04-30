@@ -46,7 +46,7 @@ let
   commonExtensions = with firefox-addons; [
     german-dictionary
     ublock-origin
-    bitwarden
+    proton-pass
     libredirect
     zotero-connector
   ];
@@ -63,7 +63,7 @@ in {
         id = 1;
         extraConfig = sharedExtraConfig;
         extensions = commonExtensions
-          ++ (with firefox-addons; [ react-devtools reduxdevtools ]);
+          ++ (with firefox-addons; [ bitwarden react-devtools reduxdevtools ]);
       };
     };
   };

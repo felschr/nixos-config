@@ -36,7 +36,7 @@ let
 
   commonExtensions = with firefox-addons; [
     german-dictionary
-    bitwarden
+    proton-pass
     libredirect
     zotero-connector
   ];
@@ -56,7 +56,7 @@ in {
         id = 1;
         settings = commonSettings;
         extensions = commonExtensions
-          ++ (with firefox-addons; [ react-devtools reduxdevtools ]);
+          ++ (with firefox-addons; [ bitwarden react-devtools reduxdevtools ]);
       };
     };
   };
