@@ -56,6 +56,7 @@ with pkgs; {
 
     # security & privacy
     authenticator
+    collision
     metadata-cleaner
     raider
 

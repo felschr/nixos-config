@@ -79,6 +79,7 @@
 
     # security & privacy
     authenticator
+    collision
     metadata-cleaner
     raider
     yubikey-manager
