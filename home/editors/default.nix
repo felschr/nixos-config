@@ -1,11 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./lsp.nix ./dap.nix ./neovim ./helix ];
+  imports = [ ./lsp.nix ./dap.nix ./helix ./neovim ];
 
   home.packages = with pkgs; [ fzf ripgrep ];
 
-  home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.EDITOR = "hx";
 
   home.file.".editorconfig".text = ''
     [*]
