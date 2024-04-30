@@ -198,7 +198,6 @@ in {
           ];
         };
       };
-      # @TODO try helix-vim
       keys = {
         normal = {
           "H" = "goto_line_start";
