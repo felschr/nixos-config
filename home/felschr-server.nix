@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./shell ./editors/lsp.nix ./editors/helix.nix ./git.nix ];
+  imports = [ ./shell ./editors/lsp.nix ./editors/helix ./git.nix ];
 
   home.packages = with pkgs; [ fh ncurses ];
 
