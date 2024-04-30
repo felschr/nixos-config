@@ -62,6 +62,9 @@ with pkgs; {
 
     # entertainment
     celluloid
+
+    # other
+    emblem
   ];
 
   home.stateVersion = "23.05";

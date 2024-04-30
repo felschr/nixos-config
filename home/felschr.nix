@@ -98,6 +98,7 @@
     bottles
     zotero
     newsflash
+    emblem
   ];
 
   home.stateVersion = "23.05";
