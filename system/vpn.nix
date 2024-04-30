@@ -40,8 +40,8 @@ in {
       # some options cannot be set immediately
       ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
 
-      # TODO nginx.service currently fails because it supposedly doesn't have permissions for this file
       ${cfg.package}/bin/tailscale cert ${tailnetHost}
+    '' + lib.optionalString config.services.nginx.enable ''
       chown nginx:nginx /var/lib/tailscale/certs/${tailnetHost}.{key,crt}
     '';
   };
