@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [ ./shell ./editors/lsp.nix ./editors/helix ./git.nix ];
@@ -18,6 +18,8 @@
   programs.zsh.initExtra = ''
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
   '';
+
+  programs.zellij.enableZshIntegration = lib.mkForce false;
 
   programs.ssh.enable = true;
 
