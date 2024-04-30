@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     # language servers
+    efm-langserver
     omnisharp-roslyn
     nil
     nls

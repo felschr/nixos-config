@@ -1,22 +1,109 @@
 { pkgs, ... }:
 
-{
-  # @TODO for direnv to work needs to be started from project folder
+let
+  prettier = parser: {
+    command = "prettier";
+    args = [ "--parser" parser ];
+  };
+  typescriptLanguageServers = [
+    {
+      name = "typescript-language-server";
+      except-features = [ "format" ];
+    }
+    "vscode-eslint-language-server"
+  ];
+in {
+  # HINT for direnv to work needs to be started from project folder
   programs.helix = {
     enable = true;
     package = pkgs.unstable.helix;
     languages.language = [
-      { name = "rust"; }
+      {
+        name = "javascript";
+        # TODO also configure eslint for diagnostics
+        # formatter.command = "eslint_d --fix";
+        formatter = prettier "typescript";
+        language-servers = typescriptLanguageServers;
+        auto-format = true;
+      }
+      {
+        name = "jsx";
+        language-servers = typescriptLanguageServers;
+        formatter = prettier "typescript";
+        auto-format = true;
+      }
+      {
+        name = "typescript";
+        language-servers = typescriptLanguageServers;
+        formatter = prettier "typescript";
+        auto-format = true;
+      }
+      {
+        name = "tsx";
+        language-servers = typescriptLanguageServers;
+        formatter = prettier "typescript";
+        auto-format = true;
+      }
       {
         name = "nix";
+        # `nix fmt` does not support stdin
         formatter.command = "nixfmt";
+        language-servers = [ "nil" "statix" ];
+        auto-format = true;
       }
       {
         name = "nickel";
         formatter.command = "topiary";
+        auto-format = true;
+      }
+      {
+        name = "protobuf";
+        formatter.command = "buf format -w";
+        language-servers = [ "bufls" "buf-lint" ];
+      }
+      {
+        name = "graphql";
+        formatter = prettier "graphql";
+        auto-format = true;
+      }
+      {
+        name = "toml";
+        auto-format = true;
+      }
+      {
+        name = "json";
+        formatter = prettier "json";
+        auto-format = true;
+      }
+      {
+        name = "yaml";
+        formatter = prettier "yaml";
+        auto-format = true;
+      }
+      {
+        name = "css";
+        formatter = prettier "css";
+        auto-format = true;
+      }
+      {
+        name = "html";
+        formatter = prettier "html";
+        auto-format = true;
+      }
+      {
+        name = "markdown";
+        formatter = prettier "markdown";
+        auto-format = true;
+      }
+      {
+        name = "bash";
+        formatter = {
+          command = "shfmt";
+          args = [ "-i" "2" "-" ];
+        };
       }
     ];
-    languages.language_server = {
+    languages.language-server = {
       rust-analyzer = {
         config.rust-analyzer = {
           cargo.buildScripts.enable = true;
@@ -29,13 +116,70 @@
           };
         };
       };
+      statix = {
+        command = "efm-langserver";
+        config = {
+          languages = {
+            nix = [{
+              # https://github.com/creativenull/efmls-configs-nvim/blob/ddc7c542aaad21da594edba233c15ae3fad01ea0/lua/efmls-configs/linters/statix.lua
+              lintCommand = "statix check --stdin --format=errfmt";
+              lintStdIn = true;
+              lintIgnoreExitCode = true;
+              lintFormats = [ "<stdin>>%l:%c:%t:%n:%m" ];
+              rootMarkers = [ "flake.nix" "shell.nix" "default.nix" ];
+            }];
+          };
+        };
+      };
+      buf-lint = {
+        command = "efm-langserver";
+        config.languages.protobuf = [{
+          lintCommand = "buf lint --path";
+          rootMarkers = [ "buf.yaml" ];
+        }];
+      };
+      nixd.command = "nixd";
+      # does not support formatting
+      vscode-eslint-language-server = {
+        # https://github.com/helix-editor/helix/issues/3520#issuecomment-1439987347
+        command = "vscode-eslint-language-server";
+        args = [ "--stdio" ];
+        config = {
+          validate = "on";
+          experimental.useFlatConfig = false; # required for old configs
+          rulesCustomizations = [ ];
+          run = "onType";
+          problems.shortenToSingleLine = false;
+          nodePath = "";
+          quiet = false;
+          format = true;
+          codeAction = {
+            disableRuleComment = {
+              enable = true;
+              location = "separateLine";
+            };
+            showDocumentation.enable = true;
+          };
+          codeActionOnSave.mode = "problems";
+          workingDirectory.mode = "auto";
+        };
+      };
+      lua-language-server = {
+        config = {
+          runtime = {
+            version = "LuaJIT";
+            path = [ "?.lua" "?/init.lua" ];
+          };
+        };
+      };
     };
     settings = {
-      theme = "github_dark";
+      theme = "dark_plus";
       editor = {
         color-modes = true;
         cursor-shape.insert = "bar";
         completion-trigger-len = 1;
+        line-number = "relative";
         statusline = {
           left = [
             "mode"
@@ -64,6 +208,7 @@
           "H" = "goto_line_start";
           "L" = "goto_line_end";
         };
+        insert = { "C-space" = "completion"; };
       };
     };
   };
