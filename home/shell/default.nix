@@ -6,6 +6,7 @@
     ./zsh.nix
     ./nushell.nix
     ./starship.nix
+    ./zoxide.nix
     ./kitty.nix
     ./direnv.nix
   ];
