@@ -32,6 +32,9 @@ let
     # Disable extension auto updates
     "extensions.update.enabled" = false;
     "extensions.update.autoUpdateDefault" = false;
+
+    # Use native file picker instead of GTK file picker
+    "widget.use-xdg-desktop-portal.file-picker" = 1;
   };
 
   commonExtensions = with firefox-addons; [

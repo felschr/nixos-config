@@ -34,6 +34,9 @@ let
     # Disable extension auto updates
     "extensions.update.enabled" = false;
     "extensions.update.autoUpdateDefault" = false;
+
+    # Use native file picker instead of GTK file picker
+    "widget.use-xdg-desktop-portal.file-picker" = 1;
   };
 
   # use extraConfig to load arkenfox user.js before settings
