@@ -78,7 +78,6 @@
     foliate
 
     # security & privacy
-    bitwarden
     authenticator
     metadata-cleaner
     raider
