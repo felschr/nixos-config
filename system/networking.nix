@@ -8,7 +8,7 @@
   services.resolved = {
     enable = true;
     # don't use fallback resolvers
-    fallbackDns = config.networking.nameservers;
+    fallbackDns = [ ];
   };
 
   services.nextdns = {

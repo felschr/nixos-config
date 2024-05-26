@@ -23,7 +23,6 @@ with pkgs; {
     sshKeys = [ "8A6213DCDAF86BD3A63549FCFDF71B2C92DAE02C" ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
-    pinentryFlavor = "gnome3";
   };
   programs.zsh.initExtra = ''
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
@@ -52,7 +51,7 @@ with pkgs; {
 
     # dev & admin
     pods
-    gaphor
+    # gaphor
 
     # security & privacy
     authenticator

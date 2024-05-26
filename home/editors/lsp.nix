@@ -29,7 +29,7 @@
     nodePackages.eslint
     nodePackages.eslint_d
     statix
-    nixfmt
+    nixfmt-rfc-style
     buf
     nodePackages.stylelint
     nodePackages.prettier

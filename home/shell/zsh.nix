@@ -4,7 +4,9 @@ let shellAliases = import ./aliases.nix;
 in {
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    # TODO is being renamed again in later 24.05 release
+    autosuggestion.enable = true;
+    # autosuggestions.enable = true;
     autocd = true;
     defaultKeymap = "viins";
     history.extended = true;

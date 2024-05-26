@@ -29,7 +29,6 @@
     ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
-    pinentryFlavor = "gnome3";
   };
   programs.zsh.initExtra = ''
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
@@ -63,7 +62,7 @@
 
     # dev & admin
     pods
-    gaphor
+    # gaphor
 
     # game dev
     ldtk
@@ -87,7 +86,7 @@
     # yubioath-flutter # TODO conflicts with fluffychat
     magic-wormhole-rs
     warp
-    onionshare-gui
+    # onionshare-gui
     transmission_4-gtk
     qbittorrent
     fragments

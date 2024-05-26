@@ -18,6 +18,10 @@ let
     ${ipCfg.extraConfig}
   '';
 in {
+  # NixOS 24.05 introduced an official module, but it works somewhat differently.
+  # For now I'll continue using my own module.
+  disabledModules = [ "services/networking/inadyn.nix" ];
+
   options = {
     services.inadyn = {
       enable = mkEnableOption (lib.mdDoc "inadyn DDNS client");
