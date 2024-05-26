@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 {
   config = {
-    systemd.services = mapAttrs' (name: backup:
+    systemd.services = mapAttrs' (
+      name: backup:
       nameValuePair "restic-backups-${name}" {
         serviceConfig = {
           CPUWeight = 25;
@@ -14,6 +20,7 @@ with lib;
           IOSchedulingClass = "idle";
           IOSchedulingPriority = 7;
         };
-      }) config.services.restic.backups;
+      }
+    ) config.services.restic.backups;
   };
 }

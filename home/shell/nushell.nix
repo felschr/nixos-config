@@ -2,9 +2,11 @@
 
 let
   shellAliases = import ./aliases.nix;
-  aliasesStr = builtins.concatStringsSep "\n"
-    (pkgs.lib.mapAttrsToList (k: v: "alias ${k} = ${v}") shellAliases);
-in {
+  aliasesStr = builtins.concatStringsSep "\n" (
+    pkgs.lib.mapAttrsToList (k: v: "alias ${k} = ${v}") shellAliases
+  );
+in
+{
   programs.nushell = {
     enable = true;
     package = pkgs.unstable.nushell;

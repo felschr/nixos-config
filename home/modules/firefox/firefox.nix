@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let common = import ./common.nix { inherit config lib pkgs; };
-in common.mkModule {
+let
+  common = import ./common.nix { inherit config lib pkgs; };
+in
+common.mkModule {
   name = "firefox";
   displayName = "Firefox";
   dataConfigPath = ".mozilla/firefox";

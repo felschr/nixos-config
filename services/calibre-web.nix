@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
-let port = 8088;
-in {
+let
+  port = 8088;
+in
+{
   age.secrets.calibre-web-htpasswd = {
     file = ../secrets/calibre-web/htpasswd.age;
     owner = config.services.nginx.user;

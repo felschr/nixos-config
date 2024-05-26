@@ -13,7 +13,10 @@
     };
     supportedLocales = [ "all" ];
     inputMethod.enabled = "ibus";
-    inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji mozc ];
+    inputMethod.ibus.engines = with pkgs.ibus-engines; [
+      uniemoji
+      mozc
+    ];
   };
 
   time.timeZone = "Europe/Berlin";

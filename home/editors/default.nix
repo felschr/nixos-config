@@ -1,9 +1,17 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./lsp.nix ./dap.nix ./helix ./neovim ];
+  imports = [
+    ./lsp.nix
+    ./dap.nix
+    ./helix
+    ./neovim
+  ];
 
-  home.packages = with pkgs; [ fzf ripgrep ];
+  home.packages = with pkgs; [
+    fzf
+    ripgrep
+  ];
 
   home.sessionVariables.EDITOR = "hx";
 

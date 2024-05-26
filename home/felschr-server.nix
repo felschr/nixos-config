@@ -1,9 +1,22 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports = [ ./shell ./editors/lsp.nix ./editors/helix ./git.nix ];
+  imports = [
+    ./shell
+    ./editors/lsp.nix
+    ./editors/helix
+    ./git.nix
+  ];
 
-  home.packages = with pkgs; [ fh ncurses ];
+  home.packages = with pkgs; [
+    fh
+    ncurses
+  ];
 
   programs.gpg.enable = true;
   services.gpg-agent = {

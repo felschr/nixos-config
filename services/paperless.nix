@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
-let port = 28981;
-in {
+let
+  port = 28981;
+in
+{
   age.secrets.paperless = {
     file = ../secrets/paperless.age;
     owner = config.services.paperless.user;
@@ -28,5 +30,4 @@ in {
       };
     };
   };
-
 }

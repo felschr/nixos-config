@@ -4,7 +4,8 @@ let
   domain = "ldap.felschr.com";
   cfg = config.services.lldap;
   port = cfg.settings.http_port;
-in {
+in
+{
   age.secrets.lldap-key-seed.file = ../secrets/lldap/key-seed.age;
   age.secrets.lldap-jwt.file = ../secrets/lldap/jwt.age;
   age.secrets.lldap-password = {
@@ -34,13 +35,15 @@ in {
     ];
   };
 
-  services.nginx = {
-    virtualHosts.${domain} = {
+  services.nginx.virtualHosts = {
+    ${domain} = {
       enableACME = true;
       forceSSL = true;
       locations."/".proxyPass = "http://[::1]:${toString port}";
     };
   };
 
-  users.groups.ldap = { gid = 979; };
+  users.groups.ldap = {
+    gid = 979;
+  };
 }

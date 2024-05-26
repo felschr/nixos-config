@@ -7,7 +7,9 @@
   programs.zellij.settings = {
     default_layout = "compact"; # or default
     default_mode = "locked";
-    ui.pane_frames = { hide_session_name = true; };
+    ui.pane_frames = {
+      hide_session_name = true;
+    };
     plugins = {
       tab-bar.path = "tab-bar";
       status-bar.path = "status-bar";
@@ -15,5 +17,7 @@
     };
   };
 
-  home.sessionVariables = { ZELLIJ_AUTO_EXIT = "true"; };
+  home.sessionVariables = {
+    ZELLIJ_AUTO_EXIT = "true";
+  };
 }

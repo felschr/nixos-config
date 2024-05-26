@@ -6,7 +6,8 @@ let
   port = 6052;
   inherit (config.services.home-assistant) configDir;
   passwordFile = config.age.secrets.esphome-password.path;
-in {
+in
+{
   age.secrets.esphome-password.file = ../../secrets/esphome/password.age;
 
   services.nginx = {

@@ -1,11 +1,16 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
   firefox-addons = inputs.firefox-addons.packages.${pkgs.system};
 
-  inherit (import ../modules/firefox/common.nix { inherit config lib pkgs; })
-    mkConfig;
+  inherit (import ../modules/firefox/common.nix { inherit config lib pkgs; }) mkConfig;
 
   arkenfoxConfig = builtins.readFile "${inputs.arkenfox-userjs}/user.js";
 
@@ -52,7 +57,8 @@ let
     libredirect
     zotero-connector
   ];
-in {
+in
+{
   programs.firefox = {
     enable = true;
     profiles = {
@@ -64,45 +70,59 @@ in {
       work = {
         id = 1;
         extraConfig = sharedExtraConfig;
-        extensions = commonExtensions
-          ++ (with firefox-addons; [ bitwarden react-devtools reduxdevtools ]);
+        extensions =
+          commonExtensions
+          ++ (with firefox-addons; [
+            bitwarden
+            react-devtools
+            reduxdevtools
+          ]);
       };
     };
   };
 
-  home.packages = let
-    makeFirefoxProfileBin = args@{ profile, ... }:
-      let
-        name = "firefox-${profile}";
-        scriptBin = pkgs.writeScriptBin name ''
-          firefox -P "${profile}" --name="${name}" $@
+  home.packages =
+    let
+      makeFirefoxProfileBin =
+        args@{ profile, ... }:
+        let
+          name = "firefox-${profile}";
+          scriptBin = pkgs.writeScriptBin name ''
+            firefox -P "${profile}" --name="${name}" $@
+          '';
+          desktopFile = pkgs.makeDesktopItem (
+            (removeAttrs args [ "profile" ])
+            // {
+              inherit name;
+              exec = "${scriptBin}/bin/${name} %U";
+              extraConfig.StartupWMClass = name;
+              genericName = "Web Browser";
+              mimeTypes = [
+                "text/html"
+                "text/xml"
+                "application/xhtml+xml"
+                "application/vnd.mozilla.xul+xml"
+                "x-scheme-handler/http"
+                "x-scheme-handler/https"
+              ];
+              categories = [
+                "Network"
+                "WebBrowser"
+              ];
+            }
+          );
+        in
+        pkgs.runCommand name { } ''
+          mkdir -p $out/{bin,share}
+          cp -r ${scriptBin}/bin/${name} $out/bin/${name}
+          cp -r ${desktopFile}/share/applications $out/share/applications
         '';
-        desktopFile = pkgs.makeDesktopItem ((removeAttrs args [ "profile" ])
-          // {
-            inherit name;
-            exec = "${scriptBin}/bin/${name} %U";
-            extraConfig.StartupWMClass = name;
-            genericName = "Web Browser";
-            mimeTypes = [
-              "text/html"
-              "text/xml"
-              "application/xhtml+xml"
-              "application/vnd.mozilla.xul+xml"
-              "x-scheme-handler/http"
-              "x-scheme-handler/https"
-            ];
-            categories = [ "Network" "WebBrowser" ];
-          });
-      in pkgs.runCommand name { } ''
-        mkdir -p $out/{bin,share}
-        cp -r ${scriptBin}/bin/${name} $out/bin/${name}
-        cp -r ${desktopFile}/share/applications $out/share/applications
-      '';
-  in [
-    (makeFirefoxProfileBin {
-      profile = "work";
-      desktopName = "Firefox (Work)";
-      icon = "firefox";
-    })
-  ];
+    in
+    [
+      (makeFirefoxProfileBin {
+        profile = "work";
+        desktopName = "Firefox (Work)";
+        icon = "firefox";
+      })
+    ];
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # using the restic cli:
 # load credentials into shell by adding B2 secrets to .env (see .env.example).
@@ -6,15 +11,21 @@
 
 with lib;
 with builtins;
-let resticLib = import ./lib.nix { inherit config lib pkgs; };
-in {
+let
+  resticLib = import ./lib.nix { inherit config lib pkgs; };
+in
+{
   imports = [ ./common.nix ];
 
   environment.systemPackages = with pkgs; [ restic ];
 
   services.restic.backups.full = resticLib.resticConfig {
     name = "home-server";
-    paths = [ "/etc/nixos" "/var/lib" "/home" ];
+    paths = [
+      "/etc/nixos"
+      "/var/lib"
+      "/home"
+    ];
     ignorePatterns = [
       "/var/lib/systemd"
       "/var/lib/containers"

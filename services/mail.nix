@@ -25,5 +25,7 @@
     };
   };
 
-  users.groups.smtp = { gid = 983; };
+  users.groups.smtp = {
+    gid = 983;
+  };
 }

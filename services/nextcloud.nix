@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
-let host = "cloud.felschr.com";
-in {
+let
+  host = "cloud.felschr.com";
+in
+{
   age.secrets.nextcloud-admin = {
     file = ../secrets/nextcloud/admin.age;
     owner = "nextcloud";
@@ -31,10 +33,12 @@ in {
   services.postgresql = with config.services.nextcloud.config; {
     enable = true;
     ensureDatabases = [ dbname ];
-    ensureUsers = [{
-      name = dbuser;
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = dbuser;
+        ensureDBOwnership = true;
+      }
+    ];
   };
 
   # ensure that postgres is running *before* running the setup

@@ -1,5 +1,9 @@
 { ... }:
 
 {
-  imports = [ ./gtk.nix ./gnome.nix ./mimeapps.nix ];
+  imports = [
+    ./gtk.nix
+    ./gnome.nix
+    ./mimeapps.nix
+  ];
 }

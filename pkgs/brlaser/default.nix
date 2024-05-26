@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, cups, ... }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  cups,
+  ...
+}:
 
 # maintained fork of brlaser with newer drivers (including Brother HL-L2370DN)
 stdenv.mkDerivation (finalAttrs: {
@@ -13,9 +21,15 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib cups ];
+  buildInputs = [
+    zlib
+    cups
+  ];
 
-  cmakeFlags = [ "-DCUPS_SERVER_BIN=lib/cups" "-DCUPS_DATA_DIR=share/cups" ];
+  cmakeFlags = [
+    "-DCUPS_SERVER_BIN=lib/cups"
+    "-DCUPS_DATA_DIR=share/cups"
+  ];
 
   meta = with lib; {
     description = "A CUPS driver for Brother laser printers";
@@ -100,7 +114,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ felschr ];
-    changelog =
-      "https://github.com/Owl-Maintain/brlaser/releases/tag/${finalAttrs.src.rStijnDWev}";
+    changelog = "https://github.com/Owl-Maintain/brlaser/releases/tag/${finalAttrs.src.rStijnDWev}";
   };
 })

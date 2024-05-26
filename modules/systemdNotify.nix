@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -21,7 +26,8 @@ let
     $(systemctl status --full "$1")
     ERRMAIL
   '';
-in {
+in
+{
   options = {
     systemd.notify = {
       enable = mkOption {
@@ -31,7 +37,10 @@ in {
       };
 
       method = mkOption {
-        type = types.enum [ "libnotify" "email" ];
+        type = types.enum [
+          "libnotify"
+          "email"
+        ];
         default = "libnotify";
         description = "The method for sending notifications.";
       };
@@ -45,20 +54,19 @@ in {
       email.mailTo = mkOption {
         type = types.str;
         default = null;
-        description =
-          "Email address to which the service status will be mailed.";
+        description = "Email address to which the service status will be mailed.";
       };
 
       email.mailFrom = mkOption {
         type = types.str;
         default = null;
-        description =
-          "Email address from which the service status will be mailed.";
+        description = "Email address from which the service status will be mailed.";
       };
     };
 
     systemd.services = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (submodule {
           config.onFailure = optional cfg.enable "notify@%n.service";
         });
@@ -72,37 +80,39 @@ in {
         message = "You need to specify a user";
       }
       {
-        assertion = cfg.method != "email"
-          || (cfg.email.mailTo != null && cfg.email.mailFrom != null);
+        assertion = cfg.method != "email" || (cfg.email.mailTo != null && cfg.email.mailFrom != null);
         message = "You need to specify a sender and a receiver";
       }
     ];
 
-    systemd.services."notify@" = {
-      onFailure = lib.mkForce [ ];
-    } // optionalAttrs (cfg.method == "libnotify") {
-      description = "Desktop notifications for %i service failure";
-      environment = {
-        DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
+    systemd.services."notify@" =
+      {
+        onFailure = lib.mkForce [ ];
+      }
+      // optionalAttrs (cfg.method == "libnotify") {
+        description = "Desktop notifications for %i service failure";
+        environment = {
+          DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
             toString config.users.users.${cfg.libnotify.user}.uid
           }/bus";
-        INSTANCE = "%i";
+          INSTANCE = "%i";
+        };
+        script = ''
+          ${pkgs.libnotify}/bin/notify-send --urgency=critical \
+            "Service '$INSTANCE' failed" \
+            "$(journalctl -n 6 -o cat -u $INSTANCE)"
+        '';
+        serviceConfig = {
+          Type = "oneshot";
+          User = cfg.libnotify.user;
+        };
+      }
+      // optionalAttrs (cfg.method == "email") {
+        description = "E-Mail notifications for %i service failure";
+        serviceConfig = {
+          ExecStart = "${sendmail} %i";
+          Type = "oneshot";
+        };
       };
-      script = ''
-        ${pkgs.libnotify}/bin/notify-send --urgency=critical \
-          "Service '$INSTANCE' failed" \
-          "$(journalctl -n 6 -o cat -u $INSTANCE)"
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-        User = cfg.libnotify.user;
-      };
-    } // optionalAttrs (cfg.method == "email") {
-      description = "E-Mail notifications for %i service failure";
-      serviceConfig = {
-        ExecStart = "${sendmail} %i";
-        Type = "oneshot";
-      };
-    };
   };
 }

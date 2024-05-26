@@ -1,4 +1,9 @@
-{ inputs, pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   firefox-addons = inputs.firefox-addons.packages.${pkgs.system};
@@ -42,7 +47,8 @@ let
     libredirect
     zotero-connector
   ];
-in {
+in
+{
   imports = [ ../modules/firefox/mullvad-browser.nix ];
 
   programs.mullvad-browser = {
@@ -57,8 +63,13 @@ in {
       work = {
         id = 1;
         settings = commonSettings;
-        extensions = commonExtensions
-          ++ (with firefox-addons; [ bitwarden react-devtools reduxdevtools ]);
+        extensions =
+          commonExtensions
+          ++ (with firefox-addons; [
+            bitwarden
+            react-devtools
+            reduxdevtools
+          ]);
       };
     };
   };

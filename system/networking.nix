@@ -1,7 +1,10 @@
 { config, ... }:
 
 {
-  networking.nameservers = [ "127.0.0.1" "::1" ];
+  networking.nameservers = [
+    "127.0.0.1"
+    "::1"
+  ];
   networking.networkmanager.dns = "systemd-resolved";
 
   services.dnsmasq.enable = false;
@@ -13,6 +16,9 @@
 
   services.nextdns = {
     enable = true;
-    arguments = [ "-config" "b8e2f7" ];
+    arguments = [
+      "-config"
+      "b8e2f7"
+    ];
   };
 }

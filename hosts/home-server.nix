@@ -1,14 +1,22 @@
-{ config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   # mkdir /etc/secrets/initrd -p
   # chmod 700 -R /etc/secrets/
   # ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
-  hostKeys = [{
-    path = "/etc/secrets/initrd/ssh_host_ed25519_key";
-    type = "ed25519";
-  }];
-in {
+  hostKeys = [
+    {
+      path = "/etc/secrets/initrd/ssh_host_ed25519_key";
+      type = "ed25519";
+    }
+  ];
+in
+{
   imports = [
     ../hardware/base.nix
     ../desktop/x11.nix
@@ -44,8 +52,14 @@ in {
 
   networking.domain = "home.felschr.com";
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
-  networking.firewall.allowedUDPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
+  networking.firewall.allowedUDPPorts = [
+    80
+    443
+  ];
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "dev@felschr.com";
@@ -134,8 +148,7 @@ in {
     enable = true;
     method = "email";
     email.mailTo = "admin@felschr.com";
-    email.mailFrom =
-      "${config.networking.hostName} <${config.programs.msmtp.accounts.default.from}>";
+    email.mailFrom = "${config.networking.hostName} <${config.programs.msmtp.accounts.default.from}>";
   };
 
   # only change this when specified in release notes

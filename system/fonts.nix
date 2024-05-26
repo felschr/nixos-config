@@ -10,9 +10,21 @@
     fira-code
   ];
   fonts.fontconfig.defaultFonts = {
-    serif = [ "Noto Serif" "emoji" ];
-    sansSerif = [ "Noto Sans" "emoji" ];
-    monospace = [ "Fira Code" "emoji" ];
-    emoji = [ "Noto Color Emoji" "Symbols Nerd Font Mono" ];
+    serif = [
+      "Noto Serif"
+      "emoji"
+    ];
+    sansSerif = [
+      "Noto Sans"
+      "emoji"
+    ];
+    monospace = [
+      "Fira Code"
+      "emoji"
+    ];
+    emoji = [
+      "Noto Color Emoji"
+      "Symbols Nerd Font Mono"
+    ];
   };
 }

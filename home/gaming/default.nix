@@ -1,7 +1,13 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./steam.nix ./lutris.nix ];
+  imports = [
+    ./steam.nix
+    ./lutris.nix
+  ];
 
-  home.packages = with pkgs; [ gamescope mangohud ];
+  home.packages = with pkgs; [
+    gamescope
+    mangohud
+  ];
 }

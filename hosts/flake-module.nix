@@ -1,4 +1,5 @@
-{ self, inputs, ... }: {
+{ self, inputs, ... }:
+{
   flake = {
     nixosConfigurations = {
       home-pc = inputs.nixpkgs.lib.nixosSystem {
@@ -28,12 +29,16 @@
             config = ../home/felschr.nix;
             usesContainers = true;
           })
-          ({ pkgs, ... }: {
-            environment.systemPackages =
-              [ inputs.deploy-rs.defaultPackage.x86_64-linux ];
-          })
+          (
+            { pkgs, ... }:
+            {
+              environment.systemPackages = [ inputs.deploy-rs.defaultPackage.x86_64-linux ];
+            }
+          )
         ];
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+        };
       };
       pilot1 = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -47,13 +52,19 @@
             config = ../hosts/work-pc.nix;
           })
           (self.lib.createUser "felschr" {
-            user.extraGroups = [ "wheel" "audio" "disk" ];
+            user.extraGroups = [
+              "wheel"
+              "audio"
+              "disk"
+            ];
             modules = [ self.homeManagerModules.git ];
             config = ../home/felschr-work.nix;
             usesContainers = true;
           })
         ];
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+        };
       };
       home-server = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -70,7 +81,12 @@
           self.lib.createMediaGroup
           (self.lib.createUser "felschr" {
             user = {
-              extraGroups = [ "wheel" "audio" "disk" "media" ];
+              extraGroups = [
+                "wheel"
+                "audio"
+                "disk"
+                "media"
+              ];
               openssh.authorizedKeys.keys = [
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP751vlJUnB7Pfe1KNr6weWkx/rkP4J3lTYpAekHdOgV"
               ];
@@ -79,7 +95,9 @@
             config = ../home/felschr-server.nix;
           })
         ];
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+        };
       };
     };
 
@@ -89,13 +107,19 @@
         sshUser = "felschr";
         sshOpts = [ "-t" ];
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos
-          self.nixosConfigurations.home-server;
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.home-server;
         magicRollback = false; # otherwise password prompt won't work
       };
     };
   };
-  perSystem = { system, config, pkgs, ... }: {
-    checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
-  };
+  perSystem =
+    {
+      system,
+      config,
+      pkgs,
+      ...
+    }:
+    {
+      checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
+    };
 }

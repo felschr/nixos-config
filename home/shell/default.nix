@@ -12,7 +12,9 @@
     ./direnv.nix
   ];
 
-  programs.fzf = { enable = true; };
+  programs.fzf = {
+    enable = true;
+  };
 
   home.file."dev/work/.env".text = ''
     BROWSER=mullvad-browser-work

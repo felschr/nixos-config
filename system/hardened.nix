@@ -1,4 +1,10 @@
-{ config, modulesPath, pkgs, lib, ... }:
+{
+  config,
+  modulesPath,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [ "${modulesPath}/profiles/hardened.nix" ];

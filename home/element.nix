@@ -13,11 +13,11 @@ let
         >"$out/share/applications/element-desktop.desktop"
     '';
   };
-in {
+in
+{
   home.packages = [ element-desktop ];
 
   xdg.configFile."autostart/element-desktop.desktop".text =
-    builtins.replaceStrings [ "Exec=element-desktop" ]
-    [ "Exec=element-desktop --hidden" ] (builtins.readFile
-      "${element-desktop}/share/applications/element-desktop.desktop");
+    builtins.replaceStrings [ "Exec=element-desktop" ] [ "Exec=element-desktop --hidden" ]
+      (builtins.readFile "${element-desktop}/share/applications/element-desktop.desktop");
 }

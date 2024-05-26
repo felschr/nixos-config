@@ -3,7 +3,10 @@
 let
   prettier = parser: {
     command = "prettier";
-    args = [ "--parser" parser ];
+    args = [
+      "--parser"
+      parser
+    ];
   };
   typescriptLanguageServers = [
     {
@@ -12,7 +15,8 @@ let
     }
     "vscode-eslint-language-server"
   ];
-in {
+in
+{
   # HINT for direnv to work needs to be started from project folder
   programs.helix = {
     enable = true;
@@ -52,7 +56,10 @@ in {
         name = "nix";
         # `nix fmt` does not support stdin
         formatter.command = "nixfmt";
-        language-servers = [ "nixd" "statix" ];
+        language-servers = [
+          "nixd"
+          "statix"
+        ];
         auto-format = true;
       }
       {
@@ -63,7 +70,10 @@ in {
       {
         name = "protobuf";
         formatter.command = "buf format -w";
-        language-servers = [ "bufls" "buf-lint" ];
+        language-servers = [
+          "bufls"
+          "buf-lint"
+        ];
       }
       {
         name = "graphql";
@@ -103,7 +113,11 @@ in {
         name = "bash";
         formatter = {
           command = "shfmt";
-          args = [ "-i" "2" "-" ];
+          args = [
+            "-i"
+            "2"
+            "-"
+          ];
         };
         auto-format = true;
       }
@@ -125,23 +139,31 @@ in {
         command = "efm-langserver";
         config = {
           languages = {
-            nix = [{
-              # https://github.com/creativenull/efmls-configs-nvim/blob/ddc7c542aaad21da594edba233c15ae3fad01ea0/lua/efmls-configs/linters/statix.lua
-              lintCommand = "statix check --stdin --format=errfmt";
-              lintStdIn = true;
-              lintIgnoreExitCode = true;
-              lintFormats = [ "<stdin>>%l:%c:%t:%n:%m" ];
-              rootMarkers = [ "flake.nix" "shell.nix" "default.nix" ];
-            }];
+            nix = [
+              {
+                # https://github.com/creativenull/efmls-configs-nvim/blob/ddc7c542aaad21da594edba233c15ae3fad01ea0/lua/efmls-configs/linters/statix.lua
+                lintCommand = "statix check --stdin --format=errfmt";
+                lintStdIn = true;
+                lintIgnoreExitCode = true;
+                lintFormats = [ "<stdin>>%l:%c:%t:%n:%m" ];
+                rootMarkers = [
+                  "flake.nix"
+                  "shell.nix"
+                  "default.nix"
+                ];
+              }
+            ];
           };
         };
       };
       buf-lint = {
         command = "efm-langserver";
-        config.languages.protobuf = [{
-          lintCommand = "buf lint --path";
-          rootMarkers = [ "buf.yaml" ];
-        }];
+        config.languages.protobuf = [
+          {
+            lintCommand = "buf lint --path";
+            rootMarkers = [ "buf.yaml" ];
+          }
+        ];
       };
       nixd.command = "nixd";
       # does not support formatting
@@ -177,7 +199,10 @@ in {
         config = {
           runtime = {
             version = "LuaJIT";
-            path = [ "?.lua" "?/init.lua" ];
+            path = [
+              "?.lua"
+              "?/init.lua"
+            ];
           };
         };
       };
@@ -216,7 +241,9 @@ in {
           "H" = "goto_line_start";
           "L" = "goto_line_end";
         };
-        insert = { "C-space" = "completion"; };
+        insert = {
+          "C-space" = "completion";
+        };
       };
     };
   };

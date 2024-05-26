@@ -15,7 +15,10 @@ let
     image = [ "org.gnome.Loupe.desktop" ];
     audio = [ "io.github.celluloid_player.Celluloid.desktop" ];
     video = [ "io.github.celluloid_player.Celluloid.desktop" ];
-    directory = [ "nautilus.desktop" "org.gnome.Nautilus.desktop" ];
+    directory = [
+      "nautilus.desktop"
+      "org.gnome.Nautilus.desktop"
+    ];
     mail = [ "re.sonny.Junction.desktop" ] ++ browsers;
     calendar = [ "re.sonny.Junction.desktop" ] ++ browsers;
     browser = [ "re.sonny.Junction.desktop" ] ++ browsers;
@@ -60,7 +63,10 @@ let
     ];
     directory = [ "inode/directory" ];
     mail = [ "x-scheme-handler/mailto" ];
-    calendar = [ "text/calendar" "x-scheme-handler/webcal" ];
+    calendar = [
+      "text/calendar"
+      "x-scheme-handler/webcal"
+    ];
     browser = [
       "text/html"
       "x-scheme-handler/about"
@@ -86,26 +92,30 @@ let
     signal = [ "signal-desktop.desktop" ];
   };
 
-  associations = with lists;
-    listToAttrs (flatten (mapAttrsToList
-      (key: map (type: attrsets.nameValuePair type defaultApps."${key}"))
-      mimeMap));
+  associations =
+    with lists;
+    listToAttrs (
+      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
+    );
 
-  noCalibre = let
-    mimeTypes = [
-      "application/pdf"
-      "application/vnd.oasis.opendocument.text"
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-      "text/html"
-      "text/x-markdown"
-    ];
-    desktopFiles = [
-      "calibre-ebook-edit.desktop"
-      "calibre-ebook-viewer.desktop"
-      "calibre-gui.desktop"
-    ];
-  in lib.zipAttrs (map (d: lib.genAttrs mimeTypes (_: d)) desktopFiles);
-in {
+  noCalibre =
+    let
+      mimeTypes = [
+        "application/pdf"
+        "application/vnd.oasis.opendocument.text"
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        "text/html"
+        "text/x-markdown"
+      ];
+      desktopFiles = [
+        "calibre-ebook-edit.desktop"
+        "calibre-ebook-viewer.desktop"
+        "calibre-gui.desktop"
+      ];
+    in
+    lib.zipAttrs (map (d: lib.genAttrs mimeTypes (_: d)) desktopFiles);
+in
+{
   xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = associations;

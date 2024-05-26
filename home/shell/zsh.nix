@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
-let shellAliases = import ./aliases.nix;
-in {
+let
+  shellAliases = import ./aliases.nix;
+in
+{
   programs.zsh = {
     enable = true;
     # TODO is being renamed again in later 24.05 release
@@ -24,8 +26,7 @@ in {
       {
         name = "zsh-history-substring-search";
         src = zsh-history-substring-search;
-        file =
-          "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
+        file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
       }
     ];
     initExtra = ''

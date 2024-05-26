@@ -1,8 +1,10 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs;
-    with gnomeExtensions; [
+  environment.systemPackages =
+    with pkgs;
+    with gnomeExtensions;
+    [
       gnome.dconf-editor
       gnome.gnome-tweaks
       gnome.zenity

@@ -1,7 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.services.inadyn;
 
   mkConfig = ipCfg: domain: ''
@@ -17,7 +27,8 @@ let
     ${cfg.extraConfig}
     ${ipCfg.extraConfig}
   '';
-in {
+in
+{
   # NixOS 24.05 introduced an official module, but it works somewhat differently.
   # For now I'll continue using my own module.
   disabledModules = [ "services/networking/inadyn.nix" ];
@@ -132,8 +143,9 @@ in {
       startAt = "*:0/5";
       serviceConfig = rec {
         Type = "simple";
-        LoadCredential = lib.optionalString (cfg.passwordFile != null)
-          "INADYN_PASSWORD:${cfg.passwordFile}";
+        LoadCredential = lib.optionalString (
+          cfg.passwordFile != null
+        ) "INADYN_PASSWORD:${cfg.passwordFile}";
         ExecStart = pkgs.writeScript "run-inadyn.sh" ''
           #!${pkgs.bash}/bin/bash
           export PATH=$PATH:${pkgs.bash}/bin/bash # idk if that helps
@@ -148,18 +160,23 @@ in {
           ${lib.optionalString cfg.ipv6.enable ''
             allow-ipv6 = true
           ''}
-          ${lib.concatImapStrings (i: domain:
-            (lib.optionalString cfg.ipv4.enable ''
-              # ipv4
-              provider ${cfg.provider}:${toString (i * 2)} {
-                ${mkConfig cfg.ipv4 domain}
-              }
-            '' + lib.optionalString cfg.ipv6.enable ''
-              # ipv6
-              provider ${cfg.provider}:${toString (i * 2 + 1)} {
-                ${mkConfig cfg.ipv6 domain}
-              }
-            '')) cfg.domains}
+          ${lib.concatImapStrings (
+            i: domain:
+            (
+              lib.optionalString cfg.ipv4.enable ''
+                # ipv4
+                provider ${cfg.provider}:${toString (i * 2)} {
+                  ${mkConfig cfg.ipv4 domain}
+                }
+              ''
+              + lib.optionalString cfg.ipv6.enable ''
+                # ipv6
+                provider ${cfg.provider}:${toString (i * 2 + 1)} {
+                  ${mkConfig cfg.ipv6 domain}
+                }
+              ''
+            )
+          ) cfg.domains}
           EOF
           exec ${cfg.package}/bin/inadyn -n ${cfg.cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
         '';

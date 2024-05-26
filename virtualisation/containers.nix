@@ -28,14 +28,18 @@
   users.users."containers" = {
     isSystemUser = true;
     group = "containers";
-    subUidRanges = [{
-      startUid = 60100000;
-      count = 60000000;
-    }];
-    subGidRanges = [{
-      startGid = 60100000;
-      count = 60000000;
-    }];
+    subUidRanges = [
+      {
+        startUid = 60100000;
+        count = 60000000;
+      }
+    ];
+    subGidRanges = [
+      {
+        startGid = 60100000;
+        count = 60000000;
+      }
+    ];
   };
 
   users.groups.containers = { };

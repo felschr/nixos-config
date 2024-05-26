@@ -77,9 +77,18 @@ rec {
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      ...
+    }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       imports = [
         ./pkgs/flake-module.nix
         ./lib/flake-module.nix
@@ -102,27 +111,33 @@ rec {
           mullvad-browser = import ./home/modules/firefox/mullvad-browser.nix;
         };
       };
-      perSystem = { system, config, pkgs, ... }: {
-        _module.args.pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+      perSystem =
+        {
+          system,
+          config,
+          pkgs,
+          ...
+        }:
+        {
+          _module.args.pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
 
-        devShells.default =
-          pkgs.mkShell { inherit (config.checks.pre-commit) shellHook; };
+          devShells.default = pkgs.mkShell { inherit (config.checks.pre-commit) shellHook; };
 
-        checks = {
-          pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt.enable = true;
-              nixfmt.package = pkgs.nixfmt-classic;
-              shellcheck.enable = true;
+          checks = {
+            pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                nixfmt.enable = true;
+                nixfmt.package = pkgs.nixfmt-rfc-style;
+                shellcheck.enable = true;
+              };
             };
           };
-        };
 
-        formatter = pkgs.nixfmt-classic;
-      };
+          formatter = pkgs.nixfmt-rfc-style;
+        };
     };
 }

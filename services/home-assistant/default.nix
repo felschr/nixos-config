@@ -1,7 +1,14 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
-let port = config.services.home-assistant.config.http.server_port;
-in {
+let
+  port = config.services.home-assistant.config.http.server_port;
+in
+{
   disabledModules = [ "services/home-automation/home-assistant.nix" ];
 
   imports = [
@@ -29,8 +36,9 @@ in {
 
   services.home-assistant = {
     enable = true;
-    package = pkgs.unstable.home-assistant.overrideAttrs
-      (oldAttrs: { doInstallCheck = false; });
+    package = pkgs.unstable.home-assistant.overrideAttrs (oldAttrs: {
+      doInstallCheck = false;
+    });
     openFirewall = true;
     extraComponents = [
       "default_config"
@@ -53,8 +61,8 @@ in {
       "local_todo"
       "shopping_list"
     ];
-    extraPackages = ps:
-      with ps; [
+    extraPackages =
+      ps: with ps; [
         pyqrcode
 
         # HACS
@@ -72,7 +80,10 @@ in {
         external_url = "https://home.felschr.com";
         internal_url = "http://192.168.1.102:8123";
         media_dirs.media = "/media";
-        allowlist_external_dirs = [ "/tmp" "/media" ];
+        allowlist_external_dirs = [
+          "/tmp"
+          "/media"
+        ];
       };
       default_config = { };
       http = {
@@ -86,8 +97,7 @@ in {
       zha = {
         database_path = "/var/lib/hass/zigbee.db";
         enable_quirks = true;
-        custom_quirks_path =
-          "${config.services.home-assistant.configDir}/zha_quirks/";
+        custom_quirks_path = "${config.services.home-assistant.configDir}/zha_quirks/";
         zigpy_config.ota = {
           ikea_provider = true;
           sonoff_provider = true;
@@ -95,7 +105,9 @@ in {
         };
       };
       zha_toolkit = { };
-      conversation = { intents = { }; };
+      conversation = {
+        intents = { };
+      };
     };
     # configWritable = true; # doesn't work atm
   };

@@ -1,6 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-with pkgs; {
+with pkgs;
+{
   imports = [
     ./shell
     ./tailscale.nix
@@ -31,7 +37,9 @@ with pkgs; {
 
   programs.ssh.enable = true;
 
-  programs.git = { defaultProfile = "work"; };
+  programs.git = {
+    defaultProfile = "work";
+  };
 
   xdg.configFile."nixpkgs/config.nix".text = ''
     {

@@ -9,7 +9,8 @@ let
     max_idle_conns = 2;
     conn_max_lifetime = -1;
   };
-in {
+in
+{
   age.secrets.dendrite-private-key = {
     file = ../../secrets/dendrite/privateKey.age;
     mode = "755";
@@ -41,19 +42,21 @@ in {
         "msc2946" # space summaries
       ];
 
-      federation_api.key_perspectives = [{
-        server_name = "matrix.org";
-        keys = [
-          {
-            key_id = "ed25519:auto";
-            public_key = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
-          }
-          {
-            key_id = "ed25519:a_RXGa";
-            public_key = "l8Hft5qXKn1vfHrg3p4+W8gELQVo8N13JkluMfmn2sQ";
-          }
-        ];
-      }];
+      federation_api.key_perspectives = [
+        {
+          server_name = "matrix.org";
+          keys = [
+            {
+              key_id = "ed25519:auto";
+              public_key = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+            }
+            {
+              key_id = "ed25519:a_RXGa";
+              public_key = "l8Hft5qXKn1vfHrg3p4+W8gELQVo8N13JkluMfmn2sQ";
+            }
+          ];
+        }
+      ];
 
       global = {
         inherit server_name;
@@ -69,10 +72,12 @@ in {
   };
 
   services.postgresql = {
-    ensureUsers = [{
-      name = "dendrite";
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = "dendrite";
+        ensureDBOwnership = true;
+      }
+    ];
     ensureDatabases = [ "dendrite" ];
   };
 
@@ -82,24 +87,28 @@ in {
     ${server_name} = {
       enableACME = true;
       forceSSL = true;
-      locations = let
-        server = { "m.server" = "${domain}:443"; };
-        client = {
-          "m.homeserver"."base_url" = "https://${domain}";
-          "org.matrix.msc3575.proxy"."url" = "https://${domain}";
-          "m.identity_server"."base_url" = "https://vector.im";
+      locations =
+        let
+          server = {
+            "m.server" = "${domain}:443";
+          };
+          client = {
+            "m.homeserver"."base_url" = "https://${domain}";
+            "org.matrix.msc3575.proxy"."url" = "https://${domain}";
+            "m.identity_server"."base_url" = "https://vector.im";
+          };
+        in
+        {
+          "= /.well-known/matrix/server".extraConfig = ''
+            add_header Content-Type application/json;
+            return 200 '${builtins.toJSON server}';
+          '';
+          "= /.well-known/matrix/client".extraConfig = ''
+            add_header Content-Type application/json;
+            add_header Access-Control-Allow-Origin *;
+            return 200 '${builtins.toJSON client}';
+          '';
         };
-      in {
-        "= /.well-known/matrix/server".extraConfig = ''
-          add_header Content-Type application/json;
-          return 200 '${builtins.toJSON server}';
-        '';
-        "= /.well-known/matrix/client".extraConfig = ''
-          add_header Content-Type application/json;
-          add_header Access-Control-Allow-Origin *;
-          return 200 '${builtins.toJSON client}';
-        '';
-      };
     };
     "${domain}" = {
       enableACME = true;
@@ -108,8 +117,7 @@ in {
         "/".extraConfig = ''
           return 404;
         '';
-        "/_matrix".proxyPass =
-          "http://127.0.0.1:${toString config.services.dendrite.httpPort}";
+        "/_matrix".proxyPass = "http://127.0.0.1:${toString config.services.dendrite.httpPort}";
       };
     };
   };

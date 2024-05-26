@@ -3,7 +3,8 @@
 let
   flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
   inherit (inputs.self.outputs) nixConfig;
-in {
+in
+{
   nix.gc = {
     automatic = true;
     dates = "04:00";
@@ -21,7 +22,13 @@ in {
     enable = true;
     dates = "03:00";
     flake = "/etc/nixos";
-    flags = with lib;
-      flatten (mapAttrsToList (n: _: [ "--update-input" n ]) flakes);
+    flags =
+      with lib;
+      flatten (
+        mapAttrsToList (n: _: [
+          "--update-input"
+          n
+        ]) flakes
+      );
   };
 }

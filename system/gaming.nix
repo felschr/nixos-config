@@ -14,9 +14,8 @@
   programs.steam.enable = true;
   programs.steam.package = pkgs.steam.override {
     # https://github.com/NixOS/nixpkgs/blob/master/pkgs/games/steam/fhsenv.nix
-    extraLibraries = pkgs:
-      with pkgs;
-      [
+    extraLibraries =
+      pkgs: with pkgs; [
         libxcrypt-legacy # Life Is Strange
       ];
   };

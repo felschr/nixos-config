@@ -1,9 +1,15 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
   nixRegistry = builtins.mapAttrs (name: v: { flake = v; }) flakes;
-in {
+in
+{
   # Let 'nixos-version --json' know about the Git revision
   # of this flake.
   system.configurationRevision = lib.mkIf (inputs.self ? rev) inputs.self.rev;

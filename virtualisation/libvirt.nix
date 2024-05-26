@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ virt-manager gnome.gnome-boxes ];
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    gnome.gnome-boxes
+  ];
 
   environment.sessionVariables.LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
 

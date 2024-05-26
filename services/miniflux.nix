@@ -3,7 +3,8 @@
 let
   domain = "news.felschr.com";
   port = 8002;
-in {
+in
+{
   age.secrets.miniflux.file = ../secrets/miniflux/admin.age;
   age.secrets.miniflux-oidc = {
     file = ../secrets/miniflux/oidc.age;
@@ -26,8 +27,7 @@ in {
     };
   };
 
-  systemd.services.miniflux.serviceConfig.SupplementaryGroups =
-    [ "miniflux-secrets" ];
+  systemd.services.miniflux.serviceConfig.SupplementaryGroups = [ "miniflux-secrets" ];
 
   services.nginx = {
     virtualHosts."news.felschr.com" = {

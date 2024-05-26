@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   domain = "auth.felschr.com";
@@ -8,48 +13,56 @@ let
   redis = config.services.redis.servers.authelia;
   cfg = config.services.authelia.instances.main;
 
-  mkWebfinger = config: file:
-    pkgs.writeTextDir file (lib.generators.toJSON { } config);
-  mkWebfingers = { subject, ... }@config:
-    map (mkWebfinger config) [ subject (lib.escapeURL subject) ];
+  mkWebfinger = config: file: pkgs.writeTextDir file (lib.generators.toJSON { } config);
+  mkWebfingers =
+    { subject, ... }@config:
+    map (mkWebfinger config) [
+      subject
+      (lib.escapeURL subject)
+    ];
   webfingerRoot = pkgs.symlinkJoin {
     name = "felschr.com-webfinger";
-    paths = lib.flatten (builtins.map mkWebfingers [
-      {
-        subject = "acct:me@felschr.com";
-        links = [{
-          rel = "http://openid.net/specs/connect/1.0/issuer";
-          href = "https://auth.felschr.com";
-        }];
-      }
-      {
-        subject = "acct:felschr@fosstodon.org";
-        aliases = [
-          "https://fosstodon.org/@felschr"
-          "https://fosstodon.org/users/felschr"
-        ];
-        links = [
-          {
-            rel = "http://webfinger.net/rel/profile-page";
-            type = "text/html";
-            href = "https://fosstodon.org/@felschr";
-          }
-          {
-            rel = "self";
-            type = "application/activity+json";
-            href = "https://fosstodon.org/users/felschr";
-          }
-          {
-            rel = "http://ostatus.org/schema/1.0/subscribe";
-            template = "https://fosstodon.org/authorize_interaction?uri={uri}";
-          }
-        ];
-      }
-    ]);
+    paths = lib.flatten (
+      builtins.map mkWebfingers [
+        {
+          subject = "acct:me@felschr.com";
+          links = [
+            {
+              rel = "http://openid.net/specs/connect/1.0/issuer";
+              href = "https://auth.felschr.com";
+            }
+          ];
+        }
+        {
+          subject = "acct:felschr@fosstodon.org";
+          aliases = [
+            "https://fosstodon.org/@felschr"
+            "https://fosstodon.org/users/felschr"
+          ];
+          links = [
+            {
+              rel = "http://webfinger.net/rel/profile-page";
+              type = "text/html";
+              href = "https://fosstodon.org/@felschr";
+            }
+            {
+              rel = "self";
+              type = "application/activity+json";
+              href = "https://fosstodon.org/users/felschr";
+            }
+            {
+              rel = "http://ostatus.org/schema/1.0/subscribe";
+              template = "https://fosstodon.org/authorize_interaction?uri={uri}";
+            }
+          ];
+        }
+      ]
+    );
   };
 
   smtpAccount = config.programs.msmtp.accounts.default;
-in {
+in
+{
   age.secrets.authelia-jwt = {
     file = ../secrets/authelia/jwt.age;
     owner = cfg.user;
@@ -81,8 +94,7 @@ in {
       oidcIssuerPrivateKeyFile = config.age.secrets.authelia-oidc-issuer.path;
     };
     environmentVariables = {
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
-        config.age.secrets.lldap-password.path;
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.age.secrets.lldap-password.path;
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.age.secrets.smtp.path;
     };
     settings = {
@@ -105,8 +117,7 @@ in {
           base_dn = "dc=felschr,dc=com";
           username_attribute = "uid";
           additional_users_dn = "ou=people";
-          users_filter =
-            "(&({username_attribute}={input})(objectClass=person))";
+          users_filter = "(&({username_attribute}={input})(objectClass=person))";
           additional_groups_dn = "ou=groups";
           groups_filter = "(member={dn})";
           group_name_attribute = "cn";
@@ -117,10 +128,12 @@ in {
       };
       access_control = {
         default_policy = "deny";
-        rules = [{
-          domain = [ "*.felschr.com" ];
-          policy = "two_factor";
-        }];
+        rules = [
+          {
+            domain = [ "*.felschr.com" ];
+            policy = "two_factor";
+          }
+        ];
       };
       session = {
         domain = "felschr.com";
@@ -152,43 +165,59 @@ in {
         {
           id = "miniflux";
           description = "Miniflux RSS";
-          secret =
-            "$pbkdf2-sha512$310000$uDoutefLT0wyfye.kBEyZw$tX7nwcRVo0LpPPS63Oh9MIeOLkdPRnXX/0JBwMd.aitFIxKDxU.rlywn/WqLVgpIllyFttMl5OnZzjMTbGKZ0A";
+          secret = "$pbkdf2-sha512$310000$uDoutefLT0wyfye.kBEyZw$tX7nwcRVo0LpPPS63Oh9MIeOLkdPRnXX/0JBwMd.aitFIxKDxU.rlywn/WqLVgpIllyFttMl5OnZzjMTbGKZ0A";
           redirect_uris = [ "https://news.felschr.com/oauth2/oidc/callback" ];
-          scopes = [ "openid" "email" "profile" ];
+          scopes = [
+            "openid"
+            "email"
+            "profile"
+          ];
         }
         {
           id = "tailscale";
           description = "Tailscale";
           # The digest of "insecure_secret"
-          secret =
-            "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
+          secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
           redirect_uris = [ "https://login.tailscale.com/a/oauth_response" ];
-          scopes = [ "openid" "email" "profile" ];
+          scopes = [
+            "openid"
+            "email"
+            "profile"
+          ];
         }
         {
           id = "jellyfin";
           description = "Jellyfin";
-          secret =
-            "$pbkdf2-sha512$310000$X7amOzLsURvZSwdLmSstlQ$/WK4lZ9KvEEuotOxUJkeTo0ZAa.rD7VVdkAPFcUQmr2WzkCXmXXJbYYy7vx0hc4nqLgBVeo8q/71R3rvfl9BFQ";
-          redirect_uris =
-            [ "https://media.felschr.com/sso/OID/redirect/Authelia" ];
-          scopes = [ "openid" "email" "profile" ];
+          secret = "$pbkdf2-sha512$310000$X7amOzLsURvZSwdLmSstlQ$/WK4lZ9KvEEuotOxUJkeTo0ZAa.rD7VVdkAPFcUQmr2WzkCXmXXJbYYy7vx0hc4nqLgBVeo8q/71R3rvfl9BFQ";
+          redirect_uris = [ "https://media.felschr.com/sso/OID/redirect/Authelia" ];
+          scopes = [
+            "openid"
+            "email"
+            "profile"
+          ];
         }
       ];
     };
   };
 
-  systemd.services.authelia.requires = [ "postgresql.service" "lldap.service" ];
-  systemd.services.authelia.after = [ "postgresql.service" "lldap.service" ];
+  systemd.services.authelia.requires = [
+    "postgresql.service"
+    "lldap.service"
+  ];
+  systemd.services.authelia.after = [
+    "postgresql.service"
+    "lldap.service"
+  ];
 
   services.postgresql = {
     enable = true;
     ensureDatabases = [ cfg.user ];
-    ensureUsers = [{
-      name = cfg.user;
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = cfg.user;
+        ensureDBOwnership = true;
+      }
+    ];
   };
 
   services.redis.servers.authelia = {
@@ -220,5 +249,8 @@ in {
     };
   };
 
-  users.users.${cfg.user}.extraGroups = [ "smtp" "ldap" ];
+  users.users.${cfg.user}.extraGroups = [
+    "smtp"
+    "ldap"
+  ];
 }

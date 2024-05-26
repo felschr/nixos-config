@@ -1,7 +1,11 @@
 { lib, pkgs, ... }:
 
 {
-  imports = [ ./firmware.nix ./solokeys.nix ./zsa.nix ];
+  imports = [
+    ./firmware.nix
+    ./solokeys.nix
+    ./zsa.nix
+  ];
 
   boot.supportedFilesystems = lib.mkDefault [ "btrfs" ];
   boot.kernelPackages = lib.mkOverride 800 pkgs.linuxPackages_latest;

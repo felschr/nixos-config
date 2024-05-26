@@ -5,7 +5,8 @@ let
   down = "j";
   up = "k";
   right = "l";
-in {
+in
+{
   dconf.settings = with lib.hm.gvariant; {
     "org/gnome/shell" = {
       disable-user-extensions = false;
@@ -30,15 +31,31 @@ in {
       show-title = false;
       active-hint = false;
     };
-    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
-    "org/gnome/desktop/sound" = { theme-name = "freedesktop"; };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+    "org/gnome/desktop/sound" = {
+      theme-name = "freedesktop";
+    };
     "org/gnome/desktop/input-sources" = {
-      sources = map mkTuple [ [ "xkb" "gb" ] [ "ibus" "mozc-jp" ] ];
+      sources = map mkTuple [
+        [
+          "xkb"
+          "gb"
+        ]
+        [
+          "ibus"
+          "mozc-jp"
+        ]
+      ];
       xkb-options = [ "compose:ralt" ];
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children = [ "Office" "Utilities" ];
+      folder-children = [
+        "Office"
+        "Utilities"
+      ];
     };
     "org/gnome/desktop/app-folders/folders/Office" = {
       name = "Office";
@@ -48,11 +65,17 @@ in {
     "org/gnome/desktop/app-folders/folders/Utilities" = {
       name = "Utilities";
       translate = true;
-      categories = [ "Utility" "X-GNOME-Utilities" "System" ];
+      categories = [
+        "Utility"
+        "X-GNOME-Utilities"
+        "System"
+      ];
     };
 
     # key bindings for pop-shell
-    "org/gnome/mutter/wayland/keybindings" = { restore-shortcuts = [ ]; };
+    "org/gnome/mutter/wayland/keybindings" = {
+      restore-shortcuts = [ ];
+    };
     "org/gnome/shell/keybindings" = {
       open-application-menu = [ ];
       toggle-message-tray = [ "<Super>v" ];
@@ -67,16 +90,25 @@ in {
       toggle-fullscreen = [ "<Super>f" ];
       toggle-on-all-workspaces = [ "<Super>p" ];
 
-      switch-to-workspace-left =
-        [ "<Primary><Super>Left" "<Primary><Super>${left}" ];
-      switch-to-workspace-right =
-        [ "<Primary><Super>Right" "<Primary><Super>${right}" ];
+      switch-to-workspace-left = [
+        "<Primary><Super>Left"
+        "<Primary><Super>${left}"
+      ];
+      switch-to-workspace-right = [
+        "<Primary><Super>Right"
+        "<Primary><Super>${right}"
+      ];
       switch-to-workspace-down = [ ];
       switch-to-workspace-up = [ ];
 
-      move-to-workspace-left = [ "<Shift><Super>Left" "<Shift><Super>${left}" ];
-      move-to-workspace-right =
-        [ "<Shift><Super>Right" "<Shift><Super>${right}" ];
+      move-to-workspace-left = [
+        "<Shift><Super>Left"
+        "<Shift><Super>${left}"
+      ];
+      move-to-workspace-right = [
+        "<Shift><Super>Right"
+        "<Shift><Super>${right}"
+      ];
       move-to-workspace-down = [ ];
       move-to-workspace-up = [ ];
 
@@ -91,7 +123,10 @@ in {
     };
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
-      night-light-last-coordinates = mkTuple [ 53.2593 10.4 ];
+      night-light-last-coordinates = mkTuple [
+        53.2593
+        10.4
+      ];
       night-light-temperature = mkUint32 3700;
     };
     "org/gnome/settings-daemon/plugins/media-keys" = {

@@ -6,8 +6,12 @@ let
     ${lua}
     EOF
   '';
-in {
-  home.packages = with pkgs; [ neovide graphviz ];
+in
+{
+  home.packages = with pkgs; [
+    neovide
+    graphviz
+  ];
 
   programs.neovim = {
     enable = true;
@@ -65,26 +69,29 @@ in {
 
       neorg
     ];
-    extraConfig = with builtins;
-      vimLua (lib.foldl (r: f: r + "\n" + readFile f) "" [
-        ./init.lua
-        ./alpha.lua
-        ./auto-session.lua
-        ./lualine.lua
-        ./which-key.lua
-        ./gitsigns.lua
-        ./test.lua
-        ./completion.lua
-        ./diagnostic.lua
-        ./lsp/extensions.lua
-        ./lsp/lsp.lua
-        ./lsp/mappings.lua
-        ./dap/dap.lua
-        ./dap/mappings.lua
-        ./treesitter.lua
-        ./telescope.lua
-        ./neorg.lua
-      ]);
+    extraConfig =
+      with builtins;
+      vimLua (
+        lib.foldl (r: f: r + "\n" + readFile f) "" [
+          ./init.lua
+          ./alpha.lua
+          ./auto-session.lua
+          ./lualine.lua
+          ./which-key.lua
+          ./gitsigns.lua
+          ./test.lua
+          ./completion.lua
+          ./diagnostic.lua
+          ./lsp/extensions.lua
+          ./lsp/lsp.lua
+          ./lsp/mappings.lua
+          ./dap/dap.lua
+          ./dap/mappings.lua
+          ./treesitter.lua
+          ./telescope.lua
+          ./neorg.lua
+        ]
+      );
     withNodeJs = false;
     withPython3 = false;
   };

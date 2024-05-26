@@ -50,7 +50,8 @@ let
       "--label=io.containers.autoupdate=registry"
     ];
   };
-in {
+in
+{
   age.secrets.immich-env.file = ../secrets/immich/.env.age;
   age.secrets.immich-db-password.file = ../secrets/immich/db-password.age;
   age.secrets.immich-typesense-env.file = ../secrets/immich/typesense/.env.age;
@@ -59,10 +60,12 @@ in {
     enable = true;
     enableTCPIP = true;
     ensureDatabases = [ dbname ];
-    ensureUsers = [{
-      name = dbuser;
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = dbuser;
+        ensureDBOwnership = true;
+      }
+    ];
   };
 
   services.redis.servers.immich = {
@@ -134,13 +137,25 @@ in {
 
   systemd.services = {
     "${ociBackend}-immich-server" = {
-      requires = [ "postgresql.service" "redis-immich.service" ];
-      after = [ "postgresql.service" "redis-immich.service" ];
+      requires = [
+        "postgresql.service"
+        "redis-immich.service"
+      ];
+      after = [
+        "postgresql.service"
+        "redis-immich.service"
+      ];
     };
 
     "${ociBackend}-immich-microservices" = {
-      requires = [ "postgresql.service" "redis-immich.service" ];
-      after = [ "postgresql.service" "redis-immich.service" ];
+      requires = [
+        "postgresql.service"
+        "redis-immich.service"
+      ];
+      after = [
+        "postgresql.service"
+        "redis-immich.service"
+      ];
     };
 
     "${ociBackend}-immich-machine-learning" = {
@@ -166,5 +181,7 @@ in {
     uid = 980;
   };
 
-  users.groups.immich = { gid = 977; };
+  users.groups.immich = {
+    gid = 977;
+  };
 }

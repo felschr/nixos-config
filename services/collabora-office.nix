@@ -3,20 +3,21 @@
 let
   inherit (config.users.users.collabora-office) uid;
   inherit (config.users.groups.collabora-office) gid;
-in {
+in
+{
   virtualisation.oci-containers.containers.collabora-office = {
     image = "docker.io/collabora/code";
     ports = [ "9980:9980" ];
-    environment = let
-      mkAlias = domain:
-        "https://" + (builtins.replaceStrings [ "." ] [ "\\." ] domain)
-        + ":443";
-    in {
-      server_name = "office.felschr.com";
-      aliasgroup1 = mkAlias "office.felschr.com";
-      aliasgroup2 = mkAlias "cloud.felschr.com";
-      extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
-    };
+    environment =
+      let
+        mkAlias = domain: "https://" + (builtins.replaceStrings [ "." ] [ "\\." ] domain) + ":443";
+      in
+      {
+        server_name = "office.felschr.com";
+        aliasgroup1 = mkAlias "office.felschr.com";
+        aliasgroup2 = mkAlias "cloud.felschr.com";
+        extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
+      };
     extraOptions = [
       "--runtime=crun"
       "--uidmap=0:65534:1"
@@ -50,5 +51,7 @@ in {
     uid = 982;
   };
 
-  users.groups.collabora-office = { gid = 982; };
+  users.groups.collabora-office = {
+    gid = 982;
+  };
 }

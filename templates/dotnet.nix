@@ -6,7 +6,8 @@ let
   dotnetRoot = "${dotnet-combined}";
   dotnetSdk = "${dotnet-combined}/sdk";
   dotnetBinary = "${dotnetRoot}/bin/dotnet";
-in {
+in
+{
   home.packages = [ dotnet-combined ];
 
   home.sessionVariables = {

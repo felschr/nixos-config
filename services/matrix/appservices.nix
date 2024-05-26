@@ -15,7 +15,8 @@ let
     allow_key_sharing = true;
     delete_keys.delete_outdated_inbound = false;
   };
-in {
+in
+{
   # Mautrix-signal settings
   services.signald.enable = true;
   systemd.services.matrix-as-signal = {
