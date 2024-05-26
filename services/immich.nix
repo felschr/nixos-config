@@ -24,7 +24,7 @@ let
       PGID = toString gid;
       NODE_ENV = "production";
       DB_HOSTNAME = containersHost;
-      DB_PORT = toString config.services.postgresql.port;
+      DB_PORT = toString config.services.postgresql.settings.port;
       DB_USERNAME = dbuser;
       DB_DATABASE_NAME = dbname;
       REDIS_HOSTNAME = containersHost;
