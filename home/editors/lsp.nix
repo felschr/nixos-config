@@ -6,10 +6,11 @@
     efm-langserver
     omnisharp-roslyn
     nil
+    unstable.nixd
     nls
     buf-language-server
     terraform-ls
-    python3Packages.python-lsp-server
+    pyright
     nodePackages.bash-language-server
     nodePackages.vim-language-server
     nodePackages.yaml-language-server

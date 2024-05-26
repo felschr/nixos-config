@@ -20,10 +20,10 @@ in {
     languages.language = [
       {
         name = "javascript";
+        language-servers = typescriptLanguageServers;
         # TODO also configure eslint for diagnostics
         # formatter.command = "eslint_d --fix";
         formatter = prettier "typescript";
-        language-servers = typescriptLanguageServers;
         auto-format = true;
       }
       {
@@ -45,10 +45,14 @@ in {
         auto-format = true;
       }
       {
+        name = "python";
+        language-servers = [ "pyright" ];
+      }
+      {
         name = "nix";
         # `nix fmt` does not support stdin
         formatter.command = "nixfmt";
-        language-servers = [ "nil" "statix" ];
+        language-servers = [ "nixd" "statix" ];
         auto-format = true;
       }
       {
@@ -73,7 +77,6 @@ in {
       {
         name = "json";
         formatter = prettier "json";
-        auto-format = true;
       }
       {
         name = "yaml";
@@ -95,12 +98,14 @@ in {
         formatter = prettier "markdown";
         auto-format = true;
       }
+      # newer versions of bash-language-server already integrate shfmt
       {
         name = "bash";
         formatter = {
           command = "shfmt";
           args = [ "-i" "2" "-" ];
         };
+        auto-format = true;
       }
     ];
     languages.language-server = {
@@ -163,6 +168,10 @@ in {
           codeActionOnSave.mode = "problems";
           workingDirectory.mode = "auto";
         };
+      };
+      pyright = {
+        command = "pyright-langserver";
+        args = [ "--stdio" ];
       };
       lua-language-server = {
         config = {
