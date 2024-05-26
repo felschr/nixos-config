@@ -13,6 +13,7 @@
     sshKeys = [ "3C48489F3B0FBB44E72180D4B1D7541C201C9987" ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
+    pinentryPackage = pkgs.pinentry-curses;
   };
   programs.zsh.initExtra = ''
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
