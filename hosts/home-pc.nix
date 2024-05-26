@@ -11,6 +11,7 @@
     ../system/printing/home.nix
     ../system/gaming.nix
     ../desktop
+    ../desktop/cosmic.nix
     ../virtualisation/containers.nix
     ../virtualisation/podman.nix
     ../virtualisation/libvirt.nix
