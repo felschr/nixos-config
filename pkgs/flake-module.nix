@@ -1,5 +1,5 @@
-_: {
-  perSystem = { inputs, self', pkgs, ... }: {
+{ inputs, ... }: {
+  perSystem = { self', pkgs, ... }: {
     packages = {
       brlaser = pkgs.callPackage ./brlaser { };
       deconz = pkgs.qt5.callPackage ./deconz { };
