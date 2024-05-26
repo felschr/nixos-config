@@ -4,12 +4,10 @@ rec {
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
-      "https://wurzelpfropf.cachix.org" # ragenix
       "https://felschr.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "wurzelpfropf.cachix.org-1:ilZwK5a6wJqVr7Fyrzp4blIEkGK+LJT0QrpWr1qBNq0="
       "felschr.cachix.org-1:raomy5XA2tsVkBoG6wo70ARIn+V24IXhWaSe3QZo12A="
     ];
   };
@@ -44,7 +42,7 @@ rec {
     };
 
     agenix = {
-      url = "github:yaxitech/ragenix";
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
