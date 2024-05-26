@@ -2,6 +2,9 @@
 
 let etebaseHost = "etebase.felschr.com";
 in {
+  # TODO etebase-server doesn't support newer django version yet
+  nixpkgs.config.permittedInsecurePackages = [ "python3.11-django-3.2.25" ];
+
   age.secrets.etebase-server = {
     file = ../secrets/etebase-server.age;
     owner = config.services.etebase-server.user;
