@@ -12,7 +12,7 @@ in {
     enable = true;
     inherit port;
     passwordFile = config.age.secrets.paperless.path;
-    extraConfig = {
+    settings = {
       PAPERLESS_ADMIN_USER = "felschr";
       PAPERLESS_OCR_LANGUAGE = "deu+eng";
     };
