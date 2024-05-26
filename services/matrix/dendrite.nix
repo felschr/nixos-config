@@ -71,7 +71,7 @@ in {
   services.postgresql = {
     ensureUsers = [{
       name = "dendrite";
-      ensurePermissions = { "DATABASE dendrite" = "ALL PRIVILEGES"; };
+      ensureDBOwnership = true;
     }];
     ensureDatabases = [ "dendrite" ];
   };

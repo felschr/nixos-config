@@ -33,7 +33,7 @@ in {
     ensureDatabases = [ dbname ];
     ensureUsers = [{
       name = dbuser;
-      ensurePermissions."DATABASE ${dbname}" = "ALL PRIVILEGES";
+      ensureDBOwnership = true;
     }];
   };
 
