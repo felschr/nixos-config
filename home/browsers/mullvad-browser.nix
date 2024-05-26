@@ -1,8 +1,7 @@
 { inputs, pkgs, lib, ... }:
 
 let
-  firefox-addons = inputs.firefox-addons.packages.${pkgs.system}
-    // (import ./firefoxAddons.nix { inherit inputs pkgs lib; });
+  firefox-addons = inputs.firefox-addons.packages.${pkgs.system};
 
   commonSettings = {
     # Disable DNS over HTTPS (use system DNS, i.e. VPN's DNS)
@@ -38,7 +37,7 @@ let
   };
 
   commonExtensions = with firefox-addons; [
-    german-dictionary
+    dictionary-german
     proton-pass
     libredirect
     zotero-connector

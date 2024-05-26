@@ -2,8 +2,7 @@
 
 with lib;
 let
-  firefox-addons = inputs.firefox-addons.packages.${pkgs.system}
-    // (import ./firefoxAddons.nix { inherit inputs pkgs lib; });
+  firefox-addons = inputs.firefox-addons.packages.${pkgs.system};
 
   inherit (import ../modules/firefox/common.nix { inherit config lib pkgs; })
     mkConfig;
@@ -47,7 +46,7 @@ let
   '';
 
   commonExtensions = with firefox-addons; [
-    german-dictionary
+    dictionary-german
     ublock-origin
     proton-pass
     libredirect
