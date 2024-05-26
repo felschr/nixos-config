@@ -15,27 +15,21 @@ rec {
   };
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2311.tar.gz";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.tar.gz";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixos-hardware.url =
-      "https://flakehub.com/f/NixOS/nixos-hardware/0.1.tar.gz";
-
-    fh = {
-      url = "https://flakehub.com/f/DeterminateSystems/fh/0.1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    flake-utils.url = "https://flakehub.com/f/numtide/flake-utils/0.1.tar.gz";
+    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0.2311.tar.gz";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
