@@ -71,7 +71,7 @@ in
     home-pc
     home-server
   ];
-  "immich/.env.age".publicKeys = [
+  "immich/env.age".publicKeys = [
     felschr
     home-pc
     home-server
@@ -81,7 +81,7 @@ in
     home-pc
     home-server
   ];
-  "immich/typesense/.env.age".publicKeys = [
+  "immich/typesense/env.age".publicKeys = [
     felschr
     home-pc
     home-server
@@ -132,7 +132,7 @@ in
     felschr
     home-server
   ];
-  "dendrite/.env.age".publicKeys = [
+  "dendrite/env.age".publicKeys = [
     felschr
     home-server
   ];

@@ -16,7 +16,7 @@ in
     mode = "755";
   };
   age.secrets.dendrite-env = {
-    file = ../../secrets/dendrite/.env.age;
+    file = ../../secrets/dendrite/env.age;
     mode = "755";
   };
 

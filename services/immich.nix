@@ -52,9 +52,9 @@ let
   };
 in
 {
-  age.secrets.immich-env.file = ../secrets/immich/.env.age;
+  age.secrets.immich-env.file = ../secrets/immich/env.age;
   age.secrets.immich-db-password.file = ../secrets/immich/db-password.age;
-  age.secrets.immich-typesense-env.file = ../secrets/immich/typesense/.env.age;
+  age.secrets.immich-typesense-env.file = ../secrets/immich/typesense/env.age;
 
   services.postgresql = {
     enable = true;
