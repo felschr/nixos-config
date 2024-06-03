@@ -80,7 +80,7 @@ in
   services.inadyn.ipv6.enable = true;
   services.inadyn.ipv6.command = "${pkgs.writeScript "get-ipv6" ''
     ${pkgs.iproute2}/bin/ip -6 --brief addr show enp2s0 mngtmpaddr \
-      | ${pkgs.gawk}/bin/awk '{print $3}' \
+      | ${pkgs.gawk}/bin/awk '{print $(NF)}' \
       | cut -f1 -d'/'
   ''}";
   services.inadyn.domains = [
