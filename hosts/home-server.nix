@@ -143,6 +143,11 @@ in
       authorizedKeys = config.users.users.felschr.openssh.authorizedKeys.keys;
     };
   };
+  # allow automated decryption
+  # `echo -n '<LUKS passphrase here>' | clevis encrypt tang '{"url": "http://doctr:9090"}' > home-server-enc.jwe`
+  boot.initrd.clevis.enable = true;
+  boot.initrd.clevis.useTang = true;
+  boot.initrd.clevis.devices."enc".secretFile = ../secrets/clevis/home-server-enc.jwe;
 
   systemd.notify = {
     enable = true;
