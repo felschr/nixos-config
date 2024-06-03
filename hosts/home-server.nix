@@ -158,4 +158,10 @@ in
 
   # only change this when specified in release notes
   system.stateVersion = "23.05";
+
+  system.autoUpgrade.allowReboot = true;
+  system.autoUpgrade.rebootWindow = {
+    lower = "03:00";
+    upper = "05:00";
+  };
 }
