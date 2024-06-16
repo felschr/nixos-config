@@ -9,7 +9,7 @@
   age.secrets.samba.file = ../../secrets/samba.age;
 
   fileSystems."/mnt/media" = {
-    device = "//192.168.1.102/media";
+    device = "//home-server/media";
     fsType = "cifs";
     options = [
       # automount options

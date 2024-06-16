@@ -78,7 +78,7 @@ in
         country = "DE";
         temperature_unit = "C";
         external_url = "https://home.felschr.com";
-        internal_url = "http://192.168.1.102:8123";
+        internal_url = "http://home-server:8123";
         media_dirs.media = "/media";
         allowlist_external_dirs = [
           "/tmp"

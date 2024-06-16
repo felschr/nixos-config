@@ -102,7 +102,7 @@
     };
 
     deploy.nodes.home-server = {
-      hostname = "192.168.1.102";
+      hostname = "home-server";
       profiles.system = {
         sshUser = "felschr";
         sshOpts = [ "-t" ];
