@@ -72,7 +72,8 @@
           inputs.nixpkgs.nixosModules.notDetected
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
-          inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+          inputs.nixos-hardware.nixosModules.common-cpu-intel
+          inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
           inputs.matrix-appservices.nixosModule
           (self.lib.createSystem "home-server" {
             hardwareConfig = ../hardware/lattepanda.nix;
