@@ -149,7 +149,7 @@ in
       };
       storage.postgres = {
         host = "/run/postgresql";
-        inherit (config.services.postgresql) port;
+        inherit (config.services.postgresql.settings) port;
         username = cfg.user;
         database = cfg.user;
         # password not used since it uses peer auth
