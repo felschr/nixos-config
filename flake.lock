@@ -550,7 +550,31 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
         "openwrt-imagebuilder": "openwrt-imagebuilder",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "pre-commit-hooks": "pre-commit-hooks",
+        "roslyn-language-server": "roslyn-language-server"
+      }
+    },
+    "roslyn-language-server": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1724349014,
+        "narHash": "sha256-y4/cGk8BghBc59JDDAJDSlNzp66Iq5QYSnokBmOjQjc=",
+        "owner": "SofusA",
+        "repo": "roslyn-language-server",
+        "rev": "678374269437bd2e8bf7491487cbc60131113ef9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SofusA",
+        "repo": "roslyn-language-server",
+        "type": "github"
       }
     },
     "rust-overlay": {

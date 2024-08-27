@@ -1,9 +1,11 @@
-{ config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
     # language servers
     efm-langserver
+    unstable.roslyn-ls
+    inputs.roslyn-language-server.packages.${system}.roslyn-language-server
     omnisharp-roslyn
     nil
     unstable.nixd

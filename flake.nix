@@ -79,6 +79,12 @@ rec {
       url = "github:astro/nix-openwrt-imagebuilder";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    roslyn-language-server = {
+      url = "github:SofusA/roslyn-language-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
