@@ -140,8 +140,7 @@ rec {
             pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
               src = ./.;
               hooks = {
-                nixfmt.enable = true;
-                nixfmt.package = pkgs.nixfmt-rfc-style;
+                nixfmt-rfc-style.enable = true;
                 shellcheck.enable = true;
               };
             };
