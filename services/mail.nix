@@ -17,11 +17,11 @@
     accounts.default = {
       tls = true;
       tls_starttls = true;
-      host = "in-v3.mailjet.com";
+      host = "smtp.protonmail.ch";
       port = 587;
-      user = "8f445e9664e3668e7c859bfcf189e71e";
+      user = "server@felschr.com";
       passwordeval = "cat ${config.age.secrets.smtp.path}";
-      from = "admin@felschr.com";
+      from = "server@felschr.com";
     };
   };
 
