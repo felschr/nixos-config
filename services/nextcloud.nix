@@ -12,7 +12,7 @@ in
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud28;
+    package = pkgs.nextcloud30;
     hostName = host;
     https = true;
     maxUploadSize = "10G";
