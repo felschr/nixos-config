@@ -158,7 +158,7 @@ in
   };
 
   # only change this when specified in release notes
-  system.stateVersion = "23.05";
+  system.stateVersion = "24.11";
 
   system.autoUpgrade.allowReboot = true;
   system.autoUpgrade.rebootWindow = {

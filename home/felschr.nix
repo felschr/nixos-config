@@ -106,5 +106,5 @@
     emblem
   ];
 
-  home.stateVersion = "23.05";
+  home.stateVersion = "24.11";
 }

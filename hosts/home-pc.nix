@@ -59,5 +59,5 @@
   systemd.notify.libnotify.user = "felschr";
 
   # only change this when specified in release notes
-  system.stateVersion = "23.05";
+  system.stateVersion = "24.11";
 }
