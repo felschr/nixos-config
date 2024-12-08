@@ -10,7 +10,6 @@
     nil
     unstable.nixd
     nls
-    buf-language-server
     terraform-ls
     pyright
     nodePackages.bash-language-server

@@ -5,9 +5,10 @@
     with pkgs;
     with gnomeExtensions;
     [
-      gnome.dconf-editor
-      gnome.gnome-tweaks
-      gnome.zenity
+      dconf-editor
+      gnome-tweaks
+      zenity
+      gnome-sound-recorder
       native-window-placement
       appindicator
       pop-shell
@@ -31,15 +32,15 @@
 
   # exclude some default applications
   environment.gnome.excludePackages = with pkgs; [
-    gnome.gnome-system-monitor
-    gnome.gnome-weather
-    gnome.gnome-calendar
-    gnome.gnome-maps
-    gnome.gnome-contacts
-    gnome.gnome-software
-    gnome.totem
-    gnome.epiphany
-    gnome.evince
+    gnome-system-monitor
+    gnome-weather
+    gnome-calendar
+    gnome-maps
+    gnome-contacts
+    gnome-software
+    totem
+    epiphany
+    evince
   ];
   programs.gnome-terminal.enable = false;
   programs.geary.enable = false;

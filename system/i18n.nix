@@ -12,7 +12,8 @@
       LC_MONETARY = "en_IE.UTF-8";
     };
     supportedLocales = [ "all" ];
-    inputMethod.enabled = "ibus";
+    inputMethod.enable = true;
+    inputMethod.type = "ibus";
     inputMethod.ibus.engines = with pkgs.ibus-engines; [
       uniemoji
       mozc

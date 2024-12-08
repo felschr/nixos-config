@@ -12,14 +12,14 @@
   services.samba = {
     enable = true;
     openFirewall = true;
-    securityType = "user";
-    extraConfig = ''
-      passdb backend = tdbsam
-      guest account = nobody
-      map to guest = bad user
-      use sendfile = true
-    '';
-    shares = {
+    settings = {
+      global = {
+        security = "user";
+        "passdb backend" = "tdbsam";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+        "use sendfile" = true;
+      };
       media = {
         path = "/media";
         public = "no";
