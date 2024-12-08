@@ -79,9 +79,9 @@ in
   ''}";
   services.inadyn.ipv6.enable = true;
   services.inadyn.ipv6.command = "${pkgs.writeScript "get-ipv6" ''
-    ${pkgs.iproute2}/bin/ip -6 --brief addr show enp2s0 mngtmpaddr \
-      | ${pkgs.gawk}/bin/awk '{print $(NF)}' \
-      | cut -f1 -d'/'
+    ${pkgs.tailscale}/bin/tailscale status --json \
+      | ${pkgs.jq}/bin/jq -r '.Self.Addrs' \
+      | grep -o '[0-9a-f:]*::102'
   ''}";
   services.inadyn.domains = [
     "felschr.com"
