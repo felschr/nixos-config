@@ -25,6 +25,7 @@ in
     ../virtualisation/podman.nix
     ../modules/inadyn.nix
     ../modules/systemdNotify.nix
+    ../services/postgres
     ../services/mail.nix
     ../services/lldap.nix
     ../services/authelia.nix
