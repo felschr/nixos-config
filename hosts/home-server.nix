@@ -129,7 +129,7 @@ in
   };
 
   services.tailscale.extraUpFlags = [
-    "--advertise-routes=192.168.1.0/24"
+    # "--accept-routes" # breaks incoming connections from outside Tailnet
     "--advertise-tags=tag:felschr-com"
     "--advertise-connector"
   ];

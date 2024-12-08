@@ -22,7 +22,6 @@ in
     useRoutingFeatures = "both";
     extraUpFlags = [
       "--reset"
-      "--accept-routes"
       "--exit-node-allow-lan-access"
       "--exit-node=de-dus-wg-001.mullvad.ts.net"
     ];

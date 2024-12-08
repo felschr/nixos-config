@@ -42,6 +42,7 @@
   };
 
   services.tailscale.extraUpFlags = [
+    "--accept-routes"
     "--operator=felschr"
     "--advertise-routes=192.168.1.0/24"
   ];
