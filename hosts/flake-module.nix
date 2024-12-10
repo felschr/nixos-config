@@ -23,6 +23,7 @@
               "disk"
               "libvirtd"
               "qemu-libvirtd"
+              "gamemode"
               "media"
             ];
             modules = [ self.homeManagerModules.git ];
