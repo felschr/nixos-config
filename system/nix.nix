@@ -21,7 +21,7 @@ in
   system.autoUpgrade = {
     enable = true;
     dates = "03:00";
-    flake = "/etc/nixos";
+    flake = inputs.self.outPath;
     flags =
       with lib;
       flatten (
