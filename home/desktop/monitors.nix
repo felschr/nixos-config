@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
+_:
 
 {
-  xdg.configFile."monitors.xml".source = ./monitors.xml;
+  xdg.configFile."monitors.xml" = {
+    source = ./monitors.xml;
+    force = true;
+  };
 }
