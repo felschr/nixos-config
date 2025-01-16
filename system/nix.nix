@@ -1,7 +1,6 @@
-{ inputs, lib, ... }:
+{ inputs, config, ... }:
 
 let
-  flakes = lib.filterAttrs (name: value: value ? outputs) inputs;
   inherit (inputs.self.outputs) nixConfig;
 in
 {
@@ -21,14 +20,10 @@ in
   system.autoUpgrade = {
     enable = true;
     dates = "03:00";
-    flake = inputs.self.outPath;
-    flags =
-      with lib;
-      flatten (
-        mapAttrsToList (n: _: [
-          "--update-input"
-          n
-        ]) flakes
-      );
+    flake = "/etc/nixos";
   };
+
+  systemd.services.nixos-upgrade.preStart = ''
+    nix flake update --flake ${config.system.autoUpgrade.flake}
+  '';
 }
