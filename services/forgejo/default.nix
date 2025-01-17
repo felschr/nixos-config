@@ -11,6 +11,8 @@ let
   cfg = config.services.forgejo;
 in
 {
+  imports = [ ./runner.nix ];
+
   age.secrets.forgejo-admin-password = {
     file = ../../secrets/forgejo/admin-password.age;
     owner = cfg.user;
@@ -33,6 +35,10 @@ in
       service.DISABLE_REGISTRATION = true;
       ui = {
         DEFAULT_THEME = "forgejo-dark";
+      };
+      actions = {
+        ENABLED = true;
+        DEFAULT_ACTIONS_URL = "https://${domain}";
       };
       mailer = {
         ENABLED = true;
