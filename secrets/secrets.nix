@@ -124,6 +124,10 @@ in
     felschr
     home-server
   ];
+  "forgejo/admin-password.age".publicKeys = [
+    felschr
+    home-server
+  ];
   "hass/secrets.age".publicKeys = [
     felschr
     home-server

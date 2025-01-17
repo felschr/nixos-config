@@ -1,10 +1,22 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   domain = "git.felschr.com";
   sshPort = 2222;
+  cfg = config.services.forgejo;
 in
 {
+  age.secrets.forgejo-admin-password = {
+    file = ../../secrets/forgejo/admin-password.age;
+    owner = cfg.user;
+    inherit (cfg) group;
+  };
+
   services.forgejo = {
     enable = true;
     database.type = "postgres";
@@ -42,4 +54,16 @@ in
     '';
     locations."/".proxyPass = "http://unix:${cfg.settings.server.HTTP_ADDR}";
   };
+
+  systemd.services.forgejo.preStart =
+    let
+      adminCmd = "${lib.getExe cfg.package} admin user";
+      passwordFile = config.age.secrets.forgejo-admin-password.path;
+      user = "felschr";
+    in
+    ''
+      ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${passwordFile})" || true
+      ## uncomment this line to change an admin user which was already created
+      # ${adminCmd} change-password --username ${user} --password "$(tr -d '\n' < ${passwordFile})" || true
+    '';
 }
