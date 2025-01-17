@@ -29,6 +29,7 @@ in
     ../services/mail.nix
     ../services/lldap.nix
     ../services/authelia.nix
+    ../services/forgejo
     ../services/restic/home-server.nix
     ../services/samba/home-server.nix
     # ../services/kodi.nix
@@ -89,6 +90,7 @@ in
     "openpgpkey.felschr.com"
     "ldap.felschr.com"
     "auth.felschr.com"
+    "git.felschr.com"
     "home.felschr.com"
     "esphome.felschr.com"
     "matrix.felschr.com"
