@@ -7,7 +7,9 @@
 
 let
   domain = "git.felschr.com";
+  sshDomain = "felschr.com";
   sshPort = 2222;
+  sshUser = "git";
   cfg = config.services.forgejo;
 in
 {
@@ -28,9 +30,11 @@ in
         DOMAIN = domain;
         PROTOCOL = "http+unix";
         ROOT_URL = "https://${domain}/";
-        START_SSH_SERVER = true;
+        SSH_DOMAIN = sshDomain;
         SSH_PORT = sshPort;
+        START_SSH_SERVER = true;
         SSH_LISTEN_PORT = sshPort;
+        BUILTIN_SSH_SERVER_USER = sshUser;
       };
       service.DISABLE_REGISTRATION = true;
       ui = {
