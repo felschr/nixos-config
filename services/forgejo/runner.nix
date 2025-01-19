@@ -37,6 +37,9 @@ in
     };
   };
 
+  nix.settings.allowed-users = [ "gitea-runner" ];
+  nix.settings.trusted-users = [ "gitea-runner" ];
+
   # automatically get registration token from forgejo
   systemd.services.forgejo.postStart = lib.mkBefore ''
     ${pkgs.bash}/bin/bash -c '(while ! ${pkgs.netcat-openbsd}/bin/nc -z -U ${forgejoCfg.settings.server.HTTP_ADDR}; do echo "Waiting for unix ${forgejoCfg.settings.server.HTTP_ADDR} to open..."; sleep 2; done); sleep 2'
