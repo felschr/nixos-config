@@ -2,6 +2,10 @@ name: "Test"
 on:
   pull_request:
   push:
+
+env:
+  NIX_CONFIG: "accept-flake-config = true"
+
 jobs:
   tests:
     runs-on: native
@@ -11,7 +15,7 @@ jobs:
       #   with:
       #     name: felschr
       #     authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-      - run: nix flake check --accept-flake-config
+      - run: nix flake check
         continue-on-error: true
       - run: nix build .#brlaser
       - run: nix build .#deconz
