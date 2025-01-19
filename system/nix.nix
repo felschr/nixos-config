@@ -23,6 +23,11 @@ in
     flake = "/etc/nixos";
   };
 
+  programs.git = {
+    enable = true;
+    config.safe.directory = [ "/etc/nixos" ];
+  };
+
   systemd.services.nixos-upgrade.preStart = ''
     nix flake update --flake ${config.system.autoUpgrade.flake}
   '';
