@@ -18,6 +18,19 @@ in
       tokenFile = ""; # dynamically retrieved from Forgejo (see further below)
       name = config.networking.hostName;
       labels = [ "native:host" ];
+      hostPackages = with pkgs; [
+        # default
+        bash
+        coreutils
+        curl
+        gawk
+        gitMinimal
+        gnused
+        nodejs
+        wget
+
+        nix
+      ];
       settings = {
         container.network = "host";
       };
