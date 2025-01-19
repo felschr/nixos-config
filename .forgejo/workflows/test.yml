@@ -7,10 +7,10 @@ jobs:
     runs-on: native
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - uses: https://github.com/cachix/cachix-action@v15
-        with:
-          name: felschr
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      # - uses: https://github.com/cachix/cachix-action@v15
+      #   with:
+      #     name: felschr
+      #     authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       # - run: nix flake check
       - run: nix build .#brlaser
       - run: nix build .#deconz
