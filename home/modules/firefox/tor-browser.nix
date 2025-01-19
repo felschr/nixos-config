@@ -12,7 +12,7 @@ common.mkModule {
   name = "tor-browser";
   displayName = "Tor Browser";
   dataConfigPath = ".tor project/firefox";
-  defaultPackage = pkgs.tor-browser-bundle-bin;
-  defaultPackageName = "pkgs.tor-browser-bundle-bin";
+  defaultPackage = pkgs.tor-browser;
+  defaultPackageName = "pkgs.tor-browser";
   isSecure = true;
 }
