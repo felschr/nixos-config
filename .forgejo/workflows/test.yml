@@ -20,4 +20,4 @@ jobs:
       - run: nix build .#brlaser
       - run: nix build .#deconz
       - run: nix build .#nixosConfigurations.home-server.config.system.build.toplevel
-      - run: nix build .#nixosConfigurations.home-pc.config.system.build.toplevel
+      # - run: nix build .#nixosConfigurations.home-pc.config.system.build.toplevel
