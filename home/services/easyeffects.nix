@@ -45,11 +45,10 @@
   };
 
   xdg.configFile."easyeffects/autoload/input/alsa_input.usb-Blue_Microphones_Yeti_Stereo_Microphone_REV8-00.analog-stereo:analog-input-mic.json".text =
-    builtins.toJSON
-      {
-        device = "alsa_input.usb-Blue_Microphones_Yeti_Stereo_Microphone_REV8-00.analog-stereo";
-        device-description = "Yeti Stereo Microphone Analog Stereo";
-        device-profile = "analog-input-mic";
-        preset-name = "optimised";
-      };
+    builtins.toJSON {
+      device = "alsa_input.usb-Blue_Microphones_Yeti_Stereo_Microphone_REV8-00.analog-stereo";
+      device-description = "Yeti Stereo Microphone Analog Stereo";
+      device-profile = "analog-input-mic";
+      preset-name = "optimised";
+    };
 }

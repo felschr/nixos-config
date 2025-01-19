@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 
 with pkgs;
 with lib;
@@ -29,6 +24,8 @@ with lib;
     };
   };
 
-  xdg.configFile."kitty/pass_keys.py".source = "${vimPlugins.nvim-kitty-navigator}/kitty/pass_keys.py";
-  xdg.configFile."kitty/neighboring_window.py".source = "${vimPlugins.nvim-kitty-navigator}/kitty/neighboring_window.py";
+  xdg.configFile."kitty/pass_keys.py".source =
+    "${vimPlugins.nvim-kitty-navigator}/kitty/pass_keys.py";
+  xdg.configFile."kitty/neighboring_window.py".source =
+    "${vimPlugins.nvim-kitty-navigator}/kitty/neighboring_window.py";
 }
