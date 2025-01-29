@@ -81,8 +81,8 @@ in
   ''}";
   services.inadyn.ipv6.enable = true;
   services.inadyn.ipv6.command = "${pkgs.writeScript "get-ipv6" ''
-    ${pkgs.tailscale}/bin/tailscale status --json \
-      | ${pkgs.jq}/bin/jq -r '.Self.Addrs' \
+    ${pkgs.iproute2}/bin/ip -6 addr show scope global \
+      | ${pkgs.grepcidr}/bin/grepcidr '2000::/3' \
       | grep -o '[0-9a-f:]*::102'
   ''}";
   services.inadyn.domains = [
