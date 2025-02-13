@@ -46,17 +46,16 @@
   '';
 
   home.packages = with pkgs; [
-    fh
-
     # system
     gparted
     gnome-firmware-updater
-    mission-center
+    resources
 
     # productivity
     anytype
     libreoffice-fresh
     tabbed
+    curtail
 
     # work
     teams-for-linux
@@ -73,15 +72,16 @@
     celluloid
     spot
     spotify
-    pocket-casts
     unstable.calibre
     foliate
 
     # security & privacy
+    unstable.proton-pass
     authenticator
     collision
     metadata-cleaner
     raider
+    gnome-obfuscate
     yubikey-manager
     yubikey-manager-qt
     # yubioath-flutter # TODO conflicts with fluffychat
@@ -89,12 +89,12 @@
     warp
     # onionshare-gui
     transmission_4-gtk
-    qbittorrent
+    unstable.qbittorrent
     fragments
 
     # other
     ledger-live-desktop
-    portfolio
+    unstable.portfolio
     bottles
     zotero
     newsflash

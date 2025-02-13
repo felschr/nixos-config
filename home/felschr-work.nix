@@ -63,6 +63,7 @@ with pkgs;
     # gaphor
 
     # security & privacy
+    unstable.proton-pass
     authenticator
     collision
     metadata-cleaner
