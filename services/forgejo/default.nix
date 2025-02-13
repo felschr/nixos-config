@@ -35,6 +35,7 @@ in
         START_SSH_SERVER = true;
         SSH_LISTEN_PORT = sshPort;
         BUILTIN_SSH_SERVER_USER = sshUser;
+        LANDING_PAGE = "explore";
       };
       service.DISABLE_REGISTRATION = true;
       ui = {
@@ -45,11 +46,11 @@ in
         DEFAULT_ACTIONS_URL = "https://${domain}";
       };
       mailer = {
+        # TODO broken: https://github.com/NixOS/nixpkgs/issues/103446
         ENABLED = true;
         PROTOCOL = "sendmail";
         FROM = config.programs.msmtp.accounts.default.from;
         SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
-        SENDMAIL_ARGS = "--";
       };
     };
   };
