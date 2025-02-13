@@ -33,6 +33,8 @@ in
       "/var/lib/lxcfs"
       "/var/lib/docker"
       "/var/lib/flatpak"
+      "/var/lib/open-webui"
+      "/var/lib/private/open-webui"
       "/home/*/ignore"
       "/home/*/.cache"
       "/home/*/.local/share/containers"
