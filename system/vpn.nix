@@ -23,7 +23,7 @@ in
     extraUpFlags = [
       "--reset"
       "--exit-node-allow-lan-access"
-      "--exit-node=de-dus-wg-001.mullvad.ts.net"
+      "--exit-node=de-fra-wg-106.mullvad.ts.net"
     ];
   };
 
