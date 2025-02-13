@@ -2,11 +2,11 @@
 
 {
   home.packages = with pkgs; [
-    trayscale
-    (pkgs.makeAutostartItem {
+    unstable.trayscale
+    (makeAutostartItem {
       name = "dev.deedles.Trayscale";
-      package = pkgs.trayscale;
-      # extraArgs = ["--hide-window"];
+      package = unstable.trayscale;
+      prependExtraArgs = [ "--hide-window" ];
     })
   ];
 }
