@@ -56,4 +56,9 @@ in
     sslCertificate = "/var/lib/tailscale/certs/${tailnetHost}.crt";
     sslCertificateKey = "/var/lib/tailscale/certs/${tailnetHost}.key";
   };
+
+  # TODO Tailscale Mullvad exit nodes currently don't support IPv6 and this is
+  # causing issues with nginx (proxy pass) requests timing out and high CPU load.
+  # Until Mullvad exit nodes support IPv6, we'll just disable IPv6 for nginx.
+  services.nginx.resolver.ipv6 = false;
 }
