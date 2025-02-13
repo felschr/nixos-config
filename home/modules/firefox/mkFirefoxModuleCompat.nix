@@ -61,7 +61,7 @@ in
     { }
     // lib.setAttrByPath modulePath {
       # Tor & Mullvad Browser don't support profile version 2 yet
-      profileVersion = null;
+      profileVersion = lib.mkDefault null;
     }
   );
 }
