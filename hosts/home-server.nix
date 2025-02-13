@@ -103,7 +103,6 @@ in
     "news.felschr.com"
     "etebase.felschr.com"
     "paperless.felschr.com"
-    "boards.felschr.com"
   ];
 
   services.nginx = {
