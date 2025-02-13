@@ -1,18 +1,31 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+_:
 
 let
-  common = import ./common.nix { inherit config lib pkgs; };
+  mkFirefoxModuleCompat = import ./mkFirefoxModuleCompat.nix;
+  mkFirefoxProfileBinModule = import ./mkFirefoxProfileBinModule.nix;
+
+  modulePath = [
+    "programs"
+    "tor-browser"
+  ];
+  name = "Tor Browser";
+  packageName = "tor-browser";
 in
-common.mkModule {
-  name = "tor-browser";
-  displayName = "Tor Browser";
-  dataConfigPath = ".tor project/firefox";
-  defaultPackage = pkgs.tor-browser;
-  defaultPackageName = "pkgs.tor-browser";
-  isSecure = true;
+{
+  imports = [
+    (mkFirefoxModuleCompat {
+      inherit modulePath name;
+      description = "Privacy-focused browser routing traffic through the Tor network";
+      unwrappedPackageName = packageName;
+      visible = true;
+      platforms.linux = rec {
+        vendorPath = ".tor project";
+        configPath = "${vendorPath}/firefox";
+      };
+    })
+    (mkFirefoxProfileBinModule {
+      inherit modulePath name packageName;
+      isSecure = true;
+    })
+  ];
 }

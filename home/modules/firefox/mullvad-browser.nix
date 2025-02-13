@@ -1,18 +1,31 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+_:
 
 let
-  common = import ./common.nix { inherit config lib pkgs; };
+  mkFirefoxModuleCompat = import ./mkFirefoxModuleCompat.nix;
+  mkFirefoxProfileBinModule = import ./mkFirefoxProfileBinModule.nix;
+
+  modulePath = [
+    "programs"
+    "mullvad-browser"
+  ];
+  name = "Mullvad Browser";
+  packageName = "mullvad-browser";
 in
-common.mkModule {
-  name = "mullvad-browser";
-  displayName = "Mullvad Browser";
-  dataConfigPath = ".mullvad/mullvadbrowser";
-  defaultPackage = pkgs.mullvad-browser;
-  defaultPackageName = "pkgs.mullvad-browser";
-  isSecure = true;
+{
+  imports = [
+    (mkFirefoxModuleCompat {
+      inherit modulePath name;
+      description = "Privacy-focused browser made in a collaboration between The Tor Project and Mullvad";
+      unwrappedPackageName = packageName;
+      visible = true;
+      platforms.linux = rec {
+        vendorPath = ".mullvad";
+        configPath = "${vendorPath}/mullvadbrowser";
+      };
+    })
+    (mkFirefoxProfileBinModule {
+      inherit modulePath name packageName;
+      isSecure = true;
+    })
+  ];
 }

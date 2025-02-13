@@ -1,18 +1,20 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+_:
 
 let
-  common = import ./common.nix { inherit config lib pkgs; };
+  mkFirefoxProfileBinModule = import ./mkFirefoxProfileBinModule.nix;
+
+  modulePath = [
+    "programs"
+    "firefox"
+  ];
+  name = "Firefox";
+  packageName = "firefox";
 in
-common.mkModule {
-  name = "firefox";
-  displayName = "Firefox";
-  dataConfigPath = ".mozilla/firefox";
-  defaultPackage = pkgs.firefox;
-  defaultPackageName = "pkgs.firefox";
-  isSecure = false;
+{
+  imports = [
+    (mkFirefoxProfileBinModule {
+      inherit modulePath name packageName;
+      isSecure = true;
+    })
+  ];
 }
