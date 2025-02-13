@@ -39,6 +39,12 @@ let
 
     # Use native file picker instead of GTK file picker
     "widget.use-xdg-desktop-portal.file-picker" = 1;
+
+    # enable WebAuthn
+    "security.webauth.webauthn" = true;
+
+    # video acceleration
+    "media.ffmpeg.vaapi.enabled" = true;
   };
 
   commonExtensions = with firefox-addons; [
