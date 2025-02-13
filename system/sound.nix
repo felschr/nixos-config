@@ -27,6 +27,18 @@
         "hfp_hf"
         "hfp_ag"
       ];
+      # aptX HD causes problems with Sonos Ace
+      "bluez5.codecs" = [
+        "sbc"
+        "sbc_xq"
+        "aac"
+        "ldac"
+        "aptx"
+        "aptx_ll"
+        "aptx_ll_duplex"
+        "lc3"
+        "lc3plus_h3"
+      ];
     };
   };
 }
