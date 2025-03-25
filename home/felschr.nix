@@ -8,7 +8,6 @@
     ./desktop
     ./desktop/monitors.nix
     ./git.nix
-    ./keybase.nix
     ./element.nix
     ./signal.nix
     ./browsers

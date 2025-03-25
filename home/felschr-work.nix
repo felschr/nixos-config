@@ -13,7 +13,6 @@ with pkgs;
     ./editors
     ./desktop
     ./git.nix
-    ./keybase.nix
     ./element.nix
     ./signal.nix
     ./browsers

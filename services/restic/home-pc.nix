@@ -66,7 +66,6 @@ in
       "/home/*/.local/share/gnome-boxes"
       "/home/*/.local/share/bottles"
       "/home/*/.local/share/Steam"
-      "/home/*/.local/share/keybase"
       "/home/*/.local/share/libvirt"
       "/home/*/.local/share/lutris"
       "/home/*/.local/share/NuGet"
@@ -81,7 +80,6 @@ in
       "/home/*/.config/Proton Pass"
       "/home/*/.config/spotify/Users"
       "/home/felschr/media"
-      "/home/felschr/keybase"
       "/home/felschr/dev" # backup ~/dev-backup instead
 
       # general
