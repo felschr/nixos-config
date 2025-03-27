@@ -5,7 +5,15 @@
     # language servers
     efm-langserver
     unstable.roslyn-ls
-    inputs.roslyn-language-server.packages.${system}.roslyn-language-server
+    (pkgs.symlinkJoin {
+      name = "csharp-language-server";
+      paths = [ inputs.csharp-language-server.packages.${system}.csharp-language-server ];
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/csharp-language-server \
+          --prefix PATH : "${pkgs.lib.makeBinPath [ pkgs.dotnet-sdk_9 ]}"
+      '';
+    })
     omnisharp-roslyn
     nil
     unstable.nixd

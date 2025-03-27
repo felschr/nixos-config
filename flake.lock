@@ -26,16 +26,39 @@
     "arkenfox-userjs": {
       "flake": false,
       "locked": {
-        "lastModified": 1736708527,
-        "narHash": "sha256-/JQo2XnLF8qfSQKvjuFDtvzzz/QHO/dLBHJO4vLOXNk=",
+        "lastModified": 1741229528,
+        "narHash": "sha256-21DoV4SMueMFRHMsvfsPfQIOtsvRWNY06rE4gB7xFnc=",
         "owner": "arkenfox",
         "repo": "user.js",
-        "rev": "c25187332e19c633b956a6755a7971a6591d3e8d",
+        "rev": "3d76c74c80485931425464fec0e59d6cb461677a",
         "type": "github"
       },
       "original": {
         "owner": "arkenfox",
         "repo": "user.js",
+        "type": "github"
+      }
+    },
+    "csharp-language-server": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743061507,
+        "narHash": "sha256-M605lQQ035J61tZ48tye8JUCN4MZKXhcTP3SqXqtr4g=",
+        "owner": "SofusA",
+        "repo": "csharp-language-server",
+        "rev": "a119d6002874d9335dbff0a9445f652762eb6685",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SofusA",
+        "repo": "csharp-language-server",
         "type": "github"
       }
     },
@@ -109,11 +132,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1739457209,
-        "narHash": "sha256-aIFi91DhSVtsiinX3OmjHIhBmkA6VKwQZf7RRgaHScw=",
+        "lastModified": 1742773104,
+        "narHash": "sha256-dAhrL+gEjNN5U/Sosy7IrX0Y0qPA0U7Gp9TBhqEliNU=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "5ff0742fc6c2156e8d9b0fbb43678b0d3e8ce578",
+        "rev": "d74460da63a8c08a69a1f143b04f2ab1a6b2f5c2",
         "type": "gitlab"
       },
       "original": {
@@ -194,11 +217,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738453229,
-        "narHash": "sha256-7H9XgNiGLKN1G1CgRh0vUL4AheZSYzPm+zmZ7vxbJdo=",
+        "lastModified": 1741352980,
+        "narHash": "sha256-+u2UunDA4Cl5Fci3m7S643HzKmIDAe+fiXrLqYsR2fs=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "32ea77a06711b758da0ad9bd6a844c5740a87abd",
+        "rev": "f4330d22f1c5d2ba72d3d22df5597d123fdb60a9",
         "type": "github"
       },
       "original": {
@@ -310,11 +333,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736373539,
-        "narHash": "sha256-dinzAqCjenWDxuy+MqUQq0I4zUSfaCvN9rzuCmgMZJY=",
+        "lastModified": 1742655702,
+        "narHash": "sha256-jbqlw4sPArFtNtA1s3kLg7/A4fzP4GLk9bGbtUJg0JQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "bd65bc3cde04c16755955630b344bc9e35272c56",
+        "rev": "0948aeedc296f964140d9429223c7e4a0702a1ff",
         "type": "github"
       },
       "original": {
@@ -368,14 +391,15 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": "nixpkgs-stable",
+        "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1739415434,
-        "narHash": "sha256-ToTH8JnLcpclRT4jLrlSHhD7CfNmtGnVLZno60ziglc=",
+        "lastModified": 1742863891,
+        "narHash": "sha256-/mGCIxO7zlWCHOZLaOMRoJgSLpIav0PBKWG3BQddElw=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "b5ee5262ada13884a6b56ea93eec8ea6f12e3624",
+        "rev": "366999efebcad2165f472ef93e9c996693bda75d",
         "type": "github"
       },
       "original": {
@@ -386,11 +410,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1738816619,
-        "narHash": "sha256-5yRlg48XmpcX5b5HesdGMOte+YuCy9rzQkJz+imcu6I=",
+        "lastModified": 1742806253,
+        "narHash": "sha256-zvQ4GsCJT6MTOzPKLmlFyM+lxo0JGQ0cSFaZSACmWfY=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "2eccff41bab80839b1d25b303b53d339fbb07087",
+        "rev": "ecaa2d911e77c265c2a5bac8b583c40b0f151726",
         "type": "github"
       },
       "original": {
@@ -401,11 +425,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1739357830,
-        "narHash": "sha256-9xim3nJJUFbVbJCz48UP4fGRStVW5nv4VdbimbKxJ3I=",
+        "lastModified": 1742751704,
+        "narHash": "sha256-rBfc+H1dDBUQ2mgVITMGBPI1PGuCznf9rcWX/XIULyE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0ff09db9d034a04acd4e8908820ba0b410d7a33a",
+        "rev": "f0946fa5f1fb876a9dc2e1850d9d3a4e3f914092",
         "type": "github"
       },
       "original": {
@@ -417,11 +441,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1739206421,
-        "narHash": "sha256-PwQASeL2cGVmrtQYlrBur0U20Xy07uSWVnFup2PHnDs=",
+        "lastModified": 1742512142,
+        "narHash": "sha256-8XfURTDxOm6+33swQJu/hx6xw1Tznl8vJJN5HwVqckg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "44534bc021b85c8d78e465021e21f33b856e2540",
+        "rev": "7105ae3957700a9646cc4b766f5815b23ed0c682",
         "type": "github"
       },
       "original": {
@@ -433,11 +457,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1739214665,
-        "narHash": "sha256-26L8VAu3/1YRxS8MHgBOyOM8xALdo6N0I04PgorE7UM=",
+        "lastModified": 1742669843,
+        "narHash": "sha256-G5n+FOXLXcRx+3hCJ6Rt6ZQyF1zqQ0DL0sWAMn2Nk0w=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "64e75cd44acf21c7933d61d7721e812eac1b5a0a",
+        "rev": "1e5b653dff12029333a6546c11e108ede13052eb",
         "type": "github"
       },
       "original": {
@@ -472,11 +496,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1739438287,
-        "narHash": "sha256-glDed6Vp6lAn7dkx/9O3Y2CMo675lB4A/Ydbfn0fesA=",
+        "lastModified": 1742893502,
+        "narHash": "sha256-W8M7Kzat8ySVY+bBW0FF6jB4xjdb8sLm14OHVyyu0KQ=",
         "owner": "astro",
         "repo": "nix-openwrt-imagebuilder",
-        "rev": "bc7334b11e21abaed14264db9f7fa99c1da460de",
+        "rev": "89d3674159e5606b0c1db636e7c7463b7b976b45",
         "type": "github"
       },
       "original": {
@@ -494,11 +518,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737465171,
-        "narHash": "sha256-R10v2hoJRLq8jcL4syVFag7nIGE7m13qO48wRIukWNg=",
+        "lastModified": 1742649964,
+        "narHash": "sha256-DwOTp7nvfi8mRfuL1escHDXabVXFGT1VlPD1JHrtrco=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "9364dc02281ce2d37a1f55b6e51f7c0f65a75f17",
+        "rev": "dcf5072734cb576d2b0c59b2ac44f5050b5eac82",
         "type": "github"
       },
       "original": {
@@ -511,6 +535,7 @@
       "inputs": {
         "agenix": "agenix",
         "arkenfox-userjs": "arkenfox-userjs",
+        "csharp-language-server": "csharp-language-server",
         "deploy-rs": "deploy-rs",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
@@ -523,30 +548,27 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
         "openwrt-imagebuilder": "openwrt-imagebuilder",
-        "pre-commit-hooks": "pre-commit-hooks",
-        "roslyn-language-server": "roslyn-language-server"
+        "pre-commit-hooks": "pre-commit-hooks"
       }
     },
-    "roslyn-language-server": {
+    "rust-overlay": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
+          "nixos-cosmic",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1739209199,
-        "narHash": "sha256-IXemY38IgENRcnBw2/0hBkUU8dNwZr+kzrrVQd4EH/o=",
-        "owner": "SofusA",
-        "repo": "roslyn-language-server",
-        "rev": "e1e9831f8fc83121f87516b00401cca409392c29",
+        "lastModified": 1742437918,
+        "narHash": "sha256-Vflb6KJVDikFcM9E231mRN88uk4+jo7BWtaaQMifthI=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "f03085549609e49c7bcbbee86a1949057d087199",
         "type": "github"
       },
       "original": {
-        "owner": "SofusA",
-        "repo": "roslyn-language-server",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
         "type": "github"
       }
     },

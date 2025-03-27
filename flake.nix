@@ -80,8 +80,8 @@ rec {
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    roslyn-language-server = {
-      url = "github:SofusA/roslyn-language-server";
+    csharp-language-server = {
+      url = "github:SofusA/csharp-language-server";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };

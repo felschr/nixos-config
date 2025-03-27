@@ -140,7 +140,7 @@ in
           };
         };
       };
-      roslyn.command = "roslyn-language-server";
+      roslyn.command = "csharp-language-server";
       statix = {
         command = "efm-langserver";
         config = {
