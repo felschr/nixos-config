@@ -10,12 +10,13 @@
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
           inputs.nixos-hardware.nixosModules.common-gpu-amd
-          (self.lib.createSystem "home-pc" {
+          (self.lib.createSystemModule "home-pc" {
             hardwareConfig = ../hardware/home-pc.nix;
             config = ../hosts/home-pc.nix;
           })
           self.lib.createMediaGroup
-          (self.lib.createUser "felschr" {
+          (self.lib.createUserModule "felschr" {
+            homeModule = self.homeModules.felschr;
             user.extraGroups = [
               "wheel"
               "networkmanager"
@@ -26,8 +27,6 @@
               "gamemode"
               "media"
             ];
-            modules = [ self.homeManagerModules.git ];
-            config = ../home/felschr.nix;
             usesContainers = true;
           })
           (
@@ -48,18 +47,17 @@
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-cpu-intel
-          (self.lib.createSystem "pilot1" {
+          (self.lib.createSystemModule "pilot1" {
             hardwareConfig = ../hardware/pilot1.nix;
             config = ../hosts/work-pc.nix;
           })
-          (self.lib.createUser "felschr" {
+          (self.lib.createUserModule "felschr" {
+            homeModule = self.homeModules.felschr-work;
             user.extraGroups = [
               "wheel"
               "audio"
               "disk"
             ];
-            modules = [ self.homeManagerModules.git ];
-            config = ../home/felschr-work.nix;
             usesContainers = true;
           })
         ];
@@ -76,12 +74,13 @@
           inputs.nixos-hardware.nixosModules.common-cpu-intel
           inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
           inputs.matrix-appservices.nixosModule
-          (self.lib.createSystem "home-server" {
+          (self.lib.createSystemModule "home-server" {
             hardwareConfig = ../hardware/lattepanda.nix;
             config = ../hosts/home-server.nix;
           })
           self.lib.createMediaGroup
-          (self.lib.createUser "felschr" {
+          (self.lib.createUserModule "felschr" {
+            homeModule = self.homeModules.felschr-server;
             user = {
               extraGroups = [
                 "wheel"
@@ -93,8 +92,6 @@
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP751vlJUnB7Pfe1KNr6weWkx/rkP4J3lTYpAekHdOgV"
               ];
             };
-            modules = [ self.homeManagerModules.git ];
-            config = ../home/felschr-server.nix;
           })
         ];
         specialArgs = {

@@ -103,6 +103,7 @@ rec {
         ./pkgs/flake-module.nix
         ./lib/flake-module.nix
         ./hosts/flake-module.nix
+        ./home/flake-module.nix
         ./overlays.nix
       ];
       flake = {
@@ -112,13 +113,6 @@ rec {
           flakeDefaults = import ./modules/flakeDefaults.nix;
           systemdNotify = import ./modules/systemdNotify.nix;
           inadyn = import ./modules/inadyn.nix;
-        };
-
-        homeManagerModules = {
-          git = import ./home/modules/git.nix;
-          firefox = import ./home/modules/firefox/firefox.nix;
-          tor-browser = import ./home/modules/firefox/tor-browser.nix;
-          mullvad-browser = import ./home/modules/firefox/mullvad-browser.nix;
         };
       };
       perSystem =

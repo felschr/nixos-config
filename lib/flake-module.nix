@@ -1,13 +1,13 @@
-{ inputs, lib, ... }:
+{ lib, ... }:
 
-let
-  createUser' = import ./createUser.nix;
-in
 {
-  imports = [ ./openwrt.nix ];
+  imports = [
+    ./createUser.nix
+    ./openwrt.nix
+  ];
   options.flake.lib = lib.mkOption { type = with lib.types; lazyAttrsOf raw; };
   config.flake.lib = {
-    createSystem =
+    createSystemModule =
       hostName:
       { hardwareConfig, config }:
       (
@@ -22,9 +22,6 @@ in
           ];
         }
       );
-    createUser =
-      name: args:
-      ({ pkgs, ... }@args2: (createUser' name args) ({ inherit (inputs) home-manager; } // args2));
     createMediaGroup = _: { users.groups.media.gid = 600; };
   };
 }
