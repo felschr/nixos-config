@@ -13,6 +13,7 @@
         hostname = "penguin";
         timezone = "Europe/Berlin";
         ipaddr = "192.168.0.1";
+        packages = [ "ds-lite" ];
       };
     };
 }

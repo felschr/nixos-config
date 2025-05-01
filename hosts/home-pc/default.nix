@@ -2,24 +2,24 @@
 
 {
   imports = [
-    ../hardware/base.nix
-    ../hardware/bluetooth.nix
-    ../hardware/xbox.nix
-    ../hardware/steam.nix
-    ../hardware/ledger.nix
-    ../system/desktop.nix
-    ../system/printing/home.nix
-    ../system/gaming.nix
-    ../desktop
-    ../desktop/cosmic.nix
-    ../virtualisation/containers.nix
-    ../virtualisation/podman.nix
-    ../virtualisation/libvirt.nix
-    ../modules/systemdNotify.nix
-    ../services/samba/home-pc.nix
-    ../services/restic/home-pc.nix
-    ../services/pcscd.nix
-    ../services/open-webui.nix
+    ../../hardware/base.nix
+    ../../hardware/bluetooth.nix
+    ../../hardware/xbox.nix
+    ../../hardware/steam.nix
+    ../../hardware/ledger.nix
+    ../../system/desktop.nix
+    ../../system/printing/home.nix
+    ../../system/gaming.nix
+    ../../desktop
+    ../../desktop/cosmic.nix
+    ../../virtualisation/containers.nix
+    ../../virtualisation/podman.nix
+    ../../virtualisation/libvirt.nix
+    ../../modules/systemdNotify.nix
+    ../../services/samba/home-pc.nix
+    ../../services/restic/home-pc.nix
+    ../../services/pcscd.nix
+    ../../services/open-webui.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

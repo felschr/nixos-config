@@ -18,33 +18,33 @@ let
 in
 {
   imports = [
-    ../hardware/base.nix
-    ../desktop/x11.nix
-    ../system/server.nix
-    ../virtualisation/containers.nix
-    ../virtualisation/podman.nix
-    ../modules/inadyn.nix
-    ../modules/systemdNotify.nix
-    ../services/postgres
-    ../services/mail.nix
-    ../services/lldap.nix
-    ../services/authelia.nix
-    ../services/forgejo
-    ../services/restic/home-server.nix
-    ../services/samba/home-server.nix
-    # ../services/kodi.nix
-    ../services/jellyfin.nix
-    ../services/etebase.nix
-    ../services/website.nix
-    ../services/wkd.nix
-    ../services/home-assistant
-    ../services/matrix
-    ../services/immich.nix
-    ../services/miniflux.nix
-    ../services/paperless.nix
-    ../services/nextcloud.nix
-    ../services/collabora-office.nix
-    ../services/calibre-web.nix
+    ../../hardware/base.nix
+    ../../desktop/x11.nix
+    ../../system/server.nix
+    ../../virtualisation/containers.nix
+    ../../virtualisation/podman.nix
+    ../../modules/inadyn.nix
+    ../../modules/systemdNotify.nix
+    ../../services/postgres
+    ../../services/mail.nix
+    ../../services/lldap.nix
+    ../../services/authelia.nix
+    ../../services/forgejo
+    ../../services/restic/home-server.nix
+    ../../services/samba/home-server.nix
+    # ../../services/kodi.nix
+    ../../services/jellyfin.nix
+    ../../services/etebase.nix
+    ../../services/website.nix
+    ../../services/wkd.nix
+    ../../services/home-assistant
+    ../../services/matrix
+    ../../services/immich.nix
+    ../../services/miniflux.nix
+    ../../services/paperless.nix
+    ../../services/nextcloud.nix
+    ../../services/collabora-office.nix
+    ../../services/calibre-web.nix
   ];
 
   age.secrets.cloudflare.file = ../secrets/cloudflare.age;

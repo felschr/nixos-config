@@ -12,7 +12,7 @@
           inputs.nixos-hardware.nixosModules.common-gpu-amd
           (self.lib.createSystemModule "home-pc" {
             hardwareConfig = ../hardware/home-pc.nix;
-            config = ../hosts/home-pc.nix;
+            config = ../hosts/home-pc/default.nix;
           })
           self.lib.createMediaGroup
           (self.lib.createUserModule "felschr" {
@@ -51,7 +51,7 @@
           inputs.matrix-appservices.nixosModule
           (self.lib.createSystemModule "home-server" {
             hardwareConfig = ../hardware/lattepanda.nix;
-            config = ../hosts/home-server.nix;
+            config = ../hosts/home-server/default.nix;
           })
           self.lib.createMediaGroup
           (self.lib.createUserModule "felschr" {
