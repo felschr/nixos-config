@@ -40,31 +40,6 @@
           inherit inputs;
         };
       };
-      pilot1 = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          inputs.nixpkgs.nixosModules.notDetected
-          inputs.nixos-hardware.nixosModules.common-pc
-          inputs.nixos-hardware.nixosModules.common-pc-ssd
-          inputs.nixos-hardware.nixosModules.common-cpu-intel
-          (self.lib.createSystemModule "pilot1" {
-            hardwareConfig = ../hardware/pilot1.nix;
-            config = ../hosts/work-pc.nix;
-          })
-          (self.lib.createUserModule "felschr" {
-            homeModule = self.homeModules.felschr-work;
-            user.extraGroups = [
-              "wheel"
-              "audio"
-              "disk"
-            ];
-            usesContainers = true;
-          })
-        ];
-        specialArgs = {
-          inherit inputs;
-        };
-      };
       home-server = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [

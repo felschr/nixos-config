@@ -6,11 +6,9 @@ let
   # `ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key`
   home-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
   home-server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILO+OLPr8zdOMYyKtm98AFJai7zbaxw7JhVWgOwu7K3C";
-  pilot1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHEucfNzPbDRdDjTaLG3PzN4lAzDAq3QUkaLvaRjjsCY";
   systems = [
     home-pc
     home-server
-    pilot1
   ];
 in
 {
@@ -18,13 +16,11 @@ in
     felschr
     home-pc
     home-server
-    pilot1
   ];
   "restic/password.age".publicKeys = [
     felschr
     home-pc
     home-server
-    pilot1
   ];
   "smtp.age".publicKeys = [
     felschr
