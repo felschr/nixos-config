@@ -57,7 +57,6 @@ rec {
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
     matrix-appservices = {
@@ -82,7 +81,7 @@ rec {
 
     csharp-language-server = {
       url = "github:SofusA/csharp-language-server";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
   };
