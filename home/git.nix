@@ -17,9 +17,9 @@
       };
       work = {
         name = "Felix Schröter";
-        email = "fs@upsquared.com";
+        email = "felix.schroeter@cmdscale.com";
         # use sign subkey's fingerprint: gpg2 -K --with-subkey-fingerprint
-        signingKey = "16F6 4623 8B1C 80C4 6267  6FF9 4D13 24C5 006E 9B2E";
+        signingKey = "5A9D CC6B F70A C69B B0D7  C755 A3A2 2573 CA6D 0E38";
         dirs = [ "~/dev/work/" ];
       };
     };
