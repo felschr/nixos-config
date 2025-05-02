@@ -24,7 +24,7 @@
     # use auth subkey's keygrip: gpg2 -K --with-keygrip
     sshKeys = [
       "3C48489F3B0FBB44E72180D4B1D7541C201C9987"
-      "8A6213DCDAF86BD3A63549FCFDF71B2C92DAE02C"
+      "70DBD13E3BCAF806D416647D9C51321E2F1312CF"
     ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
