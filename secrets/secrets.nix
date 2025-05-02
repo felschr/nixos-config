@@ -83,6 +83,11 @@ in
     home-server
   ];
 
+  "firefox/site-data-exceptions.toml.age".publicKeys = [
+    felschr
+    home-pc
+  ];
+
   # home-server
   "home-server/hostKey.age".publicKeys = [
     felschr
