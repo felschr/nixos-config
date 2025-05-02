@@ -15,8 +15,28 @@ let profile = $profiles | input list --fuzzy "Select the profile you want to cha
 
 let db_file = $"($browser.path)/($profile)/permissions.sqlite"
 
-let config_file = "/etc/nixos/home/browsers/site-data-exceptions.toml"
-let config_file = input --default $config_file "Select your config file"
+let config_types = [
+  [id name default_path];
+  ["toml" "TOML" "secrets/firefox/site-data-exceptions.toml"]
+  ["toml-age" "TOML (age-encrypted)" "firefox/site-data-exceptions.toml.age"]
+]
+let config_type = $config_types | input list --display name --fuzzy "Select your config type"
+
+let agenix_path = match $config_type.id {
+  "toml" => { },
+  "toml-age" => { input --default "secrets" "Select your agenix path (location of `secrets.nix`)" },
+}
+
+let config_file = input --default $config_type.default_path "Select your config file"
+let config_file = match $config_type.id {
+  "toml" => { $config_file },
+  "toml-age" => { $config_file | str replace -r $"^($agenix_path)/" '' },
+}
+
+let config = match $config_type.id {
+  "toml" => { $config_file | open },
+  "toml-age" => { (cd $agenix_path; agenix -d $config_file) | from toml },
+}
 
 # get origin & origin attributes separately from single origin string
 def split_origin []: string -> record {
@@ -28,7 +48,6 @@ def split_origin []: string -> record {
 }
 
 let db = $db_file | open
-let config = $config_file | open
 
 let exceptions_db = $db | get moz_perms
   | where type == "cookie" and permission == 1 and expireType == 0 and expireTime == 0
