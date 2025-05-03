@@ -47,8 +47,8 @@ in
     ../../services/calibre-web.nix
   ];
 
-  age.secrets.cloudflare.file = ../secrets/cloudflare.age;
-  age.secrets.hostKey.file = ../secrets/home-server/hostKey.age;
+  age.secrets.cloudflare.file = ../../secrets/cloudflare.age;
+  age.secrets.hostKey.file = ../../secrets/home-server/hostKey.age;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -149,7 +149,7 @@ in
   # `echo -n '<LUKS passphrase here>' | clevis encrypt tang '{"url": "http://doctr:9090"}' > home-server-enc.jwe`
   boot.initrd.clevis.enable = true;
   boot.initrd.clevis.useTang = true;
-  boot.initrd.clevis.devices."enc".secretFile = ../secrets/clevis/home-server-enc.jwe;
+  boot.initrd.clevis.devices."enc".secretFile = ../../secrets/clevis/home-server-enc.jwe;
 
   systemd.notify = {
     enable = true;
