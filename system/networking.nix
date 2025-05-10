@@ -40,7 +40,10 @@ in
     networks = {
       "10-lan" = {
         matchConfig.Name = interfaces.eth;
-        networkConfig.DHCP = "yes";
+        networkConfig = {
+          DHCP = true;
+          IPv6AcceptRA = true;
+        };
       };
     };
   };
