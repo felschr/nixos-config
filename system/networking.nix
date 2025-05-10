@@ -2,6 +2,11 @@
 
 let
   isAdguardHost = config.services.adguardhome.enable;
+
+  interfaces.eth = [
+    "enp*"
+    "eth*"
+  ];
   nameservers = {
     local = [
       "127.0.0.1"
@@ -19,8 +24,6 @@ let
   };
 in
 {
-  networking.useDHCP = lib.mkDefault true;
-
   networking.nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
 
   networking.nftables.enable = true;
@@ -29,6 +32,12 @@ in
   systemd.network = {
     enable = true;
     wait-online.ignoredInterfaces = [ "tailscale0" ];
+    networks = {
+      "10-lan" = {
+        matchConfig.Name = interfaces.eth;
+        networkConfig.DHCP = "yes";
+      };
+    };
   };
 
   services.dnsmasq.enable = false;
