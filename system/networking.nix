@@ -25,6 +25,10 @@ let
 in
 {
   networking.nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
+  networking.search = [
+    "lan"
+    "tail05275.ts.net"
+  ];
 
   networking.nftables.enable = true;
   networking.networkmanager.dns = "systemd-resolved";
