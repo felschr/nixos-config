@@ -24,6 +24,7 @@ in
     ../../virtualisation/containers.nix
     ../../virtualisation/podman.nix
     ../../modules/inadyn.nix
+    ../../services/adguardhome.nix
     ../../modules/systemdNotify.nix
     ../../services/postgres
     ../../services/mail.nix
@@ -87,6 +88,7 @@ in
   ''}";
   services.inadyn.domains = [
     "felschr.com"
+    "dns.felschr.com"
     "openpgpkey.felschr.com"
     "ldap.felschr.com"
     "auth.felschr.com"
