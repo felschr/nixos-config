@@ -24,6 +24,7 @@ let
   };
 in
 {
+  networking.useDHCP = false;
   networking.nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
   networking.search = [
     "lan"
