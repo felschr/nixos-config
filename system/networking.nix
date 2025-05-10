@@ -5,7 +5,17 @@
     "127.0.0.1"
     "::1"
   ];
-  networking.networkmanager.dns = "systemd-resolved";
+
+  networking.nftables.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    dns = "systemd-resolved";
+  };
+
+  systemd.network = {
+    enable = true;
+    wait-online.ignoredInterfaces = [ "tailscale0" ];
+  };
 
   services.dnsmasq.enable = false;
   services.resolved = {
