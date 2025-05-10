@@ -141,6 +141,7 @@ in
   boot.initrd.availableKernelModules = [ "igb" ];
   boot.initrd.network = {
     enable = true;
+    udhcpc.enable = true;
     ssh = {
       enable = true;
       hostKeys = map (f: f.path) hostKeys;
