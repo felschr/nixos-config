@@ -19,6 +19,8 @@ let
   };
 in
 {
+  networking.useDHCP = lib.mkDefault true;
+
   networking.nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
 
   networking.nftables.enable = true;
