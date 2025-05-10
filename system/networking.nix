@@ -22,10 +22,7 @@ in
   networking.nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
 
   networking.nftables.enable = true;
-  networking.networkmanager = {
-    enable = true;
-    dns = "systemd-resolved";
-  };
+  networking.networkmanager.dns = "systemd-resolved";
 
   systemd.network = {
     enable = true;
