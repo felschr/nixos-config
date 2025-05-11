@@ -3,10 +3,18 @@
 let
   isAdguardHost = config.services.adguardhome.enable;
 
-  interfaces.eth = [
+  interfaces.lan = [
     "enp*"
     "eth*"
   ];
+
+  lan = rec {
+    IPv4Prefix = "192.168.1";
+    IPv4CIDR = "${IPv4Prefix}.1/24";
+    IPv6ULAPrefix = "fd1c:ca95:d74d";
+    IPv6ULACIDR = "${IPv6ULAPrefix}::/48";
+  };
+
   nameservers = {
     local = [
       "127.0.0.1"
@@ -14,8 +22,8 @@ let
     ];
     remote = [
       # LAN
-      "192.168.1.102#dns.felschr.com"
-      "fd1c:ca95:d74d::102#dns.felschr.com"
+      "${lan.IPv4Prefix}.102#dns.felschr.com"
+      "${lan.IPv6ULAPrefix}::102#dns.felschr.com"
 
       # Tailnet
       "100.97.32.60#dns.felschr.com"
@@ -24,25 +32,31 @@ let
   };
 in
 {
-  networking.useDHCP = false;
-  networking.nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
-  networking.search = [
-    "lan"
-    "tail05275.ts.net"
-  ];
-
-  networking.nftables.enable = true;
-  networking.networkmanager.dns = "systemd-resolved";
+  networking = {
+    useDHCP = false;
+    nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
+    nftables.enable = true;
+    firewall.allowedUDPPorts = [
+      5353 # mDNS
+    ];
+    networkmanager.dns = "systemd-resolved";
+  };
 
   systemd.network = {
     enable = true;
     wait-online.ignoredInterfaces = [ "tailscale0" ];
     networks = {
       "10-lan" = {
-        matchConfig.Name = interfaces.eth;
+        matchConfig.Name = interfaces.lan;
+        domains = [ "local" ];
         networkConfig = {
-          DHCP = true;
+          DHCP = "ipv4";
           IPv6AcceptRA = true;
+          MulticastDNS = true;
+          UseDomains = true;
+        };
+        linkConfig = {
+          Multicast = true;
         };
       };
     };
@@ -58,8 +72,11 @@ in
       "1.1.1.1#one.one.one.one"
       "1.0.0.1#one.one.one.one"
     ];
-    extraConfig = lib.mkIf isAdguardHost ''
-      DNSStubListener=no
+    extraConfig = ''
+      MulticastDNS=yes
+      ${lib.optionalString isAdguardHost ''
+        DNSStubListener=no
+      ''}
     '';
   };
 }
