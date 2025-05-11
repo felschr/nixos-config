@@ -46,16 +46,6 @@ in
         protection_enabled = true;
         filtering_enabled = true;
         safe_search.enabled = true;
-        rewrites = [
-          {
-            domain = "felschr.com";
-            answer = "home-server.tail05275.ts.net";
-          }
-          {
-            domain = "*.felschr.com";
-            answer = "home-server.tail05275.ts.net";
-          }
-        ];
       };
       filters = [
         {
