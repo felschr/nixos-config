@@ -40,7 +40,6 @@ in
     ../../services/wkd.nix
     ../../services/home-assistant
     ../../services/matrix
-    ../../services/immich.nix
     ../../services/miniflux.nix
     ../../services/paperless.nix
     ../../services/nextcloud.nix

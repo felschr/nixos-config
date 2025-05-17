@@ -67,21 +67,6 @@ in
     home-pc
     home-server
   ];
-  "immich/env.age".publicKeys = [
-    felschr
-    home-pc
-    home-server
-  ];
-  "immich/db-password.age".publicKeys = [
-    felschr
-    home-pc
-    home-server
-  ];
-  "immich/typesense/env.age".publicKeys = [
-    felschr
-    home-pc
-    home-server
-  ];
 
   "firefox/site-data-exceptions.toml.age".publicKeys = [
     felschr
