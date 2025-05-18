@@ -81,8 +81,8 @@
     yubikey-manager
     yubioath-flutter
     magic-wormhole-rs
-    warp
-    # onionshare-gui
+    localsend
+    onionshare-gui
     transmission_4-gtk
     unstable.qbittorrent
     fragments
