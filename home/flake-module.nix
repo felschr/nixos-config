@@ -17,6 +17,8 @@ let
     );
 in
 {
+  imports = [ inputs.home-manager.flakeModules.home-manager ];
+
   flake = {
     homeModules = {
       git = import ./modules/git.nix;
