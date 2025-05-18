@@ -7,6 +7,7 @@
   programs.zellij.settings = {
     default_layout = "compact"; # or default
     default_mode = "normal";
+    show_startup_tips = false;
     ui.pane_frames = {
       hide_session_name = true;
     };
