@@ -5,6 +5,7 @@
     ./zram.nix
     ./i18n.nix
     ./nix.nix
+    ./nix-ld.nix
     ./networking.nix
     ./hardened.nix
   ];
