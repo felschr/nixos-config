@@ -1,21 +1,39 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash gnupg
+#! /usr/bin/env bash
 # shellcheck shell=bash
 
 set -euo pipefail
 
-EMAIL=$0
+read -rp 'enter email address: ' email
 
-# create master key
-gpg2 --quick-gen-key "Felix Schröter <$EMAIL>" ed25519 sign 1y
+echo "$email"
+
+# create main key
+gpg2 --quick-gen-key "Felix Schröter <$email>" ed25519 sign 1y || true
+
+keyid=$(gpg2 --list-keys --with-colons "$email" | grep "^pub:" | cut -d: -f5)
+fpr=$(gpg2 --list-keys --with-colons "$email" | grep "^fpr:" | cut -d: -f10)
 
 # create subkeys
-gpg2 --quick-add-key KEYID cv25519 encr 1y
-gpg2 --quick-add-key KEYID ed25519 auth 1y
-gpg2 --quick-add-key KEYID ed25519 sign 1y
+gpg2 --quick-add-key "$fpr" cv25519 encr 1y
+gpg2 --quick-add-key "$fpr" ed25519 auth 1y
+gpg2 --quick-add-key "$fpr" ed25519 sign 1y
 
-# for signing git commits use the sign subkey
-# and add the public sign subkey to GitHub/GitLab
+echo "created keys:"
+gpg2 --list-keys --with-subkey-fingerprint "$keyid"
 
-# show info
-gpg2 --list-keys --with-subkey-fingerprint
+sign=$(gpg2 --list-keys --with-colons "$email" | grep "::s::" -A 1)
+sign_keyid=$(echo "$sign" | grep "^sub:" | cut -d: -f5)
+
+auth=$(gpg2 --list-keys --with-colons "$email" | grep "::a::" -A 1)
+auth_keyid=$(echo "$auth" | grep "^sub:" | cut -d: -f5)
+
+pub_sign=$(gpg2 --armor --export "$sign_keyid!")
+pub_ssh=$(gpg2 --export-ssh-key "$auth_keyid")
+
+echo "public PGP key with signing subkey:"
+echo "$pub_sign"
+echo ""
+
+echo "public SSH key for authenticating with git forges:"
+echo "$pub_ssh"
+echo ""
