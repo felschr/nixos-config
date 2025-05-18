@@ -29,7 +29,7 @@ in
         file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
       }
     ];
-    initExtra = ''
+    initContent = ''
       export KEYTIMEOUT=1
 
       ZSH_AUTOSUGGEST_USE_ASYNC=1

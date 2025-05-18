@@ -28,9 +28,9 @@
     ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
   '';
 
@@ -96,5 +96,5 @@
     emblem
   ];
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 }

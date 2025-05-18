@@ -100,8 +100,7 @@ in
     settings = {
       theme = "dark";
       server = {
-        host = "::1";
-        inherit port;
+        address = "tcp://[::1]:${toString port}";
       };
       default_2fa_method = "webauthn";
       default_redirection_url = "https://${domain}";

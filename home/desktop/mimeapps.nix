@@ -26,7 +26,7 @@ let
     pdf = [ "re.sonny.Junction.desktop" ] ++ browsers;
     ebook = [ "com.github.johnfactotum.Foliate.desktop" ];
     magnet = [ "transmission-gtk.desktop" ];
-    signal = [ "signal-desktop.desktop" ];
+    signal = [ "signal.desktop" ];
   };
 
   mimeMap = {
@@ -89,7 +89,7 @@ let
     pdf = [ "application/pdf" ];
     ebook = [ "application/epub+zip" ];
     magnet = [ "x-scheme-handler/magnet" ];
-    signal = [ "signal-desktop.desktop" ];
+    signal = [ "signal.desktop" ];
   };
 
   associations =

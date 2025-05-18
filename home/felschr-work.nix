@@ -28,9 +28,9 @@ with pkgs;
     sshKeys = [ "8A6213DCDAF86BD3A63549FCFDF71B2C92DAE02C" ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
   '';
 
@@ -75,5 +75,5 @@ with pkgs;
     emblem
   ];
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 }

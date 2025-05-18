@@ -65,15 +65,16 @@ in
       private = {
         id = 0;
         extraConfig = sharedExtraConfig;
-        extensions = commonExtensions;
+        extensions.packages = commonExtensions;
       };
       work = {
         id = 1;
         extraConfig = sharedExtraConfig;
-        extensions =
+        extensions.packages =
           commonExtensions
           ++ (with firefox-addons; [
-            bitwarden
+            # dashlane
+            # bitwarden
             react-devtools
             reduxdevtools
           ]);
