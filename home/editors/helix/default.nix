@@ -81,6 +81,22 @@ in
         ];
       }
       {
+        name = "hcl";
+        language-id = "opentofu";
+        language-servers = [ "opentofu-ls" ];
+        injection-regex = "(hcl|tf|tofu)";
+        file-types = [
+          "hcl"
+          "tf"
+          "tofu"
+        ];
+      }
+      {
+        name = "tfvars";
+        language-id = "opentofu-vars";
+        language-servers = [ "opentofu-ls" ];
+      }
+      {
         name = "graphql";
         formatter = prettier "graphql";
         auto-format = true;
@@ -209,6 +225,13 @@ in
               "?/init.lua"
             ];
           };
+        };
+      };
+      opentofu-ls = {
+        command = "opentofu-ls";
+        args = [ "serve" ];
+        config = {
+          opentofu.path = "tofu";
         };
       };
     };

@@ -8,6 +8,7 @@
     unstable.nixd
     nls
     terraform-ls
+    unstable.opentofu-ls
     pyright
     nodePackages.bash-language-server
     nodePackages.vim-language-server
