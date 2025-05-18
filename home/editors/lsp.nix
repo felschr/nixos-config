@@ -21,6 +21,7 @@
     haskellPackages.haskell-language-server
     rust-analyzer
     sumneko-lua-language-server
+    marksman
 
     # linters & formatters
     topiary
