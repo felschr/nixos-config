@@ -40,12 +40,6 @@ with pkgs;
     defaultProfile = "work";
   };
 
-  xdg.configFile."nixpkgs/config.nix".text = ''
-    {
-      allowUnfree = true;
-    }
-  '';
-
   home.packages = with pkgs; [
     fh
 

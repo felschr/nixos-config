@@ -75,12 +75,7 @@ rec {
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      nixpkgs-unstable,
-      ...
-    }@inputs:
+    inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -91,7 +86,7 @@ rec {
         ./lib/flake-module.nix
         ./hosts/flake-module.nix
         ./home/flake-module.nix
-        ./overlays.nix
+        ./overlays/flake-module.nix
       ];
       flake = {
         inherit nixConfig;
@@ -110,11 +105,6 @@ rec {
           ...
         }:
         {
-          _module.args.pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
-
           devShells.default = pkgs.mkShell { inherit (config.checks.pre-commit) shellHook; };
 
           checks = {

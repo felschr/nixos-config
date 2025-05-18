@@ -38,12 +38,6 @@
 
   programs.git.defaultProfile = "private";
 
-  xdg.configFile."nixpkgs/config.nix".text = ''
-    {
-      allowUnfree = true;
-    }
-  '';
-
   home.packages = with pkgs; [
     # system
     gparted

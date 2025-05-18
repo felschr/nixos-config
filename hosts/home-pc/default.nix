@@ -22,8 +22,6 @@
     ../../services/open-webui.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   boot.loader.systemd-boot.memtest86.enable = true;
 
   # running binaries for other architectures

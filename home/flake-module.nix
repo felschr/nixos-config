@@ -1,26 +1,38 @@
 {
   self,
   inputs,
-  pkgs,
+  lib,
   ...
 }:
 
 let
-  createHomeConfig =
-    name: args:
-    inputs.home-manager.lib.homeManagerConfiguration (
-      {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs; };
-      }
-      // args
-    );
+  mkHomeConfiguration =
+    {
+      user,
+      system,
+      modules,
+    }:
+    inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = self.pkgsFor system;
+      extraSpecialArgs = { inherit inputs; };
+
+      modules =
+        (with self.homeModules; [ nixpkgs ])
+        ++ [
+          {
+            home.username = user;
+            home.homeDirectory = "/home/${user}";
+          }
+        ]
+        ++ modules;
+    };
 in
 {
   imports = [ inputs.home-manager.flakeModules.home-manager ];
 
   flake = {
     homeModules = {
+      nixpkgs = import ./modules/nixpkgs.nix;
       git = import ./modules/git.nix;
       firefox = import ./modules/firefox/firefox.nix;
       tor-browser = import ./modules/firefox/tor-browser.nix;
@@ -32,26 +44,31 @@ in
       felschr-work = import ./felschr-work.nix;
     };
     homeConfigurations = {
-      felschr = createHomeConfig {
+      felschr = mkHomeConfiguration {
+        user = "felschr";
+        system = "x86_64-linux";
         modules = [
           self.homeModules.git
           self.homeModules.felschr
         ];
       };
-      felschr-server = createHomeConfig {
+      felschr-server = mkHomeConfiguration {
+        user = "felschr";
+        system = "x86_64-linux";
         modules = [
           self.homeModules.git
           self.homeModules.felschr-server
         ];
       };
-      felschr-work = createHomeConfig {
+      felschr-work = mkHomeConfiguration {
+        user = "felschr";
+        system = "x86_64-linux";
         modules = [
           self.homeModules.git
           self.homeModules.felschr-work
         ];
       };
     };
-    # HINT alias for deprecated output
-    homeManagerModules = self.homeModules;
+    homeManagerModules = lib.warn "`homeManagerModules` is deprecated. Use `homeModules` instead." self.homeModules;
   };
 }

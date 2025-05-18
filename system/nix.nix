@@ -4,6 +4,8 @@ let
   inherit (inputs.self.outputs) nixConfig;
 in
 {
+  nixpkgs.config.allowUnfree = true;
+
   nix.gc = {
     automatic = true;
     dates = "04:00";

@@ -50,8 +50,6 @@ in
   age.secrets.cloudflare.file = ../../secrets/cloudflare.age;
   age.secrets.hostKey.file = ../../secrets/home-server/hostKey.age;
 
-  nixpkgs.config.allowUnfree = true;
-
   networking.domain = "home.felschr.com";
 
   networking.firewall.allowedTCPPorts = [
