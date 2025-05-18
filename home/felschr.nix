@@ -56,9 +56,6 @@
     tabbed
     curtail
 
-    # work
-    teams-for-linux
-
     # dev & admin
     pods
     # gaphor
