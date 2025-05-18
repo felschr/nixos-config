@@ -79,8 +79,7 @@
     raider
     gnome-obfuscate
     yubikey-manager
-    yubikey-manager-qt
-    # yubioath-flutter # TODO conflicts with fluffychat
+    yubioath-flutter
     magic-wormhole-rs
     warp
     # onionshare-gui
