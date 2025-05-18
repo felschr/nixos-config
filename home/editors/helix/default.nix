@@ -26,7 +26,8 @@ in
         name = "javascript";
         language-servers = typescriptLanguageServers;
         # TODO also configure eslint for diagnostics
-        # formatter.command = "eslint_d --fix";
+        # formatter.command = ["eslint_d"];
+        # formatter.args = ["--fix"];
         formatter = prettier "typescript";
         auto-format = true;
       }
@@ -54,7 +55,7 @@ in
       }
       {
         name = "nix";
-        # `nix fmt` does not support stdin
+        # HINT `nix fmt` is a bit slow
         formatter.command = "nixfmt";
         language-servers = [
           "nixd"
@@ -69,7 +70,11 @@ in
       }
       {
         name = "protobuf";
-        formatter.command = "buf format -w";
+        formatter.command = "buf";
+        formatter.args = [
+          "format"
+          "-w"
+        ];
         language-servers = [
           "bufls"
           "buf-lint"
