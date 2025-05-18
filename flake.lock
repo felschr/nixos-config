@@ -39,29 +39,6 @@
         "type": "github"
       }
     },
-    "csharp-language-server": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1743061507,
-        "narHash": "sha256-M605lQQ035J61tZ48tye8JUCN4MZKXhcTP3SqXqtr4g=",
-        "owner": "SofusA",
-        "repo": "csharp-language-server",
-        "rev": "a119d6002874d9335dbff0a9445f652762eb6685",
-        "type": "github"
-      },
-      "original": {
-        "owner": "SofusA",
-        "repo": "csharp-language-server",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -593,7 +570,6 @@
       "inputs": {
         "agenix": "agenix",
         "arkenfox-userjs": "arkenfox-userjs",
-        "csharp-language-server": "csharp-language-server",
         "deploy-rs": "deploy-rs",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",

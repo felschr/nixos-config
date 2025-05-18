@@ -23,11 +23,6 @@ in
     package = pkgs.unstable.helix;
     languages.language = [
       {
-        name = "c-sharp";
-        language-servers = [ "roslyn" ];
-        auto-format = true;
-      }
-      {
         name = "javascript";
         language-servers = typescriptLanguageServers;
         # TODO also configure eslint for diagnostics
@@ -140,7 +135,6 @@ in
           };
         };
       };
-      roslyn.command = "csharp-language-server";
       statix = {
         command = "efm-langserver";
         config = {
