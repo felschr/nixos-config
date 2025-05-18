@@ -112,7 +112,10 @@ rec {
               src = ./.;
               hooks = {
                 nixfmt-rfc-style.enable = true;
-                shellcheck.enable = true;
+                shellcheck = {
+                  enable = true;
+                  excludes = [ ".envrc" ];
+                };
               };
             };
           };
