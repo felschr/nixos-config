@@ -1,10 +1,8 @@
-{ inputs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
-  imports = [ inputs.nixos-cosmic.nixosModules.default ];
+  services.desktopManager.cosmic.enable = true;
 
-  # TODO at the moment COSMIC cannot be used alongside Gnome
-  # https://github.com/lilyinstarlight/nixos-cosmic/issues/17
   specialisation = {
     cosmic.configuration = {
       services.xserver.displayManager.gdm.enable = lib.mkForce false;

@@ -4,12 +4,10 @@ rec {
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
-      "https://cosmic.cachix.org/"
       "https://felschr.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       "felschr.cachix.org-1:raomy5XA2tsVkBoG6wo70ARIn+V24IXhWaSe3QZo12A="
     ];
   };
@@ -67,11 +65,6 @@ rec {
     nvim-kitty-navigator = {
       url = "github:hermitmaster/nvim-kitty-navigator";
       flake = false;
-    };
-
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     openwrt-imagebuilder = {
