@@ -145,7 +145,8 @@ in
       authorizedKeys = config.users.users.felschr.openssh.authorizedKeys.keys;
     };
   };
-  boot.initrd.systemd.network.wait-online.anyInterface = true;
+  boot.initrd.systemd.network.networks."10-lan" = config.systemd.network.networks."10-lan";
+  boot.initrd.systemd.users.root.shell = "/bin/systemd-tty-ask-password-agent";
   # allow automated decryption
   # `echo -n '<LUKS passphrase here>' | clevis encrypt tang '{"url": "http://doctr.local:9090"}' > home-server-enc.jwe`
   boot.initrd.clevis.enable = true;
