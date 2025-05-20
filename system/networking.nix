@@ -33,6 +33,7 @@ let
 in
 {
   networking = {
+    useNetworkd = true;
     useDHCP = false;
     nameservers = if isAdguardHost then nameservers.local else nameservers.remote;
     nftables.enable = true;
