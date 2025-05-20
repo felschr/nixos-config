@@ -14,6 +14,9 @@
 
   boot.initrd.systemd.enable = true;
 
+  # prevents `systemd-vconsole-setup` failing during systemd initrd
+  systemd.services.systemd-vconsole-setup.unitConfig.After = "local-fs.target";
+
   services.smartd.enable = true;
   services.smartd.notifications.x11.enable = true;
 }
