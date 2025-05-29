@@ -82,7 +82,6 @@ in
           enabled = true;
         }
       ];
-      log.verbose = true;
     };
   };
 
