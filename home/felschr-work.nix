@@ -17,6 +17,7 @@ with pkgs;
     ./signal.nix
     ./browsers
     ./planck.nix
+    ./services/easyeffects.nix
   ];
 
   programs.gpg.enable = true;
@@ -25,7 +26,7 @@ with pkgs;
     enable = true;
     enableSshSupport = true;
     # use auth subkey's keygrip: gpg2 -K --with-keygrip
-    sshKeys = [ "8A6213DCDAF86BD3A63549FCFDF71B2C92DAE02C" ];
+    sshKeys = [ "70DBD13E3BCAF806D416647D9C51321E2F1312CF" ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
     pinentry.package = pkgs.pinentry-gnome3;
@@ -36,20 +37,18 @@ with pkgs;
 
   programs.ssh.enable = true;
 
-  programs.git = {
-    defaultProfile = "work";
-  };
+  programs.git.defaultProfile = "work";
 
   home.packages = with pkgs; [
-    fh
-
     # system
     gparted
     gnome-firmware-updater
     mission-center
 
     # productivity
+    obsidian
     libreoffice-fresh
+    curtail
 
     # dev & admin
     pods
@@ -61,11 +60,20 @@ with pkgs;
     collision
     metadata-cleaner
     raider
+    gnome-obfuscate
+    yubikey-manager
+    yubioath-flutter
+    localsend
+    onionshare-gui
 
     # entertainment
     celluloid
 
+    # ai
+    unstable.alpaca
+
     # other
+    zotero
     emblem
   ];
 
