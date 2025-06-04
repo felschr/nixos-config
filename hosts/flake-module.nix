@@ -1,6 +1,9 @@
 { self, inputs, ... }:
 {
   flake = {
+    diskoConfigurations = {
+      cmdframe = import ./cmdframe/disk-config.nix;
+    };
     nixosConfigurations = {
       home-pc = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -67,6 +70,33 @@
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP751vlJUnB7Pfe1KNr6weWkx/rkP4J3lTYpAekHdOgV"
               ];
             };
+          })
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
+      };
+      cmdframe = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.disko.nixosModules.disko
+          inputs.nixpkgs.nixosModules.notDetected
+          inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
+          (self.lib.createSystemModule "cmdframe" {
+            hardwareConfig = ../hosts/cmdframe/hardware.nix;
+            config = ../hosts/cmdframe/default.nix;
+          })
+          (self.lib.createUserModule "felschr" {
+            homeModule = self.homeModules.felschr-work;
+            user.extraGroups = [
+              "wheel"
+              "networkmanager"
+              "audio"
+              "disk"
+              "libvirtd"
+              "qemu-libvirtd"
+            ];
+            usesContainers = true;
           })
         ];
         specialArgs = {
