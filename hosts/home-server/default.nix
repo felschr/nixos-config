@@ -18,6 +18,7 @@ let
 in
 {
   imports = [
+    ./disk-config.nix
     ../../hardware/base.nix
     ../../desktop/x11.nix
     ../../system/server.nix

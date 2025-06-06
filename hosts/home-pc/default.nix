@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./disk-config.nix
     ../../hardware/base.nix
     ../../hardware/bluetooth.nix
     ../../hardware/xbox.nix

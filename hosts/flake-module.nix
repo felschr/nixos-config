@@ -2,12 +2,15 @@
 {
   flake = {
     diskoConfigurations = {
+      home-pc = import ./home-pc/disk-config.nix;
+      home-server = import ./home-server/disk-config.nix;
       cmdframe = import ./cmdframe/disk-config.nix;
     };
     nixosConfigurations = {
       home-pc = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          inputs.disko.nixosModules.disko
           inputs.nixpkgs.nixosModules.notDetected
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -46,6 +49,7 @@
       home-server = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          inputs.disko.nixosModules.disko
           inputs.nixpkgs.nixosModules.notDetected
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
