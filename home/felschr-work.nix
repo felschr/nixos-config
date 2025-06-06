@@ -23,7 +23,10 @@ with pkgs;
     enable = true;
     enableSshSupport = true;
     # use auth subkey's keygrip: gpg2 -K --with-keygrip
-    sshKeys = [ "70DBD13E3BCAF806D416647D9C51321E2F1312CF" ];
+    sshKeys = [
+      "3C48489F3B0FBB44E72180D4B1D7541C201C9987"
+      "70DBD13E3BCAF806D416647D9C51321E2F1312CF"
+    ];
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 600;
     pinentry.package = pkgs.pinentry-gnome3;
