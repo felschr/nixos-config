@@ -1,10 +1,17 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   inherit (inputs.self.outputs) nixConfig;
 in
 {
   nixpkgs.config.allowUnfree = true;
+
+  nix.package = pkgs.lix;
 
   nix.gc = {
     automatic = true;
