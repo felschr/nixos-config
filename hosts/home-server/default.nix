@@ -128,6 +128,7 @@ in
     inherit hostKeys;
   };
 
+  services.tailscale.useRoutingFeatures = "both";
   services.tailscale.extraUpFlags = [
     # "--accept-routes" # breaks incoming connections from outside Tailnet
     "--advertise-tags=tag:felschr-com"

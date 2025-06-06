@@ -19,7 +19,7 @@ in
     enable = true;
     package = pkgs.unstable.tailscale;
     openFirewall = true;
-    useRoutingFeatures = "both";
+    useRoutingFeatures = lib.mkDefault "client";
     extraUpFlags = [
       "--reset"
       "--exit-node-allow-lan-access"
