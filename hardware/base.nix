@@ -14,6 +14,8 @@
 
   boot.initrd.systemd.enable = true;
 
+  boot.plymouth.enable = true;
+
   # prevents `systemd-vconsole-setup` failing during systemd initrd
   console.earlySetup = true;
   systemd.services.systemd-vconsole-setup.unitConfig.After = "local-fs.target";
