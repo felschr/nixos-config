@@ -12,7 +12,7 @@
         signingKey = "7E08 6842 0934 AA1D 6821  1F2A 671E 39E6 744C 807D";
         dirs = [
           "~/dev/private/"
-          "/etc/nixos"
+          "/etc/nixos/"
         ];
       };
       work = {
