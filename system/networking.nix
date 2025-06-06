@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   isAdguardHost = config.services.adguardhome.enable;
@@ -83,4 +88,12 @@ in
 
   # mDNS already handled by systemd-resolved
   services.avahi.enable = false;
+
+  programs.mtr.enable = true;
+  programs.mosh.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    dig
+    wireguard-tools
+  ];
 }
