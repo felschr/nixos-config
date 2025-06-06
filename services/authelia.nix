@@ -211,7 +211,7 @@ in
   ];
 
   services.nginx-authelia = {
-    inherit port;
+    inherit domain port;
   };
 
   services.postgresql = {
