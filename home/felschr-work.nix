@@ -3,6 +3,7 @@
 with pkgs;
 {
   imports = [
+    ./base.nix
     ./shell
     ./tailscale.nix
     ./editors

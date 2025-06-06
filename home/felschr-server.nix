@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./base.nix
     ./shell
     ./editors/lsp.nix
     ./editors/helix

@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./base.nix
     ./shell
     ./tailscale.nix
     ./editors

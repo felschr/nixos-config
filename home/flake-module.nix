@@ -16,15 +16,12 @@ let
       pkgs = self.pkgsFor system;
       extraSpecialArgs = { inherit inputs; };
 
-      modules =
-        (with self.homeModules; [ nixpkgs ])
-        ++ [
-          {
-            home.username = user;
-            home.homeDirectory = "/home/${user}";
-          }
-        ]
-        ++ modules;
+      modules = [
+        {
+          home.username = user;
+          home.homeDirectory = "/home/${user}";
+        }
+      ] ++ modules;
     };
 in
 {
@@ -32,7 +29,6 @@ in
 
   flake = {
     homeModules = {
-      nixpkgs = import ./modules/nixpkgs.nix;
       git = import ./modules/git.nix;
       firefox = import ./modules/firefox/firefox.nix;
       tor-browser = import ./modules/firefox/tor-browser.nix;
