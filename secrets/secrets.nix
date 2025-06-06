@@ -3,7 +3,7 @@ let
   felschr = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbQpMo1JOGk59Rzl6pVoOcMHOoqezph+aIlEXZP4rBu";
   users = [ felschr ];
 
-  # `ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key`
+  # `ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key`
   home-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
   home-server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILO+OLPr8zdOMYyKtm98AFJai7zbaxw7JhVWgOwu7K3C";
   cmdframe = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAMcPrg69IqmH3V+7lgoXif/J6z4/aEi7w7p5jRn/lkp";
