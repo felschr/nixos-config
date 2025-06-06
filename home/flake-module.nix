@@ -33,6 +33,7 @@ in
       firefox = import ./modules/firefox/firefox.nix;
       tor-browser = import ./modules/firefox/tor-browser.nix;
       mullvad-browser = import ./modules/firefox/mullvad-browser.nix;
+      cosmic = import ./modules/cosmic;
 
       # users
       felschr = import ./felschr.nix;
