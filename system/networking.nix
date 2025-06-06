@@ -15,7 +15,7 @@ let
 
   lan = rec {
     IPv4Prefix = "192.168.1";
-    IPv4CIDR = "${IPv4Prefix}.1/24";
+    IPv4CIDR = "${IPv4Prefix}.0/24";
     IPv6ULAPrefix = "fd1c:ca95:d74d";
     IPv6ULACIDR = "${IPv6ULAPrefix}::/48";
   };
