@@ -37,9 +37,6 @@ in
         certificate_path = "${config.security.acme.certs."${host}".directory}/fullchain.pem";
         private_key_path = "${config.security.acme.certs."${host}".directory}/key.pem";
       };
-      # HINT: users needs to be set up manually:
-      # https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#password-reset
-      # users = [ { name = "felschr"; } ];
       querylog = {
         enabled = true;
         interval = "24h";
@@ -104,6 +101,7 @@ in
 
   services.nginx = {
     virtualHosts."${host}" = {
+      enableAutheliaAuth = true;
       enableACME = true;
       forceSSL = true;
       http3 = true;
