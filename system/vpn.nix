@@ -15,6 +15,27 @@ in
   networking.wireguard.enable = true;
   networking.firewall.trustedInterfaces = [ tailscaleInterface ];
 
+  systemd.network = {
+    # Fixes issues with other systemd networks when tailscale exist nodes are used
+    config.networkConfig = {
+      ManageForeignRoutes = false;
+      ManageForeignRoutingPolicyRules = false;
+    };
+    wait-online.ignoredInterfaces = [ "tailscale0" ];
+  };
+
+  services.networkd-dispatcher = {
+    enable = true;
+    rules."50-tailscale" = {
+      onState = [ "routable" ];
+      script = ''
+        for dev in $(${pkgs.iproute2}/bin/ip route show 0/0 | cut -f5 -d' '); do
+          ${lib.getExe pkgs.ethtool} -K "$dev" rx-udp-gro-forwarding on rx-gro-list off
+        done
+      '';
+    };
+  };
+
   services.tailscale = {
     enable = true;
     package = pkgs.unstable.tailscale;
@@ -27,7 +48,13 @@ in
     ];
   };
 
-  systemd.services.tailscaled.serviceConfig.Environment = [ "TS_DEBUG_FIREWALL_MODE=auto" ];
+  systemd.services.tailscaled = {
+    serviceConfig.Environment = [ "TS_DEBUG_FIREWALL_MODE=auto" ];
+    after = [
+      "network-online.target"
+      "systemd-resolved.service"
+    ];
+  };
 
   # call taiscale up without --auth-key
   systemd.services.tailscaled-autoconnect = lib.mkIf (cfg.authKeyFile == null) {

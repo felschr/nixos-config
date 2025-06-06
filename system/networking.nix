@@ -50,7 +50,6 @@ in
 
   systemd.network = {
     enable = true;
-    wait-online.ignoredInterfaces = [ "tailscale0" ];
     networks = {
       "10-lan" = {
         matchConfig.Name = interfaces.lan;
