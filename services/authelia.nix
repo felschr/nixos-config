@@ -63,6 +63,8 @@ let
   smtpAccount = config.programs.msmtp.accounts.default;
 in
 {
+  imports = [ ../modules/nginx-authelia.nix ];
+
   age.secrets.authelia-jwt = {
     file = ../secrets/authelia/jwt.age;
     owner = cfg.user;
@@ -207,6 +209,10 @@ in
     "postgresql.service"
     "lldap.service"
   ];
+
+  services.nginx-authelia = {
+    inherit port;
+  };
 
   services.postgresql = {
     enable = true;

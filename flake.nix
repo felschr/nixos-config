@@ -104,6 +104,7 @@ rec {
           flakeDefaults = import ./modules/flakeDefaults.nix;
           systemdNotify = import ./modules/systemdNotify.nix;
           inadyn = import ./modules/inadyn.nix;
+          nginx-authelia = import ./modules/nginx-authelia.nix;
         };
       };
       perSystem =
