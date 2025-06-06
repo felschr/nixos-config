@@ -35,7 +35,7 @@
           (
             { pkgs, ... }:
             {
-              environment.systemPackages = [ inputs.deploy-rs.defaultPackage.x86_64-linux ];
+              environment.systemPackages = [ inputs.deploy-rs.packages.x86_64-linux.default ];
             }
           )
         ];
