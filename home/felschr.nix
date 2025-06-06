@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -15,6 +15,7 @@
     ./ausweisapp.nix
     ./gaming
     ./services/easyeffects.nix
+    inputs.seven-modules.homeModules.seven
   ];
 
   programs.gpg.enable = true;
@@ -89,6 +90,8 @@
     newsflash
     emblem
   ];
+
+  seven.enable = true;
 
   home.stateVersion = "25.05";
 }

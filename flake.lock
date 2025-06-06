@@ -474,7 +474,28 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
         "openwrt-imagebuilder": "openwrt-imagebuilder",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "pre-commit-hooks": "pre-commit-hooks",
+        "seven-modules": "seven-modules"
+      }
+    },
+    "seven-modules": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749209568,
+        "narHash": "sha256-D8EN+fjyhYGhQQoY5WfGlX7arc+C7OyDk66CJuscpGo=",
+        "ref": "refs/heads/main",
+        "rev": "520d5c291ca0d059fc38f42f503bb704d72b22f4",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://git@felschr.com:2222/felschr/seven-modules"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@felschr.com:2222/felschr/seven-modules"
       }
     },
     "systems": {

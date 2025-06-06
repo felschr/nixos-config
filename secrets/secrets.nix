@@ -14,6 +14,14 @@ let
   ];
 in
 {
+  "wireguard/seven/home-pc.key.age".publicKeys = [
+    felschr
+    home-pc
+  ];
+  "wireguard/seven/cmdframe.key.age".publicKeys = [
+    felschr
+    cmdframe
+  ];
   "restic/b2.age".publicKeys = [
     felschr
     home-pc

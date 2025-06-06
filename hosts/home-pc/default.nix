@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ inputs, config, ... }:
 
 {
   imports = [
@@ -20,7 +20,13 @@
     ../../services/restic/home-pc.nix
     ../../services/pcscd.nix
     ../../services/open-webui.nix
+    inputs.seven-modules.nixosModules.seven
   ];
+
+  age.secrets.wireguard-seven-home-pc-key = {
+    file = ../../secrets/wireguard/seven/home-pc.key.age;
+    owner = "systemd-network";
+  };
 
   boot.loader.systemd-boot.memtest86.enable = true;
 
@@ -52,6 +58,17 @@
   networking.hosts = {
     # force IPv4, see: https://github.com/transmission/transmission/issues/407
     "87.98.162.88" = [ "portcheck.transmissionbt.com" ];
+  };
+
+  seven = {
+    enable = true;
+    wireguard = {
+      addresses = [
+        "198.18.1.239/15"
+        "fd00:5ec::1ef/48"
+      ];
+      privateKeyFile = config.age.secrets.wireguard-seven-home-pc-key.path;
+    };
   };
 
   systemd.notify.enable = true;

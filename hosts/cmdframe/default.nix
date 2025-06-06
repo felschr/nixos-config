@@ -1,4 +1,4 @@
-{ config, ... }:
+{ inputs, config, ... }:
 
 {
   imports = [
@@ -13,7 +13,13 @@
     ../../virtualisation/podman.nix
     ../../virtualisation/libvirt.nix
     ../../modules/systemdNotify.nix
+    inputs.seven-modules.nixosModules.seven
   ];
+
+  age.secrets.wireguard-seven-cmdframe-key = {
+    file = ../../secrets/wireguard/seven/cmdframe.key.age;
+    owner = "systemd-network";
+  };
 
   services.fprintd.enable = true;
 
@@ -32,6 +38,17 @@
     "--accept-routes"
     "--operator=felschr"
   ];
+
+  seven = {
+    enable = true;
+    wireguard = {
+      addresses = [
+        "198.18.1.241/15"
+        "fd00:5ec::1f1/48"
+      ];
+      privateKeyFile = config.age.secrets.wireguard-seven-cmdframe-key.path;
+    };
+  };
 
   systemd.notify.enable = true;
   systemd.notify.method = "libnotify";

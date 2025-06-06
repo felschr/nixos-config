@@ -77,6 +77,10 @@ rec {
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    seven-modules = {
+      url = "git+ssh://git@felschr.com:2222/felschr/seven-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
