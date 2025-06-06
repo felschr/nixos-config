@@ -74,14 +74,13 @@ in
   '';
   services.inadyn.ipv4.enable = true;
   services.inadyn.ipv4.command = "${pkgs.writeScript "get-ipv4" ''
-    ${pkgs.tailscale}/bin/tailscale status --json \
-      | ${pkgs.jq}/bin/jq -r '.Self.Addrs[0]' \
-      | cut -f1 -d":"
+    eth=$(ls /sys/class/net | grep -E '^(enp|eth)' | head -1)
+    ${pkgs.curl}/bin/curl -4 --interface "$eth" ip.me
   ''}";
   services.inadyn.ipv6.enable = true;
   services.inadyn.ipv6.command = "${pkgs.writeScript "get-ipv6" ''
-    ${pkgs.iproute2}/bin/ip -6 addr show scope global \
-      | ${pkgs.grepcidr}/bin/grepcidr '2000::/3' \
+    eth=$(ls /sys/class/net | grep -E '^(enp|eth)' | head -1)
+    ${pkgs.iproute2}/bin/ip -6 addr show dev "$eth" scope global to '2000::/3' \
       | grep -o '[0-9a-f:]*::102'
   ''}";
   services.inadyn.domains = [
