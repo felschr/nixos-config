@@ -17,7 +17,7 @@
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
           inputs.nixos-hardware.nixosModules.common-gpu-amd
           (self.lib.createSystemModule "home-pc" {
-            hardwareConfig = ../hardware/home-pc.nix;
+            hardwareConfig = ../hosts/home-pc/hardware.nix;
             config = ../hosts/home-pc/default.nix;
           })
           self.lib.createMediaGroup
@@ -57,7 +57,7 @@
           inputs.nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
           inputs.matrix-appservices.nixosModule
           (self.lib.createSystemModule "home-server" {
-            hardwareConfig = ../hardware/lattepanda.nix;
+            hardwareConfig = ../hosts/home-server/hardware.nix;
             config = ../hosts/home-server/default.nix;
           })
           self.lib.createMediaGroup
