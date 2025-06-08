@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  lib,
   ...
 }:
 
@@ -37,7 +38,16 @@ in
     config.safe.directory = [ "/etc/nixos" ];
   };
 
-  systemd.services.nixos-upgrade.preStart = ''
-    nix flake update --flake ${config.system.autoUpgrade.flake}
-  '';
+  systemd.services.nixos-upgrade.preStart =
+    let
+      inputsToIgnore = [
+        "self"
+        "seven-modules"
+      ];
+      inputsToUpdate = lib.filter (i: !(lib.elem i inputsToIgnore)) (lib.attrNames inputs);
+      inputsToUpdateStr = lib.concatStringsSep " " inputsToUpdate;
+    in
+    ''
+      nix flake update ${inputsToUpdateStr} --flake ${config.system.autoUpgrade.flake}
+    '';
 }
