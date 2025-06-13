@@ -1,7 +1,11 @@
 let
   # age-specific key in ~/.ssh/id_ed25519: `ssh-keygen -t ed25519`
   felschr = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbQpMo1JOGk59Rzl6pVoOcMHOoqezph+aIlEXZP4rBu";
-  users = [ felschr ];
+  felschr-work = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIU91pgfo4oH4Vn0vBNZZ5PTO21XdEhhNYQ6Bt6kVlO5";
+  users = [
+    felschr
+    felschr-work
+  ];
 
   # `ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key`
   home-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFTQvIcSdhEKl/Kq+pcS/cPCyyZ1ygj+djfuaXzaRMx";
@@ -16,20 +20,24 @@ in
 {
   "wireguard/seven/home-pc.key.age".publicKeys = [
     felschr
+    felschr-work
     home-pc
   ];
   "wireguard/seven/cmdframe.key.age".publicKeys = [
     felschr
+    felschr-work
     cmdframe
   ];
   "restic/b2.age".publicKeys = [
     felschr
+    felschr-work
     home-pc
     home-server
     cmdframe
   ];
   "restic/password.age".publicKeys = [
     felschr
+    felschr-work
     home-pc
     home-server
     cmdframe
@@ -82,6 +90,7 @@ in
 
   "firefox/site-data-exceptions.toml.age".publicKeys = [
     felschr
+    felschr-work
     home-pc
     cmdframe
   ];
