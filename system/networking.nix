@@ -70,7 +70,8 @@ in
   services.dnsmasq.enable = false;
   services.resolved = {
     enable = true;
-    dnsovertls = if isAdguardHost then "opportunistic" else "true";
+    # HINT with "true" even fallback or interface-specific DNS servers won't work if they don't support TLS
+    dnsovertls = "opportunistic";
     fallbackDns = [
       "194.242.2.2#dns.mullvad.net"
       "194.242.2.4#base.dns.mullvad.net"
