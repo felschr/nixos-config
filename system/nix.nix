@@ -10,9 +10,13 @@ let
   inherit (inputs.self.outputs) nixConfig;
 in
 {
-  nixpkgs.config.allowUnfree = true;
+  imports = [
+    # TODO switch to lixFromNixpkgs once 2.93.2 is available
+    inputs.lix-module.nixosModules.default
+    # inputs.lix-module.nixosModules.lixFromNixpkgs
+  ];
 
-  nix.package = pkgs.lix;
+  nixpkgs.config.allowUnfree = true;
 
   nix.gc = {
     automatic = true;
