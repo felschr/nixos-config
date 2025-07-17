@@ -5,7 +5,7 @@
     ./disk-config.nix
     ../../hardware/base.nix
     ../../hardware/bluetooth.nix
-    ../../system/desktop.nix
+    ../../system/laptop.nix
     ../../system/printing/home.nix
     ../../desktop
     ../../desktop/cosmic.nix
