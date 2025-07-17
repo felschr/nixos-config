@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./boot.nix
     ./zram.nix
     ./i18n.nix
     ./nix.nix
