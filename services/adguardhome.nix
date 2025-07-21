@@ -59,12 +59,12 @@ in
         {
           name = "OISD (Big)";
           url = "https://big.oisd.nl";
-          enabled = false;
+          enabled = true;
         }
         {
           name = "AdGuard DNS filter";
           url = "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt";
-          enabled = false;
+          enabled = true;
         }
       ];
       whitelist_filters = [
