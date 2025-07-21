@@ -217,6 +217,7 @@ in
       work = {
         id = 1;
         settings = commonSettings;
+        search = commonSearch;
         extensions.packages =
           commonExtensions
           ++ (with firefox-addons; [
