@@ -35,6 +35,24 @@ let
       "fd7a:115c:a1e0::a0a1:203c#dns.felschr.com"
     ];
   };
+
+  mkPublicWifiProfile = ssid: {
+    connection = {
+      id = ssid;
+      type = "wifi";
+    };
+    wifi = {
+      mode = "infrastructure";
+      inherit ssid;
+    };
+    ipv4 = {
+      method = "auto";
+    };
+    ipv6 = {
+      method = "auto";
+      addr-gen-mode = "stable-privacy";
+    };
+  };
 in
 {
   networking = {
@@ -46,6 +64,11 @@ in
       5353 # mDNS
     ];
     networkmanager.dns = "systemd-resolved";
+    networkmanager.ensureProfiles.profiles = {
+      "WIFIonICE" = mkPublicWifiProfile "WIFIonICE";
+      "WIFI@DB" = mkPublicWifiProfile "WIFI@DB";
+      "metronom free WLAN" = mkPublicWifiProfile "metronom free WLAN";
+    };
   };
 
   systemd.network = {
