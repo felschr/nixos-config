@@ -55,6 +55,13 @@ in
     };
   };
 
+  users.groups.git = { };
+  users.users.git = {
+    isSystemUser = true;
+    createHome = false;
+    group = "git";
+  };
+
   networking.firewall.allowedTCPPorts = [ sshPort ];
 
   services.nginx.virtualHosts.${domain} = {
