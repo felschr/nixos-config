@@ -18,20 +18,18 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.optimise = {
-    automatic = true;
-  };
-
-  nix.gc = {
-    automatic = true;
-    dates = "04:00";
-    options = "--delete-older-than 30d";
-  };
-
-  nix.settings = {
-    trusted-users = [ "@wheel" ];
-    substituters = nixConfig.extra-substituters;
-    trusted-public-keys = nixConfig.extra-trusted-public-keys;
+  nix = {
+    settings = {
+      trusted-users = [ "@wheel" ];
+      substituters = nixConfig.extra-substituters;
+      trusted-public-keys = nixConfig.extra-trusted-public-keys;
+    };
+    optimise.automatic = true;
+    gc = {
+      automatic = true;
+      dates = "04:00";
+      options = "--delete-older-than 30d";
+    };
   };
 
   system.autoUpgrade = {
