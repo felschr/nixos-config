@@ -13,7 +13,7 @@
     ../../virtualisation/podman.nix
     ../../virtualisation/libvirt.nix
     ../../modules/systemdNotify.nix
-    ../../services/open-webui.nix
+    ../../services/llm.nix
     inputs.seven-modules.nixosModules.seven
   ];
 

@@ -20,7 +20,7 @@
     ../../services/samba/home-pc.nix
     ../../services/restic/home-pc.nix
     ../../services/pcscd.nix
-    ../../services/open-webui.nix
+    ../../services/llm.nix
     inputs.seven-modules.nixosModules.seven
   ];
 
