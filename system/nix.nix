@@ -54,4 +54,8 @@ in
     ''
       nix flake update ${inputsToUpdateStr} --flake ${config.system.autoUpgrade.flake}
     '';
+
+  environment.systemPackages = with pkgs; [
+    unstable.nix-tree
+  ];
 }
