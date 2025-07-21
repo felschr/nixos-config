@@ -68,6 +68,7 @@ with pkgs;
 
     # entertainment
     celluloid
+    spotify
 
     # ai
     unstable.alpaca
