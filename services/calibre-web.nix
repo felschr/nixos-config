@@ -11,6 +11,9 @@ in
 
   services.calibre-web = {
     enable = true;
+    package = pkgs.calibre-web.overridePythonAttrs (old: {
+      dependencies = old.dependencies ++ old.optional-dependencies.kobo;
+    });
     group = "media";
     listen.ip = "::1";
     listen.port = port;
