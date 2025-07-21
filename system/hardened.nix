@@ -12,8 +12,16 @@
   # @TODO hardened kernel causes Bluetooth issues
   boot.kernelPackages = lib.mkOverride 900 pkgs.linuxPackages;
 
-  # Xbox Controller not working via Bluetooth if enabled
-  security.lockKernelModules = lib.mkOverride 900 false;
+  security = {
+    # Xbox Controller not working via Bluetooth if enabled
+    lockKernelModules = lib.mkOverride 900 false;
+
+    sudo.enable = false;
+    sudo-rs = {
+      enable = true;
+      execWheelOnly = true;
+    };
+  };
 
   boot.loader.systemd-boot.editor = lib.mkDefault false;
 
