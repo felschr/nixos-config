@@ -119,4 +119,20 @@ in
     dig
     wireguard-tools
   ];
+
+  networking.networkmanager.dispatcherScripts = [
+    {
+      #!/usr/bin/env bash
+      source = pkgs.writeText "connect_ice" ''
+        set -euxo pipefail
+        ACTION="$2"
+        if [[ "$ACTION" == "up" ]]; then
+          if [[ "$CONNECTION_ID" =~ "WIFIonICE|WIFI@DB" ]]; then
+            ${pkgs.curl}/bin/curl 'https://login.wifionice.de/cna/logon' -sSL -X POST
+          fi
+        fi
+      '';
+      type = "basic";
+    }
+  ];
 }
