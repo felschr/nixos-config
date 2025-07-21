@@ -18,6 +18,10 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  nix.optimise = {
+    automatic = true;
+  };
+
   nix.gc = {
     automatic = true;
     dates = "04:00";
@@ -26,7 +30,6 @@ in
 
   nix.settings = {
     trusted-users = [ "@wheel" ];
-    auto-optimise-store = true;
     substituters = nixConfig.extra-substituters;
     trusted-public-keys = nixConfig.extra-trusted-public-keys;
   };
