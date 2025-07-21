@@ -19,8 +19,6 @@
   services.ollama = {
     enable = true;
     package = pkgs.unstable.ollama;
-    acceleration = "rocm";
-    rocmOverrideGfx = "10.3.1";
   };
 
   services.open-webui = {

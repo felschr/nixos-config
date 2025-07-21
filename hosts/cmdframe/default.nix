@@ -13,6 +13,7 @@
     ../../virtualisation/podman.nix
     ../../virtualisation/libvirt.nix
     ../../modules/systemdNotify.nix
+    ../../services/open-webui.nix
     inputs.seven-modules.nixosModules.seven
   ];
 
@@ -38,6 +39,11 @@
     "--accept-routes"
     "--operator=felschr"
   ];
+
+  services.ollama = {
+    acceleration = "rocm";
+    rocmOverrideGfx = "11.5.0";
+  };
 
   seven = {
     enable = true;

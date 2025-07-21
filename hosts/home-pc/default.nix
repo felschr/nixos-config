@@ -61,6 +61,11 @@
     "87.98.162.88" = [ "portcheck.transmissionbt.com" ];
   };
 
+  services.ollama = {
+    acceleration = "rocm";
+    rocmOverrideGfx = "10.3.1";
+  };
+
   seven = {
     enable = true;
     wireguard = {
