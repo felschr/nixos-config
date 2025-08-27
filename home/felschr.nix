@@ -69,7 +69,7 @@
 
     # security & privacy
     unstable.proton-pass
-    authenticator
+    unstable.proton-authenticator
     collision
     metadata-cleaner
     raider
