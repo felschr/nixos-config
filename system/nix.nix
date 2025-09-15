@@ -10,15 +10,22 @@ let
   inherit (inputs.self.outputs) nixConfig;
 in
 {
-  imports = [
-    # TODO switch to lixFromNixpkgs once 2.93.2 is available
-    inputs.lix-module.nixosModules.default
-    # inputs.lix-module.nixosModules.lixFromNixpkgs
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      inherit (final.lixPackageSets.stable)
+        nixpkgs-review
+        # nix-direnv # HINT infinite recursion, overwritten in home-manager config instead
+        nix-eval-jobs
+        nix-fast-build
+        colmena
+        ;
+    })
+  ];
+
   nix = {
+    package = pkgs.lixPackageSets.stable.lix;
     settings = {
       trusted-users = [ "@wheel" ];
       substituters = nixConfig.extra-substituters;

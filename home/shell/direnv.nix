@@ -4,6 +4,7 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    nix-direnv.package = pkgs.lixPackageSets.stable.nix-direnv;
   };
 
   # for .envrc's in child directories add "source_up"
