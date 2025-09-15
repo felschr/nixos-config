@@ -85,34 +85,33 @@ in
       }
     ];
 
-    systemd.services."notify@" =
-      {
-        onFailure = lib.mkForce [ ];
-      }
-      // optionalAttrs (cfg.method == "libnotify") {
-        description = "Desktop notifications for %i service failure";
-        environment = {
-          DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
-            toString config.users.users.${cfg.libnotify.user}.uid
-          }/bus";
-          INSTANCE = "%i";
-        };
-        script = ''
-          ${pkgs.libnotify}/bin/notify-send --urgency=critical \
-            "Service '$INSTANCE' failed" \
-            "$(journalctl -n 6 -o cat -u $INSTANCE)"
-        '';
-        serviceConfig = {
-          Type = "oneshot";
-          User = cfg.libnotify.user;
-        };
-      }
-      // optionalAttrs (cfg.method == "email") {
-        description = "E-Mail notifications for %i service failure";
-        serviceConfig = {
-          ExecStart = "${sendmail} %i";
-          Type = "oneshot";
-        };
+    systemd.services."notify@" = {
+      onFailure = lib.mkForce [ ];
+    }
+    // optionalAttrs (cfg.method == "libnotify") {
+      description = "Desktop notifications for %i service failure";
+      environment = {
+        DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
+          toString config.users.users.${cfg.libnotify.user}.uid
+        }/bus";
+        INSTANCE = "%i";
       };
+      script = ''
+        ${pkgs.libnotify}/bin/notify-send --urgency=critical \
+          "Service '$INSTANCE' failed" \
+          "$(journalctl -n 6 -o cat -u $INSTANCE)"
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        User = cfg.libnotify.user;
+      };
+    }
+    // optionalAttrs (cfg.method == "email") {
+      description = "E-Mail notifications for %i service failure";
+      serviceConfig = {
+        ExecStart = "${sendmail} %i";
+        Type = "oneshot";
+      };
+    };
   };
 }

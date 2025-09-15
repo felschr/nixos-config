@@ -30,7 +30,8 @@ in
           "luci-ssl"
           "nextdns"
           "tailscale"
-        ] ++ packages;
+        ]
+        ++ packages;
 
         # TODO set up SSH config (register public keys, disable password login, ...)
         files = pkgs.runCommand "image-files" { } ''

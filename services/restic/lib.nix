@@ -53,7 +53,8 @@ in
         # reduce download bandwidth
         "--max-unused 10%"
         "--repack-cacheable-only"
-      ] ++ extraPruneOpts;
+      ]
+      ++ extraPruneOpts;
     }
     // (removeAttrs args [
       "name"

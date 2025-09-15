@@ -35,7 +35,8 @@
             count = 60000000;
           }
         ];
-      } // user;
+      }
+      // user;
 
       home-manager = {
         useGlobalPkgs = true;

@@ -89,21 +89,20 @@ in
     wants = [ "tailscaled.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "oneshot";
-    script =
-      ''
-        status=$(${config.systemd.package}/bin/systemctl show -P StatusText tailscaled.service)
-        if [[ $status != Connected* ]]; then
-          ${cfg.package}/bin/tailscale up
-        fi
+    script = ''
+      status=$(${config.systemd.package}/bin/systemctl show -P StatusText tailscaled.service)
+      if [[ $status != Connected* ]]; then
+        ${cfg.package}/bin/tailscale up
+      fi
 
-        # some options cannot be set immediately
-        ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
+      # some options cannot be set immediately
+      ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}
 
-        ${cfg.package}/bin/tailscale cert ${tailnetHost}
-      ''
-      + lib.optionalString config.services.nginx.enable ''
-        chown nginx:nginx /var/lib/tailscale/certs/${tailnetHost}.{key,crt}
-      '';
+      ${cfg.package}/bin/tailscale cert ${tailnetHost}
+    ''
+    + lib.optionalString config.services.nginx.enable ''
+      chown nginx:nginx /var/lib/tailscale/certs/${tailnetHost}.{key,crt}
+    '';
   };
 
   services.nginx.virtualHosts.${tailnetHost} = {

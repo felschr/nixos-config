@@ -29,7 +29,8 @@ let
       configPath = [
         "config"
         "content" # due to mkIf
-      ] ++ modulePath;
+      ]
+      ++ modulePath;
     in
     lib.updateManyAttrsByPath
       [

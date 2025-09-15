@@ -33,7 +33,8 @@ let
         categories = [
           "Network"
           "WebBrowser"
-        ] ++ lib.optional isSecure "Security";
+        ]
+        ++ lib.optional isSecure "Security";
       };
     in
     pkgs.runCommand pname { } ''
