@@ -91,13 +91,12 @@ in
     // optionalAttrs (cfg.method == "libnotify") {
       description = "Desktop notifications for %i service failure";
       environment = {
-        DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
-          toString config.users.users.${cfg.libnotify.user}.uid
-        }/bus";
+        DISPLAY = ":0";
         INSTANCE = "%i";
       };
       script = ''
-        ${pkgs.libnotify}/bin/notify-send --urgency=critical \
+        export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u '${cfg.libnotify.user}')/bus"
+        ${pkgs.libnotify}/bin/notify-send --app-name="$INSTANCE" --urgency=critical \
           "Service '$INSTANCE' failed" \
           "$(journalctl -n 6 -o cat -u $INSTANCE)"
       '';
