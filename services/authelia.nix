@@ -162,6 +162,16 @@ in
         username = smtpAccount.user;
         sender = smtpAccount.from;
       };
+      identity_providers.oidc.cors = {
+        endpoints = [
+          "authorization"
+          "token"
+          "revocation"
+          "introspection"
+          "userinfo"
+        ];
+        allowed_origins_from_client_redirect_uris = true;
+      };
       identity_providers.oidc.clients = [
         {
           id = "miniflux";
