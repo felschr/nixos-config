@@ -43,7 +43,7 @@ in
     ../../services/matrix
     ../../services/miniflux.nix
     ../../services/paperless.nix
-    ../../services/nextcloud.nix
+    ../../services/opencloud.nix
     ../../services/collabora-office.nix
     ../../services/calibre-web.nix
   ];
