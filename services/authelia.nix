@@ -198,6 +198,69 @@ in
           ];
         }
         {
+          id = "opencloud";
+          description = "OpenCloud";
+          public = true;
+          redirect_uris = [
+            "https://cloud.felschr.com/"
+            "https://cloud.felschr.com/oidc-callback.html"
+            "https://cloud.felschr.com/oidc-silent-redirect.html"
+          ];
+          scopes = [
+            "openid"
+            "email"
+            "profile"
+            "groups"
+            "offline_access"
+          ];
+          grant_types = [
+            "refresh_token"
+            "authorization_code"
+          ];
+          userinfo_signed_response_alg = "none";
+        }
+        {
+          id = "OpenCloudAndroid";
+          description = "OpenCloud Android";
+          public = true;
+          redirect_uris = [ "oc://android.opencloud.eu" ];
+          scopes = [
+            "openid"
+            "email"
+            "profile"
+            "groups"
+            "offline_access"
+          ];
+          grant_types = [
+            "refresh_token"
+            "authorization_code"
+          ];
+          response_modes = [ "form_post" ];
+          userinfo_signed_response_alg = "none";
+        }
+        {
+          id = "OpenCloudDesktop";
+          description = "OpenCloud Desktop";
+          public = true;
+          redirect_uris = [
+            "http://127.0.0.1"
+            "http://localhost"
+          ];
+          scopes = [
+            "openid"
+            "email"
+            "profile"
+            "groups"
+            "offline_access"
+          ];
+          grant_types = [
+            "refresh_token"
+            "authorization_code"
+          ];
+          response_modes = [ "form_post" ];
+          userinfo_signed_response_alg = "none";
+        }
+        {
           id = "jellyfin";
           description = "Jellyfin";
           secret = "$pbkdf2-sha512$310000$X7amOzLsURvZSwdLmSstlQ$/WK4lZ9KvEEuotOxUJkeTo0ZAa.rD7VVdkAPFcUQmr2WzkCXmXXJbYYy7vx0hc4nqLgBVeo8q/71R3rvfl9BFQ";
