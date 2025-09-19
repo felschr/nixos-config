@@ -172,6 +172,7 @@ in
         ];
         allowed_origins_from_client_redirect_uris = true;
       };
+      # To generate new secret digests: `authelia crypto hash generate argon2`
       identity_providers.oidc.clients = [
         {
           id = "miniflux";
