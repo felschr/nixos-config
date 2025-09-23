@@ -26,6 +26,16 @@ let
     $(systemctl status --full "$1")
     ERRMAIL
   '';
+
+  checkConditions = pkgs.writeScript "check-conditions" ''
+    #!/bin/sh
+    STATUS=$(systemctl status --full "$1")
+
+    case "$STATUS" in
+      *"activating (auto-restart) (Result: timeout)"*) exit 1 ;;
+      *) exit 0 ;;
+    esac
+  '';
 in
 {
   options = {
@@ -85,32 +95,38 @@ in
       }
     ];
 
-    systemd.services."notify@" = {
-      onFailure = lib.mkForce [ ];
-    }
-    // optionalAttrs (cfg.method == "libnotify") {
-      description = "Desktop notifications for %i service failure";
-      environment = {
-        DISPLAY = ":0";
-        INSTANCE = "%i";
-      };
-      script = ''
-        export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u '${cfg.libnotify.user}')/bus"
-        ${pkgs.libnotify}/bin/notify-send --app-name="$INSTANCE" --urgency=critical \
-          "Service '$INSTANCE' failed" \
-          "$(journalctl -n 6 -o cat -u $INSTANCE)"
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-        User = cfg.libnotify.user;
-      };
-    }
-    // optionalAttrs (cfg.method == "email") {
-      description = "E-Mail notifications for %i service failure";
-      serviceConfig = {
-        ExecStart = "${sendmail} %i";
-        Type = "oneshot";
-      };
-    };
+    systemd.services."notify@" =
+      lib.recursiveUpdate
+        {
+          onFailure = lib.mkForce [ ];
+          unitConfig = {
+            StartLimitIntervalSec = "15m";
+            StartLimitBurst = 1;
+          };
+          serviceConfig = {
+            Type = "oneshot";
+            ExecCondition = "${checkConditions} %i";
+          };
+        }
+        (
+          optionalAttrs (cfg.method == "libnotify") {
+            description = "Desktop notifications for %i service failure";
+            environment = {
+              DISPLAY = ":0";
+              INSTANCE = "%i";
+            };
+            script = ''
+              export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u '${cfg.libnotify.user}')/bus"
+              ${pkgs.libnotify}/bin/notify-send --app-name="$INSTANCE" --urgency=critical \
+                "Service '$INSTANCE' failed" \
+                "$(journalctl -n 6 -o cat -u $INSTANCE)"
+            '';
+            serviceConfig.User = cfg.libnotify.user;
+          }
+          // optionalAttrs (cfg.method == "email") {
+            description = "E-Mail notifications for %i service failure";
+            serviceConfig.ExecStart = "${sendmail} %i";
+          }
+        );
   };
 }
