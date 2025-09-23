@@ -13,6 +13,7 @@
   boot.kernelPackages = lib.mkOverride 900 pkgs.linuxPackages;
 
   security = {
+    apparmor.enable = lib.mkOverride 900 false;
     # Xbox Controller not working via Bluetooth if enabled
     lockKernelModules = lib.mkOverride 900 false;
 
