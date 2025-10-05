@@ -11,7 +11,7 @@ in
 
   services.calibre-web = {
     enable = true;
-    package = pkgs.calibre-web.overridePythonAttrs (old: {
+    package = pkgs.unstable.calibre-web.overridePythonAttrs (old: {
       dependencies = old.dependencies ++ old.optional-dependencies.kobo;
     });
     group = "media";
