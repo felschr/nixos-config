@@ -14,7 +14,7 @@ in
   imports = [
     "${inputs.nixpkgs-unstable}/nixos/modules/services/home-automation/home-assistant.nix"
     ./wyoming.nix
-    ./esphome.nix
+    # ./esphome.nix # HINT currently unused
   ];
 
   # just installed for ConBee firmware updates
@@ -46,7 +46,7 @@ in
       "upnp"
       "zha"
       # "matter" # TODO uses insecure version of openssl
-      "esphome"
+      # "esphome" # HINT currently unused
       "homekit_controller"
       "fritz"
       "roku"
