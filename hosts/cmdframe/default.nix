@@ -1,4 +1,9 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -41,7 +46,7 @@
   ];
 
   services.ollama = {
-    acceleration = "rocm";
+    package = pkgs.unstable.ollama-rocm;
     rocmOverrideGfx = "11.5.0";
   };
 

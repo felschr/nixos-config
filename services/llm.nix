@@ -2,6 +2,7 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 
@@ -18,7 +19,8 @@
 
   services.ollama = {
     enable = true;
-    package = pkgs.unstable.ollama;
+    package = lib.mkDefault pkgs.unstable.ollama-vulkan;
+    host = "0.0.0.0";
   };
 
   services.open-webui = {

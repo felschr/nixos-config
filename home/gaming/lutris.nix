@@ -10,6 +10,6 @@
   home.packages = with pkgs; [
     unstable.wineWowPackages.stable
     lutris
-    heroic
+    unstable.heroic
   ];
 }

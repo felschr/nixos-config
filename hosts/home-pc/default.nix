@@ -1,4 +1,9 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -62,8 +67,9 @@
   };
 
   services.ollama = {
-    acceleration = "rocm";
-    rocmOverrideGfx = "10.3.1";
+    package = pkgs.unstable.ollama-rocm;
+    # gfx1031 not officially supported, gfx1030 is closest
+    rocmOverrideGfx = "10.3.0";
   };
 
   seven = {

@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
-  hardware.xone.enable = true;
-  hardware.xpadneo.enable = true;
+  # TODO currently broken
+  # hardware.xone.enable = true;
+  # hardware.xpadneo.enable = true;
 }
