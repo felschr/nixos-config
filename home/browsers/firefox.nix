@@ -8,7 +8,7 @@
 
 with lib;
 let
-  firefox-addons = inputs.firefox-addons.packages.${pkgs.system};
+  firefox-addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
 
   inherit (import ../modules/firefox/common.nix { inherit config lib pkgs; }) mkConfig;
 

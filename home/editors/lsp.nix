@@ -17,10 +17,10 @@
     nodePackages.typescript-language-server
     # not working like variant from node_modules
     # nodePackages.graphql-language-service-cli
-    nodePackages.dockerfile-language-server-nodejs
+    dockerfile-language-server
     haskellPackages.haskell-language-server
     rust-analyzer
-    sumneko-lua-language-server
+    lua-language-server
     marksman
 
     # linters & formatters

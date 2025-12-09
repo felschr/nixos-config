@@ -43,7 +43,7 @@
   home.packages = with pkgs; [
     # system
     gparted
-    gnome-firmware-updater
+    gnome-firmware
     resources
 
     # productivity

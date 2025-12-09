@@ -42,7 +42,7 @@ with pkgs;
   home.packages = with pkgs; [
     # system
     gparted
-    gnome-firmware-updater
+    gnome-firmware
     mission-center
 
     # productivity

@@ -6,7 +6,7 @@
 }:
 
 let
-  firefox-addons = inputs.firefox-addons.packages.${pkgs.system};
+  firefox-addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
 
   commonSettings = {
     # Disable DNS over HTTPS (use system DNS, i.e. VPN's DNS)

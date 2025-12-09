@@ -22,6 +22,7 @@ in
         vendorPath = ".mullvad";
         configPath = "${vendorPath}/mullvadbrowser";
       };
+      platforms.darwin = null;
     })
     (mkFirefoxProfileBinModule {
       inherit modulePath name packageName;

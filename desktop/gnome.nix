@@ -16,10 +16,10 @@
       tailscale-qs
     ];
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+  services.displayManager.gdm.enable = true;
+  services.displayManager.gdm.wayland = true;
+  services.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.extraGSettingsOverrides = ''
     [org.gnome.desktop.input-sources]
     sources=[('xkb', 'gb'), ('xkb', 'mozc-jp')]
 
@@ -40,7 +40,6 @@
     gnome-software
     totem
     epiphany
-    evince
   ];
   programs.gnome-terminal.enable = false;
   programs.geary.enable = false;

@@ -36,10 +36,12 @@ in
     {
       programs.git = {
         # fix/workaround for https://github.com/NixOS/nixpkgs/issues/169193
-        extraConfig.safe.directory = "/etc/nixos";
-
-        userName = profiles."${cfg.defaultProfile}".name;
-        userEmail = profiles."${cfg.defaultProfile}".email;
+        settings = {
+          safe.directory = "/etc/nixos";
+          user = {
+            inherit (profiles."${cfg.defaultProfile}") name email;
+          };
+        };
         signing = {
           key = profiles."${cfg.defaultProfile}".signingKey;
         };

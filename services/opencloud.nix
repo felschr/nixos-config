@@ -11,10 +11,6 @@ let
   cfg = config.services.opencloud;
 in
 {
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/web-apps/opencloud.nix"
-  ];
-
   # required when using unstable NixOS module
   documentation.nixos.enable = false;
 

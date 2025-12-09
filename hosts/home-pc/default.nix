@@ -59,7 +59,7 @@
   ];
 
   networking.firewall.allowedUDPPorts = [
-    24727 # AusweisApp2
+    24727 # ausweisapp
   ];
   networking.hosts = {
     # force IPv4, see: https://github.com/transmission/transmission/issues/407

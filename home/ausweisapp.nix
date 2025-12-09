@@ -2,5 +2,5 @@
 
 with pkgs;
 {
-  home.packages = [ AusweisApp2 ];
+  home.packages = [ ausweisapp ];
 }

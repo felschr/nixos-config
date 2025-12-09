@@ -22,6 +22,7 @@ in
         vendorPath = ".tor project";
         configPath = "${vendorPath}/firefox";
       };
+      platforms.darwin = null;
     })
     (mkFirefoxProfileBinModule {
       inherit modulePath name packageName;
