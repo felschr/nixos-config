@@ -110,7 +110,7 @@ in
   };
 
   # mDNS already handled by systemd-resolved
-  services.avahi.enable = false;
+  services.avahi.enable = lib.mkForce false;
 
   programs.mtr.enable = true;
   programs.mosh.enable = true;

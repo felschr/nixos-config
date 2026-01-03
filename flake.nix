@@ -17,6 +17,9 @@ rec {
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # https://github.com/NixOS/nixpkgs/pull/332296
+    nixpkgs-otbr.url = "github:NixOS/nixpkgs/?ref=refs/pull/332296/head";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     disko = {

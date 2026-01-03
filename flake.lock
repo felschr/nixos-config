@@ -382,6 +382,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-otbr": {
+      "locked": {
+        "lastModified": 1766776257,
+        "narHash": "sha256-MG9DnzBn6TdAztaMPVhW9sjYj2bi9Jcux0F0fJ6LeO4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0c4c97066d555b7d27a0a56ee400130ec51f02ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "refs/pull/332296/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1767379071,
@@ -471,6 +487,7 @@
         "matrix-appservices": "matrix-appservices",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-otbr": "nixpkgs-otbr",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvim-kitty-navigator": "nvim-kitty-navigator",
         "openwrt-imagebuilder": "openwrt-imagebuilder",

@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
@@ -7,12 +8,17 @@
 
 let
   port = config.services.home-assistant.config.http.server_port;
+  devices = {
+    zigbee = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231009144806-if00";
+    thread = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231009150648-if00";
+  };
 in
 {
   disabledModules = [ "services/home-automation/home-assistant.nix" ];
 
   imports = [
     "${inputs.nixpkgs-unstable}/nixos/modules/services/home-automation/home-assistant.nix"
+    "${inputs.nixpkgs-otbr}/nixos/modules/services/home-automation/openthread-border-router.nix"
     ./wyoming.nix
     # ./esphome.nix # HINT currently unused
   ];
@@ -45,7 +51,9 @@ in
       "otp"
       "upnp"
       "zha"
-      # "matter" # TODO uses insecure version of openssl
+      "thread"
+      "otbr"
+      "matter"
       # "esphome" # HINT currently unused
       "homekit_controller"
       "fritz"
@@ -113,6 +121,26 @@ in
     };
     # configWritable = true; # doesn't work atm
   };
+
+  services.matter-server = {
+    enable = true;
+  };
+
+  services.openthread-border-router = {
+    enable = true;
+    package = inputs.nixpkgs-otbr.legacyPackages.${pkgs.system}.openthread-border-router;
+    radio = {
+      device = devices.thread;
+      baudRate = 460800;
+      extraDevices = [ "trel://enp2s0" ];
+    };
+    backboneInterface = "enp2s0";
+    rest.listenPort = 58081;
+    web.listenPort = 58082;
+  };
+
+  # systemd-resolved is already providing mDNS, but avahi seems to be required for otbr
+  services.avahi.enable = lib.mkOverride 40 true;
 
   networking.firewall.allowedTCPPorts = [
     1400 # Sonos discovery
