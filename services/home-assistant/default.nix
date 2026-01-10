@@ -124,6 +124,9 @@ in
 
   services.matter-server = {
     enable = true;
+    extraArgs = [
+      "--bluetooth-adapter=0"
+    ];
   };
 
   services.openthread-border-router = {
@@ -135,8 +138,7 @@ in
       extraDevices = [ "trel://enp2s0" ];
     };
     backboneInterface = "enp2s0";
-    rest.listenPort = 58081;
-    web.listenPort = 58082;
+    web.enable = true;
   };
 
   # systemd-resolved is already providing mDNS, but avahi seems to be required for otbr
