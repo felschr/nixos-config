@@ -147,6 +147,7 @@ in
   services.matter-server = {
     enable = true;
     extraArgs = [
+      "--storage-path=/var/lib/matter-server"
       "--bluetooth-adapter=0"
     ];
   };
