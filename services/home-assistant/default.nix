@@ -76,6 +76,14 @@ in
         # HACS
         aiogithubapi
       ];
+    customComponents = with pkgs.unstable.home-assistant-custom-components; [
+      alarmo
+      adaptive_lighting
+      ingress
+    ];
+    customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+      auto-entities
+    ];
     config = {
       homeassistant = {
         name = "Home";
