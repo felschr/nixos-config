@@ -126,6 +126,20 @@ in
       conversation = {
         intents = { };
       };
+      ingress = {
+        "matter" = {
+          title = "Matter Server";
+          icon = "mdi:home-automation";
+          ui_mode = "toolbar";
+          url = "http://127.0.0.1:${toString config.services.matter-server.port}/";
+        };
+        "otbr" = {
+          title = "OpenThread Border Router";
+          icon = "mdi:home-automation";
+          ui_mode = "toolbar";
+          url = "http://127.0.0.1:${toString config.services.openthread-border-router.web.listenPort}/";
+        };
+      };
     };
     # configWritable = true; # doesn't work atm
   };
