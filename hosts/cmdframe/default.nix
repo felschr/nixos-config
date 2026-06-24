@@ -19,13 +19,7 @@
     ../../virtualisation/libvirt.nix
     ../../modules/systemdNotify.nix
     ../../services/llm.nix
-    inputs.seven-modules.nixosModules.seven
   ];
-
-  age.secrets.wireguard-seven-cmdframe-key = {
-    file = ../../secrets/wireguard/seven/cmdframe.key.age;
-    owner = "systemd-network";
-  };
 
   services.fprintd.enable = true;
 
@@ -48,17 +42,6 @@
   services.ollama = {
     package = pkgs.unstable.ollama-rocm;
     rocmOverrideGfx = "11.5.0";
-  };
-
-  seven = {
-    enable = true;
-    wireguard = {
-      addresses = [
-        "198.18.1.241/15"
-        "fd00:5ec::1f1/48"
-      ];
-      privateKeyFile = config.age.secrets.wireguard-seven-cmdframe-key.path;
-    };
   };
 
   systemd.notify.enable = true;

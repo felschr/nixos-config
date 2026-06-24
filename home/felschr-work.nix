@@ -14,7 +14,6 @@ with pkgs;
     ./browsers
     ./planck.nix
     ./services/easyeffects.nix
-    inputs.seven-modules.homeModules.seven
   ];
 
   programs.gpg.enable = true;
@@ -77,8 +76,6 @@ with pkgs;
     zotero
     emblem
   ];
-
-  seven.enable = true;
 
   home.stateVersion = "25.05";
 }

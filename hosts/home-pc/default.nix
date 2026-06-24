@@ -26,13 +26,7 @@
     ../../services/restic/home-pc.nix
     ../../services/pcscd.nix
     ../../services/llm.nix
-    inputs.seven-modules.nixosModules.seven
   ];
-
-  age.secrets.wireguard-seven-home-pc-key = {
-    file = ../../secrets/wireguard/seven/home-pc.key.age;
-    owner = "systemd-network";
-  };
 
   boot.loader.systemd-boot.memtest86.enable = true;
 
@@ -70,17 +64,6 @@
     package = pkgs.unstable.ollama-rocm;
     # gfx1031 not officially supported, gfx1030 is closest
     rocmOverrideGfx = "10.3.0";
-  };
-
-  seven = {
-    enable = true;
-    wireguard = {
-      addresses = [
-        "198.18.1.239/15"
-        "fd00:5ec::1ef/48"
-      ];
-      privateKeyFile = config.age.secrets.wireguard-seven-home-pc-key.path;
-    };
   };
 
   systemd.notify.enable = true;

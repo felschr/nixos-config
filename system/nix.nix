@@ -54,7 +54,6 @@ in
     let
       inputsToIgnore = [
         "self"
-        "seven-modules"
       ];
       inputsToUpdate = lib.filter (i: !(lib.elem i inputsToIgnore)) (lib.attrNames inputs);
       inputsToUpdateStr = lib.concatStringsSep " " inputsToUpdate;
