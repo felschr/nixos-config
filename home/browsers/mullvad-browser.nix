@@ -221,7 +221,6 @@ in
         extensions.packages =
           commonExtensions
           ++ (with firefox-addons; [
-            bitwarden
             react-devtools
             reduxdevtools
           ]);
