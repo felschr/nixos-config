@@ -20,7 +20,7 @@ in
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "mullvad-browser.desktop"
-        "anytype.desktop"
+        "obsidian.desktop"
         "pocket-casts.desktop"
       ];
     };

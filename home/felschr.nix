@@ -46,7 +46,7 @@
     resources
 
     # productivity
-    anytype
+    obsidian
     libreoffice-fresh
     tabbed
     curtail
