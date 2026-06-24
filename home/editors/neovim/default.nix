@@ -52,7 +52,7 @@ in
 
       nvim-treesitter.withAllGrammars
       nvim-treesitter-context
-      nvim-treesitter-refactor
+      nvim-treesitter-locals
       nvim-treesitter-textobjects
       nvim-ts-autotag
       nvim-ts-context-commentstring

@@ -17,7 +17,6 @@ in
       inherit modulePath name;
       description = "Privacy-focused browser made in a collaboration between The Tor Project and Mullvad";
       unwrappedPackageName = packageName;
-      visible = true;
       platforms.linux = rec {
         vendorPath = ".mullvad";
         configPath = "${vendorPath}/mullvadbrowser";

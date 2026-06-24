@@ -18,7 +18,6 @@ in
 
   imports = [
     "${inputs.nixpkgs-unstable}/nixos/modules/services/home-automation/home-assistant.nix"
-    "${inputs.nixpkgs-otbr}/nixos/modules/services/home-automation/openthread-border-router.nix"
     ./wyoming.nix
     # ./esphome.nix # HINT currently unused
   ];
@@ -154,13 +153,12 @@ in
 
   services.openthread-border-router = {
     enable = true;
-    package = inputs.nixpkgs-otbr.legacyPackages.${pkgs.system}.openthread-border-router;
     radio = {
       device = devices.thread;
       baudRate = 460800;
       extraDevices = [ "trel://enp2s0" ];
     };
-    backboneInterface = "enp2s0";
+    backboneInterfaces = [ "enp2s0" ];
     web.enable = true;
   };
 

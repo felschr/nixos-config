@@ -10,13 +10,13 @@
     terraform-ls
     unstable.tofu-ls
     pyright
-    nodePackages.bash-language-server
-    nodePackages.vim-language-server
-    nodePackages.yaml-language-server
-    nodePackages.vscode-langservers-extracted
-    nodePackages.typescript-language-server
+    bash-language-server
+    vim-language-server
+    yaml-language-server
+    vscode-langservers-extracted
+    typescript-language-server
     # not working like variant from node_modules
-    # nodePackages.graphql-language-service-cli
+    # graphql-language-service-cli
     dockerfile-language-server
     haskellPackages.haskell-language-server
     rust-analyzer
@@ -27,14 +27,14 @@
     topiary
     shellcheck
     shfmt
-    nodePackages.eslint
-    nodePackages.eslint_d
+    eslint
+    eslint_d
     statix
-    nixfmt-rfc-style
+    nixfmt
     buf
-    nodePackages.stylelint
-    nodePackages.prettier
-    nodePackages.prettier_d_slim
+    stylelint
+    prettier
+    prettier-d-slim
   ];
 
   # enableAnalyzersSupport loads very slowly

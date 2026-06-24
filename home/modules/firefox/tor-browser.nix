@@ -17,7 +17,6 @@ in
       inherit modulePath name;
       description = "Privacy-focused browser routing traffic through the Tor network";
       unwrappedPackageName = packageName;
-      visible = true;
       platforms.linux = rec {
         vendorPath = ".tor project";
         configPath = "${vendorPath}/firefox";

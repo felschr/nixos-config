@@ -13,12 +13,9 @@ rec {
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # https://github.com/NixOS/nixpkgs/pull/332296
-    nixpkgs-otbr.url = "github:NixOS/nixpkgs/?ref=refs/pull/332296/head";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -35,7 +32,7 @@ rec {
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -119,7 +116,7 @@ rec {
             pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
               src = ./.;
               hooks = {
-                nixfmt-rfc-style.enable = true;
+                nixfmt.enable = true;
                 shellcheck = {
                   enable = true;
                   excludes = [ ".envrc" ];
@@ -128,7 +125,7 @@ rec {
             };
           };
 
-          formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt;
         };
     };
 }

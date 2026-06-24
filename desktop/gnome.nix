@@ -17,7 +17,6 @@
     ];
 
   services.displayManager.gdm.enable = true;
-  services.displayManager.gdm.wayland = true;
   services.desktopManager.gnome.enable = true;
   services.desktopManager.gnome.extraGSettingsOverrides = ''
     [org.gnome.desktop.input-sources]

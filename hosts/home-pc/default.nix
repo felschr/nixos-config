@@ -33,7 +33,7 @@
   # running binaries for other architectures
   # boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" "wasm64-wasi" "wasm32-wasi" ];
 
-  programs.adb.enable = true;
+  environment.systemPackages = with pkgs; [ android-tools ];
 
   programs.zsh.enable = true;
 

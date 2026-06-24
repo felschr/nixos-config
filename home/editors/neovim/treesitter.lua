@@ -10,6 +10,7 @@ require("nvim-treesitter.configs").setup {
   autotag = {
     enable = true,
   },
+  -- TODO migrate to nvim-treesitter-locals
   refactor = {
     highlight_definitions = { enable = true },
     highlight_current_scope = { enable = true },
