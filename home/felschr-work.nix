@@ -7,6 +7,7 @@ with pkgs;
     ./shell
     ./tailscale.nix
     ./editors
+    ./ai.nix
     ./desktop
     ./git.nix
     ./element.nix

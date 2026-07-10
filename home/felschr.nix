@@ -6,6 +6,7 @@
     ./shell
     ./tailscale.nix
     ./editors
+    ./ai.nix
     ./desktop
     ./desktop/monitors.nix
     ./git.nix
