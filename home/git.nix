@@ -8,8 +8,7 @@
       private = {
         name = "Felix Schröter";
         email = "dev@felschr.com";
-        # use sign subkey's fingerprint: gpg2 -K --with-subkey-fingerprint
-        signingKey = "7E08 6842 0934 AA1D 6821  1F2A 671E 39E6 744C 807D";
+        signingKey = "~/.ssh/private_sign";
         dirs = [
           "~/dev/private/"
           "/etc/nixos/"
@@ -17,18 +16,22 @@
       };
       work = {
         name = "Felix Schröter";
-        email = "felix.schroeter@cmdscale.com";
-        # use sign subkey's fingerprint: gpg2 -K --with-subkey-fingerprint
-        signingKey = "5A9D CC6B F70A C69B B0D7  C755 A3A2 2573 CA6D 0E38";
+        email = "felix@atvari.eu";
+        signingKey = "~/.ssh/atvari_sign";
         dirs = [ "~/dev/work/" ];
       };
     };
 
     ignores = [ ".direnv" ];
     signing = {
+      format = "ssh";
       signByDefault = true;
     };
     settings = {
+      gpg.ssh.allowedSignersFile = builtins.toFile "allowed_signers" ''
+        dev@felschr.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIODQ95mDuh+6PBPduwTEbc48IjPTD4TZNuDh6y74/xoy
+        felix@atvari.eu ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII368Kw6AoBCUrXjYXwOnSTShdDHYhvEA1/imRcGkDE/
+      '';
       init = {
         defaultBranch = "main";
       };

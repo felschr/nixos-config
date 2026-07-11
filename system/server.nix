@@ -26,4 +26,10 @@
       }
     }
   '';
+
+  # auto unlock gnome-keyring on servers as well
+  security.pam.services = {
+    login.enableGnomeKeyring = true;
+    sudo.enableGnomeKeyring = true;
+  };
 }

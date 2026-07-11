@@ -9,6 +9,7 @@
     ./ai.nix
     ./desktop
     ./desktop/monitors.nix
+    ./ssh.nix
     ./git.nix
     ./element.nix
     ./signal.nix
@@ -18,25 +19,6 @@
     ./gaming
     ./services/easyeffects.nix
   ];
-
-  programs.gpg.enable = true;
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = true;
-    # use auth subkey's keygrip: gpg2 -K --with-keygrip
-    sshKeys = [
-      "3C48489F3B0FBB44E72180D4B1D7541C201C9987"
-      "70DBD13E3BCAF806D416647D9C51321E2F1312CF"
-    ];
-    defaultCacheTtl = 600;
-    defaultCacheTtlSsh = 600;
-    pinentry.package = pkgs.pinentry-gnome3;
-  };
-  programs.zsh.initContent = ''
-    export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
-  '';
-
-  programs.ssh.enable = true;
 
   programs.git.defaultProfile = "private";
 
