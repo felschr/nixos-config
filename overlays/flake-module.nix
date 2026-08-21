@@ -4,10 +4,10 @@
   flake = {
     overlays.default = final: prev: {
       unstable = import inputs.nixpkgs-unstable {
-        inherit (prev) system;
+        inherit (prev.stdenv.hostPlatform) system;
         config.allowUnfree = true;
       };
-      inherit (inputs.self.packages.${prev.system}) deconz;
+      inherit (inputs.self.packages.${prev.stdenv.hostPlatform.system}) deconz;
       vimPlugins = prev.vimPlugins // final.callPackage ../pkgs/vim-plugins { inherit inputs; };
     };
     pkgsFor =
