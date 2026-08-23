@@ -16,5 +16,8 @@
   virtualisation.libvirtd.onShutdown = "shutdown";
   virtualisation.spiceUSBRedirection.enable = true;
 
+  # allow clipboard sharing
+  services.spice-vdagentd.enable = true;
+
   programs.dconf.enable = true;
 }
