@@ -32,11 +32,14 @@
               "wheel"
               "networkmanager"
               "audio"
+              "video"
+              "render"
               "disk"
               "libvirtd"
               "qemu-libvirtd"
               "gamemode"
               "media"
+              "dialout" # for ESP stuff
             ];
             usesContainers = true;
           })
@@ -72,6 +75,8 @@
               extraGroups = [
                 "wheel"
                 "audio"
+                "video"
+                "render"
                 "disk"
                 "media"
               ];
@@ -101,6 +106,8 @@
               "wheel"
               "networkmanager"
               "audio"
+              "video"
+              "render"
               "disk"
               "libvirtd"
               "qemu-libvirtd"
