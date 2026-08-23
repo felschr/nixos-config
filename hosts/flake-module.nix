@@ -1,5 +1,10 @@
 { self, inputs, ... }:
 {
+  imports = [
+    ./doctr
+    ./penguin
+  ];
+
   flake = {
     diskoConfigurations = {
       home-pc = import ./home-pc/disk-config.nix;
