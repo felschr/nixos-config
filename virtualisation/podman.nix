@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [ podman-compose ];
 
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
+  virtualisation.podman.dockerSocket.enable = true;
   virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
 
   virtualisation.podman.autoPrune.enable = true;
@@ -28,4 +29,11 @@
       Persistent = true;
     };
   };
+
+  home-manager.sharedModules = [
+    (_: {
+      xdg.dataFile."containers/storage/networks/podman.json".source =
+        config.environment.etc."containers/networks/podman.json".source;
+    })
+  ];
 }
