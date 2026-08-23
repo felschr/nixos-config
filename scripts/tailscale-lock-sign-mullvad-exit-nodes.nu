@@ -3,7 +3,7 @@
 let $status = tailscale lock status --json | from json
 
 let $nodes = $status | get FilteredPeers
-let $nodes_mullvad = $nodes | where Name =~ ".mullvad.ts.net"
+let $nodes_mullvad = $nodes | where DNSName =~ ".mullvad.ts.net"
 
 let count_total = $nodes | length
 let count_mullvad = $nodes_mullvad | length
@@ -18,7 +18,7 @@ if ($nodes_mullvad | length) == 0 {
 print "signing Mullvad nodes..."
 
 $nodes_mullvad | each { |node|
-  print $"signing ($node.Name)"
+  print $"signing ($node.DNSName)"
   tailscale lock sign $node.NodeKey
   sleep 0.1sec
 }

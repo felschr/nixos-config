@@ -10,6 +10,12 @@ let
   tailscaleInterface = cfg.interfaceName;
   inherit (config.networking) hostName;
   tailnetHost = "${hostName}.tail05275.ts.net";
+
+  # subnets:
+  tailnet = {
+    v4 = "100.64.0.0/10";
+    v6 = "fd7a:115c:a1e0::/48";
+  };
 in
 {
   networking.wireguard.enable = true;
@@ -71,7 +77,7 @@ in
     extraUpFlags = [
       "--reset"
       "--exit-node-allow-lan-access"
-      "--exit-node=de-fra-wg-106.mullvad.ts.net"
+      "--exit-node=de-fra-wg-103.mullvad.ts.net."
     ];
   };
 
