@@ -23,6 +23,7 @@
     # SUB_UID_MAX: https://man7.org/linux/man-pages/man5/login.defs.5.html
     storage.options.auto-userns-max-size = 600100000;
   };
+  virtualisation.containers.registries.search = [ "docker.io" ];
 
   # Increase sub{u,g}id range
   users.users."containers" = {
