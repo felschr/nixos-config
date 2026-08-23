@@ -20,3 +20,6 @@ jobs:
       - run: nix build .#deconz
       - run: nix build .#nixosConfigurations.home-server.config.system.build.toplevel
       # - run: nix build .#nixosConfigurations.home-pc.config.system.build.toplevel
+      - run: nix build .#homeConfigurations.felschr.activationPackage
+      - run: nix build .#homeConfigurations.felschr-server.activationPackage
+      - run: nix build .#homeConfigurations.felschr-work.activationPackage
