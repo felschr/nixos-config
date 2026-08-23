@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This file provides guidance to AI coding agents when working with code in this repository.
+This file provides guidance to AI coding agents when working with code in this repository. Note that `CLAUDE.md` is a symlink to this file, so edits here apply to both.
 
 ## What this is
 
@@ -23,7 +23,7 @@ Deploy `home-server` via deploy-rs (see `deploy.nodes.home-server` in `hosts/fla
 deploy .#home-server
 ```
 
-Check the whole flake (evaluates all outputs, runs the pre-commit hook check):
+Check the whole flake (evaluates all outputs, runs the pre-commit hook check and deploy-rs checks):
 ```sh
 nix flake check
 ```
@@ -42,7 +42,8 @@ nix build .#doctr      # or .#penguin
 
 Format Nix files / lint shell scripts (also runs automatically via the `pre-commit` git hook, installed by `direnv`/`nix develop`):
 ```sh
-nixfmt <file>.nix
+nix fmt                 # format the whole tree
+nixfmt <file>.nix       # format a single file
 shellcheck <file>.sh
 ```
 
@@ -54,8 +55,8 @@ This repo uses `direnv` (`.envrc` runs `use flake`), so shells are usually loade
 
 Update flake inputs:
 ```sh
-nix flake update                          # all inputs
-nix flake lock --update-input <input>     # a single input
+nix flake update            # all inputs
+nix flake update <input>    # a single input
 ```
 
 There is no test suite beyond `nix flake check` / the CI builds above — correctness is verified by successfully evaluating and building the relevant `nixosConfigurations`/`homeConfigurations` output.
@@ -69,6 +70,8 @@ This is a `flake-parts` flake (see `flake.nix`), split into top-level modules th
 - **`hosts/flake-module.nix`** — defines every `nixosConfigurations.<host>` (`home-pc`, `home-server`, `cmdframe`) and `diskoConfigurations`, and imports `hosts/doctr` and `hosts/penguin` (OpenWrt router image definitions built via `lib.mkOpenwrtImage`, not NixOS systems). Also declares the `deploy-rs` node for `home-server`.
 - **`home/flake-module.nix`** — defines `homeModules` (reusable home-manager modules, including per-user profiles `felschr`/`felschr-server`/`felschr-work`) and standalone `homeConfigurations` for each profile.
 - **`overlays/flake-module.nix`** — the single `overlays.default`, which pulls in `nixpkgs-unstable` as `pkgs.unstable`, injects locally built packages (e.g. `deconz`) into `pkgs`, and extends `vimPlugins`. Also exposes `pkgsFor system`, the canonical way every module gets an instantiated `nixpkgs` (with overlay + `allowUnfree` applied).
+
+Additionally, `flake.nix` defines reusable `nixosModules.*` inline: `flakeDefaults`, `systemdNotify`, `inadyn`, and `nginx-authelia`. The untracked-in-flake directories `scripts/` (install/setup helper scripts, mostly shell and nushell) and `templates/` (dev-shell template, e.g. `dotnet.nix`) are not part of any flake output.
 
 ### Host composition pattern
 
@@ -93,4 +96,4 @@ Secrets are encrypted with `agenix` (`secrets/*.age`, decrypted via `age.secrets
 
 ### CI
 
-`.forgejo/workflows/test.yml` runs on every push/PR: `nix flake check` (non-blocking), then builds `deconz`, the `home-server` toplevel, and all three `homeConfigurations` activation packages. `home-pc` and `cmdframe` are commented out of CI (likely due to build cost/hardware-specific inputs) — check before assuming they're covered.
+`.forgejo/workflows/test.yml` runs on every push/PR: `nix flake check` (non-blocking), then builds `deconz`, the `home-server` toplevel, and all three `homeConfigurations` activation packages. `home-pc` is commented out of CI and `cmdframe` isn't listed at all (likely due to build cost/hardware-specific inputs) — check before assuming they're covered.
