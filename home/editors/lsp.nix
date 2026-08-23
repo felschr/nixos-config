@@ -22,6 +22,7 @@
     rust-analyzer
     lua-language-server
     marksman
+    gitlab-ci-ls
 
     # linters & formatters
     topiary

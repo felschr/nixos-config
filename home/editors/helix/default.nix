@@ -113,6 +113,10 @@ in
         name = "yaml";
         formatter = prettier "yaml";
         auto-format = true;
+        language-servers = [
+          "yaml-language-server"
+          "gitlab-ci-ls"
+        ];
       }
       {
         name = "css";
@@ -233,6 +237,9 @@ in
         config = {
           opentofu.path = "tofu";
         };
+      };
+      gitlab-ci-ls = {
+        command = "gitlab-ci-ls";
       };
     };
     settings = {
