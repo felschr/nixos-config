@@ -29,7 +29,7 @@ let
           links = [
             {
               rel = "http://openid.net/specs/connect/1.0/issuer";
-              href = "https://auth.felschr.com";
+              href = "https://${domain}";
             }
           ];
         }

@@ -75,8 +75,8 @@ in
           ++ (with firefox-addons; [
             # dashlane
             # bitwarden
-            react-devtools
-            reduxdevtools
+            # react-devtools
+            # reduxdevtools
           ]);
       };
     };

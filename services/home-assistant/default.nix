@@ -7,7 +7,8 @@
 }:
 
 let
-  port = config.services.home-assistant.config.http.server_port;
+  # frontend port is no longer set in YAML by the NixOS module; defaults to 8123
+  port = 8123;
   devices = {
     zigbee = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231009144806-if00";
     thread = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231009150648-if00";
@@ -44,7 +45,6 @@ in
     package = pkgs.unstable.home-assistant.overrideAttrs (oldAttrs: {
       doInstallCheck = false;
     });
-    openFirewall = true;
     extraComponents = [
       "default_config"
       "otp"
@@ -145,10 +145,8 @@ in
 
   services.matter-server = {
     enable = true;
-    extraArgs = [
-      "--storage-path=/var/lib/matter-server"
-      "--bluetooth-adapter=0"
-    ];
+    # storage-path defaults to /var/lib/matter-server
+    extraArgs.bluetooth-adapter = "0";
   };
 
   services.openthread-border-router = {
@@ -166,6 +164,7 @@ in
   services.avahi.enable = lib.mkOverride 40 true;
 
   networking.firewall.allowedTCPPorts = [
+    port # Home Assistant frontend
     1400 # Sonos discovery
   ];
   networking.firewall.allowedUDPPorts = [

@@ -11,7 +11,7 @@
       gnome-sound-recorder
       native-window-placement
       appindicator
-      pop-shell
+      unstable.gnomeExtensions.pop-shell
       gnome-bedtime
       tailscale-qs
     ];

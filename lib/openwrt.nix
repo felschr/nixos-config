@@ -62,8 +62,8 @@ in
           "nftables"
           "odhcp6c"
           "odhcpd-ipv6only"
-          "opkg"
-          # "apk" # TODO will replace opkg in the future
+          # "opkg" # replaced by apk in OpenWrt 25.12
+          "apk"
           "ppp"
           "ppp-mod-pppoe"
           "procd"

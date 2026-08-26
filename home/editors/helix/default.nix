@@ -146,6 +146,13 @@ in
         };
         auto-format = true;
       }
+      {
+        name = "gval";
+        scope = "scope.gval";
+        file-types = [ ];
+        injection-regex = "gval";
+        grammar = "go";
+      }
     ];
     languages.language-server = {
       rust-analyzer = {

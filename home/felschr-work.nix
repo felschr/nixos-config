@@ -15,6 +15,7 @@ with pkgs;
     ./signal.nix
     ./browsers
     ./planck.nix
+    ./ausweisapp.nix
     ./services/easyeffects.nix
   ];
 
@@ -52,7 +53,7 @@ with pkgs;
     spotify
 
     # ai
-    unstable.alpaca
+    # unstable.alpaca TODO broken
 
     # other
     zotero

@@ -18,6 +18,7 @@
     ../../virtualisation/podman.nix
     ../../virtualisation/libvirt.nix
     ../../modules/systemdNotify.nix
+    ../../services/pcscd.nix
     ../../services/llm.nix
   ];
 
