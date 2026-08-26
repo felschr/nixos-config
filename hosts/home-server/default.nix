@@ -47,7 +47,6 @@ in
     ../../services/opencloud.nix
     ../../services/collabora-office.nix
     ../../services/calibre-web.nix
-    ../../services/syncthing.nix
   ];
 
   age.secrets.cloudflare.file = ../../secrets/cloudflare.age;
