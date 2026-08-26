@@ -35,6 +35,12 @@ with pkgs;
     # dev & admin
     pods
     # gaphor
+    forgejo-cli
+    gh
+    jq
+    nix-init
+    nurl
+    skills
 
     # security & privacy
     unstable.proton-pass

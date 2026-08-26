@@ -37,6 +37,12 @@
     # dev & admin
     pods
     # gaphor
+    forgejo-cli
+    gh
+    jq
+    nix-init
+    nurl
+    skills
 
     # game dev
     ldtk
