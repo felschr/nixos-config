@@ -57,6 +57,7 @@
 
     # security & privacy
     unstable.proton-pass
+    unstable.proton-pass-cli
     unstable.proton-authenticator
     collision
     metadata-cleaner
