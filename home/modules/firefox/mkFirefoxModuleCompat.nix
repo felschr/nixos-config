@@ -40,7 +40,50 @@ let
         }
         {
           path = configPath ++ [ "finalPackage" ];
-          update = old: cfg.package;
+          # HINT Firefox resolves the default profile via a hash of its install
+          # path. Since that path is a Nix store path, every browser update
+          # changes the hash & Firefox can neither resolve nor persist a
+          # default (profiles.ini is read-only), causing it to open the profile
+          # selector or spawn throwaway profiles. To avoid this we inject the
+          # declarative default profile into launches unless one was chosen
+          # explicitly.
+          update =
+            old:
+            let
+              browserName = cfg.package.browserName or (builtins.parseDrvName cfg.package.name).name;
+              browserBin = "${cfg.package}/bin/${browserName}";
+              defaultProfile = lib.findFirst (p: p.isDefault) null (lib.attrValues cfg.profiles);
+              pinProfileArgs = lib.optionalString (defaultProfile != null) (
+                "-P ${lib.escapeShellArg defaultProfile.name}"
+              );
+              pinnedBin = pkgs.writeShellScriptBin browserName ''
+                for arg in "$@"; do
+                  case "$arg" in
+                    -[Pp] | --profile | -profile | --profile=* | -profile=*)
+                      exec "${browserBin}" "$@"
+                      ;;
+                    -[Pp]rofile[Mm]anager | --[Pp]rofile[Mm]anager)
+                      exec "${browserBin}" "$@"
+                      ;;
+                    -[Cc]reate[Pp]rofile | --[Cc]reate[Pp]rofile)
+                      exec "${browserBin}" "$@"
+                      ;;
+                  esac
+                done
+                exec "${browserBin}" ${pinProfileArgs} "$@"
+              '';
+            in
+            if pinProfileArgs == "" then
+              cfg.package
+            else
+              pkgs.symlinkJoin {
+                name = "${cfg.package.name}-profile-pinned";
+                paths = [
+                  pinnedBin
+                  cfg.package
+                ];
+                ignoreCollisions = true;
+              };
         }
         {
           path = configPath ++ [ "policies" ];
