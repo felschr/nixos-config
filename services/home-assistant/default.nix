@@ -102,6 +102,7 @@ in
       };
       default_config = { };
       http = {
+        server_port = 8123;
         use_x_forwarded_for = true;
         trusted_proxies = [ "::1" ];
       };
