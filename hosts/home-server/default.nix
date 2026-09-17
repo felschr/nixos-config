@@ -38,7 +38,6 @@ in
     # ../../services/kodi.nix
     ../../services/jellyfin.nix
     ../../services/etebase.nix
-    ../../services/website.nix
     ../../services/wkd.nix
     ../../services/home-assistant
     ../../services/matrix
@@ -85,7 +84,7 @@ in
       | grep -o '[0-9a-f:]*::102'
   ''}";
   services.inadyn.domains = [
-    "felschr.com"
+    "web.felschr.com"
     "dns.felschr.com"
     "openpgpkey.felschr.com"
     "ldap.felschr.com"

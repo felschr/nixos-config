@@ -311,7 +311,7 @@ in
     locations."/".proxyPass = "http://[::1]:${toString port}";
   };
 
-  services.nginx.virtualHosts."felschr.com" = {
+  services.nginx.virtualHosts."web.felschr.com" = {
     enableACME = true;
     forceSSL = true;
     locations."/.well-known/webfinger" = {

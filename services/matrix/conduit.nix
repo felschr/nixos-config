@@ -31,7 +31,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts.${server_name} = {
+  services.nginx.virtualHosts."web.felschr.com" = {
     enableACME = true;
     forceSSL = true;
     locations =

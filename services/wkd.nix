@@ -2,7 +2,7 @@
 
 {
   # Direct mode
-  services.nginx.virtualHosts."felschr.com" = {
+  services.nginx.virtualHosts."web.felschr.com" = {
     enableACME = true;
     forceSSL = true;
     locations."/.well-known/openpgpkey/" = {

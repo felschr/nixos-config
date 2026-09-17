@@ -84,7 +84,7 @@ in
   systemd.services.dendrite.after = [ "postgresql.service" ];
 
   services.nginx.virtualHosts = {
-    ${server_name} = {
+    "web.felschr.com" = {
       enableACME = true;
       forceSSL = true;
       locations =
