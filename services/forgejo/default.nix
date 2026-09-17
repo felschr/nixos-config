@@ -7,7 +7,7 @@
 
 let
   domain = "git.felschr.com";
-  sshDomain = "felschr.com";
+  sshDomain = "git.felschr.com";
   sshPort = 2222;
   sshUser = "git";
   cfg = config.services.forgejo;
