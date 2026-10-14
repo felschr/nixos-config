@@ -24,6 +24,13 @@
   services.ssh-agent.enable = true;
   home.sessionVariables.SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
 
+  # headless: gnome-keyring won't load keys, so point ssh at the non-default
+  # named keys and cache passphrase-protected keys when first used
+  programs.ssh.settings."*" = {
+    AddKeysToAgent = "yes";
+    IdentityFile = [ "~/.ssh/private_auth" ];
+  };
+
   programs.zellij.enableZshIntegration = lib.mkForce false;
 
   programs.git.defaultProfile = "private";
