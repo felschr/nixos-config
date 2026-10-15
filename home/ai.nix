@@ -63,6 +63,11 @@ let
   };
 in
 {
+  imports = [
+    ./modules/goose.nix
+    ./modules/omp.nix
+  ];
+
   programs.opencode.enable = true;
   programs.opencode.package = inputs.llm-agents.packages.${system}.opencode2;
   programs.opencode.skills = skills;
@@ -71,11 +76,15 @@ in
   programs.claude-code.package = inputs.llm-agents.packages.${system}.claude-code;
   programs.claude-code.skills = skills;
 
+  programs.goose.enable = true;
+  programs.goose.package = inputs.llm-agents.packages.${system}.goose-cli;
+
+  programs.omp.enable = true;
+  programs.omp.package = inputs.llm-agents.packages.${system}.omp;
+
   home.packages = [
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
-    inputs.llm-agents.packages.${system}.goose-cli
-    inputs.llm-agents.packages.${system}.omp
   ];
 
   # goose & omp both discover Agent Skills (SKILL.md) from ~/.agents/skills,
