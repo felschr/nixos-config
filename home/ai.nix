@@ -72,6 +72,7 @@ in
   programs.claude-code.skills = skills;
 
   home.packages = [
+    inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
     inputs.llm-agents.packages.${system}.goose-cli
     inputs.llm-agents.packages.${system}.omp
