@@ -27,6 +27,8 @@ in
   nix = {
     package = pkgs.lixPackageSets.stable.lix;
     settings = {
+      # mirrors NIX_CONFIG set in CI
+      accept-flake-config = true;
       trusted-users = [ "@wheel" ];
       substituters = nixConfig.extra-substituters;
       trusted-public-keys = nixConfig.extra-trusted-public-keys;
