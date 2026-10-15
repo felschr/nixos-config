@@ -78,9 +78,9 @@ in
         matchConfig.Name = interfaces.lan;
         domains = [ "local" ];
         networkConfig = {
-          DHCP = "ipv4";
+          DHCP = true;
           IPv6AcceptRA = true;
-          MulticastDNS = true;
+          MulticastDNS = false;
           UseDomains = true;
         };
         linkConfig = {
@@ -95,7 +95,7 @@ in
     enable = true;
     # HINT with "true" even fallback or interface-specific DNS servers won't work if they don't support TLS
     settings.Resolve = {
-      MulticastDNS = true;
+      MulticastDNS = false;
       DNSOverTLS = "opportunistic";
       DNSStubListener = !isAdguardHost;
       FallbackDNS = [
@@ -107,8 +107,13 @@ in
     };
   };
 
-  # mDNS already handled by systemd-resolved
-  services.avahi.enable = lib.mkForce false;
+  # mDNS by avahi instead of systemd-resolved
+  services.avahi = {
+    enable = lib.mkForce true;
+    nssmdns4 = true;
+    nssmdns6 = true;
+    openFirewall = true;
+  };
 
   programs.mtr.enable = true;
   programs.mosh.enable = true;
