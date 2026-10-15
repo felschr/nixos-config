@@ -42,7 +42,6 @@
     jq
     nix-init
     nurl
-    skills
 
     # game dev
     ldtk

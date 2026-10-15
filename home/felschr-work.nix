@@ -40,7 +40,6 @@ with pkgs;
     jq
     nix-init
     nurl
-    skills
 
     # security & privacy
     unstable.proton-pass
