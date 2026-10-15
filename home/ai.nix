@@ -16,5 +16,6 @@ in
 
   home.packages = [
     inputs.llm-agents.packages.${system}.goose-cli
+    inputs.llm-agents.packages.${system}.omp
   ];
 }
