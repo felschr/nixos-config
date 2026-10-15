@@ -13,4 +13,8 @@ in
 
   programs.claude-code.enable = true;
   programs.claude-code.package = inputs.llm-agents.packages.${system}.claude-code;
+
+  home.packages = [
+    inputs.llm-agents.packages.${system}.goose-cli
+  ];
 }
