@@ -169,7 +169,7 @@ in
     1400 # Sonos discovery
   ];
   networking.firewall.allowedUDPPorts = [
-    5353 # HomeKit
+    5353 # mDNS
   ];
 
   age.secrets.hass-secrets = {
