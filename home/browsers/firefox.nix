@@ -61,6 +61,8 @@ in
 {
   programs.firefox = {
     enable = true;
+    # pin legacy default (changed to XDG path in home-manager 26.05)
+    configPath = ".mozilla/firefox";
     profiles = {
       private = {
         id = 0;
