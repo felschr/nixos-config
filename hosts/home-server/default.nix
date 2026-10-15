@@ -113,6 +113,24 @@ in
     recommendedBrotliSettings = true;
   };
 
+  # passwordless sudo for deploy-rs activation (deploy .#home-server)
+  # legacy security.sudo is disabled by system/hardened.nix in favor of sudo-rs
+  security.sudo-rs.extraRules = [
+    {
+      users = [ "felschr" ];
+      runAs = "root";
+      commands = [
+        {
+          command = "ALL";
+          options = [
+            "NOPASSWD"
+            "SETENV"
+          ];
+        }
+      ];
+    }
+  ];
+
   programs.zsh.enable = true;
 
   programs.ssh.enableAskPassword = false;

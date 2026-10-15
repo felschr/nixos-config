@@ -20,7 +20,7 @@ sudo nixos-rebuild switch --flake '/etc/nixos#<host>' --target-host user@hostnam
 
 Deploy `home-server` via deploy-rs (see `deploy.nodes.home-server` in `hosts/flake-module.nix`):
 ```sh
-deploy .#home-server
+nix run .#deploy -- .#home-server
 ```
 
 Check the whole flake (evaluates all outputs, runs the pre-commit hook check and deploy-rs checks):

@@ -128,7 +128,9 @@
         sshOpts = [ "-t" ];
         user = "root";
         path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.home-server;
-        magicRollback = false; # otherwise password prompt won't work
+        magicRollback = true;
+        # passwordless sudo on home-server (see hosts/home-server/default.nix)
+        # otherwise magicRollback pipes stdin and the password prompt wouldn't work
       };
     };
   };
@@ -140,6 +142,11 @@
       ...
     }:
     {
+      apps.deploy = {
+        type = "app";
+        program = "${inputs.deploy-rs.packages.${system}.default}/bin/deploy";
+      };
+
       checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
     };
 }
