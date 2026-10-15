@@ -157,7 +157,10 @@ in
       baudRate = 460800;
       extraDevices = [ "trel://enp2s0" ];
     };
-    backboneInterfaces = [ "enp2s0" ];
+    backboneInterfaces = [
+      "enp2s0"
+      "wlo1"
+    ];
     web.enable = true;
   };
 
