@@ -1,10 +1,17 @@
 { pkgs, ... }:
 
+let
+  theme = {
+    name = "Adwaita";
+    package = pkgs.gnome-themes-extra;
+  };
+in
 {
   gtk = {
     enable = true;
-    theme.name = "Adwaita";
-    theme.package = pkgs.gnome-themes-extra;
+    inherit theme;
+    # pin legacy default (changed to null in home-manager 26.05)
+    gtk4.theme = theme;
     gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
   };
