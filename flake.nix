@@ -78,6 +78,8 @@ rec {
       url = "github:astro/nix-openwrt-imagebuilder";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
