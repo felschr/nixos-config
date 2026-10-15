@@ -83,6 +83,9 @@ in
 
   systemd.services.tailscaled = {
     serviceConfig.Environment = [ "TS_DEBUG_FIREWALL_MODE=auto" ];
+    # NixOS warns when a service is ordered after network-online.target
+    # but doesn't depend on it
+    wants = [ "network-online.target" ];
     after = [
       "network-online.target"
       "systemd-resolved.service"
