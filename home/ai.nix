@@ -75,4 +75,13 @@ in
     inputs.llm-agents.packages.${system}.goose-cli
     inputs.llm-agents.packages.${system}.omp
   ];
+
+  # goose & omp both discover Agent Skills (SKILL.md) from ~/.agents/skills,
+  # the user-global location of the Agent Skills spec, by default.
+  home.file = lib.mapAttrs' (
+    name: src:
+    lib.nameValuePair ".agents/skills/${name}" {
+      source = src;
+    }
+  ) skills;
 }
