@@ -31,7 +31,9 @@
     IdentityFile = [ "~/.ssh/private_auth" ];
   };
 
+  # shell integration is off → exitShellOnExit would be ignored (hm warning)
   programs.zellij.enableZshIntegration = lib.mkForce false;
+  programs.zellij.exitShellOnExit = lib.mkForce false;
 
   programs.git.defaultProfile = "private";
 
