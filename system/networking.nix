@@ -68,6 +68,8 @@ in
       "WIFIonICE" = mkPublicWifiProfile "WIFIonICE";
       "WIFI@DB" = mkPublicWifiProfile "WIFI@DB";
       "metronom free WLAN" = mkPublicWifiProfile "metronom free WLAN";
+      "Hotspot_IC" = mkPublicWifiProfile "Hotspot_IC";
+      "CDWiFi" = mkPublicWifiProfile "CDWiFi";
     };
   };
 
@@ -154,6 +156,10 @@ in
         if [[ "$ACTION" == "up" ]]; then
           if [[ "$CONNECTION_ID" =~ ^(WIFIonICE|WIFI\@DB)$ ]]; then
             ${pkgs.curl}/bin/curl 'https://login.wifionice.de/cna/logon' -sSL -X POST
+          elif [[ "$CONNECTION_ID" == "Hotspot_IC" ]]; then
+            ${pkgs.curl}/bin/curl 'https://hotspot2.intercity.pl/api/login' -sSL -X POST
+          elif [[ "$CONNECTION_ID" == "CDWiFi" ]]; then
+            ${pkgs.curl}/bin/curl 'http://www.cdwifi.cz' -sSL
           fi
         fi
       '';
