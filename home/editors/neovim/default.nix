@@ -92,6 +92,8 @@ in
           ./neorg.lua
         ]
       );
+    # pin legacy default (will change to false in home-manager 26.05)
+    withRuby = true;
     withNodeJs = false;
     withPython3 = false;
   };
