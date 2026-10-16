@@ -3,6 +3,7 @@
   config,
   pkgs,
   lib,
+  osConfig,
   ...
 }:
 
@@ -88,5 +89,8 @@ in
           ]);
       };
     };
+
+    siteDataExceptionsFile =
+      if osConfig != null then osConfig.age.secrets.firefox-site-data-exceptions.path else null;
   };
 }

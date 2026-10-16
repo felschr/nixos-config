@@ -1,4 +1,10 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 
 {
   imports = [ ../modules/firefox/tor-browser.nix ];
@@ -12,5 +18,8 @@
       # Use native file picker instead of GTK file picker
       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
+
+    siteDataExceptionsFile =
+      if osConfig != null then osConfig.age.secrets.firefox-site-data-exceptions.path else null;
   };
 }

@@ -45,6 +45,12 @@
     rocmOverrideGfx = "11.5.0";
   };
 
+  age.secrets.firefox-site-data-exceptions = {
+    file = ../../secrets/firefox/site-data-exceptions.toml.age;
+    owner = "felschr";
+    mode = "0400";
+  };
+
   systemd.notify.enable = true;
   systemd.notify.method = "libnotify";
   systemd.notify.libnotify.user = "felschr";

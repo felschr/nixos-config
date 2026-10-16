@@ -27,5 +27,8 @@ in
       inherit modulePath name packageName;
       isSecure = true;
     })
+    (import ./site-data-exceptions.nix {
+      inherit modulePath name packageName;
+    })
   ];
 }
