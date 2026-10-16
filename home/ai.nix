@@ -47,11 +47,13 @@ let
   };
 
   # omp extensions installed into ~/.omp/agent/extensions/ (see home.file below).
+  # omp natively discovers direct *.ts files and package directories (whose
+  # package.json declares omp.extensions), and rewrites the legacy
+  # @earendil-works/pi-* imports these use onto the host-bundled copies
+  # (docs/extension-loading.md in the omp repo).
   ompExtensions = {
     # pi-think-panel: live scrolling view of the latest model reasoning above the
-    # editor (1/3/5/7 lines, /think-panel to configure). Loads fine under omp:
-    # omp rewrites the legacy @earendil-works/pi-* imports it uses onto the
-    # host-bundled copies (docs/extension-loading.md in the omp repo).
+    # editor (1/3/5/7 lines, /think-panel to configure).
     pi-think-panel = pkgs.fetchFromGitHub {
       owner = "fan56";
       repo = "pi-think-panel";
@@ -59,6 +61,27 @@ let
       hash = "sha256-oWgJxhrVLMJOKmwq+xjBGV3s6QPZwtkwROy/r0xhp9g=";
     };
   };
+
+  # Vendored omp extension packages (release tags), linked as whole directories
+  # so their package.json manifest resolves the extension entry.
+  ompExtensionPackages = {
+    # pi-background-run: background-job panel above the editor + `⏳ N running`
+    # status line (covers omp's native auto-backgrounded jobs), /bgstatus,
+    # /bgtail, /bgkill, /bgclean, plus the bgrun/bgtail/bggrep agent tools.
+    pi-background-run = pkgs.fetchFromGitHub {
+      owner = "stablekernel";
+      repo = "pi-background-run";
+      rev = "9350fae696c3306ce5a88f8d67cb03a04cf13a70"; # v0.8.0
+      hash = "sha256-95DMkHfYRqKEW1FC4fKk3SRLMhQ9O6NSz3mFuopVr6Y=";
+    };
+  };
+
+  # Skills bundled with vendored omp extension packages, planted into the
+  # omp user-level skills root (~/.omp/agent/skills) that omp scans natively.
+  ompExtensionSkills = lib.genAttrs [
+    "run-bg"
+    "digest-config"
+  ] (name: "${ompExtensionPackages.pi-background-run}/skills/${name}");
 
   skills = {
     agent-browser = "${skillSources.agent-browser}/skills/agent-browser";
@@ -109,7 +132,7 @@ in
 
   # goose & omp both discover Agent Skills (SKILL.md) from ~/.agents/skills,
   # the user-global location of the Agent Skills spec, by default.
-  # omp discovers single-file extensions from ~/.omp/agent/extensions/.
+  # omp also scans ~/.omp/agent/skills as its user-level skills root.
   home.file =
     lib.mapAttrs' (name: src: (lib.nameValuePair (".agents/skills/${name}") ({ source = src; }))) skills
     // lib.mapAttrs' (
@@ -117,5 +140,18 @@ in
       lib.nameValuePair ".omp/agent/extensions/${name}.ts" {
         source = "${src}/extensions/${name}.ts";
       }
-    ) ompExtensions;
+    ) ompExtensions
+    // lib.mapAttrs' (
+      name: src:
+      lib.nameValuePair ".omp/agent/extensions/${name}" {
+        source = src;
+        recursive = true;
+      }
+    ) ompExtensionPackages
+    // lib.mapAttrs' (
+      name: src:
+      lib.nameValuePair ".omp/agent/skills/${name}" {
+        source = src;
+      }
+    ) ompExtensionSkills;
 }
