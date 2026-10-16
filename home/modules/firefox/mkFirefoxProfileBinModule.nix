@@ -19,10 +19,15 @@ let
   mkBadgedIcon = import ./mkBadgedIcon.nix { inherit pkgs; };
 
   mkProfileBin =
-    profileName: bin:
+    profileName:
+    {
+      badge,
+      desktopName,
+      mimeTypes,
+      ...
+    }:
     let
       pname = "${packageName}-${profileName}";
-      badge = bin.badge;
       badgedIcon =
         if badge == null then
           null
@@ -41,9 +46,9 @@ let
         exec = "${scriptBin}/bin/${pname} %U";
         icon = if badge == null then packageName else pname;
         extraConfig.StartupWMClass = pname;
-        desktopName = if bin.desktopName != null then bin.desktopName else "${appName} (${profileName})";
+        desktopName = if desktopName != null then desktopName else "${appName} (${profileName})";
         genericName = "Web Browser";
-        mimeTypes = bin.mimeTypes;
+        inherit mimeTypes;
         categories = [
           "Network"
           "WebBrowser"
