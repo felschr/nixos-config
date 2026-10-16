@@ -86,18 +86,37 @@ in
 
   home.packages =
     let
+      mkBadgedIcon = import ../modules/firefox/mkBadgedIcon.nix { inherit pkgs; };
+
       makeFirefoxProfileBin =
-        args@{ profile, ... }:
+        args@{
+          profile,
+          badge ? null,
+          ...
+        }:
         let
           name = "firefox-${profile}";
+          badgedIcon =
+            if badge == null then
+              null
+            else
+              mkBadgedIcon {
+                pkg = config.programs.firefox.package;
+                baseName = "firefox";
+                inherit name badge;
+              };
           scriptBin = pkgs.writeScriptBin name ''
             firefox -P "${profile}" --name="${name}" $@
           '';
           desktopFile = pkgs.makeDesktopItem (
-            (removeAttrs args [ "profile" ])
+            (removeAttrs args [
+              "profile"
+              "badge"
+            ])
             // {
               inherit name;
               exec = "${scriptBin}/bin/${name} %U";
+              icon = if badge == null then "firefox" else name;
               extraConfig.StartupWMClass = name;
               genericName = "Web Browser";
               mimeTypes = [
@@ -119,13 +138,16 @@ in
           mkdir -p $out/{bin,share}
           cp -r ${scriptBin}/bin/${name} $out/bin/${name}
           cp -r ${desktopFile}/share/applications $out/share/applications
+          ${lib.optionalString (badge != null) "cp -r ${badgedIcon}/share/icons $out/share/icons"}
         '';
     in
     [
       (makeFirefoxProfileBin {
         profile = "work";
         desktopName = "Firefox (Work)";
-        icon = "firefox";
+        badge = {
+          text = "💼";
+        };
       })
     ];
 }

@@ -207,6 +207,9 @@ in
   programs.mullvad-browser = {
     enable = true;
     createProfileBins = true;
+    iconBadges.work = {
+      text = "💼";
+    };
     profiles = {
       private = {
         id = 0;
