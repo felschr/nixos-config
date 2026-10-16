@@ -76,7 +76,6 @@ in
         bin = {
           enable = true;
           badge.text = "💼";
-          desktopName = "Firefox (Work)";
         };
         extraConfig = sharedExtraConfig;
         extensions.packages =
