@@ -19,10 +19,10 @@ let
   mkBadgedIcon = import ./mkBadgedIcon.nix { inherit pkgs; };
 
   mkProfileBin =
-    profileName: profile:
+    profileName: bin:
     let
       pname = "${packageName}-${profileName}";
-      badge = cfg.iconBadges.${profileName} or null;
+      badge = bin.badge;
       badgedIcon =
         if badge == null then
           null
@@ -41,8 +41,9 @@ let
         exec = "${scriptBin}/bin/${pname} %U";
         icon = if badge == null then packageName else pname;
         extraConfig.StartupWMClass = pname;
-        desktopName = "${appName} (${profileName})";
+        desktopName = if bin.desktopName != null then bin.desktopName else "${appName} (${profileName})";
         genericName = "Web Browser";
+        mimeTypes = bin.mimeTypes;
         categories = [
           "Network"
           "WebBrowser"
@@ -56,55 +57,92 @@ let
       cp -r ${desktopFile}/share/applications $out/share/applications
       ${lib.optionalString (badge != null) "cp -r ${badgedIcon}/share/icons $out/share/icons"}
     '';
+
+  badgeType =
+    with lib.types;
+    let
+      badgeSubmodule = lib.types.submodule {
+        options = {
+          text = lib.mkOption {
+            type = str;
+            example = "W";
+            description = "Text shown in the badge, usually a single letter.";
+          };
+          color = lib.mkOption {
+            type = str;
+            default = "#2da44e";
+            description = "Badge background color.";
+          };
+          textColor = lib.mkOption {
+            type = str;
+            default = "#ffffff";
+            description = "Badge text color.";
+          };
+        };
+      };
+    in
+    nullOr badgeSubmodule;
 in
 {
   options = lib.setAttrByPath modulePath {
-    createProfileBins = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = ''
-        When enabled installs a binary for all non-default profiles named `${packageName}-''${profile}`.
-        This also includes a `.desktop` file that is configured to show separate icons (on GNOME at least).
-      '';
-    };
-    iconBadges = lib.mkOption {
-      type =
-        with lib.types;
-        attrsOf (submodule {
-          options = {
-            text = lib.mkOption {
-              type = str;
-              example = "W";
-              description = "Text shown in the badge, usually a single letter.";
+    profiles = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options.bin = lib.mkOption {
+            type = lib.types.submodule {
+              options = {
+                enable = lib.mkOption {
+                  type = lib.types.bool;
+                  default = false;
+                  description = ''
+                    Whether to install a `${packageName}-''${profile}` bin and `.desktop` entry
+                    for this profile.
+                  '';
+                };
+                desktopName = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                  description = "Desktop entry name. Defaults to `${appName} ({profile})`.";
+                };
+                badge = lib.mkOption {
+                  type = badgeType;
+                  default = null;
+                  description = ''
+                    Colored corner badge overlaid on the `${packageName}-''${profile}` icon.
+                    When null (default), the bin keeps the plain `${packageName}` icon.
+                  '';
+                };
+                mimeTypes = lib.mkOption {
+                  type = lib.types.listOf lib.types.str;
+                  default = [
+                    "text/html"
+                    "text/xml"
+                    "application/xhtml+xml"
+                    "application/vnd.mozilla.xul+xml"
+                    "x-scheme-handler/http"
+                    "x-scheme-handler/https"
+                  ];
+                  description = ''
+                    MIME types (incl. URL schemes) that the `.desktop` entry registers as a
+                    handler for. Set to `[ ]` to keep the bin out of the default-app lists.
+                  '';
+                };
+              };
             };
-            color = lib.mkOption {
-              type = str;
-              default = "#2da44e";
-              description = "Badge background color.";
-            };
-            textColor = lib.mkOption {
-              type = str;
-              default = "#ffffff";
-              description = "Badge text color.";
-            };
+            default = { };
+            description = ''
+              Settings for an optional launcher bin `${packageName}-''${profile}`, coming with
+              a `.desktop` file configured to show a separate window icon (on GNOME at least).
+            '';
           };
-        });
-      default = { };
-      description = ''
-        Colored corner badges overlaid on `${packageName}`-derived profile bin icons.
-        Keys are profile names; profile bins without a badge keep the plain `${packageName}` icon.
-      '';
+        }
+      );
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    {
-      home.packages =
-        if cfg.createProfileBins then
-          (lib.mapAttrsToList mkProfileBin) (lib.filterAttrs (_: p: !p.isDefault) cfg.profiles)
-        else
-          [ ];
-    }
-    // lib.setAttrByPath modulePath { }
-  );
+  config = lib.mkIf cfg.enable {
+    home.packages = lib.mapAttrsToList (profileName: profile: mkProfileBin profileName profile.bin) (
+      lib.filterAttrs (_: profile: profile.bin.enable) cfg.profiles
+    );
+  };
 }

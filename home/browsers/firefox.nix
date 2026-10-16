@@ -6,7 +6,6 @@
   ...
 }:
 
-with lib;
 let
   firefox-addons = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
 
@@ -59,6 +58,8 @@ let
   ];
 in
 {
+  imports = [ ../modules/firefox/firefox.nix ];
+
   programs.firefox = {
     enable = true;
     # pin legacy default (changed to XDG path in home-manager 26.05)
@@ -71,6 +72,11 @@ in
       };
       work = {
         id = 1;
+        bin = {
+          enable = true;
+          badge.text = "💼";
+          desktopName = "Firefox (Work)";
+        };
         extraConfig = sharedExtraConfig;
         extensions.packages =
           commonExtensions
@@ -83,71 +89,4 @@ in
       };
     };
   };
-
-  home.packages =
-    let
-      mkBadgedIcon = import ../modules/firefox/mkBadgedIcon.nix { inherit pkgs; };
-
-      makeFirefoxProfileBin =
-        args@{
-          profile,
-          badge ? null,
-          ...
-        }:
-        let
-          name = "firefox-${profile}";
-          badgedIcon =
-            if badge == null then
-              null
-            else
-              mkBadgedIcon {
-                pkg = config.programs.firefox.package;
-                baseName = "firefox";
-                inherit name badge;
-              };
-          scriptBin = pkgs.writeScriptBin name ''
-            firefox -P "${profile}" --name="${name}" $@
-          '';
-          desktopFile = pkgs.makeDesktopItem (
-            (removeAttrs args [
-              "profile"
-              "badge"
-            ])
-            // {
-              inherit name;
-              exec = "${scriptBin}/bin/${name} %U";
-              icon = if badge == null then "firefox" else name;
-              extraConfig.StartupWMClass = name;
-              genericName = "Web Browser";
-              mimeTypes = [
-                "text/html"
-                "text/xml"
-                "application/xhtml+xml"
-                "application/vnd.mozilla.xul+xml"
-                "x-scheme-handler/http"
-                "x-scheme-handler/https"
-              ];
-              categories = [
-                "Network"
-                "WebBrowser"
-              ];
-            }
-          );
-        in
-        pkgs.runCommand name { } ''
-          mkdir -p $out/{bin,share}
-          cp -r ${scriptBin}/bin/${name} $out/bin/${name}
-          cp -r ${desktopFile}/share/applications $out/share/applications
-          ${lib.optionalString (badge != null) "cp -r ${badgedIcon}/share/icons $out/share/icons"}
-        '';
-    in
-    [
-      (makeFirefoxProfileBin {
-        profile = "work";
-        desktopName = "Firefox (Work)";
-        badge = {
-          text = "💼";
-        };
-      })
-    ];
 }

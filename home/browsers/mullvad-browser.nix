@@ -206,10 +206,6 @@ in
 
   programs.mullvad-browser = {
     enable = true;
-    createProfileBins = true;
-    iconBadges.work = {
-      text = "💼";
-    };
     profiles = {
       private = {
         id = 0;
@@ -219,6 +215,10 @@ in
       };
       work = {
         id = 1;
+        bin = {
+          enable = true;
+          badge.text = "💼";
+        };
         settings = commonSettings;
         search = commonSearch;
         extensions.packages =
