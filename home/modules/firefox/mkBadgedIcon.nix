@@ -20,8 +20,10 @@ let
 
     # Noto Color Emoji bitmap strike size.
     render_size = 109
-    emoji_target = 0.64
-    text_target = 0.46
+    # Glyph height as a fraction of the badge diameter; the remainder is the
+    # padding that keeps the glyph clear of the badge edge.
+    emoji_target = 0.48
+    text_target = 0.34
 
     text = os.environ["badgeText"]
     color = os.environ["badgeColor"]
@@ -78,10 +80,14 @@ let
         inset = size * 5 // 100
 
         icon = Image.open(icon_path).convert("RGBA")
-        badge_img = Image.new("RGBA", (box, box), (0, 0, 0, 0))
-        ImageDraw.Draw(badge_img).ellipse(
-            [0, 0, box - 1, box - 1], fill=hex_rgb(color) + (255,)
+        # Pillow draws a hard-edged ellipse, so render the badge supersampled
+        # and downsample it to get anti-aliased edges at every icon size.
+        big = box * 4
+        badge_big = Image.new("RGBA", (big, big), (0, 0, 0, 0))
+        ImageDraw.Draw(badge_big).ellipse(
+            [0, 0, big - 1, big - 1], fill=hex_rgb(color) + (255,)
         )
+        badge_img = badge_big.resize((box, box), Image.BOX)
         target_height = max(
             1, round(box * (emoji_target if is_emoji else text_target))
         )
@@ -104,13 +110,13 @@ pkgs.runCommand "${name}-icon"
   {
     nativeBuildInputs = [ (pkgs.python3.withPackages (p: [ p.pillow ])) ];
     badgeBaseName = baseName;
-    badgeColor = badge.color or "#2da44e";
+    badgeColor = badge.color or "#ffffff";
     badgeFontEmoji = "${pkgs.noto-fonts-color-emoji}/share/fonts/noto/NotoColorEmoji.ttf";
     badgeFontSans = "${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSans-Bold.ttf";
     badgeName = name;
     badgePkgRoot = pkg;
     badgeText = badge.text;
-    badgeTextColor = badge.textColor or "#ffffff";
+    badgeTextColor = badge.textColor or "#000000";
   }
   ''
     python3 ${badgeScript}

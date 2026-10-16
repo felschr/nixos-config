@@ -75,12 +75,12 @@ let
           };
           color = lib.mkOption {
             type = str;
-            default = "#2da44e";
+            default = "#ffffff";
             description = "Badge background color.";
           };
           textColor = lib.mkOption {
             type = str;
-            default = "#ffffff";
+            default = "#000000";
             description = "Badge text color.";
           };
         };
