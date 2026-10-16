@@ -209,6 +209,7 @@ in
     profiles = {
       private = {
         id = 0;
+        bin.enable = true;
         settings = commonSettings;
         search = commonSearch;
         extensions.packages = commonExtensions;

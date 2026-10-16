@@ -67,6 +67,7 @@ in
     profiles = {
       private = {
         id = 0;
+        bin.enable = true;
         extraConfig = sharedExtraConfig;
         extensions.packages = commonExtensions;
       };
