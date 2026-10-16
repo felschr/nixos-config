@@ -46,6 +46,20 @@ let
     };
   };
 
+  # omp extensions installed into ~/.omp/agent/extensions/ (see home.file below).
+  ompExtensions = {
+    # pi-think-panel: live scrolling view of the latest model reasoning above the
+    # editor (1/3/5/7 lines, /think-panel to configure). Loads fine under omp:
+    # omp rewrites the legacy @earendil-works/pi-* imports it uses onto the
+    # host-bundled copies (docs/extension-loading.md in the omp repo).
+    pi-think-panel = pkgs.fetchFromGitHub {
+      owner = "fan56";
+      repo = "pi-think-panel";
+      rev = "1d52902d9b885cf29925baa49556c642adba10fe"; # v0.3.3
+      hash = "sha256-oWgJxhrVLMJOKmwq+xjBGV3s6QPZwtkwROy/r0xhp9g=";
+    };
+  };
+
   skills = {
     agent-browser = "${skillSources.agent-browser}/skills/agent-browser";
     atvari-copyright = "${skillSources.atvari-skills}/skills/atvari-copyright";
@@ -82,6 +96,12 @@ in
   programs.omp.enable = true;
   programs.omp.package = inputs.llm-agents.packages.${system}.omp;
 
+  # Thinking blocks visible by default; Ctrl+T hides the full thinking inline.
+  programs.omp.settings = {
+    hideThinkingBlock = false;
+    statusLine.compactThinkingLevel = false;
+  };
+
   home.packages = [
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
@@ -89,10 +109,13 @@ in
 
   # goose & omp both discover Agent Skills (SKILL.md) from ~/.agents/skills,
   # the user-global location of the Agent Skills spec, by default.
-  home.file = lib.mapAttrs' (
-    name: src:
-    lib.nameValuePair ".agents/skills/${name}" {
-      source = src;
-    }
-  ) skills;
+  # omp discovers single-file extensions from ~/.omp/agent/extensions/.
+  home.file =
+    lib.mapAttrs' (name: src: (lib.nameValuePair (".agents/skills/${name}") ({ source = src; }))) skills
+    // lib.mapAttrs' (
+      name: src:
+      lib.nameValuePair ".omp/agent/extensions/${name}.ts" {
+        source = "${src}/extensions/${name}.ts";
+      }
+    ) ompExtensions;
 }
