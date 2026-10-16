@@ -1,6 +1,9 @@
 .env
 .pre-commit-config.yaml
 
+# omp runtime state (ssh host aliases)
+.omp/
+
 # nix
 result
 *.qcow2

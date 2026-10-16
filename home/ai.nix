@@ -120,9 +120,16 @@ in
   programs.omp.package = inputs.llm-agents.packages.${system}.omp;
 
   # Thinking blocks visible by default; Ctrl+T hides the full thinking inline.
+  # OpenCode-flavored look: bordered box composer instead of flat band, footer
+  # on terminal background with plain text separators.
   programs.omp.settings = {
     hideThinkingBlock = false;
     statusLine.compactThinkingLevel = false;
+
+    theme.dark = "anthracite";
+    composer.shape = "box";
+    statusLine.transparent = true;
+    statusLine.separator = "slash";
   };
 
   home.packages = [
