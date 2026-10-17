@@ -221,8 +221,9 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#361fe53bfb44dbd3b0161979d2673187117f3a61";
+        package = "github:atvari-eu/opencode-system-one#d76fba326f5c1d1a5f3e0ffeed226c2834cefb22";
         options = {
+          provider = "opencode-go"; # jev bills the OpenCode Go login, not Console credits
           model = "jev-1.13";
           screen = {
             enabled = true;
