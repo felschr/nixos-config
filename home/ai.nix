@@ -215,18 +215,28 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#2af1df79f2e3be3de3045b6758bd4042e9a3f409";
+        package = "github:atvari-eu/opencode-system-one#361fe53bfb44dbd3b0161979d2673187117f3a61";
         options = {
           model = "jev-1.13";
           screen = {
             enabled = true;
             mode = "annotate";
+            tools = "all"; # screen every tool result, not just fetched pages
           };
           scrub.enabled = true;
           tools = true;
           commands = true;
           cache = true;
-          effort.auto = true;
+          route = {
+            auto = true;
+            sources = {
+              favorites = true;
+              opencode.plan = "go";
+            };
+          };
+          effort.auto = true; # per-prompt thinking level; pairs with route
+          doneCheck.auto = true; # completion probe when the session goes idle
+          find.enabled = true; # jev_find: jev-backed semantic code search
           compaction = {
             enabled = true;
             mode = "replace";
