@@ -127,7 +127,7 @@ let
   jevCli = pkgs.writeShellScriptBin "jev" ''
     set -euo pipefail
 
-    model="''${JEV_MODEL:-jev-1.13-free}"
+    model="''${JEV_MODEL:-jev-1.13}"
     auth="''${OPENCODE_AUTH:-$HOME/.local/share/opencode/auth.json}"
 
     if [ ! -f "$auth" ]; then
@@ -168,6 +168,75 @@ in
 
   programs.opencode.enable = true;
   programs.opencode.package = inputs.llm-agents.packages.${system}.opencode2;
+  # Declarative runtime config: settings reimplements ~/.config/opencode/opencode.json
+  # wholesale (the HM module replaces the file). The switch makes that file a
+  # read-only store symlink, so runtime self-persisting tweaks (saved model,
+  # theme) stop surviving. Plugin updates: bump the pin above.
+  programs.opencode.settings = {
+    providers = {
+      munito = {
+        name = "Munito";
+        env = [ "MUNITO_API_KEY" ];
+        package = "@opencode/ai/providers/openai-compatible";
+        settings.baseURL = "https://api.eu.munito.ai/inference/v1";
+        models = {
+          "aleph-alpha/kolibri-1".name = "Kolibri 1";
+          "deepseek-ai/deepseek-v4-flash".name = "DeepSeek V4 Flash";
+          "google/gemma-4-12b".name = "Gemma 4 12B";
+          "mistralai/mistral-small-4-119b-2603".name = "Mistral Small 4";
+          "qwen/qwen3.6-35b-a3b".name = "Qwen3.6 35B A3B";
+          "qwen/qwen3.8-27b".name = "Qwen3.8 27B";
+          "zai-org/glm-5.3-flash".name = "GLM-5.3 Flash";
+        };
+      };
+    };
+    mcp.servers = {
+      db-fahrplan = {
+        type = "local";
+        command = [
+          "nix"
+          "shell"
+          "nixpkgs#uv"
+          "-c"
+          "uvx"
+          "db-fahrplan-mcp"
+        ];
+        timeout.startup = 120000;
+      };
+      opentofu = {
+        type = "remote";
+        url = "https://mcp.opentofu.org/mcp";
+        enabled = true;
+      };
+      munito = {
+        type = "remote";
+        url = "https://api.munito.ai/mcp/v1";
+      };
+    };
+    plugins = [
+      {
+        package = "github:atvari-eu/opencode-system-one#2af1df79f2e3be3de3045b6758bd4042e9a3f409";
+        options = {
+          model = "jev-1.13";
+          screen = {
+            enabled = true;
+            mode = "annotate";
+          };
+          scrub.enabled = true;
+          tools = true;
+          commands = true;
+          cache = true;
+          effort.auto = true;
+          compaction = {
+            enabled = true;
+            mode = "replace";
+          };
+          approvals.mode = "annotate";
+        };
+      }
+    ];
+  };
+
   # Skill consumers that integrate jev natively do not use these skills: OpenCode
   # has the opencode-system-one plugin (hooks, tools, routing, `jev_*` tool
   # descriptions), and omp has its built-in TypeSafeJudge (providers.judgment).
