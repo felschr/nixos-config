@@ -112,6 +112,12 @@ let
     typesafe-ai = "${skillSources.typesafe-skills}/skills/typesafe-ai";
   };
 
+  # Shared-root set: omits the jev skills (see the opencode comment below).
+  agentSkills = builtins.removeAttrs skills [
+    "system-one"
+    "auto-system-one"
+  ];
+
   # jev — terminal client for the System One decision endpoint served by the
   # OpenCode Console provider (see the system-one skill). Reads a request
   # body without "model"/auth on stdin, adds the model + Console key, POSTs,
@@ -215,23 +221,36 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#2af1df79f2e3be3de3045b6758bd4042e9a3f409";
+        package = "github:atvari-eu/opencode-system-one#03934435ee4f861066c90479dc40de0df8f6317f";
         options = {
+          provider = "opencode"; # jev models live on the Console provider
           model = "jev-1.13";
           screen = {
             enabled = true;
             mode = "annotate";
+            tools = "all"; # screen every tool result, not just fetched pages
           };
           scrub.enabled = true;
           tools = true;
           commands = true;
           cache = true;
-          effort.auto = true;
+          route = {
+            auto = true;
+            sources = {
+              favorites = true;
+              opencode.plan = "go";
+            };
+          };
+          effort.auto = true; # per-prompt thinking level; pairs with route
+          doneCheck.auto = true; # completion probe when the session goes idle
+          find.enabled = true; # jev_find: jev-backed semantic code search
           compaction = {
             enabled = true;
             mode = "replace";
+            # compact at idle: jev passes are ~free, big prompts are not
+            auto.tokens = 60000;
           };
-          approvals.mode = "annotate";
+          approvals.mode = "deny";
         };
       }
     ];
@@ -240,9 +259,8 @@ in
   # Skill consumers that integrate jev natively do not use these skills: OpenCode
   # has the opencode-system-one plugin (hooks, tools, routing, `jev_*` tool
   # descriptions), and omp has its built-in TypeSafeJudge (providers.judgment).
-  # Plugin-less agents (claude, goose) keep them through the shared
-  # `~/.agents/skills` root: `system-one` carries the mechanics there and
-  # `auto-system-one` the when-to-call advice.
+  # Plugin-less agents keep them through their own roots instead: claude via
+  # programs.claude-code.skills; goose runs without them.
   programs.opencode.skills = builtins.removeAttrs skills [
     "system-one"
     "auto-system-one"
@@ -270,8 +288,7 @@ in
     statusLine.transparent = true;
     statusLine.separator = "slash";
 
-    # omp loads the shared ~/.agents/skills root like goose does; it integrates
-    # jev natively (TypeSafeJudge), so the two jev skills stay out of its list.
+    # Safety net: omp also scans ~/.agents/skills.
     skills.ignoredSkills = [
       "system-one"
       "auto-system-one"
@@ -288,7 +305,9 @@ in
   # the user-global location of the Agent Skills spec, by default.
   # omp also scans ~/.omp/agent/skills as its user-level skills root.
   home.file =
-    lib.mapAttrs' (name: src: (lib.nameValuePair (".agents/skills/${name}") ({ source = src; }))) skills
+    lib.mapAttrs' (
+      name: src: (lib.nameValuePair (".agents/skills/${name}") ({ source = src; }))
+    ) agentSkills
     // lib.mapAttrs' (
       name: src:
       lib.nameValuePair ".omp/agent/extensions/${name}.ts" {
