@@ -264,7 +264,7 @@ in
             "edit"
           ];
           # enact marginal verdicts too - fewer asks, slightly riskier
-          approvals.minConfidence = 0.70;
+          approvals.minConfidence = 0.60;
           approvals.permissions = [
             (perm "shell" "git status *" "allow")
             (perm "shell" "git log *" "allow")
