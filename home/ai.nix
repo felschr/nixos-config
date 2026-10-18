@@ -301,28 +301,10 @@ in
               "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
             )
             # read & grep are allowed without any jev approval; secret-path
-            # patterns below override them (last match wins) and always prompt
+            # reads are caught by the plugin's built-in secretsGate (on by
+            # default; approvals.secretsGateBypass = true skips it)
             (perm "read" "*" "allow")
             (perm "grep" "*" "allow")
-            (perm "read" "*secrets*" "ask")
-            (perm "grep" "*secrets*" "ask")
-            (perm "read" "*.env*" "ask")
-            (perm "grep" "*.env*" "ask")
-            (perm "read" "*.pem" "ask")
-            (perm "read" "*.key" "ask")
-            (perm "read" "*.age" "ask")
-            (perm "read" "*.kdbx" "ask")
-            (perm "read" "*.p12" "ask")
-            (perm "read" "*.pfx" "ask")
-            (perm "read" "*credentials*" "ask")
-            (perm "grep" "*credentials*" "ask")
-            (perm "read" "*token*" "ask")
-            (perm "grep" "*token*" "ask")
-            (perm "read" ".ssh/*" "ask")
-            (perm "read" "*id_rsa*" "ask")
-            (perm "read" "*id_ed25519*" "ask")
-            (perm "read" ".gnupg/*" "ask")
-            (perm "read" ".aws/*" "ask")
           ];
         };
       }
