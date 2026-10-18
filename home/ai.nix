@@ -234,7 +234,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#0e833fea43e1e2e2f48c23137e6afcb1bf6d5090";
+        package = "github:atvari-eu/opencode-system-one#6574f661afffe0a5065fe637c4e3b282f5d454bb";
         options = {
           provider = "opencode"; # jev models live on the Console provider
           model = "jev-1.13";
