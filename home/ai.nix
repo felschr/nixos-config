@@ -174,6 +174,10 @@ let
   permCtx =
     action: resource: effect: context:
     (perm action resource effect) // { inherit context; };
+  # ... with a once-per-session agent-context hint
+  permHint =
+    action: resource: effect: hint:
+    (perm action resource effect) // { inherit hint; };
 in
 {
   imports = [
@@ -292,11 +296,8 @@ in
             (perm "shell" "nix-collect-garbage *" "ask")
             (perm "shell" "nix flake update *" "ask")
             (perm "shell" "git push *" "ask")
-            (
-              (perm "external_directory" "*" "ask")
-              // {
-                hint = "for more than an occasional file access, prefer /cd to that directory so the work happens inside the session's working set instead of reaching across this permission each time";
-              }
+            (permHint "external_directory" "*" "ask"
+              "for more than an occasional file access, prefer /cd to that directory so the work happens inside the session's working set instead of reaching across this permission each time"
             )
             (permCtx "edit" "*" "system-one"
               "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
