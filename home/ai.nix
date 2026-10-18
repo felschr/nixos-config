@@ -230,7 +230,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#1beca9fca34110b171cfa783fb874b1cf5d65f5e";
+        package = "github:atvari-eu/opencode-system-one#a45ce30b3f46fa3a3167446b9c0487319ed835db";
         options = {
           provider = "opencode"; # jev models live on the Console provider
           model = "jev-1.13";
@@ -264,7 +264,10 @@ in
             "edit"
           ];
           # enact marginal verdicts too - fewer asks, slightly riskier
-          approvals.minConfidence = 0.60;
+          approvals.minConfidence = {
+            approve = 0.60;
+            deny = 0.70;
+          };
           approvals.permissions = [
             (perm "shell" "git status *" "allow")
             (perm "shell" "git log *" "allow")
