@@ -257,7 +257,6 @@ in
           # enact marginal verdicts too - fewer asks, slightly riskier
           approvals.minConfidence = 0.70;
           approvals.bypass = [
-            # read-only and dry-run commands never need judging or asking
             {
               action = "shell";
               resource = "git status *";
@@ -287,6 +286,87 @@ in
               action = "shell";
               resource = "ls *";
               effect = "allow";
+            }
+            {
+              # routine, workspace-local; standard practice to allow
+              action = "shell";
+              resource = "git commit *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "bun test *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "shellcheck *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nixfmt *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix fmt *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix search *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix eval *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix flake show *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix doctor *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix why-depends *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix store verify *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix store path-info *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "nix store *";
+              effect = "ask";
+            }
+            {
+              action = "shell";
+              resource = "nixos-rebuild *";
+              effect = "ask";
+            }
+            {
+              action = "shell";
+              resource = "nix-collect-garbage *";
+              effect = "ask";
+            }
+            {
+              action = "shell";
+              resource = "nix flake update *";
+              effect = "ask";
             }
             {
               action = "shell";
