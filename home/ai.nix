@@ -379,12 +379,17 @@ in
     ];
     permissions = [
       {
-        action = "shell";
+        action = "edit";
+        resource = "*";
+        effect = "allow";
+      }
+      {
+        action = "external_directory";
         resource = "*";
         effect = "ask";
       }
       {
-        action = "edit";
+        action = "shell";
         resource = "*";
         effect = "ask";
       }
