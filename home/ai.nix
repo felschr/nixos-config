@@ -260,6 +260,11 @@ in
     permissions = [
       {
         action = "shell";
+        resource = "git push *";
+        effect = "deny";
+      }
+      {
+        action = "shell";
         resource = "*";
         effect = "ask";
       }
