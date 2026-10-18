@@ -250,7 +250,23 @@ in
             auto.tokens = 60000;
           };
           approvals.mode = "deny";
+          approvals.actions = [
+            "shell"
+            "edit"
+          ];
         };
+      }
+    ];
+    permissions = [
+      {
+        action = "shell";
+        resource = "*";
+        effect = "ask";
+      }
+      {
+        action = "edit";
+        resource = "*";
+        effect = "ask";
       }
     ];
   };
