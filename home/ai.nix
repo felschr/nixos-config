@@ -301,8 +301,8 @@ in
               "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
             )
             # read & grep are allowed without any jev approval; secret-path
-            # reads are caught by the plugin's built-in secretsGate (on by
-            # default; approvals.secretsGateBypass = true skips it)
+            # reads are caught by the plugin's built-in gate (approvals.gates,
+            # secrets=true by default; false would skip it)
             (perm "read" "*" "allow")
             (perm "grep" "*" "allow")
           ];
