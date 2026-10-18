@@ -254,15 +254,17 @@ in
             "shell"
             "edit"
           ];
+          approvals.bypass = [
+            {
+              action = "shell";
+              resource = "git push *";
+              effect = "deny";
+            }
+          ];
         };
       }
     ];
     permissions = [
-      {
-        action = "shell";
-        resource = "git push *";
-        effect = "deny";
-      }
       {
         action = "shell";
         resource = "*";
