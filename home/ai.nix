@@ -385,17 +385,7 @@ in
     ];
     permissions = [
       {
-        action = "edit";
-        resource = "*";
-        effect = "ask";
-      }
-      {
-        action = "external_directory";
-        resource = "*";
-        effect = "ask";
-      }
-      {
-        action = "shell";
+        action = "*";
         resource = "*";
         effect = "ask";
       }
