@@ -166,6 +166,15 @@ let
     fi
   '';
 in
+let
+  # opencode permission entry shorthand, both for host permissions and the
+  # plugin's approvals.permissions: (perm "shell" "git push *" "ask")
+  perm = action: resource: effect: { inherit action resource effect; };
+  # ... with operator context for the system-one effect
+  permCtx =
+    action: resource: effect: context:
+    (perm action resource effect) // { inherit context; };
+in
 {
   imports = [
     ./modules/goose.nix
@@ -257,138 +266,38 @@ in
           # enact marginal verdicts too - fewer asks, slightly riskier
           approvals.minConfidence = 0.70;
           approvals.permissions = [
-            {
-              action = "shell";
-              resource = "git status *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "git log *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "git diff *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "git branch *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "git show *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "ls *";
-              effect = "allow";
-            }
-            {
-              # routine, workspace-local; standard practice to allow
-              action = "shell";
-              resource = "git commit *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "bun test *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "shellcheck *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nixfmt *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix fmt *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix search *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix eval *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix flake show *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix doctor *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix why-depends *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix store verify *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix store path-info *";
-              effect = "allow";
-            }
-            {
-              action = "shell";
-              resource = "nix store *";
-              effect = "ask";
-            }
-            {
-              action = "shell";
-              resource = "nixos-rebuild *";
-              effect = "ask";
-            }
-            {
-              action = "shell";
-              resource = "nix-collect-garbage *";
-              effect = "ask";
-            }
-            {
-              action = "shell";
-              resource = "nix flake update *";
-              effect = "ask";
-            }
-            {
-              action = "shell";
-              resource = "git push *";
-              effect = "ask";
-            }
-            {
-              action = "edit";
-              resource = "*";
-              effect = "system-one";
-              context = "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself.";
-            }
+            (perm "shell" "git status *" "allow")
+            (perm "shell" "git log *" "allow")
+            (perm "shell" "git diff *" "allow")
+            (perm "shell" "git branch *" "allow")
+            (perm "shell" "git show *" "allow")
+            (perm "shell" "ls *" "allow")
+            (perm "shell" "git commit *" "allow")
+            (perm "shell" "bun test *" "allow")
+            (perm "shell" "shellcheck *" "allow")
+            (perm "shell" "nixfmt *" "allow")
+            (perm "shell" "nix fmt *" "allow")
+            (perm "shell" "nix search *" "allow")
+            (perm "shell" "nix eval *" "allow")
+            (perm "shell" "nix flake show *" "allow")
+            (perm "shell" "nix doctor *" "allow")
+            (perm "shell" "nix why-depends *" "allow")
+            (perm "shell" "nix store verify *" "allow")
+            (perm "shell" "nix store path-info *" "allow")
+            (perm "shell" "nix store *" "ask")
+            (perm "shell" "nixos-rebuild *" "ask")
+            (perm "shell" "nix-collect-garbage *" "ask")
+            (perm "shell" "nix flake update *" "ask")
+            (perm "shell" "git push *" "ask")
+            (permCtx "edit" "*" "system-one"
+              "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
+            )
           ];
         };
       }
     ];
     permissions = [
-      {
-        action = "*";
-        resource = "*";
-        effect = "ask";
-      }
+      (perm "*" "*" "ask")
     ];
   };
 
