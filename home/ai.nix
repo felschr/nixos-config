@@ -254,7 +254,40 @@ in
             "shell"
             "edit"
           ];
+          # enact marginal verdicts too - fewer asks, slightly riskier
+          approvals.minConfidence = 0.70;
           approvals.bypass = [
+            # read-only and dry-run commands never need judging or asking
+            {
+              action = "shell";
+              resource = "git status *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "git log *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "git diff *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "git branch *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "git show *";
+              effect = "allow";
+            }
+            {
+              action = "shell";
+              resource = "ls *";
+              effect = "allow";
+            }
             {
               action = "shell";
               resource = "git push *";
