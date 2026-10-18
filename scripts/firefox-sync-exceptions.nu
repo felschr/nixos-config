@@ -181,7 +181,24 @@ def main [
         continue
       }
       print $"== ($profile) =="
-      sync-exceptions $db_file ($config_data | get $profile) --yes=$yes
+      # a running browser can hold the sqlite lock; retry briefly, then skip
+      # with a warning instead of failing the whole home-manager activation
+      mut attempts = 0
+      let max_attempts = 3
+      while $attempts < $max_attempts {
+        let error_msg = try { sync-exceptions $db_file ($config_data | get $profile) --yes=$yes; null } catch {|err| $err.rendered? | default ($err.msg?) }
+        if $error_msg == null {
+          break
+        }
+        $attempts += 1
+        if $attempts < $max_attempts {
+          print $"sync failed, retrying in 2s: ($error_msg)"
+          sleep 2sec
+        } else {
+          print $"(ansi yellow_bold)Skipping profile ($profile) after ($max_attempts) attempts: ($error_msg)(ansi reset)"
+          print $"Close the browser and re-run the site data sync to apply pending changes."
+        }
+      }
     }
   }
 }
