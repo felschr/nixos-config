@@ -258,7 +258,7 @@ in
             {
               action = "shell";
               resource = "git push *";
-              effect = "deny";
+              effect = "ask";
             }
           ];
         };
