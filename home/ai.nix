@@ -292,8 +292,11 @@ in
             (perm "shell" "nix-collect-garbage *" "ask")
             (perm "shell" "nix flake update *" "ask")
             (perm "shell" "git push *" "ask")
-            (permCtx "external_directory" "*" "system-one"
-              "Reading the occasional file elsewhere is fine; deny only if it looks indiscriminate (broad sweeps of ~ or /) or touches another person's data. For any sustained work outside the workspace, answer ask and mention the /cd command so the agent changes directory properly instead of repeatedly reaching across."
+            (
+              (perm "external_directory" "*" "ask")
+              // {
+                hint = "for more than an occasional file access, prefer /cd to that directory so the work happens inside the session's working set instead of reaching across this permission each time";
+              }
             )
             (permCtx "edit" "*" "system-one"
               "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
