@@ -221,7 +221,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#2a4a4703b06e4b27fd8a8cef90d440d5330d1896";
+        package = "github:atvari-eu/opencode-system-one#1beca9fca34110b171cfa783fb874b1cf5d65f5e";
         options = {
           provider = "opencode"; # jev models live on the Console provider
           model = "jev-1.13";
@@ -256,7 +256,7 @@ in
           ];
           # enact marginal verdicts too - fewer asks, slightly riskier
           approvals.minConfidence = 0.70;
-          approvals.bypass = [
+          approvals.permissions = [
             {
               action = "shell";
               resource = "git status *";
@@ -373,6 +373,12 @@ in
               resource = "git push *";
               effect = "ask";
             }
+            {
+              action = "edit";
+              resource = "*";
+              effect = "system-one";
+              context = "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself.";
+            }
           ];
         };
       }
@@ -381,7 +387,7 @@ in
       {
         action = "edit";
         resource = "*";
-        effect = "allow";
+        effect = "ask";
       }
       {
         action = "external_directory";
