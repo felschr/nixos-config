@@ -297,7 +297,7 @@ in
             (perm "shell" "nix flake update *" "ask")
             (perm "shell" "git push *" "ask")
             (permHint "external_directory" "*" "ask"
-              "for more than an occasional file access, prefer /cd to that directory so the work happens inside the session's working set instead of reaching across this permission each time"
+              "for more than occasional access, prefer /cd to that directory"
             )
             (permCtx "edit" "*" "system-one"
               "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
