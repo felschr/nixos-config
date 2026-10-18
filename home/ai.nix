@@ -266,7 +266,7 @@ in
           # enact marginal verdicts too - fewer asks, slightly riskier
           approvals.minConfidence = {
             approve = 0.60;
-            deny = 0.70;
+            deny = 0.80;
           };
           approvals.permissions = [
             (perm "shell" "git status *" "allow")
