@@ -263,9 +263,17 @@ in
             auto.tokens = 60000;
           };
           approvals.mode = "auto";
+          # enact confident verdicts for every judged action; keep
+          # external_directory out so cross-workspace access always prompts
           approvals.actions = [
             "shell"
             "edit"
+            "grep"
+            "read"
+            "glob"
+            "webfetch"
+            "question"
+            "skill"
           ];
           # enact marginal verdicts too - fewer asks, slightly riskier
           approvals.minConfidence = {
