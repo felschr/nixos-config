@@ -221,7 +221,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#03934435ee4f861066c90479dc40de0df8f6317f";
+        package = "github:atvari-eu/opencode-system-one#6d69634cb8a758fa8941f66754839f337d52c441";
         options = {
           provider = "opencode"; # jev models live on the Console provider
           model = "jev-1.13";
@@ -234,14 +234,13 @@ in
           tools = true;
           commands = true;
           cache = true;
-          route = {
-            auto = true;
+          auto = {
             sources = {
               favorites = true;
               opencode.plan = "go";
             };
           };
-          effort.auto = true; # per-prompt thinking level; pairs with route
+          effort.auto = true; # per-prompt thinking level; pairs with auto
           doneCheck.auto = true; # completion probe when the session goes idle
           find.enabled = true; # jev_find: jev-backed semantic code search
           compaction = {
