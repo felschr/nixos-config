@@ -221,7 +221,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#4c35f08d391f0b0bbcd00d11e8ff75e119cc9507";
+        package = "github:atvari-eu/opencode-system-one#ee3719e4cde0e1c12f7daebe864c0cd26eaae2f2";
         options = {
           provider = "opencode"; # jev models live on the Console provider
           model = "jev-1.13";
@@ -249,7 +249,7 @@ in
             # compact at idle: jev passes are ~free, big prompts are not
             auto.tokens = 60000;
           };
-          approvals.mode = "deny";
+          approvals.mode = "auto";
           approvals.actions = [
             "shell"
             "edit"
