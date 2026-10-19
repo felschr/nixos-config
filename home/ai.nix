@@ -165,7 +165,15 @@ let
   mkNonoWrapper =
     agent: binary: extra:
     pkgs.writeShellScriptBin "${agent}-nono" ''
-      exec ${nono}/bin/nono run --isolate net,ipc,uts --profile nolabs-ai/${agent} -- ${binary} ${lib.concatStringsSep " " extra} "$@"
+      exec ${nono}/bin/nono run --isolate net,ipc,uts --profile nolabs-ai/${agent} ${
+        lib.concatStringsSep " " (
+          [
+            "--"
+            binary
+          ]
+          ++ extra
+        )
+      } "$@"
     '';
 
   opencode-nono = mkNonoWrapper "opencode" "opencode2" [ "--standalone" ];
@@ -173,14 +181,21 @@ let
   goose-nono = mkNonoWrapper "goose" "goose" [ ];
   omp-nono = mkNonoWrapper "omp" "omp" [ ];
 
-  # nolabs-ai nono pack repo (pack-relative plugin/skill assets);
-  # profiles themselves stay registry-managed via `nono pull`
+  # nolabs-ai nono pack repo (pack-relative plugin/skill assets; profiles stay
+  # registry-managed via `nono pull`). After `nono update <pack>`, bump this
+  # pin to the matching release tag.
   nonoPacks = pkgs.fetchFromGitHub {
     owner = "nolabs-ai";
     repo = "nono-packs";
     rev = "51193d418b67fea12bc8bce4507da48b76ee52f6";
     hash = "sha256-Xke88VkikabBksKiOmc7swMDgdZmk/rH60owJXUjhv4=";
   };
+
+  # eval-time guard against pack layout drift: every linked pack asset must exist
+  packLink =
+    target: rel:
+    assert builtins.pathExists "${nonoPacks}/${rel}";
+    lib.nameValuePair target { source = "${nonoPacks}/${rel}"; };
 in
 {
   imports = [
@@ -325,7 +340,9 @@ in
       "auto-system-one"
     ])
     // {
-      nono-sandbox = "${nonoPacks}/opencode/skills/nono-sandbox";
+      nono-sandbox =
+        assert builtins.pathExists "${nonoPacks}/opencode/skills/nono-sandbox";
+        "${nonoPacks}/opencode/skills/nono-sandbox";
     };
 
   programs.claude-code.enable = true;
@@ -391,11 +408,10 @@ in
         source = src;
       }
     ) ompExtensionSkills
-    // {
-      # nono pack plugin/skill wiring (replicates `pull`-time symlinks, HM-owned)
-      ".config/opencode/plugins/nono-sandbox.ts".source = "${nonoPacks}/opencode/plugin/nono-sandbox.ts";
-      ".agents/plugins/nono".source = "${nonoPacks}/goose";
-      ".omp/agent/extensions/nono-sandbox".source = "${nonoPacks}/omp/extensions/nono-sandbox";
-      ".omp/agent/skills/nono-sandbox".source = "${nonoPacks}/omp/skills/nono-sandbox";
-    };
+    // lib.listToAttrs [
+      (packLink ".config/opencode/plugins/nono-sandbox.ts" "opencode/plugin/nono-sandbox.ts")
+      (packLink ".agents/plugins/nono" "goose")
+      (packLink ".omp/agent/extensions/nono-sandbox" "omp/extensions/nono-sandbox")
+      (packLink ".omp/agent/skills/nono-sandbox" "omp/skills/nono-sandbox")
+    ];
 }
