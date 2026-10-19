@@ -316,7 +316,7 @@ in
       "auto-system-one"
     ])
     // {
-      nono-sandbox = "${nonoPackSrc}/skills/nono-sandbox";
+      nono-sandbox = "${nonoPackSrc}/opencode/skills/nono-sandbox";
     };
 
   programs.claude-code.enable = true;
@@ -380,6 +380,7 @@ in
       }
     ) ompExtensionSkills
     // {
-      ".config/opencode/plugins/nono-sandbox.ts".source = "${nonoPackSrc}/plugin/nono-sandbox.ts";
+      ".config/opencode/plugins/nono-sandbox.ts".source =
+        "${nonoPackSrc}/opencode/plugin/nono-sandbox.ts";
     };
 }
