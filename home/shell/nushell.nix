@@ -1,9 +1,22 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   shellAliases = import ./aliases.nix;
+  # z/zi expand to zoxide's cd/cdi, which only exist after zoxide's init is
+  # sourced at the end of config.nu — nu aliases bind at parse time, so these
+  # must be appended last (mkAfter) while the shell-side aliases expand lazily.
+  zoxideAliases = [
+    "z"
+    "zi"
+  ];
   aliasesStr = builtins.concatStringsSep "\n" (
-    pkgs.lib.mapAttrsToList (k: v: "alias ${k} = ${v}") shellAliases
+    pkgs.lib.mapAttrsToList (k: v: "alias ${k} = ${v}") (
+      builtins.removeAttrs shellAliases zoxideAliases
+    )
   );
 in
 {
@@ -35,5 +48,9 @@ in
       use ${pkgs.unstable.nu_scripts}/share/nu_scripts/custom-completions/auto-generate/completions/terraform.nu *
     '';
     envFile.text = "";
+    extraConfig = lib.mkAfter ''
+      alias z = cd
+      alias zi = cdi
+    '';
   };
 }
