@@ -211,8 +211,9 @@ in
       {
         package = "github:atvari-eu/opencode-system-one#b6b3c2009ff89f889ae5580741035cad08b30270";
         options = {
-          provider = "opencode"; # jev models live on the Console provider
-          model = "jev-1.13";
+          # Console System One kept 422ing - route judgments through Munito (EU)
+          provider = "munito";
+          model = "perplexity-ai/pplx-decider-v1.2";
           screen = {
             enabled = true;
             mode = "annotate";
