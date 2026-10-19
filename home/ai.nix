@@ -160,12 +160,11 @@ let
   nono = inputs.llm-agents.packages.${system}.nono;
 
   # <agent>-nono: run <binary> under the nolabs-ai/<agent> pack profile
-  # (--isolate net,ipc,uts: private net/IPC namespaces; internet still goes
-  # out via nono's proxy, host localhost/IPC stay unreachable)
+  # (--isolate net,ipc,uts returns when a nono release > 0.80.0 ships it)
   mkNonoWrapper =
     agent: binary: extra:
     pkgs.writeShellScriptBin "${agent}-nono" ''
-      exec ${nono}/bin/nono run --isolate net,ipc,uts --profile nolabs-ai/${agent} ${
+      exec ${nono}/bin/nono run --profile nolabs-ai/${agent} ${
         lib.concatStringsSep " " (
           [
             "--"
