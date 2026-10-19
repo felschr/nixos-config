@@ -159,23 +159,17 @@ let
   # nono — agent sandbox; version tracks the llm-agents pin
   nono = inputs.llm-agents.packages.${system}.nono;
 
-  # opencode-nono — opencode under the nolabs-ai/opencode nono pack;
-  # --standalone keeps tool execution inside the sandbox (test phase)
-  opencodeNono = pkgs.writeShellScriptBin "opencode-nono" ''
-    exec ${nono}/bin/nono run --profile nolabs-ai/opencode -- opencode2 --standalone "$@"
-  '';
+  # <agent>-nono: run <binary> under the nolabs-ai/<agent> pack profile
+  mkNonoWrapper =
+    agent: binary: extra:
+    pkgs.writeShellScriptBin "${agent}-nono" ''
+      exec ${nono}/bin/nono run --profile nolabs-ai/${agent} -- ${binary} ${lib.concatStringsSep " " extra} "$@"
+    '';
 
-  claudeNono = pkgs.writeShellScriptBin "claude-nono" ''
-    exec ${nono}/bin/nono run --profile nolabs-ai/claude -- claude "$@"
-  '';
-
-  gooseNono = pkgs.writeShellScriptBin "goose-nono" ''
-    exec ${nono}/bin/nono run --profile nolabs-ai/goose -- goose "$@"
-  '';
-
-  ompNono = pkgs.writeShellScriptBin "omp-nono" ''
-    exec ${nono}/bin/nono run --profile nolabs-ai/omp -- omp "$@"
-  '';
+  opencodeNono = mkNonoWrapper "opencode" "opencode2" [ "--standalone" ];
+  claudeNono = mkNonoWrapper "claude" "claude" [ ];
+  gooseNono = mkNonoWrapper "goose" "goose" [ ];
+  ompNono = mkNonoWrapper "omp" "omp" [ ];
 
   # nolabs-ai nono pack repo (pack-relative plugin/skill assets);
   # profiles themselves stay registry-managed via `nono pull`
