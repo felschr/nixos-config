@@ -94,7 +94,7 @@ let
   ] (name: "${ompExtensionPackages.pi-background-run}/skills/${name}");
 
   skills = {
-    agent-browser = "${skillSources.agent-browser}/skills/agent-browser";
+    # agent-browser = "${skillSources.agent-browser}/skills/agent-browser";
     atvari-copyright = "${skillSources.atvari-skills}/skills/atvari-copyright";
     ci-agents = "${skillSources.atvari-skills}/skills/ci-agents";
     conventional-commits = "${skillSources.atvari-skills}/skills/conventional-commits";
@@ -112,7 +112,9 @@ let
     typesafe-ai = "${skillSources.typesafe-skills}/skills/typesafe-ai";
   };
 
-  # Shared-root set: omits the jev skills (see the opencode comment below).
+  # Shared-root set (goose & omp discover ~/.agents/skills): omits the jev
+  # skills (native integrations). agent-browser is removed globally — it is
+  # commented out in `skills` above, so don't list it here (would throw).
   agentSkills = builtins.removeAttrs skills [
     "system-one"
     "auto-system-one"
@@ -319,6 +321,7 @@ in
   # descriptions), and omp has its built-in TypeSafeJudge (providers.judgment).
   # Plugin-less agents keep them through their own roots instead: claude via
   # programs.claude-code.skills; goose runs without them.
+  # opencode gets a reduced set: no jev skills (native plugin integration).
   programs.opencode.skills = builtins.removeAttrs skills [
     "system-one"
     "auto-system-one"
