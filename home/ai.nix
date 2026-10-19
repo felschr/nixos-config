@@ -166,10 +166,10 @@ let
       exec ${nono}/bin/nono run --profile nolabs-ai/${agent} -- ${binary} ${lib.concatStringsSep " " extra} "$@"
     '';
 
-  opencodeNono = mkNonoWrapper "opencode" "opencode2" [ "--standalone" ];
-  claudeNono = mkNonoWrapper "claude" "claude" [ ];
-  gooseNono = mkNonoWrapper "goose" "goose" [ ];
-  ompNono = mkNonoWrapper "omp" "omp" [ ];
+  opencode-nono = mkNonoWrapper "opencode" "opencode2" [ "--standalone" ];
+  claude-nono = mkNonoWrapper "claude" "claude" [ ];
+  goose-nono = mkNonoWrapper "goose" "goose" [ ];
+  omp-nono = mkNonoWrapper "omp" "omp" [ ];
 
   # nolabs-ai nono pack repo (pack-relative plugin/skill assets);
   # profiles themselves stay registry-managed via `nono pull`
@@ -358,10 +358,10 @@ in
     inputs.llm-agents.packages.${system}.ck
     # nono sandbox + sandboxed agent launchers
     nono
-    opencodeNono
-    claudeNono
-    gooseNono
-    ompNono
+    opencode-nono
+    claude-nono
+    goose-nono
+    omp-nono
     jevCli
   ];
 
