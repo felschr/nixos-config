@@ -249,7 +249,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#158090a93d9ad076f5fd1de0a823a73ec105c6db";
+        package = "github:atvari-eu/opencode-system-one#51d505ad46e4c24f3237befc41036bbae0e390d8";
         options = {
           # Console System One kept 422ing - route judgments through Munito (EU)
           provider = "munito";
@@ -278,12 +278,9 @@ in
             # compact at idle: jev passes are ~free, big prompts are not
             auto.tokens = 60000;
           };
-          approvals.mode = "auto";
-          # enact confident verdicts for every judged action; `ask` rules below pin must-prompt slices
-          approvals.minConfidence = {
-            approve = 0.60;
-            deny = 0.80;
-          };
+          # the permissions object opts jev-assisted approvals in with plugin
+          # defaults (full delegation; bars until /jev-approval-stats calibration);
+          # `ask` entries pin must-prompt slices
           approvals.permissions = [
             (perm "shell" "git status *" "allow")
             (perm "shell" "git log *" "allow")
