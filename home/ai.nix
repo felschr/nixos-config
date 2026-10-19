@@ -159,12 +159,20 @@ let
   # nono — agent sandbox; version tracks the llm-agents pin
   nono = inputs.llm-agents.packages.${system}.nono;
 
-  # <agent>-nono: run <binary> under the nolabs-ai/<agent> pack profile
+  # <agent>-nono: <binary> under the nolabs-ai/<agent> pack profile, cwd granted;
+  # leading --nono-<flag> arguments (e.g. --nono-detached) pass through to nono
   # (--isolate net,ipc,uts returns when a nono release > 0.80.0 ships it)
   mkNonoWrapper =
     agent: binary: extra:
     pkgs.writeShellScriptBin "${agent}-nono" ''
-      exec ${nono}/bin/nono run --profile nolabs-ai/${agent} ${
+      nono_flags="--allow-cwd"
+      while [ "$#" -gt 0 ]; do
+        case "$1" in
+          --nono-*) nono_flags="''${nono_flags} --''${1#--nono-}"; shift ;;
+          *) break ;;
+        esac
+      done
+      exec ${nono}/bin/nono run ''${nono_flags} --profile nolabs-ai/${agent} ${
         lib.concatStringsSep " " (
           [
             "--"
@@ -307,6 +315,8 @@ in
             (perm "shell" "nono inspect *" "allow")
             (perm "shell" "nono logs *" "allow")
             (perm "shell" "nono audit *" "allow")
+            (perm "shell" "nono profile guide *" "allow")
+            (perm "shell" "nono profile validate *" "allow")
             (perm "shell" "nix store *" "ask")
             (perm "shell" "nixos-rebuild *" "ask")
             (perm "shell" "nix-collect-garbage *" "ask")
