@@ -165,8 +165,21 @@ let
     exec ${nono}/bin/nono run --profile nolabs-ai/opencode -- opencode2 --standalone "$@"
   '';
 
-  # opencode pack (skill + plugin); the profile itself stays registry-managed via `nono pull`
-  nonoPackSrc = pkgs.fetchFromGitHub {
+  claudeNono = pkgs.writeShellScriptBin "claude-nono" ''
+    exec ${nono}/bin/nono run --profile nolabs-ai/claude -- claude "$@"
+  '';
+
+  gooseNono = pkgs.writeShellScriptBin "goose-nono" ''
+    exec ${nono}/bin/nono run --profile nolabs-ai/goose -- goose "$@"
+  '';
+
+  ompNono = pkgs.writeShellScriptBin "omp-nono" ''
+    exec ${nono}/bin/nono run --profile nolabs-ai/omp -- omp "$@"
+  '';
+
+  # nolabs-ai nono pack repo (pack-relative plugin/skill assets);
+  # profiles themselves stay registry-managed via `nono pull`
+  nonoPacks = pkgs.fetchFromGitHub {
     owner = "nolabs-ai";
     repo = "nono-packs";
     rev = "51193d418b67fea12bc8bce4507da48b76ee52f6";
@@ -316,7 +329,7 @@ in
       "auto-system-one"
     ])
     // {
-      nono-sandbox = "${nonoPackSrc}/opencode/skills/nono-sandbox";
+      nono-sandbox = "${nonoPacks}/opencode/skills/nono-sandbox";
     };
 
   programs.claude-code.enable = true;
@@ -349,9 +362,12 @@ in
   home.packages = [
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
-    # nono sandbox + sandboxed opencode launcher
+    # nono sandbox + sandboxed agent launchers
     nono
     opencodeNono
+    claudeNono
+    gooseNono
+    ompNono
     jevCli
   ];
 
@@ -380,7 +396,10 @@ in
       }
     ) ompExtensionSkills
     // {
-      ".config/opencode/plugins/nono-sandbox.ts".source =
-        "${nonoPackSrc}/opencode/plugin/nono-sandbox.ts";
+      # nono pack plugin/skill wiring (replicates `pull`-time symlinks, HM-owned)
+      ".config/opencode/plugins/nono-sandbox.ts".source = "${nonoPacks}/opencode/plugin/nono-sandbox.ts";
+      ".agents/plugins/nono".source = "${nonoPacks}/goose";
+      ".omp/agent/extensions/nono-sandbox".source = "${nonoPacks}/omp/extensions/nono-sandbox";
+      ".omp/agent/skills/nono-sandbox".source = "${nonoPacks}/omp/skills/nono-sandbox";
     };
 }
