@@ -180,6 +180,7 @@ in
           "qwen/qwen3.6-35b-a3b".name = "Qwen3.6 35B A3B";
           "qwen/qwen3.8-27b".name = "Qwen3.8 27B";
           "zai-org/glm-5.3-flash".name = "GLM-5.3 Flash";
+          "perplexity-ai/pplx-decider-v1.2".name = "pplx-decider-v1.2 (preview)";
         };
       };
     };
