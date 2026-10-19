@@ -6,4 +6,5 @@
 
 # nix
 result
+result-*
 *.qcow2
