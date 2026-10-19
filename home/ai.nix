@@ -165,6 +165,13 @@ let
     exec ${nono}/bin/nono run --profile nolabs-ai/opencode -- opencode2 --standalone "$@"
   '';
 
+  # opencode pack (skill + plugin); the profile itself stays registry-managed via `nono pull`
+  nonoPackSrc = pkgs.fetchFromGitHub {
+    owner = "nolabs-ai";
+    repo = "nono-packs";
+    rev = "51193d418b67fea12bc8bce4507da48b76ee52f6";
+    hash = "sha256-Xke88VkikabBksKiOmc7swMDgdZmk/rH60owJXUjhv4=";
+  };
 in
 {
   imports = [
@@ -303,10 +310,14 @@ in
   };
 
   # claude/goose load the jev skills; opencode (plugin) & omp (TypeSafeJudge) integrate jev natively, so they don't.
-  programs.opencode.skills = builtins.removeAttrs skills [
-    "system-one"
-    "auto-system-one"
-  ];
+  programs.opencode.skills =
+    (builtins.removeAttrs skills [
+      "system-one"
+      "auto-system-one"
+    ])
+    // {
+      nono-sandbox = "${nonoPackSrc}/skills/nono-sandbox";
+    };
 
   programs.claude-code.enable = true;
   programs.claude-code.package = inputs.llm-agents.packages.${system}.claude-code;
@@ -367,5 +378,8 @@ in
       lib.nameValuePair ".omp/agent/skills/${name}" {
         source = src;
       }
-    ) ompExtensionSkills;
+    ) ompExtensionSkills
+    // {
+      ".config/opencode/plugins/nono-sandbox.ts".source = "${nonoPackSrc}/plugin/nono-sandbox.ts";
+    };
 }
