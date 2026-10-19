@@ -8,6 +8,7 @@
     ./starship.nix
     ./zellij.nix
     ./zoxide.nix
+    ./eza.nix
     ./kitty.nix
     ./direnv.nix
   ];
