@@ -44,10 +44,7 @@ let
       rev = "afa8da942115f2961fdbfa80807ea0b232ff6c00";
       hash = "sha256-RW+30OFUYxNO/SqPJ/bmwAn965GOoxjeuKBMFBtESHE=";
     };
-    # typesafe-skills — TypeSafe AI's official agent skill for building with
-    # System One decision models (question design, patterns, cookbooks, live
-    # docs links, SDKs). Deployment facts for OUR endpoint (OpenCode Console
-    # serves Jev) live in the repo-local `system-one` skill below.
+    # typesafe-skills: TypeSafe AI skills for building with System One/Jev
     typesafe-skills = pkgs.fetchFromGitHub {
       owner = "typesafe-ai";
       repo = "skills";
@@ -56,14 +53,9 @@ let
     };
   };
 
-  # omp extensions installed into ~/.omp/agent/extensions/ (see home.file below).
-  # omp natively discovers direct *.ts files and package directories (whose
-  # package.json declares omp.extensions), and rewrites the legacy
-  # @earendil-works/pi-* imports these use onto the host-bundled copies
-  # (docs/extension-loading.md in the omp repo).
+  # omp extensions for ~/.omp/agent/extensions/; omp rewrites legacy imports onto host-bundled copies
   ompExtensions = {
-    # pi-think-panel: live scrolling view of the latest model reasoning above the
-    # editor (1/3/5/7 lines, /think-panel to configure).
+    # pi-think-panel: live reasoning panel above the editor
     pi-think-panel = pkgs.fetchFromGitHub {
       owner = "fan56";
       repo = "pi-think-panel";
@@ -72,12 +64,9 @@ let
     };
   };
 
-  # Vendored omp extension packages (release tags), linked as whole directories
-  # so their package.json manifest resolves the extension entry.
+  # Vendored as whole directories so their package.json manifest resolves the entry
   ompExtensionPackages = {
-    # pi-background-run: background-job panel above the editor + `⏳ N running`
-    # status line (covers omp's native auto-backgrounded jobs), /bgstatus,
-    # /bgtail, /bgkill, /bgclean, plus the bgrun/bgtail/bggrep agent tools.
+    # pi-background-run: background-job panel + /bgstatus, /bgtail, /bgkill, /bgclean + bgrun agent tools
     pi-background-run = pkgs.fetchFromGitHub {
       owner = "stablekernel";
       repo = "pi-background-run";
@@ -86,8 +75,7 @@ let
     };
   };
 
-  # Skills bundled with vendored omp extension packages, planted into the
-  # omp user-level skills root (~/.omp/agent/skills) that omp scans natively.
+  # omp extension skills, planted into omp's user-level skills root
   ompExtensionSkills = lib.genAttrs [
     "run-bg"
     "digest-config"
@@ -112,26 +100,14 @@ let
     typesafe-ai = "${skillSources.typesafe-skills}/skills/typesafe-ai";
   };
 
-  # Shared-root set (goose & omp discover ~/.agents/skills): omits the jev
-  # skills (native integrations). agent-browser is removed globally — it is
-  # commented out in `skills` above, so don't list it here (would throw).
+  # Shared ~ root (goose & omp); omits the jev skills (native integrations)
   agentSkills = builtins.removeAttrs skills [
     "system-one"
     "auto-system-one"
   ];
 
-  # jev — terminal client for the System One decision endpoint served by the
-  # OpenCode Console provider (see the system-one skill). Reads a request
-  # body without "model"/auth on stdin, adds the model + Console key, POSTs,
-  # and prints {answers, usage}. The key is read at call time from
-  # opencode's own auth store; it is never exported or stored anywhere.
-  #
-  # Removability: jev-native consumers (opencode via the opencode-system-one
-  # plugin, omp via its built-in TypeSafeJudge) never invoke this. The
-  # remaining consumers are the agents that still load the system-one skill
-  # (claude, goose) - this CLI is their only key source (`auth.json`) - plus
-  # interactive terminal use. Drop it in the same sweep that removes or
-  # natively replaces the skill on those agents, never before.
+  # jev — System One endpoint client; key read from opencode's auth store at call
+  # time. Consumed by agents that load the system-one skill (claude, goose).
   jevCli = pkgs.writeShellScriptBin "jev" ''
     set -euo pipefail
 
@@ -169,8 +145,7 @@ let
   '';
 in
 let
-  # opencode permission entry shorthand, both for host permissions and the
-  # plugin's approvals.permissions: (perm "shell" "git push *" "ask")
+  # opencode permission entry shorthand: (perm "shell" "git push *" "ask")
   perm = action: resource: effect: { inherit action resource effect; };
   # ... with operator context for the system-one effect
   permCtx =
@@ -189,10 +164,7 @@ in
 
   programs.opencode.enable = true;
   programs.opencode.package = inputs.llm-agents.packages.${system}.opencode2;
-  # Declarative runtime config: settings reimplements ~/.config/opencode/opencode.json
-  # wholesale (the HM module replaces the file). The switch makes that file a
-  # read-only store symlink, so runtime self-persisting tweaks (saved model,
-  # theme) stop surviving. Plugin updates: bump the pin above.
+  # settings replaces ~/.config/opencode/opencode.json wholesale; update the plugin by bumping its pin
   programs.opencode.settings = {
     providers = {
       munito = {
@@ -265,9 +237,7 @@ in
             auto.tokens = 60000;
           };
           approvals.mode = "auto";
-          # enact confident verdicts for every judged action; slices that must
-          # always prompt are pinned by `ask` rules below (external_directory)
-          # enact marginal verdicts too - fewer asks, slightly riskier
+          # enact confident verdicts for every judged action; `ask` rules below pin must-prompt slices
           approvals.minConfidence = {
             approve = 0.60;
             deny = 0.80;
@@ -320,12 +290,7 @@ in
     ];
   };
 
-  # Skill consumers that integrate jev natively do not use these skills: OpenCode
-  # has the opencode-system-one plugin (hooks, tools, routing, `jev_*` tool
-  # descriptions), and omp has its built-in TypeSafeJudge (providers.judgment).
-  # Plugin-less agents keep them through their own roots instead: claude via
-  # programs.claude-code.skills; goose runs without them.
-  # opencode gets a reduced set: no jev skills (native plugin integration).
+  # claude/goose load the jev skills; opencode (plugin) & omp (TypeSafeJudge) integrate jev natively, so they don't.
   programs.opencode.skills = builtins.removeAttrs skills [
     "system-one"
     "auto-system-one"
@@ -341,9 +306,7 @@ in
   programs.omp.enable = true;
   programs.omp.package = inputs.llm-agents.packages.${system}.omp;
 
-  # Thinking blocks visible by default; Ctrl+T hides the full thinking inline.
-  # OpenCode-flavored look: bordered box composer instead of flat band, footer
-  # on terminal background with plain text separators.
+  # OpenCode-flavored look; Ctrl+T hides full thinking
   programs.omp.settings = {
     hideThinkingBlock = false;
     statusLine.compactThinkingLevel = false;
@@ -366,9 +329,7 @@ in
     jevCli
   ];
 
-  # goose & omp both discover Agent Skills (SKILL.md) from ~/.agents/skills,
-  # the user-global location of the Agent Skills spec, by default.
-  # omp also scans ~/.omp/agent/skills as its user-level skills root.
+  # goose/omp discover ~/.agents/skills; omp also scans its .omp/agent roots (linked below)
   home.file =
     lib.mapAttrs' (
       name: src: (lib.nameValuePair (".agents/skills/${name}") ({ source = src; }))
