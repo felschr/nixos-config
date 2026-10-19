@@ -155,6 +155,16 @@ let
   permHint =
     action: resource: effect: hint:
     (perm action resource effect) // { inherit hint; };
+
+  # nono — agent sandbox; version tracks the llm-agents pin
+  nono = inputs.llm-agents.packages.${system}.nono;
+
+  # opencode-nono — opencode under the nolabs-ai/opencode nono pack;
+  # --standalone keeps tool execution inside the sandbox (test phase)
+  opencodeNono = pkgs.writeShellScriptBin "opencode-nono" ''
+    exec ${nono}/bin/nono run --profile nolabs-ai/opencode -- opencode2 --standalone "$@"
+  '';
+
 in
 {
   imports = [
@@ -328,6 +338,9 @@ in
   home.packages = [
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
+    # nono sandbox + sandboxed opencode launcher
+    nono
+    opencodeNono
     jevCli
   ];
 
