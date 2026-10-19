@@ -302,11 +302,15 @@ in
             (permCtx "edit" "*" "system-one"
               "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
             )
-            # read & grep are allowed without any jev approval; secret-path
-            # reads are caught by the plugin's built-in gate (approvals.gates,
-            # secrets=true by default; false would skip it)
+            # read/grep/glob flow without jev approval (secret paths still gate); glob's resource is the pattern string, so path-side gating is the external_directory rule below.
             (perm "read" "*" "allow")
             (perm "grep" "*" "allow")
+            (perm "glob" "*" "allow")
+            # /tmp/opencode scratch area: file-tool access asserts external_directory "<dir>/*" first, so this paves read/glob/grep/edit there; /tmp itself and sibling dirs still ask
+            (permHint "external_directory" "/tmp/opencode/*" "allow"
+              "keep this session's scratch/temp files inside a session-specific subdirectory of /tmp/opencode (create one on first use, e.g. /tmp/opencode/<short-id>/), not directly in /tmp/opencode"
+            )
+            (perm "edit" "/tmp/opencode/*" "allow")
           ];
         };
       }
