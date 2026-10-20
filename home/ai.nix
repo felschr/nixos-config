@@ -260,9 +260,8 @@ in
       {
         package = "github:atvari-eu/opencode-system-one#4b2605076982dc50ed9b2c6a64263606199a21e5";
         options = {
-          # Console System One kept 422ing - route judgments through Munito (EU)
-          provider = "munito";
-          model = "perplexity-ai/pplx-decider-v1.2";
+          provider = "opencode";
+          model = "jev-1.13";
           screen = {
             enabled = true;
             mode = "redact";
