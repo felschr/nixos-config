@@ -292,6 +292,9 @@ in
               secrets = true;
               readonlyBypass = true;
             };
+            onApprove = "allow";
+            onRefuse = "deny";
+            onGate = "deny";
             # the permissions object opts jev-assisted approvals in with plugin
             # defaults (full delegation; bars until /jev-approval-stats calibration);
             # `ask` entries pin must-prompt slices
