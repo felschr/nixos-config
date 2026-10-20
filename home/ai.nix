@@ -265,7 +265,7 @@ in
           model = "perplexity-ai/pplx-decider-v1.2";
           screen = {
             enabled = true;
-            mode = "annotate";
+            mode = "redact";
             tools = "all"; # screen every tool result, not just fetched pages
           };
           scrub.enabled = true;
