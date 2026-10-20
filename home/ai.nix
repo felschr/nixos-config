@@ -257,7 +257,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#5277def8bed30d5886095f67a5caf3cccce9b10d";
+        package = "github:atvari-eu/opencode-system-one#e1d9114cf8097b5ad9ff70b6e04305252b1f";
         options = {
           # Console System One kept 422ing - route judgments through Munito (EU)
           provider = "munito";
@@ -292,14 +292,22 @@ in
               secrets = true;
               readonlyBypass = true;
             };
+            # minimal sensible bars: self-resolve all well-formed verdicts; less is clamped
+            minConfidence = {
+              approve = 0.5;
+              refuse = 0.5;
+            };
             onApprove = "allow";
             onRefuse = "deny";
             onGate = "deny";
+            onFail = "ask";
+            readonlyAllow = true;
             # the permissions object opts jev-assisted approvals in with plugin
             # defaults (full delegation; bars until /jev-approval-stats calibration);
             # `ask` entries pin must-prompt slices
             permissions = [
               (perm "question" "*" "allow")
+              (perm "external_directory" "*" "allow")
               (perm "shell" "git status *" "allow")
               (perm "shell" "git log *" "allow")
               (perm "shell" "git diff *" "allow")
@@ -318,6 +326,15 @@ in
               (perm "shell" "nix why-depends *" "allow")
               (perm "shell" "nix store verify *" "allow")
               (perm "shell" "nix store path-info *" "allow")
+              # top hand-held slices (/jev-approval-stats, 2026-10-20)
+              (perm "shell" "grep *" "allow") # 61 held; read-only
+              (perm "shell" "nix shell *" "allow") # 82 held; nono-sandboxed
+              (perm "shell" "cat > *" "allow") # workspace redirects
+              # pipe sinks: a chain falls back to jev when a segment lacks a rule
+              (perm "shell" "head *" "allow")
+              (perm "shell" "tail *" "allow")
+              (perm "shell" "sed -n *" "allow")
+              (perm "shell" "wc *" "allow")
               (perm "shell" "nixos-rebuild *" "ask")
               (perm "shell" "git push *" "ask")
               # read/grep/glob flow without jev approval (secret paths still gate);
