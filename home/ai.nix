@@ -235,6 +235,7 @@ in
     mcp.servers = {
       db-fahrplan = {
         type = "local";
+        enabled = false;
         command = [
           "nix"
           "shell"
@@ -257,7 +258,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#e1d9114cc34cf8097b5ad9ff70b6e04305252b1f";
+        package = "github:atvari-eu/opencode-system-one#4b2605076982dc50ed9b2c6a64263606199a21e5";
         options = {
           # Console System One kept 422ing - route judgments through Munito (EU)
           provider = "munito";
