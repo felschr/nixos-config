@@ -257,7 +257,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#51d505ad46e4c24f3237befc41036bbae0e390d8";
+        package = "github:atvari-eu/opencode-system-one#5277def8bed30d5886095f67a5caf3cccce9b10d";
         options = {
           # Console System One kept 422ing - route judgments through Munito (EU)
           provider = "munito";
