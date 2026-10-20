@@ -286,58 +286,44 @@ in
             # compact at idle: jev passes are ~free, big prompts are not
             auto.tokens = 60000;
           };
-          # the permissions object opts jev-assisted approvals in with plugin
-          # defaults (full delegation; bars until /jev-approval-stats calibration);
-          # `ask` entries pin must-prompt slices
-          approvals.permissions = [
-            (perm "shell" "git status *" "allow")
-            (perm "shell" "git log *" "allow")
-            (perm "shell" "git diff *" "allow")
-            (perm "shell" "git branch *" "allow")
-            (perm "shell" "git show *" "allow")
-            (perm "shell" "ls *" "allow")
-            (perm "shell" "git commit *" "allow")
-            (perm "shell" "bun test *" "allow")
-            (perm "shell" "shellcheck *" "allow")
-            (perm "shell" "nixfmt *" "allow")
-            (perm "shell" "nix fmt *" "allow")
-            (perm "shell" "nix search *" "allow")
-            (perm "shell" "nix eval *" "allow")
-            (perm "shell" "nix flake show *" "allow")
-            (perm "shell" "nix doctor *" "allow")
-            (perm "shell" "nix why-depends *" "allow")
-            (perm "shell" "nix store verify *" "allow")
-            (perm "shell" "nix store path-info *" "allow")
-            # nono sandbox triage (read-only; the nono-sandbox skill's workflow)
-            (perm "shell" "nono why *" "allow")
-            (perm "shell" "nono profile show *" "allow")
-            (perm "shell" "nono ps *" "allow")
-            (perm "shell" "nono inspect *" "allow")
-            (perm "shell" "nono logs *" "allow")
-            (perm "shell" "nono audit *" "allow")
-            (perm "shell" "nono profile guide *" "allow")
-            (perm "shell" "nono profile validate *" "allow")
-            (perm "shell" "nix store *" "ask")
-            (perm "shell" "nixos-rebuild *" "ask")
-            (perm "shell" "nix-collect-garbage *" "ask")
-            (perm "shell" "nix flake update *" "ask")
-            (perm "shell" "git push *" "ask")
-            (permHint "external_directory" "*" "ask"
-              "for more than occasional access, prefer /cd to that directory"
-            )
-            (permCtx "edit" "*" "system-one"
-              "Workspace-local edits are routine and fine. Refuse or hand to the operator any edit under secrets/ or of .env, *.key, *token* files - do not judge those yourself."
-            )
-            # read/grep/glob flow without jev approval (secret paths still gate); glob's resource is the pattern string, so path-side gating is the external_directory rule below.
-            (perm "read" "*" "allow")
-            (perm "grep" "*" "allow")
-            (perm "glob" "*" "allow")
-            # /tmp/opencode scratch area: file-tool access asserts external_directory "<dir>/*" first, so this paves read/glob/grep/edit there; /tmp itself and sibling dirs still ask
-            (permHint "external_directory" "/tmp/opencode/*" "allow"
-              "keep this session's scratch/temp files inside a session-specific subdirectory of /tmp/opencode (create one on first use, e.g. /tmp/opencode/<short-id>/), not directly in /tmp/opencode"
-            )
-            (perm "edit" "/tmp/opencode/*" "allow")
-          ];
+          approvals = {
+            # heuristic approval gates before any jev calls
+            gates = {
+              secrets = true;
+              readonlyBypass = true;
+            };
+            # the permissions object opts jev-assisted approvals in with plugin
+            # defaults (full delegation; bars until /jev-approval-stats calibration);
+            # `ask` entries pin must-prompt slices
+            permissions = [
+              (perm "question" "*" "allow")
+              (perm "shell" "git status *" "allow")
+              (perm "shell" "git log *" "allow")
+              (perm "shell" "git diff *" "allow")
+              (perm "shell" "git branch *" "allow")
+              (perm "shell" "git show *" "allow")
+              (perm "shell" "ls *" "allow")
+              (perm "shell" "git commit *" "allow")
+              (perm "shell" "bun test *" "allow")
+              (perm "shell" "shellcheck *" "allow")
+              (perm "shell" "nixfmt *" "allow")
+              (perm "shell" "nix fmt *" "allow")
+              (perm "shell" "nix search *" "allow")
+              (perm "shell" "nix eval *" "allow")
+              (perm "shell" "nix flake show *" "allow")
+              (perm "shell" "nix doctor *" "allow")
+              (perm "shell" "nix why-depends *" "allow")
+              (perm "shell" "nix store verify *" "allow")
+              (perm "shell" "nix store path-info *" "allow")
+              (perm "shell" "nixos-rebuild *" "ask")
+              (perm "shell" "git push *" "ask")
+              # read/grep/glob flow without jev approval (secret paths still gate);
+              # external-directory isolation is nono's job, not the plugin's
+              (perm "read" "*" "allow")
+              (perm "grep" "*" "allow")
+              (perm "glob" "*" "allow")
+            ];
+          };
         };
       }
     ];
