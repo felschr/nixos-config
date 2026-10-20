@@ -344,6 +344,10 @@ in
               (perm "read" "*" "allow")
               (perm "grep" "*" "allow")
               (perm "glob" "*" "allow")
+              (perm "webfetch" "*" "allow")
+              (perm "websearch" "*" "allow")
+              (perm "skill" "*" "allow")
+              (perm "subagent" "*" "allow")
             ];
           };
         };
