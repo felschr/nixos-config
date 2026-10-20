@@ -258,7 +258,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#4b2605076982dc50ed9b2c6a64263606199a21e5";
+        package = "github:atvari-eu/opencode-system-one#be4dcbeb4324b3c16768644342544b48f192d375";
         options = {
           provider = "opencode";
           model = "jev-1.13";
@@ -294,14 +294,14 @@ in
               secrets = true;
               readonlyBypass = true;
             };
-            # minimal sensible bars: self-resolve all well-formed verdicts; less is clamped
             minConfidence = {
               approve = 0.5;
-              refuse = 0.5;
+              refuse = 0.7;
             };
+            onGate = "deny";
             onApprove = "allow";
             onRefuse = "deny";
-            onGate = "deny";
+            onNoVerdict = "allow";
             onFail = "ask";
             readonlyAllow = true;
             # the permissions object opts jev-assisted approvals in with plugin
