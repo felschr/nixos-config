@@ -288,6 +288,8 @@ in
             auto.tokens = 60000;
           };
           approvals = {
+            # operator-asserted sandbox posture for jev calibration; must be true
+            sandbox = "nono (landlock); workspace, /tmp and opencode/npm/claude state dirs writable; all outbound network allowed; runs unprivileged";
             # heuristic approval gates before any jev calls
             gates = {
               secrets = true;
