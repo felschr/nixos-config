@@ -174,7 +174,10 @@ let
   mkNono =
     outName: agent: exe: extra: herdrHint:
     pkgs.writeShellScriptBin outName ''
-      nono_flags="--allow-cwd"
+      # --allow-unix-socket: standing grant for herdr's lifecycle integrations
+      # (the connection target may not exist yet; connect() fails gracefully
+      # until the herdr server runs). Harmless for agents without hooks.
+      nono_flags="--allow-cwd --allow-unix-socket $HOME/.config/herdr/herdr.sock"
       while [ "$#" -gt 0 ]; do
         case "$1" in
           --nono-*) nono_flags="''${nono_flags} --''${1#--nono-}"; shift ;;
