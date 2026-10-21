@@ -156,15 +156,24 @@ let
     action: resource: effect: hint:
     (perm action resource effect) // { inherit hint; };
 
+  llmAgents = inputs.llm-agents.packages.${system};
   # nono — agent sandbox; version tracks the llm-agents pin
-  nono = inputs.llm-agents.packages.${system}.nono;
+  nono = llmAgents.nono;
 
-  # <agent>-nono: <binary> under the nolabs-ai/<agent> pack profile, cwd granted;
-  # leading --nono-<flag> arguments (e.g. --nono-detached) pass through to nono
-  # (--isolate net,ipc,uts returns when a nono release > 0.80.0 ships it)
-  mkNonoWrapper =
-    agent: binary: extra:
-    pkgs.writeShellScriptBin "${agent}-nono" ''
+  # mkNono <outName> <profile> <exe> <extra> <herdrHint>: run <exe> (a store
+  # path from the llm-agents pin — pinned by this flake, not the host PATH)
+  # under the nolabs-ai/<profile> pack profile, cwd granted; leading
+  # --nono-* arguments pass through to nono. herdrHint: the kind herdr
+  # screen-detects such a pane as, or null if herdr has no manifest for it.
+  #
+  # The hint rides on a dumpable carrier shell rather than a plain
+  # `exec nono run`: herdr reads HERDR_AGENT from /proc/<pid>/environ of the
+  # pane's foreground process; a self-export never shows up there and nono is
+  # non-dumpable. https://herdr.dev/docs/agents/#vms-and-sandbox-wrappers
+  # https://github.com/herdrdev/herdr/discussions/514
+  mkNono =
+    outName: agent: exe: extra: herdrHint:
+    pkgs.writeShellScriptBin outName ''
       nono_flags="--allow-cwd"
       while [ "$#" -gt 0 ]; do
         case "$1" in
@@ -172,21 +181,29 @@ let
           *) break ;;
         esac
       done
-      exec ${nono}/bin/nono run ''${nono_flags} --profile nolabs-ai/${agent} ${
-        lib.concatStringsSep " " (
-          [
-            "--"
-            binary
-          ]
-          ++ extra
-        )
-      } "$@"
+      ${
+        lib.optionalString (herdrHint != null) "HERDR_AGENT=${herdrHint} "
+      }NONO_FLAGS="$nono_flags" exec ${pkgs.runtimeShell} -c '
+        exec ${nono}/bin/nono run $NONO_FLAGS --profile nolabs-ai/${agent} ${
+          lib.concatStringsSep " " (
+            [
+              "--"
+              exe
+            ]
+            ++ extra
+          )
+        } "$@"
+      ' herdr-${agent} "$@"
     '';
 
-  opencode-nono = mkNonoWrapper "opencode" "opencode2" [ "--standalone" ];
-  claude-nono = mkNonoWrapper "claude" "claude" [ ];
-  goose-nono = mkNonoWrapper "goose" "goose" [ ];
-  omp-nono = mkNonoWrapper "omp" "omp" [ ];
+  # defaults: the plain agent commands resolve to the nono sandbox wrappers
+  # (`opencode` never existed on PATH before — llm-agents installs `opencode2`)
+  opencode = mkNono "opencode" "opencode" "${llmAgents.opencode2}/bin/opencode2" [
+    "--standalone"
+  ] "opencode";
+  claude = mkNono "claude" "claude" "${llmAgents.claude-code}/bin/claude" [ ] "claude";
+  goose = mkNono "goose" "goose" "${llmAgents.goose-cli}/bin/goose" [ ] null;
+  omp = mkNono "omp" "omp" "${llmAgents.omp}/bin/omp" [ ] "omp";
 
   # nolabs-ai nono pack repo (pack-relative plugin/skill assets; profiles stay
   # registry-managed via `nono pull`). After `nono update <pack>`, bump this
@@ -211,7 +228,7 @@ in
   ];
 
   programs.opencode.enable = true;
-  programs.opencode.package = inputs.llm-agents.packages.${system}.opencode2;
+  programs.opencode.package = opencode;
   # settings replaces ~/.config/opencode/opencode.json wholesale; update the plugin by bumping its pin
   programs.opencode.settings = {
     providers = {
@@ -371,14 +388,14 @@ in
     };
 
   programs.claude-code.enable = true;
-  programs.claude-code.package = inputs.llm-agents.packages.${system}.claude-code;
+  programs.claude-code.package = claude;
   programs.claude-code.skills = skills;
 
   programs.goose.enable = true;
-  programs.goose.package = inputs.llm-agents.packages.${system}.goose-cli;
+  programs.goose.package = goose;
 
   programs.omp.enable = true;
-  programs.omp.package = inputs.llm-agents.packages.${system}.omp;
+  programs.omp.package = omp;
 
   # OpenCode-flavored look; Ctrl+T hides full thinking
   programs.omp.settings = {
@@ -403,10 +420,6 @@ in
     inputs.llm-agents.packages.${system}.herdr
     inputs.llm-agents.packages.${system}.collie
     nono
-    opencode-nono
-    claude-nono
-    goose-nono
-    omp-nono
     jevCli
   ];
 
