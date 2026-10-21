@@ -52,6 +52,9 @@
         # delete branches locally that have already been merged
         # usage: git clean-branches <branch> (branch to check against, defaults to main)
         clean-branches = ''!sh -c 'git branch --merged "''${1:-main}" | egrep -v "(^\*|master|main|staging|production)" | xargs git branch -d' -'';
+        # re-sign all commits of the current branch that aren't on the remote yet
+        # (e.g. created before signing was enabled or with a different key)
+        sign-recent = "rebase --exec 'git commit --amend --no-verify --no-edit -S' @{upstream}";
       };
     };
   };
