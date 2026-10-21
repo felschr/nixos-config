@@ -401,6 +401,7 @@ in
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
     inputs.llm-agents.packages.${system}.herdr
+    inputs.llm-agents.packages.${system}.collie
     nono
     opencode-nono
     claude-nono
