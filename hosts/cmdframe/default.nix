@@ -24,6 +24,10 @@
 
   services.fprintd.enable = true;
 
+  # run felschr's user services (herdr server, collie bridge) at boot even
+  # when logged out; see home/herdr.nix
+  users.users.felschr.linger = true;
+
   programs.zsh.enable = true;
 
   services.openssh = {

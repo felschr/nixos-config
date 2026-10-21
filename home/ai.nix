@@ -400,7 +400,7 @@ in
   home.packages = [
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
-    # nono sandbox + sandboxed agent launchers
+    inputs.llm-agents.packages.${system}.herdr
     nono
     opencode-nono
     claude-nono
