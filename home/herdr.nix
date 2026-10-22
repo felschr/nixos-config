@@ -57,6 +57,28 @@ in
     };
   };
 
+  # Syncs agent integrations from the pinned herdr on every switch (pin bump → re-install).
+  systemd.user.services.herdr-integrations = {
+    Unit = {
+      Description = "herdr: sync agent lifecycle integrations with the pinned herdr";
+      After = [ "default.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      Environment = "HERDR_SOCKET_PATH=${socketPath}";
+      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %h/.omp/agent";
+      ExecStart = [
+        "${herdr}/bin/herdr integration install opencode"
+        "${herdr}/bin/herdr integration install claude"
+        "${herdr}/bin/herdr integration install omp"
+      ];
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
   systemd.user.services.collie = {
     Unit = {
       Description = "collie: web PWA bridge for the herdr agent herd";
