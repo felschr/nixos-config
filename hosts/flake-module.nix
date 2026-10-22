@@ -40,6 +40,7 @@
               "gamemode"
               "media"
               "dialout" # for ESP stuff
+              "plugdev" # rmk / probe-rs
             ];
             usesContainers = true;
           })
@@ -111,6 +112,7 @@
               "disk"
               "libvirtd"
               "qemu-libvirtd"
+              "plugdev" # rmk / probe-rs
             ];
             usesContainers = true;
           })

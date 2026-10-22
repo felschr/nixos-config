@@ -10,6 +10,7 @@
     ./disk-config.nix
     ../../hardware/base.nix
     ../../hardware/bluetooth.nix
+    ../../hardware/probe-rs.nix
     ../../system/laptop.nix
     ../../system/printing/home.nix
     ../../desktop
