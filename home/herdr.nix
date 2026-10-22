@@ -11,6 +11,7 @@
 # like `collie update/restart` may still misbehave until that PR merges; use
 # `systemctl --user {restart,status} collie` instead.
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -23,7 +24,7 @@ let
 
   # Pinned everywhere (services + interactive shells) so that agents spawned
   # inside herdr panes and collie always reach the same server socket.
-  socketPath = "%h/.config/herdr/herdr.sock";
+  socketPath = "${config.home.homeDirectory}/.config/herdr/herdr.sock";
 in
 {
   home.sessionVariables.HERDR_SOCKET_PATH = "${socketPath}";
