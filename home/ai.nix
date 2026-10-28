@@ -11,8 +11,8 @@ let
     agent-browser = pkgs.fetchFromGitHub {
       owner = "vercel-labs";
       repo = "agent-browser";
-      rev = "dac13bb87468fe9d74a040d862720f6cc17a9565";
-      hash = "sha256-AGkOphWUxVAZ5YUQKa1LhGWmQC0UNzrme/ln8EC2bCQ=";
+      rev = "5801a50d262a4d3e1a2381996a962b22000d8289";
+      hash = "sha256-wmusKw4EdDCVmPLOSJfAqNB42/Z9YsiEnkZ6NJJXy1Q=";
     };
     anthropic-skills = pkgs.fetchFromGitHub {
       owner = "anthropics";
@@ -35,8 +35,8 @@ let
     ponytail = pkgs.fetchFromGitHub {
       owner = "dietrichgebert";
       repo = "ponytail";
-      rev = "16352ac229eb08a9598dcae48fe9f2b342567d86";
-      hash = "sha256-IJlhfkdXI6pMZZCZO7XBRg88LBiNfzc5Gnm4ofGybL8=";
+      rev = "09c434ab73ca43761c5d8b0c5d341926c2fba710";
+      hash = "sha256-sVnxA4rfxa2SlS2g+2+q3odRq0VJz1z7PEVHW2QRPQI=";
     };
     web-quality-skills = pkgs.fetchFromGitHub {
       owner = "addyosmani";
@@ -48,8 +48,8 @@ let
     typesafe-skills = pkgs.fetchFromGitHub {
       owner = "typesafe-ai";
       repo = "skills";
-      rev = "65a39f393687675ce170e6094757de20370365b9";
-      hash = "sha256-Lh2Y90TFv+njKqo/g5WXEHw0Rk1jQSH5POqKtrvy5kM=";
+      rev = "302eea662c54bca6730873fe245bec1d69ebc23d";
+      hash = "sha256-aQ7HheEFLarcil4jYIKn/FUIVOnw1JCoh0dYXZHTJ0E=";
     };
   };
 
@@ -214,8 +214,8 @@ let
   nonoPacks = pkgs.fetchFromGitHub {
     owner = "nolabs-ai";
     repo = "nono-packs";
-    rev = "51193d418b67fea12bc8bce4507da48b76ee52f6";
-    hash = "sha256-Xke88VkikabBksKiOmc7swMDgdZmk/rH60owJXUjhv4=";
+    rev = "a4432e55c02cfdea56ada32ddc7a5adf23e7e0d2";
+    hash = "sha256-kS2701quGR4KmUJh4VUTThjo0A7MWx5zxyv7YRPE0WI=";
   };
 
   # eval-time guard against pack layout drift: every linked pack asset must exist
