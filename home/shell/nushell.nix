@@ -29,6 +29,8 @@ in
         show_banner: false
       }
 
+      $env.GITHUB_TOKEN = (try { gh auth token } catch { "" })
+
       ${aliasesStr}
 
       use ${pkgs.unstable.nu_scripts}/share/nu_scripts/modules/network/ssh.nu *
