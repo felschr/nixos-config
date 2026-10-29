@@ -100,20 +100,22 @@ in
     serviceConfig = {
       Type = "oneshot";
       TimeoutStartSec = "5min";
+      Restart = "on-failure";
+      RestartSec = "30s";
     };
     script = ''
       status=$(${config.systemd.package}/bin/systemctl show -P StatusText tailscaled.service)
       if [[ $status != Connected* ]]; then
-        ${cfg.package}/bin/tailscale up
+        ${cfg.package}/bin/tailscale up --timeout=20s || true
       fi
 
       # some options cannot be set immediately
       # retry because tailscaled may still be starting up (e.g. an exit node
       # hostname cannot be resolved until tailscaled has loaded the netmap)
       attempt=0
-      while ! ${cfg.package}/bin/tailscale up ${lib.escapeShellArgs cfg.extraUpFlags}; do
+      while ! ${cfg.package}/bin/tailscale up --timeout=20s ${lib.escapeShellArgs cfg.extraUpFlags}; do
         attempt=$((attempt + 1))
-        if [[ $attempt -ge 20 ]]; then
+        if [[ $attempt -ge 10 ]]; then
           echo "tailscaled-autoconnect: giving up after $attempt attempts"
           exit 1
         fi
