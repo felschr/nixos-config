@@ -101,8 +101,8 @@ in
       DNSOverTLS = "opportunistic";
       DNSStubListener = !isAdguardHost;
       FallbackDNS = [
-        "194.242.2.2#dns.mullvad.net"
-        "194.242.2.4#base.dns.mullvad.net"
+        "9.9.9.10#dns10.quad9.net"
+        "149.112.112.10#dns10.quad9.net"
         "1.1.1.1#one.one.one.one"
         "1.0.0.1#one.one.one.one"
       ];

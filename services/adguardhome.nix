@@ -16,7 +16,8 @@ in
     settings = {
       dns = {
         upstream_dns = [
-          "https://dns.mullvad.net/dns-query"
+          # Quad9 without threat blocking - filtering is done by AdGuard Home below
+          "https://dns10.quad9.net/dns-query"
         ];
         fallback_dns = [
           "https://1.1.1.1/dns-query"
