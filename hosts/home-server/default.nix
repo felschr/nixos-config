@@ -23,6 +23,7 @@ in
     ../../hardware/bluetooth.nix
     ../../desktop/x11.nix
     ../../system/server.nix
+    ../../system/watchdog.nix
     ../../virtualisation/containers.nix
     ../../virtualisation/podman.nix
     ../../modules/inadyn.nix
