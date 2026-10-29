@@ -33,10 +33,12 @@ in
       substituters = nixConfig.extra-substituters;
       trusted-public-keys = nixConfig.extra-trusted-public-keys;
     };
-    optimise.automatic = true;
+    # both run alongside the 03:00 autoUpgrade (reboot window 03:00-05:00) and
+    # hammer the same CPU/IO the upgrade build needs, so keep them apart
+    optimise.dates = [ "Sat 05:30" ];
     gc = {
       automatic = true;
-      dates = "04:00";
+      dates = "Sun 05:00";
       options = "--delete-older-than 30d";
     };
   };
