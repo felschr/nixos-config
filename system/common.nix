@@ -3,6 +3,7 @@
 {
   imports = [
     ./boot.nix
+    ./builds.nix
     ./zram.nix
     ./i18n.nix
     ./nix.nix

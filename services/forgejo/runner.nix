@@ -50,6 +50,9 @@ in
 
   systemd.services.gitea-runner-local.serviceConfig = {
     EnvironmentFile = [ "/run/forgejo/forgejo-runner-token" ];
+    # shell steps run here; nix builds themselves land in nix-builds.slice
+    # via the daemon
+    Slice = "nix-builds.slice";
   };
 
   systemd.services.gitea-runner-local.wants = [ "forgejo.service" ];
