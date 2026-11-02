@@ -287,7 +287,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#1e8765b2e533c7e03fa3b007a1353fd0613ae617";
+        package = "github:atvari-eu/opencode-system-one#f64c7c1e4106a0c6961fcdac8f99e448cf359232";
         options = {
           provider = "opencode";
           model = "jev-1.13";
@@ -308,7 +308,6 @@ in
           };
           effort.auto = true; # per-prompt thinking level; pairs with auto
           doneCheck.auto = true; # completion probe when the session goes idle
-          find.enabled = true; # jev_find: jev-backed semantic code search
           compaction = {
             enabled = true;
             mode = "replace";
@@ -332,7 +331,6 @@ in
             onRefuse = "deny";
             onNoVerdict = "allow";
             onFail = "ask";
-            readonlyAllow = true;
             # the permissions object opts jev-assisted approvals in with plugin
             # defaults (full delegation; bars until /jev-approval-stats calibration);
             # `ask` entries pin must-prompt slices
