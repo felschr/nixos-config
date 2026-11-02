@@ -339,6 +339,8 @@ in
             permissions = [
               # always allow
               (perm "external_directory" "*" "allow") # safe in nono sandbox
+              (perm "shell" "nono why *" "allow")
+              (perm "shell" "git commit *" "allow")
               (perm "shell" "bun test *" "allow")
               (perm "shell" "shellcheck *" "allow")
               (perm "shell" "nixfmt *" "allow")
