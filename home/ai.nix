@@ -160,11 +160,14 @@ let
   # nono — agent sandbox; version tracks the llm-agents pin
   nono = llmAgents.nono;
 
-  # mkNono <outName> <profile> <exe> <extra> <herdrHint>: run <exe> (a store
-  # path from the llm-agents pin — pinned by this flake, not the host PATH)
-  # under the nolabs-ai/<profile> pack profile, cwd granted; leading
+  # mkNono <outName> <profile> <exe> <extra> <herdrHint> [pty]: run <exe> (a
+  # store path from the llm-agents pin — pinned by this flake, not the host
+  # PATH) under the nolabs-ai/<profile> pack profile, cwd granted; leading
   # --nono-* arguments pass through to nono. herdrHint: the kind herdr
   # screen-detects such a pane as, or null if herdr has no manifest for it.
+  # Every wrapper grants /dev/ptmx (--allow-file): in-agent terminals and
+  # interactive shell commands allocate ptys, and nono grants /dev/pts by
+  # default but never the multiplexer device (openpty() fails EPERM without it).
   #
   # The hint rides on a dumpable carrier shell rather than a plain
   # `exec nono run`: herdr reads HERDR_AGENT from /proc/<pid>/environ of the
@@ -177,7 +180,7 @@ let
       # --allow-unix-socket: standing grant for herdr's lifecycle integrations
       # (the connection target may not exist yet; connect() fails gracefully
       # until the herdr server runs). Harmless for agents without hooks.
-      nono_flags="--allow-cwd --allow-unix-socket $HOME/.config/herdr/herdr.sock"
+      nono_flags="--allow-cwd --allow-unix-socket $HOME/.config/herdr/herdr.sock --allow-file /dev/ptmx"
       while [ "$#" -gt 0 ]; do
         case "$1" in
           --nono-*) nono_flags="''${nono_flags} --''${1#--nono-}"; shift ;;
@@ -278,7 +281,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#dfa38225bffce9718168859003a19542c2dbd637";
+        package = "github:atvari-eu/opencode-system-one#199eff97629de8e7e7e4065f311994de9a8e6286";
         options = {
           provider = "opencode";
           model = "jev-1.13";
