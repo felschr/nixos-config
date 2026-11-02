@@ -187,6 +187,12 @@ let
           *) break ;;
         esac
       done
+      # git cannot reach the signing key inside the sandbox (~/.ssh is hidden),
+      # so a signed commit fails closed. Default commits and tags to unsigned;
+      # these act like `git -c`, so an explicit `git commit -S` still signs.
+      export GIT_CONFIG_COUNT=2
+      export GIT_CONFIG_KEY_0=commit.gpgsign GIT_CONFIG_VALUE_0=false
+      export GIT_CONFIG_KEY_1=tag.gpgsign GIT_CONFIG_VALUE_1=false
       ${
         lib.optionalString (herdrHint != null) "HERDR_AGENT=${herdrHint} "
       }NONO_FLAGS="$nono_flags" exec ${pkgs.runtimeShell} -c '
