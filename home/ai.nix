@@ -11,14 +11,14 @@ let
     agent-browser = pkgs.fetchFromGitHub {
       owner = "vercel-labs";
       repo = "agent-browser";
-      rev = "5801a50d262a4d3e1a2381996a962b22000d8289";
-      hash = "sha256-wmusKw4EdDCVmPLOSJfAqNB42/Z9YsiEnkZ6NJJXy1Q=";
+      rev = "5868f7c05020e047c00e68e4abf9253cce864f41";
+      hash = "sha256-/YPVYdRNhOkW09WF63xhSwELNzv/D1cOvQep5taIlVQ=";
     };
     anthropic-skills = pkgs.fetchFromGitHub {
       owner = "anthropics";
       repo = "skills";
-      rev = "dbd4588f9e1033efb41dad4bef2f7947c8993d44";
-      hash = "sha256-+UIqBnzyeIOvJSKYaDaE3GYPEpLw7qQqyUw5S971AfU=";
+      rev = "ca45fc496a3436251f191354091d557da31c15b5";
+      hash = "sha256-MkCOANBAqCc1WmNf7S8PsyAphGJAIzEXGyCm8RrCR9M=";
     };
     atvari-skills = pkgs.fetchFromGitHub {
       owner = "atvari-eu";
@@ -35,8 +35,8 @@ let
     ponytail = pkgs.fetchFromGitHub {
       owner = "dietrichgebert";
       repo = "ponytail";
-      rev = "09c434ab73ca43761c5d8b0c5d341926c2fba710";
-      hash = "sha256-sVnxA4rfxa2SlS2g+2+q3odRq0VJz1z7PEVHW2QRPQI=";
+      rev = "96608e078b2d5ea607c5c3b8b5a54d1c1fba6846";
+      hash = "sha256-PhPtZbeX2wBp19GtWRy+fV93+fFYZe5S487eXPDl/us=";
     };
     web-quality-skills = pkgs.fetchFromGitHub {
       owner = "addyosmani";
