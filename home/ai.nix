@@ -287,7 +287,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-system-one#534025878057d82de7cc3c1460f92c3435abf866";
+        package = "github:atvari-eu/opencode-system-one#1e8765b2e533c7e03fa3b007a1353fd0613ae617";
         options = {
           provider = "opencode";
           model = "jev-1.13";
@@ -337,15 +337,8 @@ in
             # defaults (full delegation; bars until /jev-approval-stats calibration);
             # `ask` entries pin must-prompt slices
             permissions = [
-              (perm "question" "*" "allow")
-              (perm "external_directory" "*" "allow")
-              (perm "shell" "git status *" "allow")
-              (perm "shell" "git log *" "allow")
-              (perm "shell" "git diff *" "allow")
-              (perm "shell" "git branch *" "allow")
-              (perm "shell" "git show *" "allow")
-              (perm "shell" "ls *" "allow")
-              (perm "shell" "git commit *" "allow")
+              # always allow
+              (perm "external_directory" "*" "allow") # safe in nono sandbox
               (perm "shell" "bun test *" "allow")
               (perm "shell" "shellcheck *" "allow")
               (perm "shell" "nixfmt *" "allow")
@@ -357,26 +350,10 @@ in
               (perm "shell" "nix why-depends *" "allow")
               (perm "shell" "nix store verify *" "allow")
               (perm "shell" "nix store path-info *" "allow")
-              # top hand-held slices (/jev-approval-stats, 2026-10-20)
-              (perm "shell" "grep *" "allow") # 61 held; read-only
-              (perm "shell" "nix shell *" "allow") # 82 held; nono-sandboxed
-              (perm "shell" "cat > *" "allow") # workspace redirects
-              # pipe sinks: a chain falls back to jev when a segment lacks a rule
-              (perm "shell" "head *" "allow")
-              (perm "shell" "tail *" "allow")
-              (perm "shell" "sed -n *" "allow")
-              (perm "shell" "wc *" "allow")
+              (perm "shell" "nix shell *" "allow")
+              # always ask
               (perm "shell" "nixos-rebuild *" "ask")
               (perm "shell" "git push *" "ask")
-              # read/grep/glob flow without jev approval (secret paths still gate);
-              # external-directory isolation is nono's job, not the plugin's
-              (perm "read" "*" "allow")
-              (perm "grep" "*" "allow")
-              (perm "glob" "*" "allow")
-              (perm "webfetch" "*" "allow")
-              (perm "websearch" "*" "allow")
-              (perm "skill" "*" "allow")
-              (perm "subagent" "*" "allow")
             ];
           };
         };
