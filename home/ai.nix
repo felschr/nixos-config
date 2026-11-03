@@ -263,6 +263,11 @@ in
     # Nix-linked skills never change, and watching them fails with
     # "watcher backend not supported"
     watcher.ignore = [ "**/.config/opencode/skills/**" ];
+    # primary agents rest on the Auto entry, so jev routes each turn
+    agents = {
+      build.model = "opencode-decisions/auto";
+      plan.model = "opencode-decisions/auto";
+    };
     providers = {
       munito = {
         name = "Munito";
@@ -404,44 +409,26 @@ in
   # description is what the model picks a subagent by, so it carries the when.
   programs.opencode.agents.review = ''
     ---
-    description: Cold read of a change - reports findings, never edits. Use before commit or push, especially for a change the caller wrote.
-    mode: subagent
-    model: opencode-decisions/auto-review
-    permissions:
-      - action: "*"
-        resource: "*"
-        effect: deny
-      - action: read
-        resource: "*"
-        effect: allow
-      - action: glob
-        resource: "*"
-        effect: allow
-      - action: grep
-        resource: "*"
-        effect: allow
-      - action: shell
-        resource: "git diff*"
-        effect: allow
-      - action: shell
-        resource: "git show*"
-        effect: allow
-      - action: shell
-        resource: "git log*"
-        effect: allow
-      - action: shell
-        resource: "git merge-base*"
-        effect: allow
-      - action: shell
-        resource: "git status*"
-        effect: allow
-      - action: shell
-        resource: "git rev-parse*"
-        effect: allow
-      - action: shell
-        resource: "rg *"
-        effect: allow
-    ---
+    ${
+      lib.generators.toYAML { } {
+        description = "Cold read of a change - reports findings, never edits. Use before commit or push, especially for a change the caller wrote.";
+        mode = "subagent";
+        model = "opencode-decisions/auto-review";
+        permissions = [
+          (perm "*" "*" "deny")
+          (perm "read" "*" "allow")
+          (perm "glob" "*" "allow")
+          (perm "grep" "*" "allow")
+          (perm "shell" "git diff*" "allow")
+          (perm "shell" "git show*" "allow")
+          (perm "shell" "git log*" "allow")
+          (perm "shell" "git merge-base*" "allow")
+          (perm "shell" "git status*" "allow")
+          (perm "shell" "git rev-parse*" "allow")
+          (perm "shell" "rg *" "allow")
+        ];
+      }
+    }---
     You review a change and report defects in it. You do not edit, you do not
     plan the implementation, and you do not ask questions - the caller cannot
     answer them from here.
