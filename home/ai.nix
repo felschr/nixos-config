@@ -232,6 +232,16 @@ let
     target: rel:
     assert builtins.pathExists "${nonoPacks}/${rel}";
     lib.nameValuePair target { source = "${nonoPacks}/${rel}"; };
+
+  # Personal global rules, tracked once and linked to each agent's user-level
+  # rules path. Project-level AGENTS.md/CLAUDE.md still wins where present.
+  globalInstructions = ./ai/AGENTS.md;
+  globalInstructionPaths = [
+    ".agents/AGENTS.md" # generic agent dir, picked up by omp's .agent/.agents scan
+    ".config/opencode/AGENTS.md" # opencode; omp reads it via its compat provider
+    ".claude/CLAUDE.md" # claude code (opencode's fallback source)
+    ".config/goose/.goosehints" # goose
+  ];
 in
 {
   imports = [
@@ -558,5 +568,8 @@ in
       (packLink ".agents/plugins/nono" "goose")
       (packLink ".omp/agent/extensions/nono-sandbox" "omp/extensions/nono-sandbox")
       (packLink ".omp/agent/skills/nono-sandbox" "omp/skills/nono-sandbox")
-    ];
+    ]
+    // lib.genAttrs globalInstructionPaths (_: {
+      source = globalInstructions;
+    });
 }
