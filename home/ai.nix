@@ -309,7 +309,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-decisions#f5ad8841dd2a67554719899616cee0e498b6ffa4";
+        package = "github:atvari-eu/opencode-decisions#3cfec664ff44c625f3f825796fca11b5584966d7";
         options = {
           provider = "opencode";
           model = "jev-1.13";
@@ -326,13 +326,11 @@ in
           tools = true;
           commands = true;
           cache = true;
-          auto = {
-            sources = {
-              favorites = true;
-              opencode.plan = "go";
-            };
+          # review turns route on the review question, never onto Auto's models
+          agents.review = {
+            criteria = "@review";
+            effort.min = "medium";
           };
-          effort.auto = true; # per-prompt thinking level; pairs with auto
           doneCheck.auto = true; # completion probe when the session goes idle
           compaction = {
             enabled = true;
@@ -408,6 +406,7 @@ in
     ---
     description: Cold read of a change - reports findings, never edits. Use before commit or push, especially for a change the caller wrote.
     mode: subagent
+    model: opencode-decisions/auto-review
     permissions:
       - action: "*"
         resource: "*"
