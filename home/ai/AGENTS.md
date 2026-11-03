@@ -42,6 +42,13 @@ These are personal defaults for every repository. A project-level `AGENTS.md` or
 - Stage only files related to the requested change; leave unrelated working-tree
   edits alone.
 
+## Subagents
+
+- Delegate self-contained, read-only work that would otherwise flood the context
+  (broad codebase searches, reading many files, a cold review of your own diff) to
+  a subagent. Keep edits and decisions in the main session, and do not delegate
+  small lookups or anything that depends on this conversation.
+
 ## Tools
 
 - Prefer the dedicated file tools (read, edit, write, glob, grep) over shell
