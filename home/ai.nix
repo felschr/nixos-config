@@ -407,6 +407,28 @@ in
     ];
   };
 
+  # OpenCode installs every pinned plugin revision into its own npm tree under
+  # ~/.cache/opencode/npm (`git-<repo>-<hash>/<timestamp>/node_modules`, ~300 MB
+  # each) and never removes the old ones - bumping the pin below leaks one tree
+  # per release. Keep the two newest (the pin in use plus its predecessor, so a
+  # rollback does not refetch) and drop the rest on every switch.
+  home.activation.pruneOpencodePluginCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    cache="$HOME/.cache/opencode/npm"
+    if [ -d "$cache" ]; then
+      keep=2
+      n=0
+      # newest first (dir names are content hashes, so the glob order is not age)
+      for dir in $(ls -1dt "$cache"/git-* 2>/dev/null); do
+        [ -d "$dir" ] || continue
+        n=$((n + 1))
+        if [ "$n" -gt "$keep" ]; then
+          verboseEcho "Pruning stale opencode plugin cache: $dir"
+          run rm -rf "$dir"
+        fi
+      done
+    fi
+  '';
+
   home.packages = [
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
