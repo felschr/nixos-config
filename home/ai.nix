@@ -100,11 +100,15 @@ let
     typesafe-ai = "${skillSources.typesafe-skills}/skills/typesafe-ai";
   };
 
-  # Shared ~ root (goose & omp); omits the jev skills (native integrations)
-  agentSkills = builtins.removeAttrs skills [
+  # opencode (plugin) and omp (TypeSafeJudge) integrate jev natively, so only
+  # claude and goose load the skills
+  jevSkills = [
     "system-one"
     "auto-system-one"
   ];
+
+  # Shared ~ root (goose & omp), without the jev skills
+  agentSkills = builtins.removeAttrs skills jevSkills;
 
   # jev — System One endpoint client; key read from opencode's auth store at call
   # time. Consumed by agents that load the system-one skill (claude, goose).
@@ -253,6 +257,12 @@ in
   programs.opencode.package = opencode;
   # settings replaces ~/.config/opencode/opencode.json wholesale; update the plugin by bumping its pin
   programs.opencode.settings = {
+    # the binary is Nix-managed; a self-updater would fight the store path
+    update = "disable";
+    lsp = true;
+    # Nix-linked skills never change, and watching them fails with
+    # "watcher backend not supported"
+    watcher.ignore = [ "**/.config/opencode/skills/**" ];
     providers = {
       munito = {
         name = "Munito";
@@ -291,6 +301,8 @@ in
         enabled = true;
       };
       munito = {
+        # needs an interactive login; fails on every session start until then
+        enabled = false;
         type = "remote";
         url = "https://api.munito.ai/mcp/v1";
       };
@@ -460,16 +472,11 @@ in
   '';
 
   # claude/goose load the jev skills; opencode (plugin) & omp (TypeSafeJudge) integrate jev natively, so they don't.
-  programs.opencode.skills =
-    (builtins.removeAttrs skills [
-      "system-one"
-      "auto-system-one"
-    ])
-    // {
-      nono-sandbox =
-        assert builtins.pathExists "${nonoPacks}/opencode/skills/nono-sandbox";
-        "${nonoPacks}/opencode/skills/nono-sandbox";
-    };
+  programs.opencode.skills = agentSkills // {
+    nono-sandbox =
+      assert builtins.pathExists "${nonoPacks}/opencode/skills/nono-sandbox";
+      "${nonoPacks}/opencode/skills/nono-sandbox";
+  };
 
   programs.claude-code.enable = true;
   programs.claude-code.package = claude;
@@ -492,10 +499,7 @@ in
     statusLine.separator = "slash";
 
     # Safety net: omp also scans ~/.agents/skills.
-    skills.ignoredSkills = [
-      "system-one"
-      "auto-system-one"
-    ];
+    skills.ignoredSkills = jevSkills;
   };
 
   # OpenCode installs every pinned plugin revision into its own npm tree under
