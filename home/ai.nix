@@ -368,6 +368,97 @@ in
     ];
   };
 
+  # The isolated counterpart to the built-in `/review`: same interface
+  # (`[commit|branch|pr]`, default uncommitted), but the host runs the command
+  # AS the `review` subagent (`agent` + `subagent` frontmatter), so the reviewer
+  # gets a fresh context and never sees the author's reasoning. Scope belongs in
+  # the command; the output contract belongs in the agent.
+  #
+  # Note the omission of `$ARGUMENTS`: a command template without the
+  # placeholder has its arguments appended as a paragraph, which reads correctly
+  # when none are given.
+  programs.opencode.commands.review-cold = ''
+    ---
+    description: review changes [commit|branch|pr] in an isolated subagent, defaults to uncommitted
+    agent: review
+    subagent: true
+    ---
+    Review the change selected by the argument below. With no argument, review
+    the uncommitted working copy.
+
+    Scopes, mirroring /review:
+    - uncommitted (default): tracked modifications plus untracked files
+    - commit: the last commit
+    - branch: this branch against its merge base with its upstream, else origin/main
+    - pr: the pull request for this branch
+
+    Collect the diff yourself with git and read the files it touches. Do not ask
+    the caller for the diff, and do not ask why the change was made.
+  '';
+
+  # The reviewer: read-only by construction, no questions (a child that asks
+  # stalls the run), and shell limited to repository inspection so it can fetch
+  # its own diff. Description matters more than the id - it is what the model
+  # reads when choosing a subagent.
+  programs.opencode.agents.review = ''
+    ---
+    description: Cold read of a change - reports findings, never edits. Use before commit or push, especially for a change the caller wrote.
+    mode: subagent
+    permissions:
+      - action: "*"
+        resource: "*"
+        effect: deny
+      - action: read
+        resource: "*"
+        effect: allow
+      - action: glob
+        resource: "*"
+        effect: allow
+      - action: grep
+        resource: "*"
+        effect: allow
+      - action: shell
+        resource: "git diff*"
+        effect: allow
+      - action: shell
+        resource: "git show*"
+        effect: allow
+      - action: shell
+        resource: "git log*"
+        effect: allow
+      - action: shell
+        resource: "git merge-base*"
+        effect: allow
+      - action: shell
+        resource: "git status*"
+        effect: allow
+      - action: shell
+        resource: "git rev-parse*"
+        effect: allow
+      - action: shell
+        resource: "rg *"
+        effect: allow
+    ---
+    You review a change and report defects in it. You do not edit, you do not
+    plan the implementation, and you do not ask questions - the caller cannot
+    answer them from here.
+
+    Read the change as if you had never seen the work and had no stake in it. If
+    a claim in a comment, commit message or test name does not match the code,
+    that mismatch is itself a finding.
+
+    For every finding give:
+    - path:line, the narrowest range that shows it
+    - severity: blocking (wrong behaviour, data loss, security), should-fix
+      (fragile, unclear, untested), or nit (style)
+    - what breaks, and for whom
+    - the fix, in one or two sentences
+
+    If the change is correct, say so in one line and list what you checked -
+    silence is not a verdict. End with either "safe to land" or "needs fixes"
+    plus the blocking list.
+  '';
+
   # claude/goose load the jev skills; opencode (plugin) & omp (TypeSafeJudge) integrate jev natively, so they don't.
   programs.opencode.skills =
     (builtins.removeAttrs skills [
