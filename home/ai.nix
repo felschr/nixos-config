@@ -294,7 +294,11 @@ in
           screen = {
             enabled = true;
             mode = "redact";
-            tools = "all"; # screen every tool result, not just fetched pages
+            tools = [
+              "webfetch"
+              "websearch"
+              "mcp/*"
+            ];
           };
           scrub.enabled = true;
           tools = true;
