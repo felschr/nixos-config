@@ -378,38 +378,20 @@ in
     ];
   };
 
-  # The isolated counterpart to the built-in `/review`: same interface
-  # (`[commit|branch|pr]`, default uncommitted), but the host runs the command
-  # AS the `review` subagent (`agent` + `subagent` frontmatter), so the reviewer
-  # gets a fresh context and never sees the author's reasoning. Scope belongs in
-  # the command; the output contract belongs in the agent.
-  #
-  # Note the omission of `$ARGUMENTS`: a command template without the
-  # placeholder has its arguments appended as a paragraph, which reads correctly
-  # when none are given.
+  # The built-in `/review` in a fresh context. No `$ARGUMENTS` on purpose:
+  # without the placeholder the argument is appended as a paragraph, which also
+  # reads fine when none is given.
   programs.opencode.commands.review-cold = ''
     ---
     description: review changes [commit|branch|pr] in an isolated subagent, defaults to uncommitted
     agent: review
     subagent: true
     ---
-    Review the change selected by the argument below. With no argument, review
-    the uncommitted working copy.
-
-    Scopes, mirroring /review:
-    - uncommitted (default): tracked modifications plus untracked files
-    - commit: the last commit
-    - branch: this branch against its merge base with its upstream, else origin/main
-    - pr: the pull request for this branch
-
-    Collect the diff yourself with git and read the files it touches. Do not ask
-    the caller for the diff, and do not ask why the change was made.
+    Review the change indicated below, if any.
   '';
 
-  # The reviewer: read-only by construction, no questions (a child that asks
-  # stalls the run), and shell limited to repository inspection so it can fetch
-  # its own diff. Description matters more than the id - it is what the model
-  # reads when choosing a subagent.
+  # Read-only apart from git inspection; questions would stall the caller. The
+  # description is what the model picks a subagent by, so it carries the when.
   programs.opencode.agents.review = ''
     ---
     description: Cold read of a change - reports findings, never edits. Use before commit or push, especially for a change the caller wrote.
@@ -452,6 +434,14 @@ in
     You review a change and report defects in it. You do not edit, you do not
     plan the implementation, and you do not ask questions - the caller cannot
     answer them from here.
+
+    Determine the scope yourself. With no other information, review the
+    uncommitted working copy: tracked modifications plus untracked files. If the
+    caller names a commit, branch or PR, use that - commit means the last
+    commit, branch means this branch against its merge base with its upstream,
+    else origin/main, pr means the pull request for this branch. Collect the
+    diff yourself with git and read the files it touches. Do not ask the caller
+    for the diff, and do not ask why the change was made.
 
     Read the change as if you had never seen the work and had no stake in it. If
     a claim in a comment, commit message or test name does not match the code,
