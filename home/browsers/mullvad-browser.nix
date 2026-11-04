@@ -33,6 +33,7 @@ let
     "privacy.clearOnShutdown.downloads" = false;
     "privacy.clearOnShutdown.formdata" = false;
     "privacy.clearOnShutdown.history" = false;
+    "privacy.sanitize.sanitizeOnShutdown" = true;
 
     # Disable extension auto updates
     "extensions.update.enabled" = false;
