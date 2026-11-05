@@ -341,7 +341,7 @@ in
             enabled = true;
             mode = "replace";
             # compact at idle: jev passes are ~free, big prompts are not
-            auto.tokens = 60000;
+            auto.tokens = 200000;
           };
           approvals = {
             # operator-asserted sandbox posture for jev calibration; must be true
