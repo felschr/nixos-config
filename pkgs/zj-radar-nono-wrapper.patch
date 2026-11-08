@@ -1,0 +1,94 @@
+zj-radar peels launcher wrappers (sudo, env, ...) before classifying a pane, but
+stops at the first non-option token. For `nono run --profile ... -- <agent>` that
+token is `run`, so the pane classifies as a generic command named "run opencode"
+instead of the agent. Neither `"nono"` nor `"nono run"` in WRAPPERS fixes this:
+the list is matched one argv token at a time via `basename`.
+
+So entries become `(exe, Option<subcommand>)` and a subcommand wrapper consumes
+its subcommand plus the flags up to `--`. The `--` skip is scoped to subcommand
+entries, leaving the existing ones unchanged.
+
+--- a/crates/core/src/command.rs
++++ b/crates/core/src/command.rs
+@@ -232,7 +232,31 @@
+ 
+ /// Launcher exes that prefix the *real* command (`sudo make`, `time cargo
+ /// build`, `env FOO=1 pytest`). Classification should see through them.
+-const WRAPPERS: &[&str] = &["sudo", "doas", "env", "time", "nice", "command", "exec"];
++///
++/// An entry may name the launcher's own subcommand (`nono run`), which is then
++/// consumed with the wrapper. `None` skips the exe alone.
++const WRAPPERS: &[(&str, Option<&str>)] = &[
++    ("sudo", None),
++    ("doas", None),
++    ("env", None),
++    ("time", None),
++    ("nice", None),
++    ("command", None),
++    ("exec", None),
++    ("nono", Some("run")),
++];
++
++/// Tokens a wrapper at `command[i]` consumes, or `None` if it is not a wrapper.
++/// A subcommand entry matches only on the immediately following token, so
++/// `nono --help` is not peeled as `nono run`.
++fn wrapper_len(command: &[String], i: usize) -> Option<usize> {
++    let exe = basename(command.get(i)?);
++    let (_, sub) = WRAPPERS.iter().find(|(name, _)| *name == exe)?;
++    match sub {
++        None => Some(1),
++        Some(sub) => (command.get(i + 1).map(String::as_str) == Some(*sub)).then_some(2),
++    }
++}
+ 
+ /// JS runtimes that can host a push agent's entry script. A node-shebang
+ /// agent (pi, npm-installed Codex) is reported by the OS as
+@@ -265,9 +289,17 @@
+         while command.get(i).is_some_and(|t| is_env_assignment(t)) {
+             i += 1;
+         }
+-        match command.get(i) {
+-            Some(tok) if WRAPPERS.contains(&basename(tok)) => i += 1,
+-            _ => break,
++        match wrapper_len(command, i) {
++            Some(len) => {
++                i += len;
++                // Skip the wrapper's own flags (`nono run --allow-cwd -- opencode`).
++                if len > 1 {
++                    if let Some(sep) = command[i..].iter().position(|t| t == "--") {
++                        i += sep + 1;
++                    }
++                }
++            }
++            None => break,
+         }
+     }
+     match command.get(i) {
+--- a/crates/core/src/command/tests.rs
++++ b/crates/core/src/command/tests.rs
+@@ -1076,7 +1076,7 @@
+     // any membership check runs, so a name in both would be silently
+     // invisible to its other list (a wrapped-away "interactive" name
+     // would un-quiet; a wrapped-away shell would break the prompt).
+-    for name in WRAPPERS {
++    for (name, sub) in WRAPPERS {
+         assert!(
+             !IGNORE_NAMES.contains(name)
+                 && !AGENT_NAMES.contains(name)
+@@ -1084,6 +1084,16 @@
+                 && !DEFAULT_REMOTE.contains(name),
+             "{name} is peeled by effective_program — membership lists would never see it"
+         );
++        // A wrapper's subcommand is consumed with it, so it is peeled away too.
++        if let Some(sub) = sub {
++            assert!(
++                !IGNORE_NAMES.contains(sub)
++                    && !AGENT_NAMES.contains(sub)
++                    && !DEFAULT_INTERACTIVE.contains(sub)
++                    && !DEFAULT_REMOTE.contains(sub),
++                "{sub} is consumed with its wrapper — membership lists would never see it"
++            );
++        }
+     }
+     for name in JS_RUNTIMES {
+         assert!(
