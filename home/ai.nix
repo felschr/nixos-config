@@ -171,27 +171,6 @@ let
     ln -s ${llmAgents.opencode2}/bin/opencode2 $out/bin/opencode
   '';
 
-  # zj-radar's vendored opencode bridges, taken from the flake input rather than
-  # copied into the repo. `zj-radar setup opencode` writes them into
-  # ~/.config/opencode/plugins, which home-manager owns, so they are linked here.
-  # 2.x loads plugins/zj-radar/tui.js, 1.x loads plugins/zj-radar.js; each
-  # ignores the other's shape.
-  zjRadarBridges = "${inputs.zj-radar}/crates/cli/src/setup";
-
-  # zj-radar broadcasts through zellij's IPC socket, which the stock profile
-  # does not grant (the rail stays dark). `unix_socket_dir` is in the schema but
-  # dropped by nono 0.81.0, so this is a plain read grant on the socket dir.
-  opencodeProfile = pkgs.writeText "opencode-zellij-profile.json" (
-    builtins.toJSON {
-      extends = "nolabs-ai/opencode";
-      meta = {
-        name = "opencode-zellij";
-        description = "OpenCode with access to zellij IPC sockets, so the zj-radar bridge can broadcast agent status to the sidebar";
-      };
-      filesystem.read = [ "/run/user/${toString 1000}/zellij/contract_version_1" ];
-    }
-  );
-
   # mkNono <outName> <profile> <exe> <extra> <herdrHint> [pty]: run <exe> (a
   # store path from the llm-agents pin — pinned by this flake, not the host
   # PATH) under <profile>, a pack profile name or a profile file path, with cwd
@@ -243,7 +222,7 @@ let
 
   # defaults: the plain agent commands resolve to the nono sandbox wrappers
   # (`opencode` never existed on PATH before — llm-agents installs `opencode2`)
-  opencode = mkNono "opencode" opencodeProfile "${opencodeBin}/bin/opencode" [
+  opencode = mkNono "opencode" "nolabs-ai/opencode" "${opencodeBin}/bin/opencode" [
     "--standalone"
   ] "opencode";
   claude = mkNono "claude" "nolabs-ai/claude" "${llmAgents.claude-code}/bin/claude" [ ] "claude";
@@ -352,7 +331,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-decisions#bd2ea5a06def85eb93f11a3fc5edbbccd44b3686";
+        package = "github:atvari-eu/opencode-decisions#2c81f28753e6435699c9dc1d72947ab7050c9cb9";
         options = {
           provider = "opencode";
           model = "jev-1.13";
@@ -587,12 +566,6 @@ in
       # nono links these itself; force so activation replaces its links
       (packLinkForce ".omp/agent/extensions/nono-sandbox" "omp/extensions/nono-sandbox")
       (packLinkForce ".omp/agent/skills/nono-sandbox" "omp/skills/nono-sandbox")
-      (lib.nameValuePair ".config/opencode/plugins/zj-radar.js" {
-        source = "${zjRadarBridges}/opencode_plugin.js";
-      })
-      (lib.nameValuePair ".config/opencode/plugins/zj-radar/tui.js" {
-        source = "${zjRadarBridges}/opencode_tui_plugin.js";
-      })
     ]
     // lib.genAttrs globalInstructionPaths (_: {
       source = globalInstructions;

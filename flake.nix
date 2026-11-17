@@ -80,11 +80,6 @@ rec {
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
-
-    zj-radar = {
-      url = "github:marktoda/zj-radar/v0.12.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
