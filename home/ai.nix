@@ -316,7 +316,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-decisions#9d191148fe1dc2edc02da199bc94205aad16ed81";
+        package = "github:atvari-eu/opencode-decisions#d94b859902f36fe755d941fb6c0ecb12020af45c";
         options = {
           provider = "opencode";
           model = "jev-1.13";
@@ -333,6 +333,7 @@ in
           tools = true;
           commands = true;
           cache = true;
+          poolProvider = "opencode-go";
           # review turns route on the review question, never onto Auto's models
           agents.review = {
             criteria = "@review";
