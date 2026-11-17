@@ -8,7 +8,6 @@ with pkgs;
     ./tailscale.nix
     ./editors
     ./ai.nix
-    ./herdr.nix
     ./desktop
     ./ssh.nix
     ./git.nix

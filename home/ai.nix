@@ -171,28 +171,17 @@ let
     ln -s ${llmAgents.opencode2}/bin/opencode2 $out/bin/opencode
   '';
 
-  # mkNono <outName> <profile> <exe> <extra> <herdrHint> [pty]: run <exe> (a
-  # store path from the llm-agents pin — pinned by this flake, not the host
-  # PATH) under <profile>, a pack profile name or a profile file path, with cwd
-  # granted; leading
-  # --nono-* arguments pass through to nono. herdrHint: the kind herdr
-  # screen-detects such a pane as, or null if herdr has no manifest for it.
+  # mkNono <outName> <profile> <exe> <extra>: run <exe> (a store path from the
+  # llm-agents pin — pinned by this flake, not the host PATH) under <profile>,
+  # a pack profile name or a profile file path, with cwd granted; leading
+  # --nono-* arguments pass through to nono.
   # Every wrapper grants /dev/ptmx (--allow-file): in-agent terminals and
   # interactive shell commands allocate ptys, and nono grants /dev/pts by
   # default but never the multiplexer device (openpty() fails EPERM without it).
-  #
-  # The hint rides on a dumpable carrier shell rather than a plain
-  # `exec nono run`: herdr reads HERDR_AGENT from /proc/<pid>/environ of the
-  # pane's foreground process; a self-export never shows up there and nono is
-  # non-dumpable. https://herdr.dev/docs/agents/#vms-and-sandbox-wrappers
-  # https://github.com/herdrdev/herdr/discussions/514
   mkNono =
-    outName: profile: exe: extra: herdrHint:
+    outName: profile: exe: extra:
     pkgs.writeShellScriptBin outName ''
-      # --allow-unix-socket: standing grant for herdr's lifecycle integrations
-      # (the connection target may not exist yet; connect() fails gracefully
-      # until the herdr server runs). Harmless for agents without hooks.
-      nono_flags="--allow-cwd --allow-unix-socket $HOME/.config/herdr/herdr.sock --allow-file /dev/ptmx"
+      nono_flags="--allow-cwd --allow-file /dev/ptmx"
       while [ "$#" -gt 0 ]; do
         case "$1" in
           --nono-*) nono_flags="''${nono_flags} --''${1#--nono-}"; shift ;;
@@ -205,29 +194,25 @@ let
       export GIT_CONFIG_COUNT=2
       export GIT_CONFIG_KEY_0=commit.gpgsign GIT_CONFIG_VALUE_0=false
       export GIT_CONFIG_KEY_1=tag.gpgsign GIT_CONFIG_VALUE_1=false
-      ${
-        lib.optionalString (herdrHint != null) "HERDR_AGENT=${herdrHint} "
-      }NONO_FLAGS="$nono_flags" exec ${pkgs.runtimeShell} -c '
-        exec ${nono}/bin/nono run $NONO_FLAGS --profile ${profile} ${
-          lib.concatStringsSep " " (
-            [
-              "--"
-              exe
-            ]
-            ++ extra
-          )
-        } "$@"
-      ' herdr-${outName} "$@"
+      exec ${nono}/bin/nono run $nono_flags --profile ${profile} ${
+        lib.concatStringsSep " " (
+          [
+            "--"
+            exe
+          ]
+          ++ extra
+        )
+      } "$@"
     '';
 
   # defaults: the plain agent commands resolve to the nono sandbox wrappers
   # (`opencode` never existed on PATH before — llm-agents installs `opencode2`)
   opencode = mkNono "opencode" "nolabs-ai/opencode" "${opencodeBin}/bin/opencode" [
     "--standalone"
-  ] "opencode";
-  claude = mkNono "claude" "nolabs-ai/claude" "${llmAgents.claude-code}/bin/claude" [ ] "claude";
-  goose = mkNono "goose" "nolabs-ai/goose" "${llmAgents.goose-cli}/bin/goose" [ ] null;
-  omp = mkNono "omp" "nolabs-ai/omp" "${llmAgents.omp}/bin/omp" [ ] "omp";
+  ];
+  claude = mkNono "claude" "nolabs-ai/claude" "${llmAgents.claude-code}/bin/claude" [ ];
+  goose = mkNono "goose" "nolabs-ai/goose" "${llmAgents.goose-cli}/bin/goose" [ ];
+  omp = mkNono "omp" "nolabs-ai/omp" "${llmAgents.omp}/bin/omp" [ ];
 
   # nolabs-ai nono pack repo (pack-relative plugin/skill assets; profiles stay
   # registry-managed via `nono pull`). After `nono update <pack>`, bump this
@@ -530,8 +515,6 @@ in
   home.packages = [
     inputs.llm-agents.packages.${system}.agentsview
     inputs.llm-agents.packages.${system}.ck
-    inputs.llm-agents.packages.${system}.herdr
-    inputs.llm-agents.packages.${system}.collie
     nono
     jevCli
   ];
