@@ -20,6 +20,11 @@ with pkgs;
   ];
 
   programs.git.defaultProfile = "work";
+  programs.element.profiles.work = {
+    enable = true;
+    autostart = true;
+    badge.text = "💼";
+  };
 
   home.packages = with pkgs; [
     # system

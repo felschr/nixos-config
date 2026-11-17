@@ -1,12 +1,6 @@
-{ pkgs, ... }:
-
 {
-  home.packages = [
-    pkgs.element-desktop
-    (pkgs.makeAutostartItem {
-      name = "element-desktop";
-      package = pkgs.element-desktop;
-      prependExtraArgs = [ "--hidden" ];
-    })
-  ];
+  imports = [ ./modules/element.nix ];
+
+  programs.element.enable = true;
+  programs.element.autostart = true;
 }
