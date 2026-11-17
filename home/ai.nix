@@ -550,6 +550,14 @@ in
       (packLinkForce ".omp/agent/extensions/nono-sandbox" "omp/extensions/nono-sandbox")
       (packLinkForce ".omp/agent/skills/nono-sandbox" "omp/skills/nono-sandbox")
     ]
+    # programs.opencode.cli is not in home-manager release-26.05 (this flake's pin).
+    # Remove this entry once home-manager 26.11 is pinned and use the option instead.
+    // {
+      ".config/opencode/cli.json".text = builtins.toJSON {
+        "$schema" = "https://opencode.ai/v2/cli.json";
+        tabs.mode = "off";
+      };
+    }
     // lib.genAttrs globalInstructionPaths (_: {
       source = globalInstructions;
     });
