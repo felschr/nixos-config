@@ -74,6 +74,7 @@ in
     package = pkgs.unstable.tailscale;
     openFirewall = true;
     useRoutingFeatures = lib.mkDefault "client";
+    permitCertUid = lib.mkIf config.services.caddy.enable "caddy";
     extraUpFlags = [
       "--reset"
       "--exit-node-allow-lan-access"
@@ -123,19 +124,12 @@ in
       done
 
       ${cfg.package}/bin/tailscale cert ${tailnetHost}
-    ''
-    + lib.optionalString config.services.nginx.enable ''
-      chown nginx:nginx /var/lib/tailscale/certs/${tailnetHost}.{key,crt}
     '';
   };
 
-  services.nginx.virtualHosts.${tailnetHost} = {
-    sslCertificate = "/var/lib/tailscale/certs/${tailnetHost}.crt";
-    sslCertificateKey = "/var/lib/tailscale/certs/${tailnetHost}.key";
+  services.caddy.virtualHosts.${tailnetHost} = {
+    extraConfig = ''
+      respond 404
+    '';
   };
-
-  # TODO Tailscale Mullvad exit nodes currently don't support IPv6 and this is
-  # causing issues with nginx (proxy pass) requests timing out and high CPU load.
-  # Until Mullvad exit nodes support IPv6, we'll just disable IPv6 for nginx.
-  services.nginx.resolver.ipv6 = false;
 }

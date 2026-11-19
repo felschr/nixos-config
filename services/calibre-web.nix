@@ -4,10 +4,26 @@ let
   port = 8088;
 in
 {
-  age.secrets.calibre-web-htpasswd = {
-    file = ../secrets/calibre-web/htpasswd.age;
-    owner = config.services.nginx.user;
+  age.secrets.calibre-web-htpasswd.file = ../secrets/calibre-web/htpasswd.age;
+
+  # Caddy's basic_auth needs the htpasswd line split into user and hash,
+  # so generate an environment file for `services.caddy.environmentFile`.
+  systemd.services.caddy-environment = {
+    before = [ "caddy.service" ];
+    wantedBy = [ "caddy.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      Umask = "0077";
+    };
+    script = ''
+      printf 'CALIBRE_OPDS_USER=%s\nCALIBRE_OPDS_HASH=%s\n' \
+        "$(cut -d: -f1 ${config.age.secrets.calibre-web-htpasswd.path})" \
+        "$(cut -d: -f2- ${config.age.secrets.calibre-web-htpasswd.path})" \
+        > /run/caddy.env
+    '';
   };
+
+  services.caddy.environmentFile = "/run/caddy.env";
 
   services.calibre-web = {
     enable = true;
@@ -23,25 +39,19 @@ in
     options.calibreLibrary = "/media/Books";
   };
 
-  services.nginx = {
-    virtualHosts."books.felschr.com" = {
-      enableACME = true;
-      forceSSL = true;
-      locations = {
-        "/" = {
-          proxyPass = "http://[::1]:${toString port}";
-          extraConfig = ''
-            client_max_body_size 500M;
-            proxy_busy_buffers_size 1024k;
-            proxy_buffers 4 512k;
-            proxy_buffer_size 1024k;
-          '';
-        };
-        "/opds" = {
-          proxyPass = "http://[::1]:${toString port}";
-          basicAuthFile = config.age.secrets.calibre-web-htpasswd.path;
-        };
-      };
-    };
+  services.caddy.virtualHosts."books.felschr.com" = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      handle /opds/* {
+        basic_auth {
+          {$CALIBRE_OPDS_USER} {$CALIBRE_OPDS_HASH}
+        }
+        reverse_proxy [::1]:${toString port}
+      }
+      handle {
+        reverse_proxy [::1]:${toString port}
+      }
+    '';
   };
 }

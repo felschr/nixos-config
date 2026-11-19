@@ -63,7 +63,7 @@ let
   smtpAccount = config.programs.msmtp.accounts.default;
 in
 {
-  imports = [ ../modules/nginx-authelia.nix ];
+  imports = [ ../modules/caddy-authelia.nix ];
 
   age.secrets.authelia-jwt = {
     file = ../secrets/authelia/jwt.age;
@@ -284,8 +284,8 @@ in
     "lldap.service"
   ];
 
-  services.nginx-authelia = {
-    inherit domain port;
+  services.caddy-authelia = {
+    inherit port;
   };
 
   services.postgresql = {
@@ -305,27 +305,33 @@ in
     inherit (cfg) user;
   };
 
-  services.nginx.virtualHosts.${domain} = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/".proxyPass = "http://[::1]:${toString port}";
+  services.caddy.virtualHosts.${domain} = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy [::1]:${toString port}
+    '';
   };
 
-  services.nginx.virtualHosts."web.felschr.com" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/.well-known/webfinger" = {
-      root = webfingerRoot;
-      extraConfig = ''
-        add_header Access-Control-Allow-Origin "*";
-        default_type "application/jrd+json";
-        types { application/jrd+json json; }
-        if ($arg_resource) {
-          rewrite ^(.*)$ /$arg_resource break;
+  services.caddy.virtualHosts."web.felschr.com" = {
+    extraConfig = ''
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      handle /.well-known/webfinger {
+        header Content-Type application/jrd+json
+        header Access-Control-Allow-Origin *
+        @resource query resource=*
+        handle @resource {
+          rewrite * /{query.resource}
+          root * ${webfingerRoot}
+          file_server
         }
-        rewrite ^(.*)$ /acct:felschr@fosstodon.org break;
-      '';
-    };
+        handle {
+          rewrite * /acct:felschr@fosstodon.org
+          root * ${webfingerRoot}
+          file_server
+        }
+      }
+    '';
   };
 
   users.users.${cfg.user}.extraGroups = [

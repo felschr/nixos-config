@@ -20,15 +20,13 @@ in
     };
   };
 
-  services.nginx.virtualHosts."office.felschr.com" = {
-    forceSSL = true;
-    enableACME = true;
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString cfg.port}";
-      proxyWebsockets = true;
-      extraConfig = ''
-        proxy_read_timeout 36000s;
-      '';
-    };
+  services.caddy.virtualHosts."office.felschr.com" = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy 127.0.0.1:${toString cfg.port} {
+        flush_interval -1
+      }
+    '';
   };
 }

@@ -24,11 +24,11 @@ in
     };
   };
 
-  services.nginx = {
-    virtualHosts."${etebaseHost}" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/".proxyPass = "http://localhost:8001";
-    };
+  services.caddy.virtualHosts."${etebaseHost}" = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy 127.0.0.1:8001
+    '';
   };
 }

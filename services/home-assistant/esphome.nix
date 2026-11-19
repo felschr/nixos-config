@@ -10,15 +10,12 @@ in
 {
   age.secrets.esphome-password.file = ../../secrets/esphome/password.age;
 
-  services.nginx = {
-    virtualHosts."esphome.felschr.com" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/" = {
-        proxyPass = "http://localhost:${toString port}";
-        proxyWebsockets = true;
-      };
-    };
+  services.caddy.virtualHosts."esphome.felschr.com" = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy 127.0.0.1:${toString port}
+    '';
   };
 
   systemd.services.esphome = {

@@ -105,13 +105,9 @@ in
     "paperless.felschr.com"
   ];
 
-  services.nginx = {
+  services.caddy = {
     enable = true;
-    recommendedTlsSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedGzipSettings = true;
-    recommendedBrotliSettings = true;
+    email = "dev@felschr.com";
   };
 
   # passwordless sudo for deploy-rs activation (deploy .#home-server)

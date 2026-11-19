@@ -71,7 +71,7 @@ This is a `flake-parts` flake (see `flake.nix`), split into top-level modules th
 - **`home/flake-module.nix`** — defines `homeModules` (reusable home-manager modules, including per-user profiles `felschr`/`felschr-server`/`felschr-work`) and standalone `homeConfigurations` for each profile.
 - **`overlays/flake-module.nix`** — the single `overlays.default`, which pulls in `nixpkgs-unstable` as `pkgs.unstable`, injects locally built packages (e.g. `deconz`) into `pkgs`, and extends `vimPlugins`. Also exposes `pkgsFor system`, the canonical way every module gets an instantiated `nixpkgs` (with overlay + `allowUnfree` applied).
 
-Additionally, `flake.nix` defines reusable `nixosModules.*` inline: `flakeDefaults`, `systemdNotify`, `inadyn`, and `nginx-authelia`. The untracked-in-flake directories `scripts/` (install/setup helper scripts, mostly shell and nushell) and `templates/` (dev-shell template, e.g. `dotnet.nix`) are not part of any flake output.
+Additionally, `flake.nix` defines reusable `nixosModules.*` inline: `flakeDefaults`, `systemdNotify`, `inadyn`, and `caddy-authelia`. The untracked-in-flake directories `scripts/` (install/setup helper scripts, mostly shell and nushell) and `templates/` (dev-shell template, e.g. `dotnet.nix`) are not part of any flake output.
 
 ### Host composition pattern
 

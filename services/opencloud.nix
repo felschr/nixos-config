@@ -60,9 +60,11 @@ in
     };
   };
 
-  services.nginx.virtualHosts.${host} = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/".proxyPass = "http://${cfg.address}:${toString cfg.port}";
+  services.caddy.virtualHosts.${host} = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy ${cfg.address}:${toString cfg.port}
+    '';
   };
 }

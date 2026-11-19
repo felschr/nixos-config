@@ -32,7 +32,7 @@ in
         port_dns_over_tls = ports.tls;
         port_dns_over_quic = ports.tls;
         port_dnscrypt = 0;
-        force_https = false; # handled by nginx
+        force_https = false; # handled by caddy
         allow_unencrypted_doh = true;
         strict_sni_check = false;
         certificate_path = "${config.security.acme.certs."${host}".directory}/fullchain.pem";
@@ -96,26 +96,31 @@ in
   systemd.services.adguardhome.serviceConfig = {
     SupplementaryGroups = [
       "acme"
-      "nginx"
+      "caddy"
     ];
   };
 
-  services.nginx = {
-    virtualHosts."${host}" = {
-      enableAutheliaAuth = true;
-      enableACME = true;
-      forceSSL = true;
-      http3 = true;
-      locations = {
-        "/" = {
-          proxyPass = "http://localhost:${toString cfg.port}";
-          proxyWebsockets = true;
-        };
-        "/dns-query" = {
-          proxyPass = "http://localhost:${toString ports.doh}";
-        };
-      };
-    };
+  # Caddy shares the DNS-over-TLS certificate with AdGuard Home (used for port 853),
+  # so the cert is issued via security.acme instead of Caddy's automatic HTTPS.
+  security.acme.certs."${host}" = {
+    group = "caddy";
+    dnsProvider = "cloudflare";
+    credentialFiles.CLOUDFLARE_DNS_API_TOKEN_FILE = config.age.secrets.cloudflare.path;
+  };
+
+  services.caddy.virtualHosts.${host} = {
+    useACMEHost = host;
+    enableAutheliaAuth = true;
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      handle /dns-query/* {
+        reverse_proxy 127.0.0.1:${toString ports.doh}
+      }
+      handle {
+        reverse_proxy 127.0.0.1:${toString cfg.port}
+      }
+    '';
   };
 
   networking.firewall.allowedTCPPorts = [

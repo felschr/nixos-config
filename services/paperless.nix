@@ -20,14 +20,11 @@ in
     };
   };
 
-  services.nginx = {
-    virtualHosts."paperless.felschr.com" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/" = {
-        proxyPass = "http://localhost:${toString port}";
-        proxyWebsockets = true;
-      };
-    };
+  services.caddy.virtualHosts."paperless.felschr.com" = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy 127.0.0.1:${toString port}
+    '';
   };
 }

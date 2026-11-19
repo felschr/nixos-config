@@ -26,18 +26,14 @@ in
   # just installed for ConBee firmware updates
   environment.systemPackages = with pkgs; [ deconz ];
 
-  services.nginx = {
-    virtualHosts."${config.networking.domain}" = {
-      enableACME = true;
-      forceSSL = true;
-      extraConfig = ''
-        proxy_buffering off;
-      '';
-      locations."/" = {
-        proxyPass = "http://[::1]:${toString port}";
-        proxyWebsockets = true;
-      };
-    };
+  services.caddy.virtualHosts."${config.networking.domain}" = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy [::1]:${toString port} {
+        flush_interval -1
+      }
+    '';
   };
 
   services.home-assistant = {

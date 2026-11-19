@@ -14,11 +14,13 @@
     DeviceAllow = lib.mkForce [ "/dev/dri/renderD128" ];
   };
 
-  services.nginx.virtualHosts = {
+  services.caddy.virtualHosts = {
     "media.felschr.com" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/".proxyPass = "http://localhost:8096";
+      extraConfig = ''
+        encode zstd gzip
+        header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        reverse_proxy 127.0.0.1:8096
+      '';
     };
   };
 }

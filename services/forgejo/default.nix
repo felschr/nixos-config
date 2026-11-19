@@ -64,13 +64,12 @@ in
 
   networking.firewall.allowedTCPPorts = [ sshPort ];
 
-  services.nginx.virtualHosts.${domain} = {
-    enableACME = true;
-    forceSSL = true;
+  services.caddy.virtualHosts.${domain} = {
     extraConfig = ''
-      client_max_body_size 512M;
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy unix/${cfg.settings.server.HTTP_ADDR}
     '';
-    locations."/".proxyPass = "http://unix:${cfg.settings.server.HTTP_ADDR}";
   };
 
   systemd.services.forgejo.preStart =

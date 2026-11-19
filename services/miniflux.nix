@@ -29,12 +29,12 @@ in
 
   systemd.services.miniflux.serviceConfig.SupplementaryGroups = [ "miniflux-secrets" ];
 
-  services.nginx = {
-    virtualHosts."news.felschr.com" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/".proxyPass = "http://localhost:${toString port}";
-    };
+  services.caddy.virtualHosts."news.felschr.com" = {
+    extraConfig = ''
+      encode zstd gzip
+      header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+      reverse_proxy 127.0.0.1:${toString port}
+    '';
   };
 
   users.groups.miniflux-secrets = { };
