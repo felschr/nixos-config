@@ -10,6 +10,9 @@ let
   tailscaleInterface = cfg.interfaceName;
   inherit (config.networking) hostName;
   tailnetHost = "${hostName}.tail05275.ts.net";
+  certDir = "/var/lib/tailscale-certs";
+  certFile = "${certDir}/${tailnetHost}.crt";
+  keyFile = "${certDir}/${tailnetHost}.key";
 
   # subnets:
   tailnet = {
@@ -122,13 +125,65 @@ in
         fi
         sleep 2
       done
-
-      ${cfg.package}/bin/tailscale cert ${tailnetHost}
     '';
   };
 
-  services.caddy.virtualHosts.${tailnetHost} = {
+  # Tailscale certificates are publicly trusted but the ts.net hostname has no
+  # public DNS record, so Caddy's default ACME issuance can never validate it.
+  # Issue the cert via the tailscale daemon instead and let the vhost use it.
+  systemd.services.tailscale-cert = lib.mkIf config.services.caddy.enable {
+    after = [
+      "tailscaled.service"
+      "tailscaled-autoconnect.service"
+    ];
+    wants = [ "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      StateDirectory = "tailscale-certs";
+      StateDirectoryMode = "0750";
+      # root:caddy so the caddy service can read the key
+      Group = "caddy";
+      UMask = "0027";
+      Restart = "on-failure";
+      RestartSec = "30s";
+    };
+    script = ''
+      # remove stray certs the old autoconnect script wrote to /
+      rm -f /${tailnetHost}.crt /${tailnetHost}.key
+      ${cfg.package}/bin/tailscale cert \
+        --cert-file=${certFile} \
+        --key-file=${keyFile} \
+        ${tailnetHost}
+      # tailscale writes the key 0600; make it group-readable for caddy
+      chmod 0640 ${keyFile}
+      # certmagic reloads changed cert files, but refresh caddy's view of the
+      # renewed cert right away. --no-block queues the reload without waiting
+      # for it (a plain reload here deadlocked this service against caddy's
+      # After= dependency on us); try-reload fails fast when caddy is stopped;
+      # the timeout guards against a wedged caddy process.
+      ${pkgs.coreutils}/bin/timeout 30 ${config.systemd.package}/bin/systemctl --no-block try-reload caddy.service || true
+    '';
+  };
+
+  # let caddy start (and get restarted during activation) after the cert exists
+  systemd.services.caddy = lib.mkIf config.services.caddy.enable {
+    after = [ "tailscale-cert.service" ];
+    wants = [ "tailscale-cert.service" ];
+  };
+
+  systemd.timers.tailscale-cert = lib.mkIf config.services.caddy.enable {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "1h";
+      Persistent = true;
+    };
+  };
+
+  services.caddy.virtualHosts.${tailnetHost} = lib.mkIf config.services.caddy.enable {
     extraConfig = ''
+      tls ${certFile} ${keyFile}
       respond 404
     '';
   };
