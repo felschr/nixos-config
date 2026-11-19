@@ -43,7 +43,8 @@ in
     extraConfig = ''
       encode zstd gzip
       header Strict-Transport-Security "max-age=31536000; includeSubDomains"
-      handle /opds/* {
+      @opds path /opds /opds/*
+      handle @opds {
         basic_auth {
           {$CALIBRE_OPDS_USER} {$CALIBRE_OPDS_HASH}
         }

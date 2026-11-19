@@ -2,6 +2,7 @@
 
 let
   cfg = config.services.adguardhome;
+  cfgAuth = config.services.caddy-authelia;
   host = "dns.felschr.com";
 
   ports = {
@@ -106,18 +107,25 @@ in
     group = "caddy";
     dnsProvider = "cloudflare";
     credentialFiles.CLOUDFLARE_DNS_API_TOKEN_FILE = config.age.secrets.cloudflare.path;
+    reloadServices = [ "caddy.service" ];
   };
 
   services.caddy.virtualHosts.${host} = {
     useACMEHost = host;
-    enableAutheliaAuth = true;
     extraConfig = ''
       encode zstd gzip
       header Strict-Transport-Security "max-age=31536000; includeSubDomains"
-      handle /dns-query/* {
+      # DoH must stay unauthenticated (used by the routers); only the UI is
+      # behind Authelia, so forward_auth lives inside the UI catch-all.
+      @doh path /dns-query /dns-query/*
+      handle @doh {
         reverse_proxy 127.0.0.1:${toString ports.doh}
       }
       handle {
+        forward_auth ${cfgAuth.host}:${toString cfgAuth.port} {
+          uri /api/authz/forward-auth
+          copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+        }
         reverse_proxy 127.0.0.1:${toString cfg.port}
       }
     '';
