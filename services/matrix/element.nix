@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
-  inherit (config.services.matrix-conduit.settings.global) server_name;
+  server_name = "felschr.com";
   matrix_host = "matrix.${server_name}";
 in
 {
