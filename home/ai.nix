@@ -316,7 +316,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-decisions#dcb415262a1a46d376d5d2f338a7cc73d8112042";
+        package = "github:atvari-eu/opencode-decisions#08b638451ccd4b0fe6898437a216d127c02180ee";
         options = {
           provider = "opencode";
           model = "jev-1.13";
