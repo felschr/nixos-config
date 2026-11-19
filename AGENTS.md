@@ -37,7 +37,7 @@ nix build .#deconz                                                    # custom p
 
 Build an OpenWrt router image:
 ```sh
-nix build .#doctr      # or .#penguin
+nix build .#legacyPackages.x86_64-linux.doctr      # or .penguin
 ```
 
 Format Nix files / lint shell scripts (also runs automatically via the `pre-commit` git hook, installed by `direnv`/`nix develop`):
@@ -92,7 +92,7 @@ Secrets are encrypted with `agenix` (`secrets/*.age`, decrypted via `age.secrets
 
 ### OpenWrt hosts
 
-`doctr` and `hosts/penguin` are not NixOS systems — they're OpenWrt router images built through `lib.mkOpenwrtImage` (`lib/openwrt.nix`) and only exist as `perSystem.packages.<name>` outputs (`nix build .#doctr`), configured via UCI shell snippets rather than NixOS modules.
+`doctr` and `hosts/penguin` are not NixOS systems — they're OpenWrt router images built through `lib.mkOpenwrtImage` (`lib/openwrt.nix`) and only exist as `perSystem.legacyPackages.<name>` outputs (`nix build .#legacyPackages.x86_64-linux.doctr`), kept out of `packages` so `nix flake check` never builds them. Configured via UCI shell snippets rather than NixOS modules.
 
 ### CI
 

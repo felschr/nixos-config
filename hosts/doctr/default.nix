@@ -8,7 +8,7 @@
       ...
     }:
     {
-      packages.doctr = self.lib.mkOpenwrtImage {
+      legacyPackages.doctr = self.lib.mkOpenwrtImage {
         inherit pkgs;
         hostname = "doctr";
         timezone = "Europe/Berlin";

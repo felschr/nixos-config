@@ -8,7 +8,7 @@
       ...
     }:
     {
-      packages.penguin = self.lib.mkOpenwrtImage {
+      legacyPackages.penguin = self.lib.mkOpenwrtImage {
         inherit pkgs;
         hostname = "penguin";
         timezone = "Europe/Berlin";
