@@ -105,7 +105,6 @@ in
         address = "tcp://[::1]:${toString port}";
       };
       default_2fa_method = "webauthn";
-      default_redirection_url = "https://${domain}";
       log.level = "debug";
       authentication_backend = {
         password_reset.disable = false;
@@ -136,8 +135,17 @@ in
           }
         ];
       };
+      # Modern session format: the ForwardAuth authz implementation (used by
+      # caddy's forward_auth) derives the portal URL from authelia_url here;
+      # without it forward-auth requests to other subdomains fail with
+      # "authelia url lookup failed".
       session = {
-        domain = "felschr.com";
+        cookies = [
+          {
+            domain = "felschr.com";
+            authelia_url = "https://${domain}";
+          }
+        ];
         redis = {
           host = redis.unixSocket;
           port = 0;
@@ -201,6 +209,9 @@ in
           id = "opencloud";
           description = "OpenCloud";
           public = true;
+          response_types = [ "code" ];
+          require_pkce = true;
+          pkce_challenge_method = "S256";
           redirect_uris = [
             "https://cloud.felschr.com/"
             "https://cloud.felschr.com/oidc-callback.html"
@@ -217,12 +228,16 @@ in
             "refresh_token"
             "authorization_code"
           ];
+          access_token_signed_response_alg = "RS256";
           userinfo_signed_response_alg = "none";
         }
         {
           id = "OpenCloudAndroid";
           description = "OpenCloud Android";
           public = true;
+          response_types = [ "code" ];
+          require_pkce = true;
+          pkce_challenge_method = "S256";
           redirect_uris = [ "oc://android.opencloud.eu" ];
           scopes = [
             "openid"
@@ -235,6 +250,7 @@ in
             "refresh_token"
             "authorization_code"
           ];
+          access_token_signed_response_alg = "RS256";
           response_modes = [ "form_post" ];
           userinfo_signed_response_alg = "none";
         }
@@ -242,6 +258,9 @@ in
           id = "OpenCloudDesktop";
           description = "OpenCloud Desktop";
           public = true;
+          response_types = [ "code" ];
+          require_pkce = true;
+          pkce_challenge_method = "S256";
           redirect_uris = [
             "http://127.0.0.1"
             "http://localhost"
@@ -257,6 +276,7 @@ in
             "refresh_token"
             "authorization_code"
           ];
+          access_token_signed_response_alg = "RS256";
           response_modes = [ "form_post" ];
           userinfo_signed_response_alg = "none";
         }

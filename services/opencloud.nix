@@ -28,7 +28,7 @@ in
       proxy = {
         auto_provision_accounts = true;
         oidc.rewrite_well_known = true;
-        oidc.access_token_verify_method = "none";
+        oidc.access_token_verify_method = "jwt";
         role_assignment = {
           # driver = "oidc"; # HINT currently broken for Android & Desktop app
           driver = "default";
@@ -57,6 +57,14 @@ in
       PROXY_INSECURE_BACKENDS = "true";
       OC_EXCLUDE_RUN_SERVICES = "idp";
       OC_OIDC_ISSUER = "https://auth.felschr.com";
+      # The proxy's webfinger endpoint advertises the OIDC client the web app
+      # should use, overriding web.web.config.oidc. Default is "web", which
+      # isn't registered in Authelia; the registered web client is "opencloud".
+      # Canonical webfinger vars (WEB_OIDC_CLIENT_ID/WEB_OIDC_SCOPE are
+      # deprecated backwards-compatibility aliases, removed in a future
+      # OpenCloud release).
+      WEBFINGER_WEB_OIDC_CLIENT_ID = "opencloud";
+      WEBFINGER_WEB_OIDC_CLIENT_SCOPES = "openid profile email groups offline_access";
     };
   };
 
