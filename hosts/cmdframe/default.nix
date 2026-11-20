@@ -12,6 +12,7 @@
     ../../hardware/bluetooth.nix
     ../../hardware/probe-rs.nix
     ../../system/laptop.nix
+    ../../system/dev.nix
     ../../system/printing/home.nix
     ../../desktop
     ../../desktop/cosmic.nix

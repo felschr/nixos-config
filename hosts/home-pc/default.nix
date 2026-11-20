@@ -15,6 +15,7 @@
     ../../hardware/steam.nix
     ../../hardware/ledger.nix
     ../../system/desktop.nix
+    ../../system/dev.nix
     ../../system/printing/home.nix
     ../../system/gaming.nix
     ../../desktop
@@ -30,9 +31,6 @@
   ];
 
   boot.loader.systemd-boot.memtest86.enable = true;
-
-  # running binaries for other architectures
-  # boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" "wasm64-wasi" "wasm32-wasi" ];
 
   environment.systemPackages = with pkgs; [ android-tools ];
 
