@@ -63,6 +63,17 @@ in
     firewall.allowedUDPPorts = [
       5353 # mDNS
     ];
+    # Workaround for a kernel regression (affects kernel 7.3.4, fix not yet
+    # released as of 2026-11): nft fib6 lookups stop at tailscale's table 52
+    # throw routes for local subnets instead of continuing to the main table,
+    # so the reverse-path filter drops ALL inbound IPv6 on hosts running
+    # tailscaled, including NDP. See
+    # https://lore.kernel.org/netdev/20261117110813.9894-4-leonard@lausen.nl/T/
+    # (fixes 1c32b24c234b "netfilter: nft_fib_ipv6: switch to fib6_lookup").
+    # Remove once the kernel fix lands.
+    firewall.extraReversePathFilterRules = ''
+      meta nfproto ipv6 accept comment "fib6 throw-route regression"
+    '';
     networkmanager.dns = "systemd-resolved";
     networkmanager.ensureProfiles.profiles = {
       "WIFIonICE" = mkPublicWifiProfile "WIFIonICE";
