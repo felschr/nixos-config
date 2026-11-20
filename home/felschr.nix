@@ -33,6 +33,8 @@
     libreoffice-fresh
     tabbed
     curtail
+    unstable.proton-drive-cli
+    unstable.proton-pass-cli
 
     # dev & admin
     pods
