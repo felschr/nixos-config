@@ -289,19 +289,6 @@ in
       };
     };
     mcp.servers = {
-      db-fahrplan = {
-        type = "local";
-        enabled = false;
-        command = [
-          "nix"
-          "shell"
-          "nixpkgs#uv"
-          "-c"
-          "uvx"
-          "db-fahrplan-mcp"
-        ];
-        timeout.startup = 120000;
-      };
       opentofu = {
         type = "remote";
         url = "https://mcp.opentofu.org/mcp";
@@ -316,7 +303,7 @@ in
     };
     plugins = [
       {
-        package = "github:atvari-eu/opencode-decisions#08b638451ccd4b0fe6898437a216d127c02180ee";
+        package = "github:atvari-eu/opencode-decisions#bb3cd0068c90833c9e64d5c0e763b2c8d11598c3";
         options = {
           provider = "opencode";
           model = "jev-1.13";
